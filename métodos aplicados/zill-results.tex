@@ -1,0 +1,311 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+
+\geometry{
+ a4paper,
+ left=3cm,
+ top=2cm,
+ right=2cm,
+ bottom=2cm
+}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
+    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
+    \vspace{3cm}
+    \textbf{\Large A FIRST COURSE ON DIFFERENTIAL EQUATIONS WITH MODELING APPLICATION BY DENNIS G. ZILL (10e)} \\
+    \vspace{1cm}
+    \textbf{\large LIST OF RESULTS} \\
+    \vspace{3cm}
+    
+    \author{Leonardo Suarez}
+    
+    \vfill
+    \textbf{\large Porto Alegre, RS} \\
+    \textbf{\large\today} \\
+\end{center}\newpage
+
+\section*{List of Results}
+
+\noindent Theorem 7.1.1 (\emph{Transforms of Some Basic Functions}) \dotfill 289 \\
+Theorem 7.1.2 (\emph{Sufficient Conditions for Existence}) \dotfill 290 \\
+Theorem 7.1.3 (\emph{Behavior of \(F(s)\) as \(s \to \infty\)}) \dotfill 291 \\
+Theorem 7.2.1 (\emph{Some Inverse Transforms}) \dotfill 294 \\
+Theorem 7.2.2 (\emph{Transform of a Derivative}) \dotfill 296 \\
+Theorem 7.3.1 (\emph{First Translation Theorem}) \dotfill 302 \\
+Theorem 7.3.2 (\emph{Second Translation Theorem}) \dotfill 306 \\
+Theorem 7.4.1 (\emph{Derivatives of Transforms}) \dotfill 315 \\
+Theorem 7.4.2 (\emph{Convolution Theorem}) \dotfill 318 \\
+Theorem 7.4.3 (\emph{Transform of a Periodic Function}) \dotfill 323 \\
+Theorem 7.5.1 (\emph{Transform of the Dirac Delta Function}) \dotfill 329 \\
+
+\vspace{0.5em}
+
+\noindent Theoreom 8.1.1 (\emph{Existence of a Unique Solution}) \dotfill 349 \\
+Theorem 8.1.2 (\emph{Superposition Principle}) \dotfill 349 \\
+Theorem 8.1.3 (\emph{Criterion for Linearly Independent Solutions}) \dotfill 350 \\
+Theorem 8.1.4 (\emph{Existence of a Fundamental Set}) \dotfill 351 \\
+Theorem 8.1.5 (\emph{General Solution—Homogeneous Systems}) \dotfill 351 \\
+Theorem 8.1.6 (\emph{General Solution—Nonhomogeneous Systems}) \dotfill 352 \\
+Theorem 8.2.1 (\emph{Distinct Real Eigenvalues: General Solution—Homogeneous Systems}) \dotfill 355 \\
+Theorem 8.2.2 (\emph{Solutions Corresponding to a Complex Eigenvalue}) \dotfill 363 \\
+Theorem 8.2.3 (\emph{Real Solutions Corresponding to a Complex Eigenvalue}) \dotfill 364 \\\newpage
+
+\section*{7 The Laplace Transform}
+
+\noindent\textbf{Definition 7.1.1} (\emph{Laplace Transform}) Let \(f\) be a function defined on \([0,\infty]\). Then the function \(F\) defined by
+
+\begin{equation}
+    \mathcal{L} \{f(t)\} = F(s) = \int_0^\infty e^{-st} f(t) dt
+\end{equation}
+
+\noindent is said to be the \emph{Laplace transform} of \(f\). The domain of \(F\) is the set of all \(s\) for which the improper integral converges. \\
+
+\noindent\textbf{Theorem 7.1.1} (\emph{Transforms of Some Basic Functions})
+
+\begin{itemize}
+    \item [(a)] \(\mathcal{L} \{1\} = \frac{1}{s}\)
+    \item [(b)] \(\mathcal{L} \{t^n\} = \frac{n!}{s^{n+1}}\) for \(n = 0, 1, 2, \ldots\)
+    \item [(c)] \(\mathcal{L} \{e^{at}\} = \frac{1}{s-a}\)
+    \item [(d)] \(\mathcal{L} \{\sin(\omega t)\} = \frac{\omega}{s^2 + \omega^2}\)
+    \item [(e)] \(\mathcal{L} \{\cos(\omega t)\} = \frac{s}{s^2 + \omega^2}\)
+    \item [(f)] \(\mathcal{L} \{\sinh(\omega t)\} = \frac{\omega}{s^2 - \omega^2}\)
+    \item [(g)] \(\mathcal{L} \{\cosh(\omega t)\} = \frac{s}{s^2 - \omega^2}\)
+\end{itemize}
+
+\noindent\textbf{Definition 7.1.2} (\emph{Exponential Order}) A function \(f\) defined on \([0, \infty)\) is said to be of \emph{exponential order} as \(t\to\infty\) if there exist constants \(c\), \(M > 0\), and \(T > 0\) such that \(\vert f(t) \vert \leq M e^{ct}\) for all \(t > T\). If \(f\) is of exponential order, then the Laplace transform \(\mathcal{L} \{f(t)\} \leq Me^{ct}\) for all \(t > T\).\\
+
+\noindent\textbf{Theorem 7.1.2} (\emph{Sufficient Conditions for Existence}) If \(f\) is piecewise continuous on \([0, \infty)\) and of exponential order as \(t \to \infty\), then the Laplace transform \(\mathcal{L} \{f(t)\}\) exists for all \(s > c\), where \(c\) is a constant such that \(\vert f(t) \vert \leq Me^{ct}\) for all \(t > T\).\\
+
+\noindent\textbf{Theorem 7.1.3} (\emph{Behavior of \(F(s)\) as \(s \to \infty\)}) If \(f\) is piecewise continuous on \([0, \infty)\) and of exponential order as \(t \to \infty\) and \(\mathcal{L} \{f(t)\} = F(s)\), then \(\lim_{s \to \infty} F(s) = 0\).\\
+
+\noindent\textbf{Theorem 7.2.1} (\emph{Some Inverse Transforms})
+
+\begin{itemize}
+    \item [(a)] \(\mathcal{L}^{-1} \left\{ \frac{1}{s} \right\} = 1\)
+    \item [(b)] \(\mathcal{L}^{-1} \left\{ \frac{n!}{s^{n+1}} \right\} = t^n\) for \(n = 0, 1, 2, \ldots\)
+    \item [(c)] \(\mathcal{L}^{-1} \left\{ \frac{1}{s-a} \right\} = e^{at}\)
+    \item [(d)] \(\mathcal{L}^{-1} \left\{ \frac{\omega}{s^2 + \omega^2} \right\} = \sin(\omega t)\)
+    \item [(e)] \(\mathcal{L}^{-1} \left\{ \frac{s}{s^2 + \omega^2} \right\} = \cos(\omega t)\)
+    \item [(f)] \(\mathcal{L}^{-1} \left\{ \frac{\omega}{s^2 - \omega^2} \right\} = \sinh(\omega t)\)
+    \item [(g)] \(\mathcal{L}^{-1} \left\{ \frac{s}{s^2 - \omega^2} \right\} = cosh(\omega t)\)
+\end{itemize}
+
+\noindent\textbf{Theorem 7.2.2} (\emph{Transform of a Derivative}) Suppose \(f\), \(f'\), \ldots, \(f^{n-1}\) are continuous on \([0, \infty)\), and \(f\), \(f'\), \ldots, \(f^{n-1}\) are of exponential order as \(t \to \infty\). Then for \(s > c\),
+
+\begin{equation}
+    \mathcal{L} \{f^{(n)}(t)\} = s^n F(s) - s^{n-1} f(0) - s^{n-2} f'(0) - \ldots - f^{(n-1)}(0)
+\end{equation}
+
+\noindent where \(F(s) = \mathcal{L} \{f(t)\}\).\\
+
+\noindent\textbf{Theorem 7.3.1} (\emph{First Translation Theorem}) If \(\mathcal{L} \{f(t)\} = F(s)\) exists for \(s > c\) and \(a\) is any real rumber, then
+
+\begin{equation}
+    \mathcal{L} \{e^{at} f(t)\} = F(s-a)
+\end{equation}
+
+\noindent for \(s > c + a\).\\
+
+\noindent\textbf{Theorem 7.3.2} (\emph{Second Translation Theorem}) If \(\mathcal{L} \{f(t)\} = F(s)\) exists for \(s > c \geq 0\), and \(a\) is a positive constant, then
+
+\begin{equation}
+    \mathcal{L} \{f(t-a)\ \mathcal{U}(t-a)\} = e^{-as}F(s)
+\end{equation}
+
+\noindent for \(s > c\).\\
+
+\noindent\textbf{Theorem 7.4.1} (\emph{Derivatives of Transforms}) If the function \(f\) is piecewise continuous on \([0,\infty)\), of exponential order and \(\mathcal{L} \{f(t)\} = F(s)\), then for \(n = 1, 2, 3, \ldots\) and \(s > c\),
+
+\begin{equation}
+    \mathcal{L} \{t^n f(t)\} = (-1)^n\frac{d^n}{ds^n} F(s).
+\end{equation}
+
+\noindent\textbf{Theorem 7.4.2} (\emph{Convolution Theorem}) If the functions \(f\) and \(g\) are piecewise continuous on \([0,\infty)\), of exponential order and \(\mathcal{L} \{f(t)\} = F(s)\), \(\mathcal{L} \{g(t)\} = G(s)\), then for \(s > c\),
+
+\begin{equation}
+    \mathcal{L} \{f*g\} = \mathcal{L} \{f(t)\} \mathcal{L} \{g(t)\} = F(s)G(s).
+\end{equation}
+
+\noindent\textbf{Theorem 7.4.3} (\emph{Transform of a Periodic Function}) If \(f(t)\) is piecewise continuous \([0,\infty)\), of exponential order, and periodic with period \(T\), then
+
+\begin{equation}
+    \mathcal{L} \{f(t)\} = \frac{1}{1-e^{-sT}} \int_0^T e^{-st} f(t) dt.
+\end{equation}
+
+\noindent\textbf{Theorem 7.5.1} (\emph{Transform of the Dirac Delta Function}) For \(t_0 > 0\),
+
+\begin{equation}
+    \mathcal{L} \{\delta(t - t_0)\} = e^{-st_0}.
+\end{equation}
+
+\newpage
+
+\section*{8 Systems of Linear Differential Equations}
+
+\noindent\textbf{Definition 8.1.1} (\emph{Solution Vector}) A \textbf{solution vector} on an interval \(I\) is any column matrix
+
+\begin{equation}
+    \mathbf{X} = \begin{pmatrix}
+        x_1(t) \\
+        x_2(t) \\
+        \vdots \\
+        x_n(t)
+    \end{pmatrix}
+\end{equation}
+
+\noindent whose entries are differentiable functions satisfying the system \(\mathbf{X'} = \mathbf{AX} + \mathbf{F}\) on the interval.\\
+
+\noindent\textbf{Theorem 8.1.1} (\emph{Existence of a Unique Solution}) Let the entries of the matrices \(\mathbf{A}(t)\) and \(\mathbf{F}(t)\) be functions continuous on a common interval \(I\) that contains the point \(t_0\). Then there exists a unique solution of the initial-value problem \(\mathbf{X'} = \mathbf{A}(t)\mathbf{X} + \mathbf{F}(t)\), \(\mathbf{X}(t_0) = \mathbf{X_0}\) on the interval.\\
+
+\noindent\textbf{Theorem 8.1.2} (\emph{Superposition Principle}) Let \(\mathbf{X}_1\), \(\mathbf{X}_2\), \(\ldots\), \(\mathbf{X}_k\) be a set of solution vectors of the homogeneous system \(\mathbf{X'} = \mathbf{A}\mathbf{X}\) on an interval \(I\). Then the linear combination
+
+\begin{equation}
+    \mathbf{X} = c_1\mathbf{X}_1 + c_2\mathbf{X}_2 + \cdots + c_k\mathbf{X}_k,
+\end{equation}
+
+\noindent where \(c_i\), \(i = 1, 2, \ldots, k\) are arbitrary constants, is also a solution of the system on the interval.\\
+
+\noindent\textbf{Theorem 8.1.3} (\emph{Criterion for Linearly Independent Solutions}) Let
+
+\begin{equation}
+    \mathbf{X}_1 = \begin{pmatrix}
+        x_{11}\\
+        x{21}\\
+        \vdots\\
+        x_{n1}
+    \end{pmatrix}, \quad
+    \mathbf{X}_2 = \begin{pmatrix}
+        x_{12}\\
+        x_{22}\\
+        \vdots\\
+        x_{n2}
+    \end{pmatrix}, \quad \ldots, \quad
+    \mathbf{X}_n = \begin{pmatrix}
+        x_{1n}\\
+        x_{2n}\\
+        \vdots\\
+        x_{nn}
+    \end{pmatrix}
+\end{equation}
+
+\noindent be \(n\) solution vectors of an homogeneous system on an interval \(I\). Then the set of solution vectors is linearly independent on \(I\) iff the \textbf{Wronskian}
+
+\begin{equation}
+    W(\mathbf{X}_1, \mathbf{X}_2, \ldots, \mathbf{X}_n) = \begin{vmatrix}
+        x_{11} & x_{12} & \cdots & x_{1n}\\
+        x_{21} & x_{22} & \cdots & x_{2n}\\
+        \vdots & & & \vdots\\
+        x_{n1} & x_{n2} & \cdots & x_{nn} 
+    \end{vmatrix} \neq 0
+\end{equation}
+
+\noindent for every \(t\) in the interval.\\
+
+\noindent\textbf{Theorem 8.1.4} (\emph{Existence of a Fundamental Set}) There exists a fundamental set of solutions for the homogeneous system \(\mathbf{X'} = \mathbf{AX}\) on an interval \(I\).\\
+
+\noindent\textbf{Theorem 8.1.5} (\emph{General Solution—Homogeneous Systems}) Let \(\mathbf{X}_1\), \(\mathbf{X}_2\), \(\ldots\), \(\mathbf{X}_n\) be a fundamental set of solutions of a homogeneous system on an interval \(I\). Then the \textbf{general solution} of the system on the interval is
+
+\begin{equation}
+    \mathbf{X} = c_1\mathbf{X}_1 + c_2\mathbf{X}_2 + \cdots + c_n\mathbf{X}_n,
+\end{equation}
+
+\noindent where the \(c_i\), \(i = 1, 2, \ldots, n\) are arbitrary constants.\\
+
+\noindent\textbf{Theorem 8.1.6} (\emph{General Solution—Nonhomogeneous Systems}) Let \(\mathbf{X}_p\) be a given solution of a nonhomogeneous system on an interval \(I\) and let
+
+\begin{equation}
+    \mathbf{X}_c = c_1\mathbf{X}_1 + c_2\mathbf{X}_2 + \cdots + c_n\mathbf{X}_n
+\end{equation}
+
+\noindent denote the general solution on the same interval of the associated homogeneous system. Then the \textbf{general solution} of the nonhomogeneous system on the interval is
+
+\begin{equation}
+    \mathbf{X} = \mathbf{X}_c + \mathbf{X}_p.
+\end{equation}
+
+\noindent The general solution \(\mathbf{X}_c\) of the associated homogeneous system is called the \textbf{complementary function} of the nonhomogeneous system.\\
+
+\noindent\textbf{Theorem 8.2.1} (\emph{Distinct Real Eigenvalues: General Solution—Homogeneous Systems}) Let \(\lambda_1\), \(\lambda_2\), \(\ldots\), \(\lambda_n\) be \(n\) distinct real eigenvalues of the coefficient matrix \(\mathbf{A}\) of the homogeneous system \(\mathbf{X'} = \mathbf{AX}\) and let \(\mathbf{K}_1\), \(\mathbf{K}_2\), \(\ldots\), \(\mathbf{K}_n\) be the corresponding eigenvectors. Then the \textbf{general solution} of the system on the interval \((-\infty, \infty)\) is given by
+
+\begin{equation}
+    \mathbf{X} = c_1\mathbf{K}_1 e^{\lambda_1}t + c_2\mathbf{K}_2 e^{\lambda_2}t + \cdots + c_n\mathbf{K}_n e^{\lambda_n}t.
+\end{equation}
+
+\noindent\textbf{Theorem 8.2.2} (\emph{Solutions Corresponding to a Complex Eigenvalue}) Let \(A\) be the coefficient matrix having real entries of the homogeneous system \(\mathbf{X'} = \mathbf{AX}\) and let \(\mathbf{K}_1\) be an eigenvector corresponding to the complex eigenvalue \(\lambda_1 = \alpha + i\beta\), \(\alpha\) and \(\beta\) real numbers. Then
+
+\begin{equation}
+    \mathbf{K}_1 e^{\lambda_1 t} \quad \text{and} \quad \overline{\mathbf{K}_1} e^{\overline{\lambda_1} t}
+\end{equation}
+
+\noindent are solutions of the system, where \(\overline{\mathbf{K}_1}\) is the complex conjugate of \(\mathbf{K}_1\) and \(\overline{\lambda_1} = \alpha - i\beta\).\\
+
+\noindent\textbf{Theorem 8.2.3} (\emph{Real Solutions Corresponding to a Complex Eigenvalue}) Let \(\lambda_1 = \alpha + i\beta\) be a complex eigenvalue of the coefficient matrix \(\mathbf{A}\) of the homogeneous system \(\mathbf{X'} = \mathbf{AX}\) and let \(\mathbf{B}_1\) and \(\mathbf{B}_2\) denote the column vectors defined as \(\mathbf{B}_1 = \frac{1}{2} \left(\mathbf{K}_1 + \overline{\mathbf{K}_1}\right)\) and \(\mathbf{B}_2 = \frac{i}{2} \left(-\mathbf{K}_1 + \overline{\mathbf{K}_1}\right)\). Then
+
+\begin{align}
+    \mathbf{X}_1 &= \mathbf{B}_1 e^{\alpha t} \cos(\beta t) + \mathbf{B}_2 e^{\alpha t} \sin(\beta t)\\
+    \mathbf{X}_2 &= -\mathbf{B}_2 e^{\alpha t} \cos(\beta t) + \mathbf{B}_1 e^{\alpha t} \sin(\beta t)
+\end{align}
+
+\noindent are linearly independent solutions of the system \(\mathbf{X'} = \mathbf{AX}\) on the interval \((-\infty, \infty)\).
+
+\newpage
+
+The following is an introduction to difference equations, based on \emph{An Introduction to Difference Equations} (3e), by S. Elaydi.
+
+\section*{1 Dynamics of First-Order Difference Equations}
+
+A linear \emph{homogeneous} first-order difference equation is given by
+
+\begin{equation}
+    x(n+1) = a(n)x(n), \quad x(n_0) = x_0, \quad n \geq n_0 \geq 0, \label{eq:difference_homo}
+\end{equation}
+
+\noindent and the associated \emph{nonhomogeneous} equation is
+
+\begin{equation}
+    y(n+1) = a(n)y(n) + g(n), \quad y(n_0) = y_0, \quad n \geq n_0 \geq 0, \label{eq:difference_nonhomo}
+\end{equation}
+
+\noindent where in both cases \(a(n) \neq 0\), and \(a(n)\) and \(g(n)\) are real-valued functions defined for \(n \geq n_0\).
+
+The solution to \eqref{eq:difference_homo} can be obtained by iteration and mathematical induction and is given by
+
+\begin{equation}
+    x(n) = \left[\prod_{i=n_0}^{n-1}a(i)\right] x_0
+\end{equation}
+
+For the nonhomogeneous case, the unique solution is
+
+\begin{equation}
+    y(n) = \left[\prod_{i=n_0}^{n-1}a(i)\right]y_0 +  \sum_{r=n_0}^{n-1}\left[\prod_{i=r+1}^{n-1}a(i)\right]g(r).
+\end{equation}
+
+\noindent\textbf{Definition 1.5} A point \(x^*\) in the domain of \(f\) is said to be an \emph{equilibrium point} of a difference equation 
+
+\begin{equation}
+    x(n+1) = f(x(n))\label{eq:difference_eq}
+\end{equation} 
+
+\noindent if it is a fixed point of \(f\), i.e., \(f(x^*) = x^*\).\\
+
+\noindent\textbf{Definition 1.6} Let \(x\) be a point in the domain of \(f\). If there exists a positive integer \(r\) and an equilibrium point \(x^*\) of \eqref{eq:difference_eq} such that \(f^r(x) = x^*\), \(f^{r-1} \neq x^*\), then \(x\) is an \emph{eventually equilibrium (fixed) point}.\\
+
+\noindent\textbf{Definition 1.8} 
+
+\begin{itemize}
+    \item [(a)] The equilibrium point \(x^*\) of \eqref{eq:difference_eq} is \emph{stable} if given \(\epsilon > 0\) there exists \(\delta > 0\) such that \(\vert x_0 - x^* \vert < \delta\) implies \(\vert f^n(x_0) - x^* \vert < \epsilon\) for all \(n > 0\). If \(x^*\) is not stable, then it is called \emph{unstable}.
+    \item [(b)] The point \(x^*\) is said to be \emph{attracting} if there exists \(\eta > 0\) such that \[\vert x(0) - x^* \vert < \eta \implies \lim_{n\to\infty} x(n) = x^*.\] If \(\eta = \infty\), \(x^*\) is called a \emph{global attractor} or \emph{globally attracting}.
+    \item [(c)] The point \(x^*\) is an \emph{asymptotically stable equilibrium point} if it is stable and attracting. If \(\eta = \infty\), \(x^*\) is said to be \emph{globally asymptotically stable}.
+\end{itemize}
+
+
+
+\end{document}

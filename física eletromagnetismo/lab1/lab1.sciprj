@@ -1,0 +1,123 @@
+SciDAVis 2.2.8 project file
+<scripting-lang>	muParser
+<windows>	2
+<table>
+5828
+<table creation_time="2025-23-05 12:00:23:000" caption_spec="%n%C{ - }%c" name="Table1" columns="4" rows="28"><comment><![CDATA[]]></comment><column creation_time="2025-23-05 12:00:23:061" caption_spec="%n%C{ - }%c" name="Voltagem (V)" type="TypeDouble" mode="Numeric" plot_designation="X"><comment><![CDATA[]]></comment><input_filter><simple_filter creation_time="2025-23-05 12:34:40:577" caption_spec="%n%C{ - }%c" name="InputFilter" filter_name="String2DoubleFilter"><comment><![CDATA[]]></comment></simple_filter></input_filter><output_filter><simple_filter creation_time="2025-23-05 12:34:40:577" caption_spec="%n%C{ - }%c" name="OutputFilter" format="f" digits="14" filter_name="Double2StringFilter"><comment><![CDATA[]]></comment></simple_filter></output_filter><row type="TypeDouble" index="0" invalid="no">1.1899999999999999e-01</row><row type="TypeDouble" index="1" invalid="no">1.6799999999999999e+00</row><row type="TypeDouble" index="2" invalid="no">2.6400000000000001e+00</row><row type="TypeDouble" index="3" invalid="no">3.2999999999999998e+00</row><row type="TypeDouble" index="4" invalid="no">4.3300000000000001e+00</row><row type="TypeDouble" index="5" invalid="no">5.1799999999999997e+00</row><row type="TypeDouble" index="6" invalid="no">6.0899999999999999e+00</row><row type="TypeDouble" index="7" invalid="no">6.9900000000000002e+00</row><row type="TypeDouble" index="8" invalid="no">7.9900000000000002e+00</row><row type="TypeDouble" index="9" invalid="no">8.9399999999999995e+00</row></column><column creation_time="2025-23-05 12:33:37:878" caption_spec="%n%C{ - }%c" name="Delta V" type="TypeDouble" mode="Numeric" plot_designation="xErr"><comment><![CDATA[]]></comment><input_filter><simple_filter creation_time="2025-23-05 12:33:56:965" caption_spec="%n%C{ - }%c" name="InputFilter" filter_name="String2DoubleFilter"><comment><![CDATA[]]></comment></simple_filter></input_filter><output_filter><simple_filter creation_time="2025-23-05 12:33:56:965" caption_spec="%n%C{ - }%c" name="OutputFilter" format="f" digits="14" filter_name="Double2StringFilter"><comment><![CDATA[]]></comment></simple_filter></output_filter><row type="TypeDouble" index="0" invalid="no">1.9000000000000000e-03</row><row type="TypeDouble" index="1" invalid="no">1.3500000000000000e-02</row><row type="TypeDouble" index="2" invalid="no">2.1100000000000001e-02</row><row type="TypeDouble" index="3" invalid="no">2.6400000000000000e-02</row><row type="TypeDouble" index="4" invalid="no">3.6100000000000000e-02</row><row type="TypeDouble" index="5" invalid="no">4.2599999999999999e-02</row><row type="TypeDouble" index="6" invalid="no">4.9700000000000001e-02</row><row type="TypeDouble" index="7" invalid="no">5.6800000000000003e-02</row><row type="TypeDouble" index="8" invalid="no">6.4699999999999994e-02</row><row type="TypeDouble" index="9" invalid="no">7.2200000000000000e-02</row></column><column creation_time="2025-23-05 12:33:34:178" caption_spec="%n%C{ - }%c" name="Corrente (mA) 1" type="TypeDouble" mode="Numeric" plot_designation="Y"><comment><![CDATA[]]></comment><input_filter><simple_filter creation_time="2025-23-05 12:34:40:604" caption_spec="%n%C{ - }%c" name="InputFilter" filter_name="String2DoubleFilter"><comment><![CDATA[]]></comment></simple_filter></input_filter><output_filter><simple_filter creation_time="2025-23-05 12:34:40:604" caption_spec="%n%C{ - }%c" name="OutputFilter" format="f" digits="14" filter_name="Double2StringFilter"><comment><![CDATA[]]></comment></simple_filter></output_filter><row type="TypeDouble" index="0" invalid="no">1.1000000000000000e-01</row><row type="TypeDouble" index="1" invalid="no">1.7200000000000000e+00</row><row type="TypeDouble" index="2" invalid="no">2.7200000000000002e+00</row><row type="TypeDouble" index="3" invalid="no">3.3900000000000001e+00</row><row type="TypeDouble" index="4" invalid="no">4.4500000000000002e+00</row><row type="TypeDouble" index="5" invalid="no">5.3700000000000001e+00</row><row type="TypeDouble" index="6" invalid="no">6.2999999999999998e+00</row><row type="TypeDouble" index="7" invalid="no">7.2400000000000002e+00</row><row type="TypeDouble" index="8" invalid="no">8.2899999999999991e+00</row><row type="TypeDouble" index="9" invalid="no">9.2899999999999991e+00</row></column><column creation_time="2025-23-05 12:00:23:063" caption_spec="%n%C{ - }%c" name="Delta I" type="TypeDouble" mode="Numeric" plot_designation="yErr"><comment><![CDATA[]]></comment><input_filter><simple_filter creation_time="2025-23-05 12:34:40:607" caption_spec="%n%C{ - }%c" name="InputFilter" filter_name="String2DoubleFilter"><comment><![CDATA[]]></comment></simple_filter></input_filter><output_filter><simple_filter creation_time="2025-23-05 12:34:40:607" caption_spec="%n%C{ - }%c" name="OutputFilter" format="f" digits="14" filter_name="Double2StringFilter"><comment><![CDATA[]]></comment></simple_filter></output_filter><row type="TypeDouble" index="0" invalid="no">1.1000000000000001e-03</row><row type="TypeDouble" index="1" invalid="no">1.7200000000000000e-02</row><row type="TypeDouble" index="2" invalid="no">2.7199999999999998e-02</row><row type="TypeDouble" index="3" invalid="no">3.3900000000000000e-02</row><row type="TypeDouble" index="4" invalid="no">4.5600000000000002e-02</row><row type="TypeDouble" index="5" invalid="no">5.4600000000000003e-02</row><row type="TypeDouble" index="6" invalid="no">6.3799999999999996e-02</row><row type="TypeDouble" index="7" invalid="no">7.3099999999999998e-02</row><row type="TypeDouble" index="8" invalid="no">8.3500000000000005e-02</row><row type="TypeDouble" index="9" invalid="no">9.3399999999999997e-02</row></column><column_width column="0">120</column_width><column_width column="1">120</column_width><column_width column="2">120</column_width><column_width column="3">782</column_width></table>
+geometry	0	0	575	383	
+
+</table>
+<multiLayer>
+Graph1	1	1	Friday, May 23, 2025 12:41:49 PM Hora oficial do Brasil
+geometry	maximized	active
+WindowLabel		2
+Margins	5	5	5	5
+Spacing	5	5
+LayerCanvasSize	432	271
+Alignement	0	0
+<graph>
+ggeometry	11	3	1355	579
+PlotTitle	<b>Determinação da resistência de um resistor ôhmico</b>	#ff000000	4
+<Antialiasing>1</Antialiasing>
+Background	#ffffffff	255
+Margin	0
+Border	0	#ff000000
+grid	0	0	0	0	#ff0000ff	0	0	#ffa0a0a4	2	0	#ff0000ff	0	0	#ffa0a0a4	2	0	0	0	2	0
+EnabledAxes	1	0	1	0	
+AxesTitles	<b>Voltagem (V)</b>	<b>Corrente (mA)</b>			
+AxesTitleColors	#ff000000	#ff000000	#ff000000	#ff000000	
+AxesTitleAlignment	4	4	4	4
+TitleFont	MS Shell Dlg 2	26	75	0	0	0
+ScaleFont0	MS Shell Dlg 2	12	75	0	0	0
+ScaleFont1	MS Shell Dlg 2	12	75	0	0	0
+ScaleFont2	MS Shell Dlg 2	12	75	0	0	0
+ScaleFont3	MS Shell Dlg 2	12	75	0	0	0
+AxisFont0	MS Shell Dlg 2	12	50	0	0	0
+AxisFont1	MS Shell Dlg 2	12	50	0	0	0
+AxisFont2	MS Shell Dlg 2	12	50	0	0	0
+AxisFont3	MS Shell Dlg 2	12	50	0	0	0
+EnabledTickLabels	1	1	1	1	
+AxesColors	#ff000000	#ff000000	#ff000000	#ff000000
+AxesNumberColors	#ff000000	#ff000000	#ff000000	#ff000000
+AxesBaseline	0	0	0	0	
+CanvasBackground	#ffffffff	255
+curve	Table1_Voltagem (V)	Table1_Corrente (mA) 1	1	0	#ff000000	0	1	7	1	#ff000000	#ff000000	0	#ff000000	0	1	0	64		2	0	0	27	1
+ErrorBars	0	Table1_Voltagem (V)	Table1_Corrente (mA) 1	Table1_Delta V	1	8	#ff000000	1	1	1
+ErrorBars	1	Table1_Voltagem (V)	Table1_Corrente (mA) 1	Table1_Delta I	1	8	#ff000000	1	1	1
+FunctionCurve	0,LinearFit1,x,0.119,8.94	2			0	1	#ffff0000	0	3	7	1	#ff000000	#ff000000	0	#ff000000	0	1	0	64		2	0	1230433008	560	1
+<formula>
+B=-0.0133032897220144
+A=1.03585117870155
+
+A*x+B
+
+
+</formula>
+scale	0	-2	10	0	8	5	0	0
+scale	1	-2	10	0	8	5	0	0
+scale	2	0	10	0	6	5	0	0
+scale	3	0	10	0	8	5	0	0
+LabelsFormat	0	4	0	4	0	4	0	4	
+AxisType	0	0	0	0	
+MajorTicks	1	1	1	1	
+MinorTicks	1	1	1	1	
+TicksLength	5	9
+DrawAxesBackbone	1
+AxesLineWidth	1
+LabelsRotation	0	0
+<legend>	0.355761794276875	9.72384937238494	MS Shell Dlg 2	24	50	0	0	0	#ff000000	1	0	#00ffffff	0	\c{1}Dados medidos	\c{4}Ajuste linear</legend>
+<text>	3.16318638824439	2.26778242677824	MS Shell Dlg 2	25	50	0	0	0	#ff000000	1	0	#00ffffff	0	I(V) = 1.03585117870155 * V - 0.0133032897220144</text>
+</graph>
+</multiLayer>
+<log>
+[Friday, May 23, 2025 12:05:12 PM Hora oficial do Brasil	Plot: ''Graph1'']
+Linear Regression fit of dataset: Table1_Corrente (mA), using function: A*x+B
+Y standard errors: Unknown
+From x = 1 to x = 10
+B (y-intercept) = 0 +/- 0
+A (slope) = 1 +/- 0
+--------------------------------------------------------------------------------------
+Chi^2 = 0
+R^2 = 1
+---------------------------------------------------------------------------------------
+[Friday, May 23, 2025 12:14:17 PM Hora oficial do Brasil	Plot: ''Graph1'']
+Linear Regression fit of dataset: Table1_Corrente (mA), using function: A*x+B
+Y standard errors: Unknown
+From x = 0.119 to x = 8.94
+B (y-intercept) = -0.0310943169545013 +/- 0.00905492124670051
+A (slope) = 1.04087989948042 +/- 0.0016643575365309
+--------------------------------------------------------------------------------------
+Chi^2 = 0.00160993083959173
+R^2 = 0.999994931525942
+---------------------------------------------------------------------------------------
+[Friday, May 23, 2025 12:38:30 PM Hora oficial do Brasil	Plot: ''Graph2'']
+Linear Regression fit of dataset: Table1_Corrente (mA) 1, using function: A*x+B
+Y standard errors: Associated dataset (Table1_Delta I (mA))
+From x = 0.119 to x = 8.94
+B (y-intercept) = -0.0133032897220144 +/- 0.00120964628882029
+A (slope) = 1.03585117870155 +/- 0.00358822906632946
+--------------------------------------------------------------------------------------
+Chi^2 = 1.04646669609241
+R^2 = 0.999987443009995
+---------------------------------------------------------------------------------------
+[Friday, May 23, 2025 12:41:02 PM Hora oficial do Brasil	Plot: ''Graph1'']
+Linear Regression fit of dataset: Table1_Corrente (mA) 1, using function: A*x+B
+Y standard errors: Associated dataset (Table1_Corrente (mA))
+From x = 0.119 to x = 8.94
+B (y-intercept) = -0.0133032897220144 +/- 0.00120964628882029
+A (slope) = 1.03585117870155 +/- 0.00358822906632946
+--------------------------------------------------------------------------------------
+Chi^2 = 1.04646669609241
+R^2 = 0.999987443009995
+---------------------------------------------------------------------------------------
+[Friday, May 23, 2025 12:42:31 PM Hora oficial do Brasil	Plot: ''Graph1'']
+Linear Regression fit of dataset: Table1_Corrente (mA) 1, using function: A*x+B
+Y standard errors: Associated dataset (Table1_Delta I)
+From x = 0.119 to x = 8.94
+B (y-intercept) = -0.0133032897220144 +/- 0.00120964628882029
+A (slope) = 1.03585117870155 +/- 0.00358822906632946
+--------------------------------------------------------------------------------------
+Chi^2 = 1.04646669609241
+R^2 = 0.999987443009995
+---------------------------------------------------------------------------------------
+</log>

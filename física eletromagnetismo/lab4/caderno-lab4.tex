@@ -1,0 +1,131 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[portuguese]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{amsmath}
+\usepackage{booktabs} % For better-looking tables
+\usepackage{siunitx} % For proper number formatting
+\usepackage{float} % For controlling figure placement
+\usepackage{threeparttable}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\geometry{
+ a4paper,
+ left=3cm,
+ top=2cm,
+ right=2cm,
+ bottom=2cm
+}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
+    \textbf{\large INSTITUTO DE FÍSICA} \\
+    \vspace{3cm}
+    \textbf{\Large CADERNO DE LABORATÓRIO 4} \\
+    \vspace{1cm}
+    \textbf{\large EXTRAINDO INFORMAÇÕES DA CURVA FEM INDUZIDA VS TEMPO} \\
+    \vspace{3cm}
+    
+    \begin{tabular}{rl}
+        \textbf{Integrantes:}   & Felipe Isaac Ferreira - 00577831\\
+                                & Guilherme Franke Riter - 00579589 \\
+                                & Leonardo Kawai Suarez - 00578511 \\
+                                & Leonardo Werner Morel Dias - 00590887 \\
+    \end{tabular}
+    
+    \vspace{12cm}
+    \textbf{\large Porto Alegre, RS} \\
+    \textbf{\large 23 de junho de 2025} \\
+\end{center}\newpage
+
+\section{Experimento}
+
+Para o experimento, utilizamos um circuito com uma bobina de $N = 1000$ espiras com área de seção transveral $A = 4.3 \times 4.3 \text{cm}^2 = 1.849 \times 10^{-3} \text{m}^2$ e um ímã pequeno acoplado a um parafuso. Partindo do centro da bobina, o ímã foi movido axialmente. O movimento do ímã provocou uma variação do fluxo magnético na bobina, resultando em uma força eletromotriz (fem) induzida.
+
+A curva de força eletromotriz (fem) induzida foi obtida através de um sensor conectado a um osciloscópio, que registrou a variação da tensão ao longo do tempo. Os resultados foram processados para calcular a área sob a curva, que representa o fluxo magnético inicial através da bobina. A partir da integração numérica das curvas de fem induzida, realizada no software SciDavis, obtivemos os seguintes resultados:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ccccc}
+\toprule
+\textbf{Medição} & \textbf{$t_i$ (s)} & \textbf{$t_f$ (s)} & \textbf{Área (Wb)} & \textbf{$\mathcal{\varepsilon}_{\text{max}}$ (V)} \\
+\midrule
+1 & 1.10 & 1.44 & 0.20706 & 1.96 \\
+2 & 0.88 & 1.08 & 0.21206 & 3.32 \\
+3 & 0.64 & 0.84 & 0.21172 & 3.60 \\
+4 & 0.92 & 1.04 & 0.20574 & 5.16 \\
+5 & 0.75 & 1.05 & 0.18854 & 1.72 \\
+6 & 1.08 & 1.40 & 0.20024 & 2.60 \\
+7 & 1.50 & 1.80 & 0.21366 & 2.68 \\
+8 & 0.70 & 1.40 & 0.20188 & 0.92 \\
+9 & 0.80 & 1.46 & 0.20564 & 1.40 \\
+10 & 0.80 & 1.40 & 0.19996 & 1.72 \\
+\bottomrule
+\end{tabular}
+\caption{Dados experimentais das medições de fem induzida. Os valores de tempo ($t_i$ e $t_f$) delimitam o intervalo de integração para cada pulso.}
+\label{tab:medicoes}
+\end{table}
+
+Da lei da indução de Faraday, obtemos a relação
+
+\begin{equation}\label{eq:lei_faraday}
+    \Phi_i = \int_{t_i}^{t_f} \mathcal{\varepsilon}(t) \, dt = NBA
+\end{equation}
+
+\noindent onde $\Phi_i$ é o fluxo magnético inicial que atravessa a bobina e $\mathcal{\varepsilon}(t)$ é a força eletromotriz induzida. Pelo tamanho do ímã e pelo movimento axial realizado, consideramos que o campo magnético do ímã é uniforme ao longo da bobina. Isolando $B$, temos
+
+\begin{equation}
+    B = \frac{\Phi_i}{NA}
+\end{equation}
+
+\noindent o que nos permite calcular o campo magnético do ímã. Os resultados são apresentados na Tabela \ref{tab:resultados}. O desvio padrão das áreas foi calculado com a fórmula
+
+\begin{equation}
+    s_{\Phi} = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} (\Phi_i - \bar{\Phi})^2}
+\end{equation}
+\noindent onde $n$ é o número de medições, $\Phi_i$ é a área da $i$-ésima medição e $\bar{\Phi}$ é a média das áreas. Para as incertezas, utilizamos a fórmula de propagação de incertezas para a média:
+
+\begin{equation}
+    \sigma_{\bar{\Phi}} = \frac{s_\Phi}{\sqrt{n}}
+\end{equation}
+\noindent onde $\sigma_{\bar{\Phi}}$ é a incerteza na média das áreas. Como a incerteza da área da bobina é desprezível \(\left(\sigma_A \approx 0\right)\), consideramos apenas a incerteza do fluxo magnético inicial. Então, a incerteza do campo magnético \(\sigma_B\) é dada por:
+
+\begin{equation}
+    \sigma_B = \frac{\sigma_\Phi}{NA}.
+\end{equation}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lc}
+\toprule
+\textbf{Parâmetro} & \textbf{Valor} \\
+\midrule
+\textbf{Estatísticas das Áreas} & \\
+\quad Média ($\bar{A}$) & $0.20465 \pm 0.0024$ Wb \\
+\quad Desvio padrão ($s_A$) & 0.0075 Wb \\
+\midrule
+\textbf{Fluxo Magnético ($\Phi$)} & \\
+\quad Valor médio & $0.20465$ Wb \\
+\quad Incerteza & $\pm 0.0024$ Wb \\
+\midrule
+\textbf{Campo Magnético ($B$)} & \\
+\quad $B = \frac{\Phi}{NA}$ & $0.1107$ T \\
+\quad Incerteza & $\pm 0.0013$ T \\
+\bottomrule
+\end{tabular}
+\caption{Resultados do fluxo e campo magnético.}
+\label{tab:resultados}
+\end{table}
+
+\section{Discussão}
+
+A partir dos dados da Tabela \ref{tab:medicoes}, observamos que, apesar da variação da velocidade do movimento do ímã, a área sob a curva se manteve relativamente constante, o que verifica \eqref{eq:lei_faraday}, já que \(N\) e \(A\) são constantes e \(B\) foi assumido como uniforme. Dos gráficos obtidos do osciloscópio, vemos que para velocidades mais altas, o pico da fem induzida é mais estreito e alto. Já para velocidades mais baixas, o pico é mais largo e baixo. Isso pode ser explicado pela relação entre a velocidade do ímã e a taxa de variação do fluxo magnético, que afeta a amplitude da fem induzida, conforme as medidas \(\mathcal{\varepsilon}_{\text{max}}\) na Tabela \ref{tab:medicoes}.
+
+Por fim, os valores do desvio padrão das áreas e as incertezas calculadas mostram que as medições são consistentes, com possíveis erros advindos da não uniformidade do movimento do ímã e de interferências eletromagnéticas no ambiente.
+
+\end{document}

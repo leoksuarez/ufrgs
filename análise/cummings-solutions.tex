@@ -1,0 +1,273 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+
+\geometry{
+ a4paper,
+ left=3cm,
+ top=2cm,
+ right=2cm,
+ bottom=2cm
+}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
+    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
+    \vspace{3cm}
+    \textbf{\Large REAL ANALYSIS: A LONG-FORM MATHEMATICS TEXTBOOK BY JAY CUMMINGS} \\
+    \vspace{1cm}
+    \textbf{\large STUDENT'S SOLUTIONS TO SELECTED EXERCISES} \\
+    \vspace{3cm}
+    
+    \author{Leonardo Suarez}
+    
+    \vspace{12cm}
+    \textbf{\large Porto Alegre, RS} \\
+    \textbf{\large\today} \\
+\end{center}\newpage
+
+\section*{List of Results}
+
+\noindent 1.12 Proposition $(|a| \leq b$ iff $-b \leq a \leq b)$ \dotfill 15 \\
+1.13 Theorem (\emph{The triangle inequality}) \dotfill 15 \\
+1.14 Corollary (\emph{The reverse triangle inequality}) \dotfill 17 \\
+1.15 Corollary (\emph{Triangle inequality, concluded}) \dotfill 18 \\
+1.20 Theorem (\emph{Existence and uniqueness of} $\mathbb{R}$) \dotfill 22 \\
+1.22 Proposition (\emph{Suprema are unique}) \dotfill 24 \\
+1.23 Theorem (\emph{Square roots exist}) \dotfill 25 \\
+1.24 Theorem (\emph{Suprema established}) \dotfill 26 \\
+1.26 Lemma (\emph{The Archimedean principle}) \dotfill 28 \\
+1.30 Lemma $(p = x^2 + y^2 \geq 2$ where $x < \sqrt{p} < y$) \dotfill 30 \\
+1.31 Theorem ($\mathbb{Q}$ \emph{is dense in} $\mathbb{R}$) \dotfill 31 \\
+1.34 Principle (\emph{Well-ordering principle}) \dotfill 33 \\
+
+\vspace{0.5em}
+
+\noindent 2.1 Principle (\emph{The hyperion principle}) \dotfill 43 \\
+2.8 Theorem ($|\mathbb{Z}| = |\mathbb{Q}|$) \dotfill 47 \\
+2.9 Theorem ($|\mathbb{R}| > |\mathbb{N}|$) \dotfill 50 \\
+2.11 Theorem (\emph{Sizes of infinity}) \dotfill 53 \\
+2.13 Theorem ($|A| \leq |P(A)|$) \dotfill 56 \\
+2.14 Corollary (\emph{There exist infinitely many infinities}) \dotfill 57 \\
+
+\vspace{0.5em}
+
+\noindent 3.5 Proposition (\emph{Bounded} $\Rightarrow |a_n| \leq C$) \dotfill 67 \\
+3.19 Proposition (\emph{Limits are unique}) \dotfill 81 \\
+3.20 Proposition (\emph{Convergent} $\Rightarrow$ \emph{bounded}) \dotfill 83 \\
+3.21 Theorem (\emph{Sequence limit laws}) \dotfill 85 \\
+3.23 Theorem (\emph{Sequence squeeze theorem}) \dotfill 87 \\
+3.27 Theorem (\emph{The monotone convergence theorem}) \dotfill 90 \\
+3.29 Proposition (\emph{Bounded} $S$ \emph{contains} $a_n \to \sup(S)$) \dotfill 93 \\
+3.32 Proposition ($a_n \to a \Leftrightarrow$ \emph{every} $a_{n_k} \to a$) \dotfill 95 \\
+3.34 Corollary (\emph{Different subsequential limits} $\Rightarrow$ \emph{diverges}) \dotfill 96 \\
+3.35 Proposition (\emph{Monotone} $(a_n)$ \emph{has} $\sup_n a \to a_n \to a$) \dotfill 97 \\
+3.36 Lemma ($(a_n)$ \emph{has monotone subsequence}) \dotfill 99 \\
+3.37 Theorem (\emph{The Bolzano-Weierstrass theorem}) \dotfill 101 \\
+3.41 Lemma (\emph{Cauchy} $\Rightarrow$ \emph{bounded}) \dotfill 106 \\
+3.42 Theorem (\emph{Cauchy criterion for convergence}) \dotfill 107 \\
+
+\vspace{0.5em}
+
+\noindent 4.3 Corollary (\emph{Series (bounded) sums}) \dotfill 119 \\
+4.4 Proposition ($n$\emph{-th term test}) \dotfill 122 \\
+4.7 Theorem ($p$\emph{-th root} $\Rightarrow$ \emph{converges or} $(-1, 1)$) \dotfill 123 \\
+4.9 Proposition (\emph{Geometric series test}) \dotfill 123 \\
+4.11 Proposition ($p > 1 \Rightarrow \sum \frac{1}{n^p}$ \emph{converges}) \dotfill 124 \\
+4.12 Proposition (\emph{Comparison test}) \dotfill 125 \\
+4.13 Proposition ($\Sigma |a_n|$ \emph{converges}) \dotfill 126 \\
+4.16 Proposition (\emph{The series p test}) \dotfill 128 \\
+4.17 Proposition (\emph{Alternating series test}) \dotfill 130 \\
+4.18 Proposition ($\Sigma |a_n|$ \emph{converges} $\Rightarrow \Sigma a_n$ \emph{converges}) \dotfill 132 \\
+4.23 Proposition (\emph{Rearrangement theorem}) \dotfill 134 \\
+
+\vspace{0.5em}
+
+\noindent 5.3 Proposition (\emph{Open sets via arbitrary unions and finite intersections}) \dotfill 151 \\
+5.5 Theorem (\emph{Each open set} $\subseteq$ $(a, b_0)$) \dotfill 153 \\
+5.10 Theorem (\emph{Closed iff contains limit points}) \dotfill 154 \\
+5.12 Proposition (\emph{Closed sets via finite unions and arbitrary intersections}) \dotfill 156 \\
+5.19 Theorem (\emph{The Heine-Borel theorem}) \dotfill 159 \\
+5.20 Theorem (\emph{Finite intersection property}) \dotfill 162 \\
+
+\vspace{0.5em}
+
+\noindent 6.11 Proposition (\emph{Functional limits are unique}) \dotfill 183 \\
+6.12 Proposition ($\lim f(x) + g(x) = \lim f(x) + \lim g(x)$) \dotfill 184 \\
+6.14 Corollary (\emph{Pure} $c$ \emph{limit laws}) \dotfill 185 \\
+6.15 Corollary (\emph{Continuity} $\Rightarrow$ \emph{limit laws}) \dotfill 186 \\
+6.17 Theorem (\emph{Continuity topologically and sequentially}) \dotfill 187 \\
+6.20 Proposition (\emph{Continuity and limit laws}) \dotfill 188 \\
+6.21 Theorem (\emph{The intermediate value theorem}) \dotfill 190 \\
+6.26 Theorem (\emph{If continuous on} $\overline{B}$ \emph{open implies} $f^{-1}(B)$ \emph{open in} $X$) \dotfill 192 \\
+6.28 Theorem (\emph{The continuous image of a compact set is compact}) \dotfill 195 \\
+6.31 Corollary (\emph{Continuous on compact set} $\Rightarrow$ \emph{bounded}) \dotfill 196 \\
+6.32 Theorem (\emph{The extreme value theorem}) \dotfill 197 \\
+6.36 Lemma (\emph{Continuous} $f(c) > 0 \Rightarrow f(x) + M$ as $x \to c$) \dotfill 198 \\
+6.37 Proposition (\emph{Continuous, iff open} $> 0 \Rightarrow \exists \delta : |x - c| < \delta \Rightarrow |f(x) - f(c)| = 0$) \dotfill 199 \\
+6.38 Theorem (\emph{The intermediate value theorem}) \dotfill 200 \\
+6.41 Proposition (\emph{Continuity on a compact set} $A = f$ \emph{uniformly continuous}) \dotfill 205 \\
+
+\vspace{0.5em}
+
+\noindent 7.6 Theorem (\emph{Differentiable} $\Rightarrow$ \emph{continuous}) \dotfill 225 \\
+7.9 Theorem (\emph{Linearity of the derivative}) \dotfill 227 \\
+7.11 Theorem (\emph{The product rule}) \dotfill 228 \\
+7.12 Theorem (\emph{The quotient rule}) \dotfill 229 \\
+7.13 Theorem (\emph{The chain rule}) \dotfill 230 \\
+7.19 Proposition (\emph{Local extrema happen when} $f'(c) = 0$) \dotfill 235 \\
+7.20 Theorem (\emph{Darboux's theorem}) \dotfill 235 \\
+7.21 Theorem (\emph{Rolle's theorem}) \dotfill 237 \\
+7.22 Theorem (\emph{The (derivative) mean value theorem}) \dotfill 241 \\
+7.23 Corollary ($f'(x) = 0 \Rightarrow f(x) = C$) \dotfill 242 \\
+
+\vspace{0.5em}
+
+\noindent 7.24 Corollary (\emph{Check format using a} $C'$) \dotfill 242 \\
+7.25 Corollary ($f' \geq 0 \Rightarrow f$ \emph{is increasing}) \dotfill 243 \\
+7.26 Theorem (\emph{Inverse function theorem}) \dotfill 245 \\
+7.27 Theorem (\emph{L'Hôpital's rule}) \dotfill 245 \\
+
+\vspace{0.5em}
+
+\noindent 8.6 Proposition (\emph{Riemann's sifting}) \dotfill 271 \\
+8.7 Proposition (\emph{Lower sums} $\leq$ \emph{Upper sums}) \dotfill 271 \\
+8.8 Proposition (\emph{Refinement} $\Rightarrow$ \emph{closer bounds}) \dotfill 274 \\
+8.13 Proposition ($f \geq 0 \Rightarrow \int f \geq 0$) \dotfill 278 \\
+8.14 Theorem (\emph{Integrable multiplicatively}) \dotfill 280 \\
+8.15 Corollary (\emph{If integrable then} $||\int f| \leq \int |f||$, $f = [-f, f]$) \dotfill 281 \\
+8.16 Theorem (\emph{Sums are integrable}) \dotfill 283 \\
+8.18 Proposition (\emph{If integrable for any countably}) \dotfill 286 \\
+8.19 Lemma (\emph{If integrable on} $[a, c]$ \emph{and} $[c, b]$ \emph{then on} $[a, b]$) \dotfill 287 \\
+8.20 Theorem (\emph{Continuous functions have measure zero}) \dotfill 291 \\
+8.25 Proposition ($\int_a^b f = \int_a^b F'$) \dotfill 294 \\
+8.26 Theorem (\emph{Linearity of the integral}) \dotfill 296 \\
+8.28 Corollary ($f \leq g \Rightarrow \int f \leq \int g$) \dotfill 297 \\
+8.29 Corollary ($|\int f| \leq \int |f|$) \dotfill 298 \\
+8.31 Proposition (\emph{The integral mean value theorem}) \dotfill 300 \\
+8.32 Theorem (\emph{The first fundamental theorem of calculus}) \dotfill 302 \\
+8.34 Corollary (\emph{Integration by parts}) \dotfill 306 \\
+8.35 Theorem (\emph{by substitution}) \dotfill 307 \\
+
+\vspace{0.5em}
+
+\noindent 9.8 Proposition ($f_n$ \emph{continuous,} $f_n \to f$ \emph{uniformly} $\Rightarrow f$ \emph{continuous}) \dotfill 330 \\
+9.11 Proposition ($f_n$ \emph{bounded,} $f_n \to f$ \emph{uniformly} $\Rightarrow f$ \emph{bounded}) \dotfill 332 \\
+9.12 Proposition ($f_n$ \emph{and} $g_n$, $f_n \to f$ \emph{uniformly} $\Rightarrow f$ \emph{unif.} $g_n$) \dotfill 333 \\
+9.15 Proposition ($f_n$ \emph{integrable,} $f_n \to f$ \emph{uniformly} $\Rightarrow f$ \emph{integrable}) \dotfill 335 \\
+9.16 Theorem (\emph{Uniform convergence and integration}) \dotfill 337 \\
+9.18 Proposition (\emph{Cauchy criterion for sequences of functions}) \dotfill 340 \\
+9.19 Theorem (\emph{The fundamental theorem}) \dotfill 341 \\
+9.21 Proposition (\emph{Cauchy criterion for series of functions}) \dotfill 343 \\
+9.22 Corollary (\emph{Weierstrass M-test}) \dotfill 344 \\
+9.26 Lemma (\emph{U.S. converges on} $(-a_0, a_0) \Rightarrow$ \emph{unif. on closed subintervals}) \dotfill 347 \\
+9.27 Theorem (\emph{P.S. converges on an interval contained in} $R$) \dotfill 348 \\
+9.30 Theorem (\emph{Differentiation of P.S. term-by-term uniformly on} $(-a, a)$) \dotfill 349 \\
+9.31 Theorem (\emph{Integration and integrate of P.S.}) \dotfill 350 \\
+9.38 Lemma (\emph{Bounds the Taylor series via} $E_n = 0$) \dotfill 354 \\
+9.39 Theorem (\emph{Integral form of the error function}) \dotfill 356 \\
+9.40 Theorem (\emph{Lagrange form of the error function}) \dotfill 358 \\
+\newpage
+\section{The Reals}
+\newpage
+\section{Cardinality}
+\newpage
+\section{Sequences}
+\newpage
+\section{Series}
+
+\noindent\textbf{Exercise 4.3.} Prove Proposition 4.18. That is, prove that if $\sum_{k=1}^{\infty}\vert a_k \vert$ converges, then $\sum_{k=1}^{\infty} a_k$ converges.\\
+
+
+
+\noindent\textbf{Exercise 4.13.} 
+\begin{itemize}
+    \item [(a)] Prove that if \(\left(ka_k\right)\) converges to a nonzero number \(L\), then the series \(\sum_{k=1}^{\infty} a_k\) diverges. Give an example to show that the converse is false.
+    \item [(b)] Prove that if \(\left(k^2a_k\right)\) converges (to any real number), then the series \(\sum_{k=1}^{\infty} a_k\) converges. Give an example to show that the converse is false.
+\end{itemize}
+
+\noindent\textbf{Exercise 4.14.} Prove that if \(a_k>0\) for all \(k\) and \(\sum_{k=1}^{\infty} a_k^2\) converges, then \(\sum_{k=1}^{\infty} \frac{a_k}{k}\) converges.\\
+
+\noindent\textbf{Exercise 4.15.} Prove the \textit{Cauchy condensation test}. That is, suppose that \((a_k)\) is a decreasing sequence for which \(a_k\to0\). Prove that \(\sum_{k=1}^{\infty} a_k\) converges if and only if \(\sum_{k=0}^{\infty} 2^k a_{2^k}\) converges.\\
+
+\noindent\textbf{Exercise 4.17.} Prove the \textit{ratio test} via the following steps. Given a series \(\sum_{k=1}^{\infty} a_k\) with \(a_k \geq 0\) for all \(k\), assume that \[\lim_{k \to \infty} \frac{a_{k+1}}{a_k} =: r<1.\]
+
+We will show that \(\sum_{k=1}^{\infty} a_k\) converges.
+\begin{itemize}
+    \item [(a)] Let \(q\) be such that \(r<q<1\). Explain why there is some \(N\) such that \(n\geq N\) implies \(\vert a_{k+1} \vert \leq \vert a_k \vert q\).
+    \item [(b)] Explain why \(\sum_{k=1}^{\infty} \vert a_N \vert q^k\) necessarily converges.
+    \item [(c)] Finally, use part (b) to prove that \(\sum_{k=1}^{\infty} \vert a_k \vert\) converges.
+\end{itemize}
+
+\noindent\textbf{Proof.} Let \(\sum_{k=1}^{\infty} a_k\) be a series with \(a_k \geq 0\) for all \(k\). Assume that \(\lim_{k \to \infty} \frac{a_{k+1}}{a_k} = r < 1\). Let \(q\) be such that \(r < q < 1\). By the definition of sequential limits, there exists some \(N\) such that for all \(n \geq N\), we have
+
+\begin{equation}
+    \left\vert \left\vert\frac{a_{n+1}}{a_n}\right\vert - r \right\vert < \epsilon \qquad \forall \epsilon > 0.
+\end{equation}
+
+\noindent or, letting \(\epsilon = q - r\) (which is positive since \(q > r\)),
+
+\begin{align}
+    r - (q - r) < \left\vert\frac{a_{n+1}}{a_n}\right\vert &< r + (q - r) \\
+    \left\vert\frac{a_{n+1}}{a_n}\right\vert &< q \\
+    \left\vert a_{n+1} \right\vert &< q \left\vert a_n \right\vert.\label{eq:ratio-test-1}
+\end{align}
+
+
+
+\noindent\textbf{Exercise 4.18.} Prove the \textit{root test} via the following steps. Given a series \(\sum_{k=1}^{\infty} a_k\) where each \(a_k \geq 0\), assume that the limit \(\lim_{k \to \infty} (a_k)^{1/k}\) exists. Call this limit \(\rho\). Then this series converges if \(\rho < 1\) and diverges if \(\rho > 1\). If \(\rho = 1\), then the test is inconclusive.
+
+\begin{itemize}
+    \item [(a)] Suppose \(\rho < 1\). Let \(\epsilon = \frac{1-\rho}{2}\) and \(\rho_1 = \rho + \epsilon\). Prove that there is some \(N\) for which \((a_n)^{1/n} < \rho_1\) for all \(n \geq N\).
+    \item [(b)] Prove that \(\sum_{k=N}^{\infty} a_k\) converges by comparing it to a geometric series. Then conclude that \(\sum_{k=1}^{\infty} a_k\) also converges.
+    \item [(c)] Suppose \(\rho > 1\). Let \(\epsilon = \frac{\rho - 1}{2}\) and \(\rho_2 = \rho - \epsilon\). Prove that there is some \(N\) for which \((a_n)^{1/n} > \rho_2\) for all \(n \geq N\).
+    \item [(d)] Use this to argue that \(\sum_{k=N}^{\infty} a_k\) diverges by using the divergence test. Then conclude that \(\sum_{k=1}^{\infty} a_k\) also diverges.
+\end{itemize}
+
+\noindent\textbf{Proof.} Let \(\sum_{k=1}^{\infty} a_k\) be a series with \(a_k \geq 0\) for all \(k\). Assume that the limit \(\lim_{k \to \infty} (a_k)^{1/k}\) exists and call this limit \(\rho\). First, suppose \(\rho < 1\) and let \(\epsilon = \frac{1-\rho}{2}\). Then set \(\rho_1 = \rho + \epsilon\). By the definition of sequential limits, there exists some \(N\) such that for all \(n \geq N\), we have
+\begin{equation}
+    \vert (a_n)^{1/n} - \rho \vert < \epsilon \qquad \forall \epsilon > 0.
+\end{equation}
+
+\noindent or, for \(\rho < 1\),
+
+\begin{align}
+    \rho + -\frac{1-\rho}{2} < (a_n)^{1/n} &< \rho + \frac{1-\rho}{2} \\
+    (a_n)^{1/n} &< \rho + \frac{1-\rho}{2} = \rho + \epsilon = \rho_1.\label{eq:root-test-1}
+\end{align}
+
+From \eqref{eq:root-test-1}, we have that \(0 \leq a_k < p^k\). Note that \(\sum_{k=1}^{\infty} p^k\) converges for \(p < 1\), by the geometric series test. Thus, by the comparison test, we have that \(\sum_{k=N}^{\infty} a_k\) converges. Since \(\sum_{k=1}^{N-1} a_k\) is finite, we conclude that \(\sum_{k=1}^{\infty} a_k\) converges.
+
+Now, suppose \(\rho > 1\). Let \(\epsilon = \frac{\rho - 1}{2}\) and set \(\rho_2 = \rho - \epsilon\). Again, by the definition of sequential limits, there exists some \(N\) such that for all \(n \geq N\), we have
+\begin{equation}
+    \vert (a_n)^{1/n} - \rho \vert < \epsilon \qquad \forall \epsilon > 0.
+\end{equation}
+
+\noindent or, for \(\rho > 1\),
+
+\begin{align}
+    \rho - \frac{\rho - 1}{2} < (a_n)^{1/n} &< \rho + \frac{\rho - 1}{2} \\
+    (a_n)^{1/n} &> \rho - \frac{\rho - 1}{2} = \rho - \epsilon = \rho_2.\label{eq:root-test-2}
+\end{align}
+
+From \eqref{eq:root-test-2}, we have that \(a_k > p^k\) for \(k\) sufficiently large. Note that \(\sum_{k=1}^{\infty} p^k\) diverges for \(p > 1\), by the divergence test. Thus, by the comparison test, we have that \(\sum_{k=N}^{\infty} a_k\) diverges. Since \(\sum_{k=1}^{N-1} a_k\) is finite, we conclude that \(\sum_{k=1}^{\infty} a_k\) diverges.$\hfill\blacksquare$
+
+
+\newpage
+\section{The Topology of $\mathbb{R}$}
+\newpage
+\section{Continuity}
+\newpage
+\section{Differentiation}
+\newpage
+\section{Integration}
+\newpage
+\section{Sequences and Series of Functions}
+
+\end{document}

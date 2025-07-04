@@ -1,0 +1,193 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{esint}
+\usepackage[portuguese]{babel}
+\usepackage[utf8]{inputenc}
+
+\geometry{
+ a4paper,
+ left=3cm,
+ top=2cm,
+ right=2cm,
+ bottom=2cm
+}
+
+\begin{document}
+
+\begin{center}
+    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
+    \textbf{\large INSTITUTO DE FÍSICA} \\
+    \vspace{3cm}
+    \textbf{\Large FÍSICA GERAL - ELETROMAGNETISMO} \\
+    \vspace{1cm}
+    \textbf{\large REVISÃO} \\
+    \vspace{3cm}
+    
+    \begin{tabular}{c}
+        LEONARDO KAWAI SUAREZ        
+    \end{tabular}
+    
+    \vfill
+    \textbf{\large Porto Alegre, RS} \\
+    \textbf{\large\today} \\
+\end{center}\newpage
+
+
+\section*{Área 1}
+
+\subsection*{Lei de Coulomb}
+\subsection*{Campo Elétrico}
+\subsection*{Lei de Gauss}
+
+\newpage
+
+\section*{Área 2}
+
+\subsection*{Potencial Elétrico}
+\subsection*{Capacitância}
+\subsection*{Circuitos de Corrente Contínua}
+
+\newpage
+
+\section*{Área 3}
+
+\subsection*{Campo Magnético}
+
+A Lei de Biot-Savart descreve o campo magnético \(\mathbf{B}\) gerado por uma corrente elétrica \(I\) em um ponto \(P\) a uma distância \(\mathbf{r}\) do elemento de corrente \(d\mathbf{l}\):
+
+\begin{equation}\label{eq:lei_biot_savart}
+    \boxed{\mathbf{B}(r) = \frac{\mu_0}{4\pi} \int \frac{I d\mathbf{l} \times \mathbf{r}}{r^3}}
+\end{equation}
+
+\noindent onde \(\mu_0\) é a permeabilidade magnética do vácuo, \(d\mathbf{l}\) é o elemento de corrente e \(\mathbf{r}\) é o vetor que aponta do elemento de corrente ao ponto \(P\).
+
+Podemos utilizar a Lei de Biot-Savart para calcular o campo magnético gerado por diversas configurações de corrente elétrica, como espiras circulares e fios retilíneos infinitos.
+
+\begin{itemize}
+    \item [(a)] \textbf{Campo magnético de uma espira circular}:
+        \begin{equation}
+            \boxed{\mathbf{B}(z) = \frac{\mu_0 I R^2}{2(R^2 + z^2)^{3/2}} \hat{\mathbf{z}}}
+        \end{equation}
+        \noindent onde \(R\) é o raio da espira, \(I\) é a corrente elétrica e \(z\) é a distância do ponto ao plano da espira.
+    \item [(b)] \textbf{Campo magnético ao redor de um fio retilíneo infinito}:
+        \begin{equation}
+            \boxed{\mathbf{B}(r) = \frac{\mu_0 I}{2\pi r}\hat{\mathbf{\phi}}}
+        \end{equation}
+        \noindent onde \(r\) é a distância do ponto ao fio.
+\end{itemize}
+
+\subsection*{Lei de Ampère}
+
+A Lei de Ampère é uma das equações de Maxwell e relaciona o campo magnético \(\mathbf{B}\) com a corrente elétrica \(I\) que atravessa uma curva fechada \(C\), comumente chamada de curva amperiana. A lei é expressa pela seguinte equação:
+
+\begin{equation}
+    \boxed{\oint_{C} \mathbf{B} \cdot d\mathbf{l} = \mu_0 I_{C}}
+\end{equation}
+
+\noindent onde \(I_{C}\) é a corrente elétrica que atravessa a superfície delimitada pela curva amperiana \(C\).
+
+Em problemas envolvendo simetria, podemos aplicar a Lei de Ampère para calcular o campo magnético gerado por diferentes condutores, como fios retilíneos infinitos, toróides e solenoides.
+
+\begin{itemize}
+    \item [(a)] \textbf{Campo magnético de um fio retilíneo infinito}:\\
+        \begin{align}
+                \boxed{\mathbf{B}(r) = \begin{cases}
+                    \frac{\mu_0 I}{2\pi} \frac{r}{R^2} \hat{\mathbf{\phi}} \quad &(0 \leq r \leq R) \\
+                    \frac{\mu_0 I}{2\pi} \frac{1}{r} \hat{\mathbf{\phi}} \quad &(R \leq r)
+                \end{cases}}
+        \end{align}    
+
+        \noindent onde \(R\) é o raio do condutor e \(r\) é a distância do ponto ao fio.
+
+    \item [(b)] \textbf{Campo magnético de um toróide}:
+        \begin{align}
+            \boxed{\mathbf{B}(r) = \begin{cases}
+            		\frac{\mu_0 N I}{2\pi r}\hat{\mathbf{\theta}} \quad &(a < r < b) \\
+            		0 \quad &(r < a \,\text{ ou }\, r > b)
+            	\end{cases}}
+        \end{align}
+        \noindent onde \(N\) é o número de espiras do toróide de raios interno \(a\) e externo \(b\) e \(r\) é a distância do ponto ao eixo do toróide.
+
+    \item [(c)] \textbf{Campo magnético de um solenoide}:
+        \begin{align}
+            \boxed{\mathbf{B} = \begin{cases}
+            		\mu_0 n I\hat{\mathbf{z}} \quad &(\text{dentro do solenoide}) \\
+            		0 \quad &(\text{fora do solenoide})
+            	\end{cases}}
+        \end{align}
+        \noindent onde \(n\) é o número de espiras por unidade de comprimento do solenoide.
+\end{itemize}
+
+A \emph{força por unidade de comprimento} entre dois condutores paralelos infinitos é dada por:
+
+\begin{equation}
+    \boxed{f = I_1 B_2 = \frac{\mu_0 I_1 I_2}{2\pi d}}
+\end{equation}
+
+\noindent onde \(I_1\) e \(I_2\) são as correntes nos condutores e \(d\) é a distância entre eles.
+
+\newpage
+
+\section*{Área 4}
+
+\subsection*{Indução Eletromagnética}
+
+A Lei da Indução de Faraday afirma que a força eletromotriz induzida em um circuito fechado é proporcional à taxa de variação do fluxo magnético através do circuito.
+
+\begin{equation}\label{eq:lei_faraday}
+    \boxed{\mathcal{E} = -\frac{d\Phi_{B}}{dt}}
+\end{equation}
+
+\noindent onde \(\mathcal{E}\) é a força eletromotriz induzida e \(\Phi_{B}\) é o fluxo magnético que atravessa o circuito. A unidade de fluxo magnético é o weber (Wb), que é equivalente a \(1 \, \text{Wb} \equiv 1 \, \text{T}\cdot\text{m}^2\).
+
+O sinal negativo de \eqref{eq:lei_faraday} indica que a corrente induzida tem um sentido tal que o campo magnético gerado por ela se opõe à variação do fluxo magnético que a causou, conforme enunciado pela Lei de Lenz.
+
+\subsection*{Indutância}
+
+Indutor é um componente elétrico que armazena energia na forma de um campo magnético quando uma corrente elétrica passa por ele. A indutância \(L\) de um indutor é uma medida de sua capacidade de induzir uma força eletromotriz (fem) em resposta a uma variação da corrente elétrica.
+
+A indutância é definida como
+
+\begin{equation}
+    \boxed{L \equiv \frac{N\Phi_{B}}{I}}
+\end{equation}
+
+\noindent onde \(N\) é o número de espiras, \(\Phi_{B}\) é o fluxo magnético que atravessa cada espira e \(I\) é a corrente elétrica. A unidade de indutância é o henry (H), que é equivalente a \(1 \, \text{H} \equiv 1 \, \text{Wb}/\text{A}\).
+
+\subsection*{Circuitos de Corrente Alternada}
+
+
+
+\subsection*{Equações de Maxwell}
+
+\begin{itemize}
+    \item [(a)] \textbf{Lei de Gauss para o campo elétrico}
+        \begin{equation}
+            \boxed{\oint_{S} \mathbf{E}\cdot d\mathbf{S} = \frac{Q_{int}}{\varepsilon_0}}
+        \end{equation}
+        \noindent onde \(Q_{int}\) é a carga interna à superfície \(S\).
+
+    \item [(b)] \textbf{Lei de Gauss para o campo magnético}
+        \begin{equation}
+            \boxed{\oint_{S} \mathbf{B} \cdot d\mathbf{S} = 0}
+        \end{equation}
+        \noindent (não existem monopolos magnéticos).
+    \item [(c)] \textbf{Lei de Faraday}
+        \begin{equation}
+            \boxed{\oint_{C} \mathbf{E} \cdot d\mathbf{l} = -\frac{d}{dt}\int_{S} \mathbf{B} \cdot d\mathbf{S}}
+        \end{equation}
+    \item [(d)] \textbf{Lei de Ampère-Maxwell}
+        \begin{equation}
+            \boxed{\oint_{C} \mathbf{B} \cdot d\mathbf{l} = \mu_0 \left( I_{cond} + I_{d} \right)}
+        \end{equation}
+        \noindent onde \(I_{d} = \varepsilon_0 \frac{d}{dt}\int_{S} \mathbf{E} \cdot d\mathbf{S}\) é a corrente de deslocamento.
+\end{itemize}
+
+
+
+\end{document}
