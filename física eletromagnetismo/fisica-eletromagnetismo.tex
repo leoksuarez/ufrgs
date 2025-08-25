@@ -198,7 +198,7 @@ A energia magnética armazenada por um solenoide, quando atravessado por uma cor
                 \boxed{i(t) = \frac{\varepsilon}{R} \left(e^{-\frac{t}{\tau_C}}\right)}
             \end{equation}
 
-            \noindent onde \(\tau_C = RC\) é a constante de tempo do circuito. Vemos que a corrente decresce exponencialmente com o tempo, tendendo a zero ao \(t \to \infty\). Já a carga \(q(t)\) no capacitor é dada por
+            \noindent onde \(\tau_C \equiv RC\) é a constante de tempo do circuito. Vemos que a corrente decresce exponencialmente com o tempo, tendendo a zero ao \(t \to \infty\). Já a carga \(q(t)\) no capacitor é dada por
 
             \begin{equation}
                 \boxed{q(t) = C\varepsilon \left(1 - e^{-\frac{t}{\tau_C}}\right)}
@@ -213,7 +213,7 @@ A energia magnética armazenada por um solenoide, quando atravessado por uma cor
             \boxed{i(t) = \frac{\varepsilon}{R} \left(1 - e^{-\frac{t}{\tau_L}}\right)}
         \end{equation}
 
-        \noindent onde \(\displaystyle \tau_L = \frac{L}{R}\) é a constante de tempo do circuito RL.
+        \noindent onde \(\displaystyle \tau_L \equiv \frac{L}{R}\) é a constante de tempo do circuito RL.
     \end{itemize}
 
 \subsection{Oscilações Eletromagnéticas}
@@ -296,26 +296,22 @@ Energia potencial: $\displaystyle V = \frac{1}{2} kx^2$ & Energia elétrica: $\d
 Agora numa situação mais realista, consideramos um circuito RLC, onde \(R\) é a resistência do circuito. A equação diferencial que descreve o circuito é
 
 \begin{equation}
-    \frac{d^2I}{dt^2} + \frac{R}{L} \frac{dI}{dt} + \frac{1}{LC} I = 0
+    \frac{d^2Q}{dt^2} + \frac{R}{L} \frac{dQ}{dt} + \frac{1}{LC} Q = 0
 \end{equation}
 
 \noindent substituindo \(\omega_0 \equiv \sqrt{1/LC}\) e definindo \(\gamma \equiv R/2L\), obtemos
 
 \begin{equation}
-    \frac{d^2I}{dt^2} + 2\gamma \frac{dI}{dt} + \omega_0^2 I = 0
+    \frac{d^2Q}{dt^2} + 2\gamma \frac{dQ}{dt} + \omega_0^2 Q = 0
 \end{equation}
 
 \noindent cuja solução geral é
 
 \begin{equation}\label{eq:solucao_oscilador_amortecido}
-    \boxed{I(t) = A e^{-\gamma t} \cos(\omega_1 t + \varphi)}
-\end{equation}
-
-\noindent onde \(\displaystyle \omega_1 \equiv \sqrt{\omega_0^2 - \gamma^2}\in\mathbb{R}\) é a frequência angular das oscilações amortecidas. A constante de amortecimento \(\gamma\) (atrito), introduzida pela resistência do circuito, determina a taxa de decaimento da amplitude da corrente. Integrando \eqref{eq:solucao_oscilador_amortecido} com respeito ao tempo, obtemos a carga \(Q(t)\) no capacitor:
-
-\begin{equation}
     \boxed{Q(t) = A e^{-\gamma t} \cos(\omega_1 t + \varphi)}
 \end{equation}
+
+\noindent onde \(\displaystyle \omega_1 \equiv \sqrt{\omega_0^2 - \gamma^2}\in\mathbb{R}\) é a frequência angular das oscilações amortecidas. A constante de amortecimento \(\gamma\) (atrito), introduzida pela resistência do circuito, determina a taxa de decaimento da amplitude da carga.
 
 \subsubsection{Oscilações Forçadas: Circuito RLC com Fonte Alternada}
 

@@ -1,0 +1,401 @@
+\documentclass[12pt]{article}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{enumitem}
+\setlist[description]{leftmargin=1cm,labelindent=1cm}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[portuguese]{babel}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{prop}[thm]{Proposição}
+\newtheorem{lem}[thm]{Lema}
+\newtheorem{cor}[thm]{Corolário}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definição}
+\newtheorem{exmp}[thm]{Exemplo}
+\newtheorem{prblm}[thm]{Problema}
+\newtheorem{prcp}[thm]{Princípio}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Nota}
+
+\geometry{
+ a4paper,
+ left=3cm,
+ top=2cm,
+ right=2cm,
+ bottom=2cm
+}
+
+\begin{document}
+\begin{center}
+    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
+    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
+    \vspace{3cm}
+    \textbf{\Large ANÁLISE REAL} \\
+    \vspace{1cm}
+    \textbf{\large NOTAS DE AULA E SOLUÇÕES PARA EXERCÍCIOS SELECIONADOS} \\
+    \vspace{3cm}
+
+    \textbf{LEONARDO SUAREZ}
+
+    \vfill
+    \textbf{\large Porto Alegre, RS} \\
+    \textbf{\large \today}
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Números Reais}
+
+\begin{defn}
+    O conjunto dos números reais \(\mathbb{R}\) é um \emph{corpo ordenado completo} único, munido de duas operações binárias, adição \(\left(+\right)\) e multiplicação \(\left(\cdot\right)\), que satisfazem os seguintes axiomas.
+    \begin{description}
+        \item[\textbf{Axioma I}] (Comutatividade). Se \(a, b \in \mathbb{R}\), então \(a + b = b + a\) e \(a \cdot b = b \cdot a\).
+        \item[\textbf{Axioma II}] (Distributividade). Se \(a, b, c \in \mathbb{R}\), então \(a \cdot (b + c) = a \cdot b + a \cdot c\).
+        \item[\textbf{Axioma III}] (Associatividade). Se \(a, b, c \in \mathbb{R}\), então \(a + (b + c) = (a + b) + c\) e \(a \cdot (b \cdot c) = (a \cdot b) \cdot c\).
+        \item[\textbf{Axioma IV}] (Existência de elemento neutro). Existe \(0, 1 \in \mathbb{R}\) tais que \(a + 0 = a\) e \(a \cdot 1 = a\) para todo \(a \in \mathbb{R}\).
+        \item[\textbf{Axioma V}] (Existência de inverso). Para todo \(a \in \mathbb{R}\), existe \(-a \in \mathbb{R}\) tal que \(a + (-a) = 0\). Se \(a \neq 0\), então existe \(a^{-1} \in \mathbb{R}\) tal que \(a \cdot a^{-1} = 1\).
+        \item[\textbf{Axioma VI}] (Axioma da Ordem). Se \(a, b \in \mathbb{R}\), então \(a < b\) se e somente se \(b - a \in \mathcal{P}\).
+        \item[\textbf{Axioma VII}] (Axioma da Completude). O conjunto \(\mathbb{R}\) possui a propriedade de \emph{menor cota superior}, isto é, todo subconjunto não-vazio \(A \subseteq \mathbb{R}\) que é limitado superiormente tem um supremo, ou seja, existe \(\sup A \in \mathbb{R}\) para todo \(A\).
+    \end{description}
+\end{defn}
+
+\begin{thm}
+    Seja \(A \subseteq \mathbb{R}\). Então \(\sup A = \alpha\) sse
+    \begin{itemize}
+        \item [(i)] \(\alpha\) é uma cota superior de \(A\);
+        \item [(ii)] Dado qualquer \(\varepsilon > 0\), existe \(x \in A\) tal que \(x > \alpha - \varepsilon\).
+    \end{itemize}
+\end{thm}
+
+\begin{lem} (O princípio arquimediano)
+    Se \(a\) e \(b\) são números reais com \(a > 0\), então existe um número natural \(n\) tal que \(na > b\). Em particular, para todo \(\varepsilon > 0\), existe \(n \in \mathbb{N}\) tal que \(1/n < \varepsilon\).
+\end{lem}
+
+\begin{thm}
+    Os racionais formam um subconjunto denso dos reais.
+\end{thm}
+
+\begin{prcp} (Princípio da Boa Ordem)
+    Todo subconjunto não-vazio dos números naturais \(\mathbb{N}\) possui um menor elemento.
+\end{prcp}
+
+\section{Cardinalidade}
+
+\section{Sequências}
+
+\section{Séries}
+
+\section{Topologia da Reta}
+
+\section{Continuidade}
+
+
+
+\newpage
+\section{Diferenciação}
+
+\begin{defn} (diferenciabilidade)
+    Seja \(I\) um intervalo, \(f: I \to \mathbb{R}\) e \(c \in I\). Dizemos que \(f\) é diferenciável em \(c\) se
+
+    \begin{equation}
+        \lim_{x \to c} \frac{f(x) - f(c)}{x - c}
+    \end{equation}
+
+    \noindent existe, isto é, se o limite é igual a um número real.
+
+    Se \(C\) é a coleção de pontos em que \(f\) é diferenciável, então a derivada de \(f\) é a função \(f': C \to \mathbb{R}\) onde
+
+    \begin{equation}
+        f'(c) \coloneq \lim_{x \to c} \frac{f(x) - f(c)}{x - c}, \quad c \in C.
+    \end{equation}
+\end{defn}
+
+\begin{thm} (diferenciabilidade \(\implies\) continuidade)
+    Suponha que \(I\) seja um intervalo e \(f: I \to \mathbb{R}\) diferenciável em \(c \in I\). Então \(f\) é contínua em \(c\).
+\end{thm}
+
+\begin{prop} (linearidade da derivada)
+    Seja \(I\) um intervalo e sejam \(f, g : I \to \mathbb{R}\) diferenciáveis em \(c \in I\) e \(k \in \mathbb{R}\). Então
+    \begin{itemize}
+        \item [(i)] \(f + g\) é diferenciável em \(c\) e \((f + g)'(c) = f'(c) + g'(c)\);
+        \item [(ii)] \(f - g\) é diferenciável em \(c\) e \((f - g)'(c) = f'(c) - g'(c)\);
+        \item [(iii)] \(k \cdot f\) é diferenciável em \(c\) e \((k \cdot f)'(c) = k \cdot f'(c)\).
+    \end{itemize}
+\end{prop}
+
+\begin{thm} (regra do produto)
+    Seja \(I\) um intervalo e sejam \(f, g : I \to \mathbb{R}\) diferenciáveis em \(c \in I\). Então \(f \cdot g\) é diferenciável em \(c\) e
+    \begin{equation}
+        (fg)'(c) = f'(c)\ g(c) + f(c)\ g'(c).
+    \end{equation}
+\end{thm}
+
+\begin{thm} (regra do quociente)
+    Seja \(I\) um intervalo e sejam \(f, g : I \to \mathbb{R}\) diferenciáveis em \(c \in I\). Suponha que \(g(c) \neq 0\). Então \(f/g\) é diferenciável em \(c\) e
+    \begin{equation}
+        \left(\frac{f}{g}\right)'\left(c\right) = \frac{f'(c)\ g(c) - f(c)\ g'(c)}{(g(c))^2}.
+    \end{equation}
+\end{thm}
+
+\begin{thm} (regra da cadeia)
+    Sejam \(I_1\) e \(I_2\) intervalos, \(g : I_1 \to I_2\) e \(f : I_2 \to \mathbb{R}\). Se \(g\) é diferenciável em \(c \in I_1\) e \(f\) é diferenciável em \(g(c) \in I_2\), então \(f \circ g\) é diferenciável em \(c\) e
+    \begin{equation}
+        (f \circ g)'(c) = f'(g(c)) \cdot g'(c).
+    \end{equation}
+\end{thm}
+
+\begin{thm} (definição de máximo e mínimo locais)
+    Seja \(f : A \to \mathbb{R}\). Dizemos que \(f\) tem um \emph{máximo local} em \(c \in A\) se existe um \(\delta > 0\) tal que para todo \(x \in A\) com \(|x - c| < \delta\), temos \(f(x) \leq f(c)\). Dizemos que \(f\) tem um \emph{mínimo local} em \(c \in A\) se existe um \(\delta > 0\) tal que para todo \(x \in A\) com \(|x - c| < \delta\), temos \(f(x) \geq f(c)\).
+\end{thm}
+
+\begin{prop} (máximos e mínimos locais ocorrem em pontos críticos)
+    Seja \(I\) um intervalo aberto, \(f : I \to \mathbb{R}\) diferenciável em \(c \in I\). Se \(f\) tem um máximo ou mínimo local em \(c\), então \(f'(c) = 0\).
+\end{prop}
+
+\begin{thm} (Darboux)
+    Suponha \(f : [a, b] \to \mathbb{R}\) diferenciável. Se \(\alpha\) está entre \(f'(a)\) e \(f'(b)\), então existe \(c \in (a, b)\) tal que \(f'(c) = \alpha\).
+\end{thm}
+
+\begin{thm} (Rolle)
+    Seja \(f : [a, b] \to \mathbb{R}\) contínua em \([a, b]\), diferenciável em \((a, b)\) e tal que \(f(a) = f(b)\). Então existe \(c \in (a, b)\) onde \(f'(c) = 0\).
+\end{thm}
+
+\begin{thm} (teorema do valor médio para derivadas)
+    Seja \(f : [a, b] \to \mathbb{R}\) contínua em \([a, b]\) e diferenciável em \((a, b)\). Então existe \(c \in (a, b)\) tal que
+    \begin{equation}
+        f'(c) = \frac{f(b) - f(a)}{b - a}.
+    \end{equation}
+\end{thm}
+
+\begin{thm} (teorema do valor médio de Cauchy)
+    Se \(f\) e \(g\) são funções contínuas em \([a, b]\) e diferenciáveis em \((a, b)\), então existe \(c \in (a, b)\) tal que
+    \begin{equation}
+        (f(b) - f(a)) g'(c) = (g(b) - g(a)) f'(c).
+    \end{equation}
+\end{thm}
+
+\begin{thm} (regra de L'Hôpital)
+    Suponha que \(I\) seja um intervalo aberto contendo o ponto \(a\), e que \(f : I \to \mathbb{R}\) e \(g : I \to \mathbb{R}\) sejam funções diferenciáveis em \(I\) (talvez exceto em \(a\)) com \(g'(x) \neq 0\) para todo \(x \in I\). Então, se
+
+    \begin{equation*}
+        \lim_{x \to a} f(x) = \lim_{x \to a} g(x) = 0 \quad \text{ou} \quad \lim_{x \to a} f(x) = \lim_{x \to a} g(x) = \pm \infty
+    \end{equation*}
+
+    \noindent então 
+
+    \begin{equation}
+        \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}.
+    \end{equation}
+
+    \noindent dado que o limite do lado direito existe.
+
+\end{thm}
+
+\newpage
+
+\section{Integral de Riemann}
+
+\begin{defn}
+    Uma partição de \([a,b]\) é um conjunto finito \(P = \{x_0, x_1, \ldots, x_n\}\) tal que \(a = x_0 < x_1 < \cdots < x_n = b\).
+\end{defn}
+
+\begin{defn}
+    Considere a função \(f : [a,b] \to \mathbb{R}\) e uma partição \(P = \{x_0, x_1, \ldots, x_n\}\) de \([a,b]\). Para cada \(i = 1, 2, \ldots, n\), definimos
+
+    \begin{itemize}
+        \item a \emph{soma superior} como \[U(f, P) \coloneq \sum_{i=1}^{n} M_i (x_i - x_{i-1}),\] onde \(M_i = \sup\{f(x) : x \in [x_{i-1}, x_i]\}\);
+        \item a \emph{soma inferior} como \[L(f, P) \coloneq \sum_{i=1}^{n} m_i (x_i - x_{i-1}),\] onde \(m_i = \inf\{f(x) : x \in [x_{i-1}, x_i]\}\).
+    \end{itemize}
+\end{defn}
+
+\begin{defn}
+    Considere a partição \(P = \{x_0, x_1, \ldots, x_n\}\) de \([a,b]\). Uma partição \(Q\) de \([a,b]\) é uma refinamento de \(P\) se \(P \subseteq Q\).
+\end{defn}
+
+\begin{prop} (refinamentos refinam)
+    Considere a função \(f : [a,b] \to \mathbb{R}\) e uma partição \(P = \{x_0, x_1, \ldots, x_n\}\) de \([a,b]\). Se \(Q\) é um refinamento de \(P\), então
+
+    \begin{equation}
+        U(f, P) \leq U(f, Q) \quad \text{e} \quad L(f, P) \leq L(f, Q).
+    \end{equation}
+\end{prop}
+
+\begin{prop} (somas inferiores \(\leq\) somas superiores)
+    Seja \(f : [a,b] \to \mathbb{R}\).
+
+    \begin{itemize}
+        \item[(a)] Se \(P\) é uma partição de \([a,b]\), então \(L(f, P) \leq U(f, P)\).
+        \item[(b)] Se \(P_1\) e \(P_2\) são quaisquer partições de \([a,b]\), então \(L(f, P_1) \leq U(f, P_2)\). 
+    \end{itemize}
+\end{prop}
+
+\begin{defn}
+    Seja \(f : [a,b] \to \mathbb{R}\) uma função limitade e seja \(\mathcal{P}\) a coleção de \emph{todas} as partições de \([a,b]\). A \emph{integral superior} de \(f\) é definida como
+
+    \begin{equation}
+        U(f) \coloneq \inf\{U(f, P) : P \in \mathcal{P}\}.
+    \end{equation}
+
+    \noindent A \emph{integral inferior} de \(f\) é definida como
+
+    \begin{equation}
+        L(f) \coloneq \sup\{L(f, P) : P \in \mathcal{P}\}.
+    \end{equation}
+\end{defn}
+
+\begin{lem}
+    Seja \(f : [a,b] \to \mathbb{R}\) uma função limitada e \(m \leq f(x) \leq M\) para todo \(x \in [a,b]\). Então
+
+    \begin{equation}
+        m(b-a) \leq L(f) \leq U(f) \leq M(b-a).
+     \end{equation}
+\end{lem}
+
+\begin{defn}
+    Uma função limitada \(f : [a,b] \to \mathbb{R}\) é dita \emph{integrável à Darboux} (equivalente à integrabilidade de Riemann) em \([a,b]\) se \(U(f) = L(f)\). Nesse caso, denotamos o valor comum \(U(f) = L(f)\) por
+
+    \begin{equation}
+        \int_a^b f(x) \, dx \coloneq L(f) = U(f).
+    \end{equation}
+\end{defn}
+
+\begin{prop}
+    Assuma que uma função limitada \(f : [a,b] \to \mathbb{R}\) é integrável à Darboux em \([a,b]\). Se \(f(x) \geq 0\) para todo \(x \in [a,b]\), então
+
+    \begin{equation}
+        0 \leq \int_a^b f(x) \, dx.
+    \end{equation}
+\end{prop}
+
+\begin{thm} (integrais analiticamente)
+    Seja \(f: [a,b] \to \mathbb{R}\) uma função limitada. Então \(f\) é integrável à Darboux em \([a,b]\) se e somente se, dado \(\varepsilon > 0\), existe uma partição \(P_\varepsilon\) de \([a,b]\) tal que
+
+    \begin{equation}
+        U(f, P_\varepsilon) - L(f, P_\varepsilon) < \varepsilon.
+    \end{equation}
+\end{thm}
+
+\begin{cor}
+    Se \(f : [a,b] \to \mathbb{R}\) é integrável, então existe uma sequência \(P_n\) de partições de \([a,b]\) onde
+
+    \begin{equation}
+        \lim_{n \to \infty} \left[ U(f, P_n) - L(f, P_n) \right] = 0.
+    \end{equation}
+\end{cor}
+
+\begin{thm} (continuidade \(\implies\) integrabilidade)
+    Se \(f : [a,b] \to \mathbb{R}\) é contínua, então \(f\) é integrável à Darboux em \([a,b]\).
+\end{thm}
+
+\begin{lem}
+    Assuma \(f : [a,b] \to \mathbb{R}\) e \(a<c<b\). Então \(f\) é integrável à Darboux em \([a,b]\) se e somente se \(f\) é integrável à Darboux em \([a,c]\) e \([c,b]\).
+\end{lem}
+
+\begin{defn}
+    O \emph{comprimento} do intervalo \([a,b]\) é igual a \(b-a\) e é denotado \(\mathcal{L}([a,b])\). Isso também é o comprimento de \((a,b)\), \((a,]b\) e \([a,b)\). Intervalos que envolvem \(\pm\infty\) são ditos ter comprimento \(\infty\).
+\end{defn}
+
+\begin{defn}
+    Um conjunto \(A\) tem \emph{medida zero} se para todo \(\varepsilon > 0\), existe uma coleção contável de intervalos \(\{I_1\}, I_2, \ldots\) tal que \(A \subseteq \bigcup_{n=1}^{\infty} I_n\) e \(\sum_{n=1}^{\infty} \mathcal{L}(I_n) < \varepsilon\).
+\end{defn}
+
+\begin{thm} (\(f\) integrável \(\iff\) descontinuidades têm medida zero)
+    Assuma que \(f : [a,b] \to \mathbb{R}\) é limitada e seja \(\mathcal{D}\) o conjunto de pontos de descontinuidade de \(f\). Então \(f\) é integrável à Lebesgue sse \(\mathcal{D}\) tem medida zero.
+\end{thm}
+
+\begin{prop}
+    Assuma que \(f: [a,b] \to \mathbb{R}\) é integrável. Se \(a<c<b\), então
+
+    \begin{equation}
+        \int_a^b f(x) \, dx = \int_a^c f(x) \, dx + \int_c^b f(x) \, dx.
+    \end{equation}
+\end{prop}
+
+\begin{prop} (linearidade da integral)
+    Assuma que \(f: [a,b] \to \mathbb{R}\) e \(g: [a,b] \to \mathbb{R}\) são integráveis. Então
+
+    \begin{itemize}
+        \item[(i)] Para todo \(k \in \mathbb{R}\), \(k \cdot f\) é integrável e \(\int_a^b k \cdot f(x) \, dx = k \int_a^b f(x) \, dx\);
+        \item[(ii)] A soma \(f + g\) é integrável e \(\int_a^b (f(x) + g(x)) \, dx = \int_a^b f(x) \, dx + \int_a^b g(x) \, dx\).
+    \end{itemize}
+\end{prop}
+
+\begin{cor} (\(f\leq g \implies \int f \leq \int g\))
+    Assuma que \(f: [a,b] \to \mathbb{R}\) e \(g: [a,b] \to \mathbb{R}\) são integráveis e \(f(x) \leq g(x)\) para todo \(x \in [a,b]\). Então
+
+    \begin{equation}
+        \int_a^b f(x) \, dx \leq \int_a^b g(x) \, dx.
+    \end{equation}
+\end{cor}
+
+\begin{cor} (desigualdade triangular da integral)
+    Se \(f: [a,b] \to \mathbb{R}\) é integrável, então \(\vert f \vert\) também é integrável, e
+
+    \begin{equation}
+        \int_a^b \vert f(x) \vert \, dx \leq \int_a^b f(x) \, dx + \int_a^b (-f(x)) \, dx = \int_a^b f(x) \, dx - \int_a^b f(x) \, dx = 0.
+    \end{equation}
+\end{cor}
+
+\begin{defn}
+    \begin{itemize}
+        \item Para toda função \(f\), definimos \[\int_{a}^{a}f(x) \, dx \coloneq 0\]
+        \item Se \(a > b\), definimos \[\int_{a}^{b}f(x) \, dx \coloneq -\int_{b}^{a}f(x) \, dx\]
+    \end{itemize}
+\end{defn}
+
+\begin{prop} (teorema do valor médio para integrais)
+    Se \(f : [a,b] \to \mathbb{R}\) é contínua, então existe \(c \in [a,b]\) tal que
+
+    \begin{equation}
+        f(c) = \frac{1}{b-a} \int_a^b f(x) \, dx.
+    \end{equation}
+\end{prop}
+
+\begin{defn}
+    Assuma que \(F\) e \(f\) são funções em \([a,b]\). Dizemos que \(F\) é uma \emph{antiderivada} de \(f\) em \([a,b]\) se \(F'(x) = f(x)\) para todo \(x \in [a,b]\).
+\end{defn}
+
+\begin{thm} (teorema fundamental do cálculo)
+    \begin{itemize}
+        \item[(i)] Se \(f : [a,b] \to \mathbb{R}\) é integrável, e \(F : [a,b] \to \mathbb{R}\) é uma primitiva de \(f\), ie \(F'(x) = f(x)\) para todo \(x \in [a,b]\), então
+
+        \begin{equation}
+            \int_a^b f(x) \, dx = F(b) - F(a).
+        \end{equation}
+
+        \item[(ii)] Seja \(g : [a,b] \to \mathbb{R}\) integrável e defina \(G : [a,b] \to \mathbb{R}\) por \[G(x) := \int_{a}^{x} g(t) \, dt.\] Então \(G\) é contínua. Ainda, se \(g\) é contínua, então \(G\) é diferenciável e \(G'(x) = g(x)\), ie \(\displaystyle\frac{d}{dx} \int_{a}^{x} g(t) \, dt = g(x)\) para todo \(x \in [a,b]\).
+
+    \end{itemize}
+\end{thm}
+
+\begin{cor} (integração por partes)
+    Se \(f\) e \(g\) são funções diferenciáveis em \([a,b]\) com derivadas contínuas, então \(fg'\) e \(f'g\) são integráveis e
+
+    \begin{equation}
+        \int_{a}^{b} fg' = f(b)g(b) - f(a)g(a) - \int_{a}^{b} f'g.
+    \end{equation}
+\end{cor}
+
+\begin{cor} (substituição-w)
+    Suponha que \(g\) seja uma função cuja derivada \(g'\) é contínua em \([a,b]\) e que \(f\) seja contínua em \(g([a,b])\). Então
+
+    \begin{equation}
+        \int_{a}^{b} f(g(x)) g'(x) \, dx = \int_{g(a)}^{g(b)} f(w) \, dw.
+    \end{equation}
+\end{cor}
+
+\newpage
+\section{Sequências e Séries de Funções}
+
+
+
+\end{document}

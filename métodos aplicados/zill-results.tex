@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{geometry}
+\usepackage{multicol}
 
 \geometry{
  a4paper,
@@ -34,6 +35,19 @@
 
 \section*{List of Results}
 
+\noindent Theorem 1.2.1 (\emph{Existence of a Unique Solution}) \dotfill 17 \\
+Theorem 2.4.1 (\emph{Criterion for an Exact Differential}) \dotfill 66 \\
+Theorem 4.1.1 (\emph{Existence of a Unique Solution}) \dotfill 119 \\
+Theorem 4.1.2 (\emph{Superposition Principle—Homogeneous Equations}) \dotfill 122 \\
+Theorem 4.1.3 (\emph{Criterion for Linearly Independent Solutions}) \dotfill 124 \\
+Theorem 4.1.4 (\emph{Existence of a Fundamental Set}) \dotfill 125 \\
+Theorem 4.1.5 (\emph{General Solution—Homogeneous Equations}) \dotfill 126 \\
+Theorem 4.1.6 (\emph{General Solution—Nonhomogeneous Equations}) \dotfill 127 \\
+Theorem 4.1.7 (\emph{Superposition Principle—Nonhomogeneous Equations}) \dotfill 128 \\
+Theorem 4.2.1 (\emph{Reduction of Order}) \dotfill 133 \\
+
+\vspace{0.5em}
+
 \noindent Theorem 7.1.1 (\emph{Transforms of Some Basic Functions}) \dotfill 289 \\
 Theorem 7.1.2 (\emph{Sufficient Conditions for Existence}) \dotfill 290 \\
 Theorem 7.1.3 (\emph{Behavior of \(F(s)\) as \(s \to \infty\)}) \dotfill 291 \\
@@ -58,9 +72,90 @@ Theorem 8.2.1 (\emph{Distinct Real Eigenvalues: General Solution—Homogeneous S
 Theorem 8.2.2 (\emph{Solutions Corresponding to a Complex Eigenvalue}) \dotfill 363 \\
 Theorem 8.2.3 (\emph{Real Solutions Corresponding to a Complex Eigenvalue}) \dotfill 364 \\\newpage
 
+\section*{1 Introduction to Differential Equations}
+
+\noindent\textbf{Theorem 1.2.1} (\emph{Existence of a Unique Solution}) Let \(R\) be a rectangular region in the \(xy\)-plane defined by \(a \leq x \leq b\), \(c \leq y \leq d\) that contains the point \(\left(x_0, y_0\right)\) in its interior. If \(f(x,y)\) and \(\partial{f}/\partial{y}\) are continuous on \(R\), then there exists some interval \(I_0: (x_0 - h, x_0 + h)\), \(h > 0\), contained in \([a, b]\), and a unique function \(y(x)\) defined on \(I_0\), that is a solution of the initial-value problem. 
+
+\section*{2 First-Order Differential Equations}
+
+\noindent\textbf{Theorem 2.4.1} (\emph{Criterion for an Exact Differential}) Let \(M(x,y)\) and \(N(x,y)\) be continuous and have continuous partial derivatives on a rectangle \(R\) in the \(xy\)-plane. Then a necessary and sufficient condition that \(M(x,y)dx + N(x,y)dy\) be an exact differential is
+
+\begin{equation}
+    \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}
+\end{equation}
+
+\section*{4 Higher-Order Differential Equations}
+
+\noindent\textbf{Theorem 4.1.1} (\emph{Existence of a Unique Solution}) Let \(a_n(x), a_{n-1}(x), \ldots, a_0(x)\) and \(g(x)\) be continuous on an interval \(I\) and let \(a_n(x)\neq 0\) for every \(x\) in \(I\). If \(x = x_0\) is any point in \(I\), then a solution \(y(x)\) of the initial-value problem exists on \(I\) and is unique.\\
+
+\noindent\textbf{Theorem 4.1.2} (\emph{Superposition Principle—Homogeneous Equations}) Let \(y_1(x), y_2, \ldots, y_k(x)\) be solutions of a homogeneous \(n\)-th order linear differential equation. Then the linear combination
+
+\begin{equation}
+    y(x) = c_1y_1(x) + c_2y_2(x) + \cdots + c_ky_k(x),
+\end{equation}
+
+\noindent where \(c_i\), \(i = 1, 2, \ldots, k\) are arbitrary constants, is also a solution of the equation.\\
+
+\noindent\textbf{Theorem 4.1.3} (\emph{Criterion for Linearly Independent Solutions}) Let \(y_1(x), y_2(x), \ldots, y_n(x)\) be \(n\) solutions of a homogeneous \(n\)-th order linear differential equation on an interval \(I\). Then the set of solutions is linearly independent on \(I\) iff the Wronskian \(W(y_1, y_2, \ldots, y_n) \neq 0\) for every \(x\) in \(I\), where
+
+\begin{equation}
+    W(y_1, y_2, \ldots, y_n) = \begin{vmatrix}
+        y_1 & y_2 & \cdots & y_n\\
+        y_1' & y_2' & \cdots & y_n'\\
+        \vdots & & & \vdots\\
+        y_1^{(n-1)} & y_2^{(n-1)} & \cdots & y_n^{(n-1)}
+    \end{vmatrix}.
+\end{equation}\\
+
+\noindent\textbf{Theorem 4.1.4} (\emph{Existence of a Fundamental Set}) There exists a fundamental set of solutions for the homogeneous \(n\)-th order linear differential equation on an interval \(I\).\\
+
+\noindent\textbf{Theorem 4.1.5} (\emph{General Solution—Homogeneous Equations}) Let \(y_1(x), y_2(x), \ldots, y_n(x)\) be a fundamental set of solutions of a homogeneous \(n\)-th order linear differential equation on an interval \(I\). Then the \emph{general solution} of the equation on the interval is given by
+
+\begin{equation}
+    y = c_1y_1(x) + c_2y_2(x) + \cdots + c_ny_n(x),
+\end{equation}
+
+\noindent where the \(c_i\), \(i = 1, 2, \ldots, n\) are arbitrary constants.\\
+
+\noindent\textbf{Theorem 4.1.6} (\emph{General Solution—Nonhomogeneous Equations}) Let \(y_p(x)\) be any particular solution of a nonhomogeneous \(n\)-th order linear differential equation on an interval \(I\) and let \(y_1, y_2, \ldots, y_n\) be a fundamental set of solutions of the associated homogeneous equation on the same interval. Then the \emph{general solution} of the nonhomogeneous equation on the interval is given by
+
+\begin{equation}
+    y = c_1y_1(x) + c_2y_2(x) + \cdots + c_ny_n(x) + y_p(x),
+\end{equation}
+
+\noindent where the \(c_i\), \(i = 1, 2, \ldots, n\) are arbitrary constants.\\
+
+\noindent\textbf{Theorem 4.1.7} (\emph{Superposition Principle—Nonhomogeneous Equations}) Let \(y_{p1}, y_{p2}, \ldots, y_{pk}\) be \(k\) particular solutions of a nonhomogeneous \(n\)-th order linear differential equation on an interval \(I\) corresponding, in turn, to \(k\) distinct functions \(g_1(x), g_2(x), \ldots, g_k(x)\). That is, suppose \(y_{pi}\) denotes a particular solution of the corresponding differential equation
+
+\begin{equation}
+    a_n(x)y^{(n)} + a_{n-1}(x)y^{(n-1)} + \cdots + a_0(x)y = g_i(x), \quad i = 1, 2, \ldots, k.
+\end{equation}\\
+
+\noindent then
+
+\begin{equation}
+    y_p(x) = y_{p1}(x) + y_{p2}(x) + \cdots + y_{pk}(x)
+\end{equation}
+
+\noindent is a particular solution of
+
+\begin{equation}
+    a_n(x)y^{(n)} + a_{n-1}(x)y^{(n-1)} + \cdots + a_0(x)y = g_1(x) + g_2(x) + \cdots + g_k(x).
+\end{equation}
+
+\noindent\textbf{Theorem 4.2.1} (\emph{Reduction of Order}) Let \(y_1(x)\) be a solution of the homogeneous \(n\)-th order linear differential equation on an interval \(I\) and that \(y_1(x) \neq 0\) for all \(x\) in \(I\). Then
+
+\begin{equation}
+    y_2(x) = y_1(x) \int \frac{e^{-\int P(x)dx}}{y_1^2(x)}dx
+\end{equation}
+
+\noindent is a second solution of the equation on the interval.\\
+
+\newpage
+
 \section*{7 The Laplace Transform}
 
-\noindent\textbf{Definition 7.1.1} (\emph{Laplace Transform}) Let \(f\) be a function defined on \([0,\infty]\). Then the function \(F\) defined by
+\noindent\textbf{Definition 7.1.1} (\emph{Laplace Transform}) Let \(f\) be a function defined on \([0,\infty)\). Then the function \(F\) defined by
 
 \begin{equation}
     \mathcal{L} \{f(t)\} = F(s) = \int_0^\infty e^{-st} f(t) dt
@@ -70,33 +165,37 @@ Theorem 8.2.3 (\emph{Real Solutions Corresponding to a Complex Eigenvalue}) \dot
 
 \noindent\textbf{Theorem 7.1.1} (\emph{Transforms of Some Basic Functions})
 
-\begin{itemize}
-    \item [(a)] \(\mathcal{L} \{1\} = \frac{1}{s}\)
-    \item [(b)] \(\mathcal{L} \{t^n\} = \frac{n!}{s^{n+1}}\) for \(n = 0, 1, 2, \ldots\)
-    \item [(c)] \(\mathcal{L} \{e^{at}\} = \frac{1}{s-a}\)
-    \item [(d)] \(\mathcal{L} \{\sin(\omega t)\} = \frac{\omega}{s^2 + \omega^2}\)
-    \item [(e)] \(\mathcal{L} \{\cos(\omega t)\} = \frac{s}{s^2 + \omega^2}\)
-    \item [(f)] \(\mathcal{L} \{\sinh(\omega t)\} = \frac{\omega}{s^2 - \omega^2}\)
-    \item [(g)] \(\mathcal{L} \{\cosh(\omega t)\} = \frac{s}{s^2 - \omega^2}\)
-\end{itemize}
+\begin{multicols}{2}
+    \begin{itemize}
+        \item [(a)] \(\displaystyle\mathcal{L} \{1\} = \frac{1}{s}\)
+        \item [(b)] \(\displaystyle\mathcal{L} \{t^n\} = \frac{n!}{s^{n+1}}\) for \(n = 0, 1, 2, \ldots\)
+        \item [(c)] \(\displaystyle\mathcal{L} \{e^{at}\} = \frac{1}{s-a}\)
+        \item [(d)] \(\displaystyle\mathcal{L} \{\sin(\omega t)\} = \frac{\omega}{s^2 + \omega^2}\)
+        \item [(e)] \(\displaystyle\mathcal{L} \{\cos(\omega t)\} = \frac{s}{s^2 + \omega^2}\)
+        \item [(f)] \(\displaystyle\mathcal{L} \{\sinh(\omega t)\} = \frac{\omega}{s^2 - \omega^2}\)
+        \item [(g)] \(\displaystyle\mathcal{L} \{\cosh(\omega t)\} = \frac{s}{s^2 - \omega^2}\)
+    \end{itemize}
+\end{multicols}
 
 \noindent\textbf{Definition 7.1.2} (\emph{Exponential Order}) A function \(f\) defined on \([0, \infty)\) is said to be of \emph{exponential order} as \(t\to\infty\) if there exist constants \(c\), \(M > 0\), and \(T > 0\) such that \(\vert f(t) \vert \leq M e^{ct}\) for all \(t > T\). If \(f\) is of exponential order, then the Laplace transform \(\mathcal{L} \{f(t)\} \leq Me^{ct}\) for all \(t > T\).\\
 
 \noindent\textbf{Theorem 7.1.2} (\emph{Sufficient Conditions for Existence}) If \(f\) is piecewise continuous on \([0, \infty)\) and of exponential order as \(t \to \infty\), then the Laplace transform \(\mathcal{L} \{f(t)\}\) exists for all \(s > c\), where \(c\) is a constant such that \(\vert f(t) \vert \leq Me^{ct}\) for all \(t > T\).\\
 
-\noindent\textbf{Theorem 7.1.3} (\emph{Behavior of \(F(s)\) as \(s \to \infty\)}) If \(f\) is piecewise continuous on \([0, \infty)\) and of exponential order as \(t \to \infty\) and \(\mathcal{L} \{f(t)\} = F(s)\), then \(\lim_{s \to \infty} F(s) = 0\).\\
+\noindent\textbf{Theorem 7.1.3} (\emph{Behavior of \(F(s)\) as \(s \to \infty\)}) If \(f\) is piecewise continuous on \([0, \infty)\) and of exponential order as \(t \to \infty\) and \(\mathcal{L} \{f(t)\} = F(s)\), then \(\displaystyle\lim_{s \to \infty} F(s) = 0\).\\
 
 \noindent\textbf{Theorem 7.2.1} (\emph{Some Inverse Transforms})
 
-\begin{itemize}
-    \item [(a)] \(\mathcal{L}^{-1} \left\{ \frac{1}{s} \right\} = 1\)
-    \item [(b)] \(\mathcal{L}^{-1} \left\{ \frac{n!}{s^{n+1}} \right\} = t^n\) for \(n = 0, 1, 2, \ldots\)
-    \item [(c)] \(\mathcal{L}^{-1} \left\{ \frac{1}{s-a} \right\} = e^{at}\)
-    \item [(d)] \(\mathcal{L}^{-1} \left\{ \frac{\omega}{s^2 + \omega^2} \right\} = \sin(\omega t)\)
-    \item [(e)] \(\mathcal{L}^{-1} \left\{ \frac{s}{s^2 + \omega^2} \right\} = \cos(\omega t)\)
-    \item [(f)] \(\mathcal{L}^{-1} \left\{ \frac{\omega}{s^2 - \omega^2} \right\} = \sinh(\omega t)\)
-    \item [(g)] \(\mathcal{L}^{-1} \left\{ \frac{s}{s^2 - \omega^2} \right\} = cosh(\omega t)\)
-\end{itemize}
+\begin{multicols}{2}
+    \begin{itemize}
+        \item [(a)] \(\displaystyle\mathcal{L}^{-1} \left\{ \frac{1}{s} \right\} = 1\)
+        \item [(b)] \(\displaystyle\mathcal{L}^{-1} \left\{ \frac{n!}{s^{n+1}} \right\} = t^n\) for \(n = 0, 1, 2, \ldots\)
+        \item [(c)] \(\displaystyle\mathcal{L}^{-1} \left\{ \frac{1}{s-a} \right\} = e^{at}\)
+        \item [(d)] \(\displaystyle\mathcal{L}^{-1} \left\{ \frac{\omega}{s^2 + \omega^2} \right\} = \sin(\omega t)\)
+        \item [(e)] \(\displaystyle\mathcal{L}^{-1} \left\{ \frac{s}{s^2 + \omega^2} \right\} = \cos(\omega t)\)
+        \item [(f)] \(\displaystyle\mathcal{L}^{-1} \left\{ \frac{\omega}{s^2 - \omega^2} \right\} = \sinh(\omega t)\)
+        \item [(g)] \(\displaystyle\mathcal{L}^{-1} \left\{ \frac{s}{s^2 - \omega^2} \right\} = cosh(\omega t)\)
+    \end{itemize}
+\end{multicols}
 
 \noindent\textbf{Theorem 7.2.2} (\emph{Transform of a Derivative}) Suppose \(f\), \(f'\), \ldots, \(f^{n-1}\) are continuous on \([0, \infty)\), and \(f\), \(f'\), \ldots, \(f^{n-1}\) are of exponential order as \(t \to \infty\). Then for \(s > c\),
 
@@ -134,7 +233,7 @@ Theorem 8.2.3 (\emph{Real Solutions Corresponding to a Complex Eigenvalue}) \dot
     \mathcal{L} \{f*g\} = \mathcal{L} \{f(t)\} \mathcal{L} \{g(t)\} = F(s)G(s).
 \end{equation}
 
-\noindent\textbf{Theorem 7.4.3} (\emph{Transform of a Periodic Function}) If \(f(t)\) is piecewise continuous \([0,\infty)\), of exponential order, and periodic with period \(T\), then
+\noindent\textbf{Theorem 7.4.3} (\emph{Transform of a Periodic Function}) If \(f\) is piecewise continuous \([0,\infty)\), of exponential order, and periodic with period \(T\), then
 
 \begin{equation}
     \mathcal{L} \{f(t)\} = \frac{1}{1-e^{-sT}} \int_0^T e^{-st} f(t) dt.
