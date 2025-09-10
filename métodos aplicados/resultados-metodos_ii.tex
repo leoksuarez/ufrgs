@@ -1,0 +1,90 @@
+\documentclass[12pt]{article}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{enumitem}
+\setlist[description]{leftmargin=1cm,labelindent=1cm}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[portuguese]{babel}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{prop}[thm]{Proposição}
+\newtheorem{lem}[thm]{Lema}
+\newtheorem{cor}[thm]{Corolário}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definição}
+\newtheorem{exmp}[thm]{Exemplo}
+\newtheorem{prblm}[thm]{Problema}
+\newtheorem{prcp}[thm]{Princípio}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Nota}
+
+\geometry{
+ a4paper,
+ left=3cm,
+ top=2cm,
+ right=2cm,
+ bottom=2cm
+}
+
+\begin{document}
+\begin{center}
+    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
+    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
+    \vspace{3cm}
+    \textbf{\Large MÉTODOS APLICADOS II} \\
+    \vspace{1cm}
+    \textbf{\large LISTA DE RESULTADOS} \\
+    \vspace{3cm}
+
+    \textbf{LEONARDO SUAREZ}
+
+    \vfill
+    \textbf{\large Porto Alegre, RS} \\
+    \textbf{\large \today}
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Soluções de séries de potências de equações lineares}
+
+\begin{defn}
+    Um ponto \(x=x_0\) é chamado de \emph{ponto ordinário} da equação diferencial
+    \begin{equation}\label{eq:edo1}
+        a_2(x)y'' + a_1(x)y' + a_0(x)y = 0,
+    \end{equation}
+    \noindent se ambos os coeficientes \(P(x)\) e \(Q(x)\) na forma padrão
+    \begin{equation}\label{eq:edo2}
+        y'' + P(x)y' + Q(x)y = 0,
+    \end{equation}
+\noindent são analíticos em \(x_0\). Caso contrário, \(x_0\) é chamado de \emph{ponto singular}.
+\end{defn}
+
+\begin{thm} (existência de soluções por séries de potências)
+    Se \(x_0\) é ponto ordinário da equação \eqref{eq:edo1}, então podemos encontrar duas soluções linearmente independentes na forma de séries de potências centradas em \(x_0\), ou seja,
+    \[
+    y = \sum_{n=0}^{\infty} c_n (x - x_0)^n.
+    \]
+    Uma solução de série de potência converge pelo menos no intervalo \(|x - x_0| < R\), onde \(R\) é a distância do ponto \(x_0\) ao ponto singular mais próximo, ou também a \emph{cota inferior} do raio de convergência.
+\end{thm}
+
+\begin{defn}
+    Uma ponto singular \(x=x_0\) é chamado de \emph{ponto singular regular} da equação \eqref{eq:edo1} se as funções \(p(x)=(x-x_0)P(x)\) e \(q(x)=(x-x_0)^2Q(x)\) são analíticas em \(x_0\). Caso contrário, \(x_0\) é chamado de \emph{ponto singular irregular}.
+\end{defn}
+
+\begin{thm} (teorema de Frobenius)
+    Se \(x_0\) é ponto singular regular da equação \eqref{eq:edo1}, então existe pelo menos uma solução da forma
+    \begin{equation}
+        y = (x - x_0)^r \sum_{n=0}^{\infty} c_n (x - x_0)^n = \sum_{n=0}^{\infty} c_n (x - x_0)^{n+r},
+    \end{equation}
+    \noindent onde \(r\) é a raiz de uma equação indicial associada. A série converge pelo menos em algum intervalo \(0<x-x_0<R\).
+\end{thm}
+
+\end{document}

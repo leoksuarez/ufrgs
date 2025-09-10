@@ -1,0 +1,248 @@
+\documentclass[12pt]{article}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{enumitem}
+\setlist[description]{leftmargin=1cm,labelindent=1cm}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[portuguese]{babel}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{prop}[thm]{Proposição}
+\newtheorem{lem}[thm]{Lema}
+\newtheorem{cor}[thm]{Corolário}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definição}
+\newtheorem{exmp}[thm]{Exemplo}
+\newtheorem{prblm}[thm]{Problema}
+\newtheorem{prcp}[thm]{Princípio}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Nota}
+
+\geometry{
+ a4paper,
+ left=3cm,
+ top=2cm,
+ right=2cm,
+ bottom=2cm
+}
+
+\begin{document}
+\begin{center}
+    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
+    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
+    \vspace{3cm}
+    \textbf{\Large ÁLGEBRA LINEAR} \\
+    \vspace{1cm}
+    \textbf{\large LISTA DE RESULTADOS} \\
+    \vspace{3cm}
+
+    \textbf{LEONARDO SUAREZ}
+
+    \vfill
+    \textbf{\large Porto Alegre, RS} \\
+    \textbf{\large \today}
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Espaços Vetoriais}
+\section{Espaços Vetoriais de Dimensão Finita}
+
+\begin{prop} (span é o menor subespaço que contém todos os vetores)
+    O span de uma lista de vetores em \(V\) é o menor subespaço de \(V\) que contém todos os vetores da lista.
+\end{prop}
+
+\begin{defn}
+    Um espaço vetorial \(V\) é dito de \emph{dimensão finita} se existe uma lista finita de vetores em \(V\) que gera \(V\). Caso contrário, \(V\) é dito de \emph{dimensão infinita}.
+\end{defn}
+
+\begin{defn}
+    Uma lista \(v_1, \ldots, v_n\) de vetores em \(V\) é dita \emph{linearmente independente} se a única escolha de escalares \(a_1, \ldots, a_n\) em \(\mathbb{F}\) que satisfaz
+    \begin{equation}
+        a_1 v_1 + a_2 v_2 + \cdots + a_n v_n = 0
+    \end{equation}
+    \noindent é \(a_1 = a_2 = \cdots = a_n = 0\). Caso contrário, a lista é dita \emph{linearmente dependente}. A lista vazia é dita linearmente independente.
+\end{defn}
+
+\begin{lem} (lema de dependência linear)
+    Suponha que \(v_1, \ldots, v_n\) é linearmente dependente em \(V\). Então existe \(j \in \{1, \ldots, n\}\) tal que
+    \begin{equation}
+        v_j \in \text{span}(v_1, \ldots, v_{j-1}).
+    \end{equation}
+    \noindent Ainda, se \(j\) satisfaz a condição acima e o \(j\)-ésimo vetor for removido da lista, então o span dos vetores restantes é igual a \(\text{span}(v_1, \ldots, v_n)\).
+\end{lem}
+
+\begin{prop} (tamanho de uma lista linearmente independente \(\leq\) tamanho de uma lista geradora)
+    Em um espaço vetorial \(V\) de dimensão finita, o tamanho de qualquer lista linearmente independente é menor ou igual ao tamanho de qualquer lista geradora.
+\end{prop}
+
+\begin{prop} (subespaços de dimensão finita)
+    Todo subespaço de um espaço vetorial de dimensão finita é de dimensão finita.
+\end{prop}
+
+\begin{defn}
+    Uma \emph{base} de um espaço vetorial \(V\) é uma lista de vetores \(v_1, \ldots, v_n\) em \(V\) que é linearmente independente e gera \(V\).
+\end{defn}
+
+\begin{prop} (critério para base)
+    Uma lista de vetores \(v_1, \ldots, v_n\) em um \(V\) é uma base de \(V\) sse todo vetor em \(V\) pode ser escrito de maneira única como uma combinação linear de \(v_1, \ldots, v_n\), isto é,
+    \begin{equation}
+        v = a_1 v_1 + a_2 v_2 + \cdots + a_n v_n,
+    \end{equation}
+    \noindent onde \(a_1, \ldots, a_n\) são escalares em \(\mathbb{F}\).
+\end{prop}
+
+\begin{prop} (toda lista geradora possui uma base)
+    Toda lista geradora em um espaço vetorial pode ser reduzida a uma base do espaço vetorial.
+\end{prop}
+
+\begin{prop} (toda lista linearmente independente pode ser estendida a uma base)
+    Toda lista linearmente independente em um espaço vetorial de dimensão finita pode ser estendida a uma base do espaço vetorial.
+\end{prop}
+
+\begin{prop} (todo subespaço de \(V\) é parte de uma soma direta igual a \(V\))
+    Suponha que \(V\) seja um espaço vetorial de dimensão finita e \(U\) é um subespaço de \(V\). Então existe um subespaço \(W\) de \(V\) tal que \(V = U \oplus W\).
+\end{prop}
+
+\begin{prop} (o tamanho da base não depende da base)
+    Se \(V\) é um espaço vetorial de dimensão finita, então todas as bases de \(V\) têm o mesmo tamanho.
+\end{prop}
+
+\begin{defn}
+    A \emph{dimensão} de um espaço vetorial \(V\) de dimensão finita é o tamanho de qualquer base de \(V\).
+\end{defn}
+
+\begin{prop} (dimensão do subespaço)
+    Se \(V\) é um espaço vetorial de dimensão finita e \(U\) é um subespaço de \(V\), então \(\dim(U) \leq \dim(V)\).
+\end{prop}
+
+\begin{prop} (lista linearmente independente com tamanho igual à dimensão é base)
+    Se \(V\) é um espaço vetorial de dimensão finita, então toda lista linearmente independente de vetores em \(V\) com tamanho igual a \(\dim(V)\) é uma base de \(V\).
+\end{prop}
+
+\begin{cor} (subespaço com mesma dimensão é o espaço todo)
+    Se \(V\) é um espaço vetorial de dimensão finita, então todo subespaço \(U\) de \(V\) com \(\dim(U) = \dim(V)\) é igual a \(V\).
+\end{cor}
+
+\begin{prop} (lista geradora com tamanho igual à dimensão é base)
+    Se \(V\) é um espaço vetorial de dimensão finita, então toda lista geradora de vetores em \(V\) com tamanho igual a \(\dim(V)\) é uma base de \(V\).
+\end{prop}
+
+\begin{prop} (dimensão de soma)
+    Se \(V_1\) e \(V_2\) são subespaços de um espaço vetorial de dimensão finita \(V\), então
+    \begin{equation}
+        \dim(V_1 + V_2) = \dim(V_1) + \dim(V_2) - \dim(V_1 \cap V_2).
+    \end{equation}
+\end{prop}
+
+\section{Transformações Lineares}
+
+\begin{defn}
+    Uma transformação linear de \(V\) em \(W\) é uma função \(T: V \to W\) com as seguintes propriedades.
+    \begin{enumerate}
+        \item \(T(u + v) = T(u) + T(v)\), para todo \(u, v \in V\).\hfill\emph{(aditividade)}
+        \item \(T(\lambda u) = \lambda T(u)\), para todo \(u \in V\) e todo escalar \(\lambda \in \mathbb{F}\).\hfill\emph{(homogeneidade)}
+    \end{enumerate}
+\end{defn}
+
+\begin{lem}
+    Suponha que \(v_1,\ldots,v_n\) é uma base de \(V\) e \(w_1,\ldots,w_n \in W\). Então existe uma única transformação linear \(T: V \to W\) tal que \(T(v_k) = w_k\), para \(k = 1, \ldots, n\).
+\end{lem}
+
+\begin{defn}
+    Suponha \(S, T \in \mathcal{L}(V, W)\) e \(\lambda \in \mathbb{F}\). A \emph{soma} \(S + T\) e o \emph{produto por escalar} \(\lambda T\) são as transformações lineares de \(V\) em \(W\) definidas por
+    \[
+        (S + T)(v) = S(v) + T(v) \quad \text{e} \quad (\lambda T)(v) = \lambda (T(v)),
+    \]
+    \noindent para todo \(v \in V\).
+\end{defn}
+
+\begin{cor}
+    Com as operações de soma e produto escalar definidas acima, \(\mathcal{L}(V, W)\) é um espaço vetorial sobre \(\mathbb{F}\).
+\end{cor}
+
+\begin{defn}
+    Se \(T \in \mathcal{L}(U, V)\) e \(S \in \mathcal{L}(V, W)\), então o \emph{produto} \(ST\) é a transformação linear de \(U\) em \(W\) definida por
+    \[
+        (ST)(u) = S(T(u)),
+    \]
+    \noindent para todo \(u \in U\).
+\end{defn}
+
+\begin{prop} (propriedades algébricas do produto de transformações lineares)
+    \begin{itemize}
+        \item \(\left(T_1 T_2\right)T_3 = T_1\left(T_2T_3\right)\) sempre que \(T_1, T_2, T_3\) são transformações lineares tais que os produtos são definidos.\hfill\emph{(associatividade)}
+        \item \(T_1I = IT_1 = T_1\) sempre que \(T_1 \in \mathcal{L}(V, W)\), onde o primeiro \(I\) é a identidade em \(V\) e o segundo \(I\) é a identidade em \(W\).\hfill\emph{(elemento neutro)}
+        \item \(\left(S_1 + S_2\right)T = S_1T + S_2T\) e \(S\left(T_1 + T_2\right) = ST_1 + ST_2\), sempre que \(T, T_1, T_2 \in \mathcal{L}(U, V)\) e \(S, S_1, S_2 \in \mathcal{L}(V, W)\).\hfill\emph{(distributividade)}
+    \end{itemize}
+\end{prop}
+
+\begin{cor}
+    Suponha que \(T\) seja uma transformação linear de \(V\) em \(W\). Então \(T(0) = 0\).
+\end{cor}
+
+\begin{defn}
+    Para \(T \in \mathcal{L}(V, W)\), o \emph{espaço nulo} de \(T\) é o subconjunto de \(V\) definido por
+    \[
+        \mathcal{N}(T) = \{v \in V : T(v) = 0\}.
+    \]
+\end{defn}
+
+\begin{prop}
+    Seja \(T \in \mathcal{L}(V, W)\). Então \(\mathcal{N}(T)\) é um subespaço de \(V\).
+\end{prop}
+
+\begin{defn}
+    Uma função \(T: V \to W\) é \emph{injetora} se \(T(v_1) = T(v_2)\) implica \(v_1 = v_2\), para todo \(v_1, v_2 \in V\).
+\end{defn}
+
+\begin{prop}
+    Seja \(T \in \mathcal{L}(V, W)\). Então \(T\) é injetora se e somente se \(\mathcal{N}(T) = \{0\}\).
+\end{prop}
+
+\begin{defn}
+    Para \(T \in \mathcal{L}(V, W)\), a \emph{imagem} de \(T\) é o subconjunto de \(W\) definido por
+    \[
+        \text{Im}(T) = \{T(v) : v \in V\}.
+    \]
+\end{defn}
+
+\begin{prop}
+    Seja \(T \in \mathcal{L}(V, W)\). Então \(\text{Im}(T)\) é um subespaço de \(W\).
+\end{prop}
+
+\begin{defn}
+    Uma função \(T: V \to W\) é \emph{sobrejetora} se para todo \(w \in W\) existe \(v \in V\) tal que \(T(v) = w\).
+\end{defn}
+
+\begin{thm} (teorema fundamental das transformações lineares)
+    Suponha que \(V\) seja um espaço vetorial de dimensão finita e que \(T \in \mathcal{L}(V, W)\). Então \(\text{Im}(T)\) é de dimensão finita e
+    \begin{equation}
+        \dim V = \dim \mathcal{N}(T) + \dim \text{Im}(T).
+    \end{equation}
+\end{thm}
+
+\begin{cor}
+    Suponha que \(V\) e \(W\) são espaços vetoriais de dimensão finita com \(\dim V > \dim W\). Então nenhuma transformação linear de \(V\) em \(W\) é injetora.
+\end{cor}
+
+\begin{cor}
+    Suponha que \(V\) e \(W\) são espaços vetoriais de dimensão finita com \(\dim V < \dim W\). Então nenhuma transformação linear de \(V\) em \(W\) é sobrejetora.
+\end{cor}
+
+\section{Polinômios}
+\section{Autovalores e Autovetores}
+\section{Espaços com Produto Interno}
+\section{Operadores em Espaços com Produto Interno}
+\section{Operadores em Espaços Vetoriais Complexos}
+\section{Álgebra Multilinear e Determinantes}
+
+\end{document}
