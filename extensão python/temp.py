@@ -20,3 +20,13 @@ for i in range(n):
     plt.pause(0.6)
 
 # %%
+
+# %%
+pessoa1 = {
+    "nome": "paulo",
+    "idade": 65,
+    "cidade": "porto alegre",
+    "profissao": "matematico"
+}
+print(pessoa1.get("pais", "brasil"))
+# %%

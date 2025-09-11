@@ -87,4 +87,53 @@
     \noindent onde \(r\) é a raiz de uma equação indicial associada. A série converge pelo menos em algum intervalo \(0<x-x_0<R\).
 \end{thm}
 
+\section{Séries de Fourier}
+
+\begin{defn} 
+    O \emph{produto interno} de duas funções \(f_1\) e \(f_2\) em um intervalo \([a,b]\) é o número
+    \begin{equation}
+        \langle f_1, f_2 \rangle = \int_a^b f_1(x)f_2(x) \, dx.
+    \end{equation}
+\end{defn}
+
+\begin{defn}
+    Duas funções \(f_1\) e \(f_2\) são ditas \emph{ortogonais} em \([a,b]\) se
+    \begin{equation}
+        \langle f_1, f_2 \rangle = 0.
+    \end{equation}
+\end{defn}
+
+\begin{defn}
+    Um conjunto de funções reais \(\{\phi_1(x), \phi_2(x), \ldots\}\) é \emph{ortogonal} em \([a,b]\) se
+    \begin{equation}
+        \langle \phi_m, \phi_n \rangle = \int_a^b \phi_m(x)\phi_n(x) \, dx = 0, \quad m \neq n.
+    \end{equation}
+\end{defn}
+
+\begin{defn}
+    A \emph{norma quadrada} de uma função \(\phi_n\) é \(\Vert \phi _n \Vert^2 = \langle \phi_n, \phi_n \rangle = \int_a^b \phi_n(x)^2 \, dx\), e a \emph{norma} é dada por \(\Vert \phi_n \Vert = \sqrt{\langle \phi_n, \phi_n \rangle} = \sqrt{\int_a^b \phi_n(x)^2 \, dx}\). Se \(\Vert \phi_n \Vert = 1\), então \(\{\phi_n\}\) é um conjunto \emph{ortonormal} no intervalo \([a,b]\).
+\end{defn}
+
+\begin{defn}
+    Um conjunto de funções reais \(\{\phi_0(x), \phi_1(x), \phi_2(x), \ldots\}\) é \emph{ortogonal com respeito a uma função peso} \(w(x)\) em \([a,b]\) se
+    \begin{equation}
+        \int_{a}^{b} w(x)\phi_m(x)\phi_n(x) \, dx = 0, \quad m \neq n.
+    \end{equation}
+
+    \noindent A série 
+    \begin{equation}
+    f(x)=\sum_{n=0}^{\infty} c_n \phi_n(x)\,, \quad c_n=\frac{\int_{a}^{b} f(x)w(x)\phi_n(x) \, dx}{\Vert \phi_n(x)\Vert^2}.
+    \end{equation}
+    \noindent é chamada de \emph{série de Fourier generalizada} de \(f\).
+\end{defn}
+
+\begin{thm} (propriedades do problema de Sturm-Liouville regular)
+    \begin{enumerate}
+        \item[(a)] Existe um número infinito de autovalores reais que podem ser ordenados em uma sequência crescente \( \lambda_1 < \lambda_2 < \lambda_3 < \ldots \) tal que \( \lim_{n \to \infty} \lambda_n = +\infty \).
+        \item[(b)] A cada autovalor \( \lambda_n \) corresponde um único autovetor \( y_n(x) \), a menos de um fator multiplicativo constante.
+        \item[(c)] Autovetores correspondentes a autovalores distintos são linearmente independentes.
+        \item[(d)] O conjunto de autovetores correspondente ao conjunto de autovalores é ortogonal com respeito à função peso \( p(x) \) no intervalo \([a,b]\).
+    \end{enumerate}
+\end{thm}
+
 \end{document}

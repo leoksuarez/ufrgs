@@ -6,21 +6,22 @@
 pessoa1 = {
     "nome": "paulo",
     "idade": 65,
-    "cidade": "porto alegre"
+    "cidade": "porto alegre",
+    "profissao": "matematico"
 }
-print(pessoa1)  # saída: {'nome': 'paulo', 'idade': 65, 'cidade': 'porto alegre'}
+print(pessoa1)  # saída: {'nome': 'paulo', 'idade': 65, 'cidade': 'porto alegre', 'profissao': 'matematico'}
 
 # acessando valores
 print(pessoa1["nome"])  # saída: paulo
 print(pessoa1.get("idade"))  # saída: 65
 print(pessoa1.get("pais", "brasil"))  # saída: brasil (valor padrão)
 print(pessoa1.get("pais"))  # saída: None (chave não existe)
-print(pessoa1)  # saída: {'nome': 'paulo', 'idade': 65, 'cidade': 'porto alegre'}
 
 # adicionando ou atualizando valores
-pessoa1["profissao"] = "matematico"  # adiciona nova chave-valor
+pessoa1["area"] = "analise aplicada"  # adiciona nova chave-valor
 pessoa1["idade"] = 66  # atualiza valor existente
-print(pessoa1)  # saída: {'nome': 'paulo', 'idade': 66, 'cidade': 'porto alegre', 'profissao': 'matematico'}
+pessoa1.update({"cidade": "nova iorque"})
+print(pessoa1)  # saída: {'nome': 'paulo', 'idade': 66, 'cidade': 'nova iorque', 'area': 'analise aplicada'}
 
 # removendo valores
 del pessoa1["cidade"]  # remove chave-valor
@@ -34,25 +35,14 @@ for chave, valor in pessoa1.items():
 # saída:
 # nome: paulo
 # profissao: matematico
-for chave in pessoa1.keys():
-    print(chave)
-# saída:
-# nome
-# profissao
-
-for valor in pessoa1.values():
-    print(valor)
-# saída:
-# paulo
-# matematico
 
 # verificando se uma chave existe
 if "nome" in pessoa1:
-    print("A chave 'nome' existe no dicionário.")
-# saída: A chave 'nome' existe no dicionário.
+    print("a chave 'nome' existe no dicionário.")
+# saída: a chave 'nome' existe no dicionário.
 if "idade" not in pessoa1:
-    print("A chave 'idade' não existe no dicionário.")
-# saída: A chave 'idade' não existe no dicionário.
+    print("a chave 'idade' não existe no dicionário.")
+# saída: a chave 'idade' não existe no dicionário.
 
 # limpando o dicionário
 pessoa1.clear()
@@ -70,13 +60,15 @@ pessoa2 = {
 }
 print(pessoa2["endereco"]["cidade"])  # saída: porto alegre
 
-# método para atualizar dicionários
-pessoa2.update({"idade": 34, "profissao": "engenheiro de software"})
-print(pessoa2) # saída: {'nome': 'josue', 'idade': 34, 'endereco': {'rua': 'av. bento goncalves', 'numero': 6000, 'cidade': 'porto alegre'}, 'profissao': 'engenheiro de software'}
-
 # criando dicionário a partir de listas de tuplas
-chaves = ["nome", "idade", "cidade"]
-valores = ["ana", 28, "são paulo"]
+chaves = ["nome", "idade", "cidade", "profissao"]
+valores = ["luan", 22, "sao paulo", "fisico"]
 pessoa3 = dict(zip(chaves, valores)) # zip combina as listas em tuplas
-print(pessoa3)  # saída: {'nome': 'ana', 'idade': 28, 'cidade': 'são paulo'}
+print(pessoa3)  # saída: {'nome': 'luan', 'idade': 22, 'cidade': 'sao paulo', 'profissao': 'fisico'}
 
+# compreensão de dicionários
+# possui forma dict_comp = {expr-chave: expr-valor for item in colecao if condicao}
+data = {"mateus": 1, "joao": 2, "felipe": 3, "rafael": 4, "maria luiza": 5}
+ordem = {chave: valor for chave, valor in data.items() if valor <= 3}
+print(ordem)  # saída: {'mateus': 1, 'joao': 2, 'felipe': 3}
+# cria um novo dicionário apenas com os itens cujo valor é menor ou igual a 3
