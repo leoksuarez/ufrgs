@@ -1,0 +1,127 @@
+\documentclass[12pt]{article}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{enumitem}
+\setlist[description]{leftmargin=1cm,labelindent=1cm}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[portuguese]{babel}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{prop}[thm]{Proposição}
+\newtheorem{lem}[thm]{Lema}
+\newtheorem{cor}[thm]{Corolário}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definição}
+\newtheorem{exmp}[thm]{Exemplo}
+\newtheorem{prblm}[thm]{Problema}
+\newtheorem{prcp}[thm]{Princípio}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Nota}
+
+\geometry{
+ a4paper,
+ left=3cm,
+ top=2cm,
+ right=2cm,
+ bottom=2cm
+}
+
+\begin{document}
+\begin{center}
+    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
+    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
+    \vspace{3cm}
+    \textbf{\Large MATEMÁTICA DISCRETA I} \\
+    \vspace{1cm}
+    \textbf{\large LISTA DE RESULTADOS} \\
+    \vspace{3cm}
+
+    \textbf{LEONARDO SUAREZ}
+
+    \vfill
+    \textbf{\large Porto Alegre, RS} \\
+    \textbf{\large \today}
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{MÉTODOS DE CONTAGEM}
+\begin{prcp} (princípio da adição)
+    Se existem \(r_1\) objetos distintos no primeiro conjunto, \(r_2\) no segundo conjunto, \ldots, \(r_n\) no n-ésimo conjunto e esses conjuntos são \emph{disjuntos dois a dois}, então o número de maneiras de selecionar um objeto de um dos \(n\) conjuntos é \(r_1 + r_2 + \cdots + r_n\).
+\end{prcp}
+
+\begin{prcp} (princípio da multiplicação)
+    Se um processo pode ser dividido em \(n\) etapas, onde a primeira etapa pode ser realizada de \(r_1\) maneiras distintas, a segunda etapa pode ser realizada de \(r_2\) maneiras distintas, \ldots, e a n-ésima etapa pode ser realizada de \(r_n\) maneiras distintas, então o número total de maneiras de realizar o processo é \(r_1 \cdot r_2 \cdots r_n\), dado que a escolha de cada etapa é independente das outras.
+\end{prcp}
+
+\begin{prcp} (princípio da composição de conjuntos)
+    Dado qualquer conjunto \(S\) construído pelo princípio multiplicativo, é preciso saber dizer quais elementos de \(S\) são da primeira parte de \(S\) e quais são da segunda parte.
+\end{prcp}
+
+\begin{thm} (arranjos com repetições)
+    Se existem \(n\) objetos, com \(r_1\) do tipo 1, \(r_2\) do tipo 2, \ldots, \(r_m\) do tipo \(m\), onde \(r_1 + r_2 + \cdots + r_m = n\), então o número de arranjos distintos que podem ser formados com esses \(n\) objetos é dado por
+    \begin{align}
+        P(n;r_1,r_2,\ldots,r_m) &= \binom{n}{r_1}\binom{n-r_1}{r_2}\cdots\binom{n-r_1-r_2-\cdots-r_{m-1}}{r_m} \\
+        &= \frac{n!}{r_1!r_2!\cdots r_m!}.
+    \end{align}
+\end{thm}
+
+\begin{thm} (seleções com repetições)
+    O número de seleções com repetição de \(r\) objetos dentre \(n\) tipos distintos é \(C(r+n-1,r)\).
+\end{thm}
+
+\begin{prop} (formas equivalentes para seleções com repetições)
+    \begin{enumerate}
+        \item O número de maneiras de selecionar \(r\) objetos com repetição dentro \(n\) tipos distintos.
+        \item O número de maneiras de distribuir \(r\) objetos idênticos em \(n\) caixas distintas.
+        \item O número de soluções inteiras não negativas da equação
+        \begin{equation}
+            x_1 + x_2 + \cdots + x_n = r.
+        \end{equation}
+    \end{enumerate}
+\end{prop}
+
+\begin{thm} (teorema binomial)
+    Para quaisquer inteiros não-negativos \(n\),
+    \begin{equation}
+        (x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^k y^{n-k}.
+    \end{equation}
+\end{thm}
+
+\begin{prop} (identidades binomiais)
+    \begin{gather}
+        \binom{n}{0}+\binom{n}{1}+\binom{n}{2}+\cdots+\binom{n}{n} = 2^n \\
+        \binom{n}{0}+\binom{n+1}{1}+\binom{n+2}{2}+\cdots+\binom{n+r}{r} = \binom{n+r+1}{r+1} \\
+        \binom{r}{r}+\binom{r+1}{r}+\binom{r+2}{r}+\cdots+\binom{n}{r} = \binom{n+1}{r+1} \\
+        \binom{n}{0}^2 + \binom{n}{1}^2 + \binom{n}{2}^2 + \cdots + \binom{n}{n}^2 = \binom{2n}{n} \\
+        \sum_{k=0}^{r} \binom{m}{k}\binom{n}{r-k} = \binom{m+n}{r} \\
+        \sum_{k=0}^{m} \binom{m}{k}\binom{n}{r+k} = \binom{m+n}{m+r} \\
+        \sum_{k=n-s}^{m-r} \binom{m-k}{r}\binom{n+k}{s} = \binom{m+n+1}{r+s+1} \\
+    \end{gather}
+\end{prop}
+
+
+\section{INCLUSÃO-EXCLUSÃO}
+
+\begin{thm} (princípio da inclusão-exclusão)
+    Sejam \(A_1, A_2, \ldots, A_n\) subconjuntos finitos de um conjunto universal \(U\). Seja \(S_k\) a soma de todas as interseções de \(k\) conjuntos dentre os \(A_i\). então
+    \begin{equation}
+        \left| \bigcup_{i=1}^{n} A_i \right| = S_1 - S_2 + S_3 - S_4 + \cdots + (-1)^{n+1} S_n.
+    \end{equation}
+\end{thm}
+
+\section{FUNÇÕES GERADORAS}
+
+\section{RELAÇÕES DE RECORRÊNCIA}
+
+\section{TEORIA DE GRAFOS}
+
+\end{document}

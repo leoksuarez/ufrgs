@@ -127,6 +127,19 @@
     \noindent é chamada de \emph{série de Fourier generalizada} de \(f\).
 \end{defn}
 
+\begin{defn}
+    A \emph{série de Fourier} de uma função \(f\) definida no intervalo \((-p,p)\) é dada por
+    \begin{equation}
+        f(x) = \frac{1}{2}a_0 + \sum_{n=1}^{\infty} \left( a_n \cos\left(\frac{n\pi x}{p}\right) + b_n \sin\left(\frac{n\pi x}{p}\right) \right),
+    \end{equation}
+    onde os coeficientes \(a_n\) e \(b_n\) são dados por
+    \begin{align}
+        a_0 &= \frac{1}{p} \int_{-p}^{p} f(x) \, dx, \\
+        a_n &= \frac{1}{p} \int_{-p}^{p} f(x) \cos\left(\frac{n\pi x}{p}\right) \, dx, \\
+        b_n &= \frac{1}{p} \int_{-p}^{p} f(x) \sin\left(\frac{n\pi x}{p}\right) \, dx.
+    \end{align}
+\end{defn}
+
 \begin{thm} (propriedades do problema de Sturm-Liouville regular)
     \begin{enumerate}
         \item[(a)] Existe um número infinito de autovalores reais que podem ser ordenados em uma sequência crescente \( \lambda_1 < \lambda_2 < \lambda_3 < \ldots \) tal que \( \lim_{n \to \infty} \lambda_n = +\infty \).
