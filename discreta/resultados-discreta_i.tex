@@ -7,6 +7,7 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 \usepackage{mathtools}
+\usepackage[hidelinks]{hyperref}
 \usepackage[portuguese]{babel}
 
 \theoremstyle{plain}
@@ -119,6 +120,27 @@
 \end{thm}
 
 \section{FUNÇÕES GERADORAS}
+
+\begin{defn}
+    Suponha que \(a_r\) seja o número de maneiras de selecionar \(r\) objetos em um certo problema de contagem. Então \(g(x)\) é a \emph{função geradora} de \(a_r\) se
+    \begin{equation}
+        g(x) = a_0 + a_1 x + a_2 x^2 + \cdots = \sum_{r=0}^{\infty} a_r x^r.
+    \end{equation}
+\end{defn}
+
+\begin{prop} (expansões polinomiais)
+    \begin{enumerate}
+        \item[\textup{(a)}] \(\displaystyle\frac{1-x^{m+1}}{1-x} = 1 + x + x^2 + \cdots + x^m\)
+        \item[\textup{(b)}] \(\displaystyle\frac{1}{1-x} = 1 + x + x^2 + x^3 + \cdots\)
+        \item[\textup{(c)}] \((1+x)^n = \displaystyle 1 + \binom{n}{1} x + \binom{n}{2} x^2 + \cdots + \binom{n}{n} x^n\)
+        \item[\textup{(d)}] \((1-x^m)^n = \displaystyle 1 - \binom{n}{1} x^m + \binom{n}{2} x^{2m} - \cdots + (-1)^n \binom{n}{n} x^{mn}\)
+        \item[\textup{(e)}] \(\frac{1}{(1-x)^n} = \displaystyle 1 + \binom{1+n-1}{n-1} x + \binom{2+n-1}{n-1} x^2 + \cdots = \sum_{k=0}^{\infty} \binom{n+k-1}{n-1} x^k\)
+        \item[\textup{(f)}] Se \(h(x)=f(x)g(x)\), onde \(\displaystyle f(x)=a_0 + a_1 x + a_2 x^2 + \cdots = \sum_{j=0}^{\infty} a_j x^j\) e \(\displaystyle g(x)=b_0 + b_1 x + b_2 x^2 + \cdots = \sum_{j=0}^{\infty} b_j x^j\), então
+        \begin{equation}
+            h(x) = a_0b_0 + (a_0b_1 + a_1b_0)x + (a_0b_2 + a_1b_1 + a_2b_0)x^2 + \cdots = \sum_{j=0}^{\infty} \left( \sum_{k=0}^{j} a_k b_{j-k} \right) x^j.
+        \end{equation}
+    \end{enumerate}
+\end{prop}
 
 \section{RELAÇÕES DE RECORRÊNCIA}
 

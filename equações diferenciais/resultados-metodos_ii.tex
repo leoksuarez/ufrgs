@@ -3,10 +3,8 @@
 \usepackage{geometry}
 \usepackage{enumitem}
 \setlist[description]{leftmargin=1cm,labelindent=1cm}
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amssymb}
-\usepackage{mathtools}
+\usepackage{amsmath, amsthm, amssymb, mathtools}
+\usepackage[hidelinks]{hyperref}
 \usepackage[portuguese]{babel}
 
 \theoremstyle{plain}
@@ -53,7 +51,27 @@
 \tableofcontents
 \newpage
 
-\section{Soluções de séries de potências de equações lineares}
+\section{Soluções por Séries de Potências}
+
+\begin{rem} (fatos importantes sobre séries de potências)
+    \begin{itemize}
+        \item \textbf{Definição.} Uma série de potências centrada em \(x-a\) é uma série infinita da forma \begin{equation}\sum_{n=0}^{\infty} c_n (x-a)^n = c_0 + c_1(x-a) + c_2(x-a)^2 + \cdots\end{equation}
+        \item \textbf{Convergência.} Uma série de potências é convergente no ponto \(x=x_0\) se a sua sequência de somas parciais \(\{S_N(x)\}\) converge para um número real para \(N\to\infty\), ou seja, \(\displaystyle\lim_{N\to\infty} S_N(x_0) = \lim_{N\to\infty} \sum_{n=0}^{N} c_n (x-a)^n\) existe. Se o limite não existe, a série diverge em \(x_0\).
+        \item \textbf{Intervalo de convergência.} O conjunto de todos os pontos \(x\) para os quais a série de potências converge é chamado de intervalo de convergência. O centro do intervalo de convergência é o centro \(a\) da série de potências.
+        \item \textbf{Raio de convergência.} O raio \(R\) do intervalo de convergência de uma série de potências é chamado de raio de convergência. Se a série converge para todo \(x\), então \(R=\infty\). Se \(R>\), então a série converge para \(|x-a|<R\) e diverge para \(|x-a|>R\). Se \(R=0\), então a série converge somente em \(x=a\). Uma série de potências pode ou não convergir nos pontos finais do intervalo de convergência.
+        \item \textbf{Convergência absoluta.} Dentro de seu intervalo de convergência, uma série de potências converge absolutamente, ou seja, a série \(\displaystyle\sum_{n=0}^{\infty} |c_n (x-a)^n|\) também converge para todo \(x \in (a-R, a+R)\).
+        \item \textbf{Teste da razão.} A convergência de uma série de potências pode ser determinada pelo teste da razão. Suponha que \(c_n\neq0\) para todo \(n\) em \(\sum_{n=0}^{\infty} c_n (x-a)^n\), e que 
+        \begin{equation}
+            \lim_{n\to\infty} \left| \frac{c_{n+1}(x-a)^{n+1}}{c_n (x-a)^n} \right| = |x-a| \lim_{n\to\infty} \left| \frac{c_{n+1}}{c_n} \right| = L.
+        \end{equation}
+        \noindent Se \(L<1\), a série converge absolutamente; se \(L>1\), a série diverge; se \(L=1\), o teste é inconclusivo. O teste da razão é sempre inconclusivo nos pontos \(x=a\pm R\).
+        \item \textbf{Uma série de potências define uma função.} Uma série de potências \(\displaystyle\sum_{n=0}^{\infty} c_n (x-a)^n\) define uma função \(f\) por \(\displaystyle f(x) = \sum_{n=0}^{\infty} c_n (x-a)^n\) para todo \(x\) no intervalo de convergência. Se o raio de convergência é \(R>0\) ou \(R = \infty\), então \(f\) é contínua, diferenciável e integrável nos intervalos \((a-R, a+R)\) ou \((-\infty, \infty)\), respectivamente. Além disso, \(f\) pode ser diferenciada e integrada termo a termo. Convergência em um ponto final do intervalo pode ser perdida após a diferenciação ou integração. Se 
+        \[ f(x) = \sum_{n=0}^{\infty} c_n x^n = c_0 + c_1 x + c_2 x^2 + \cdots \]
+        \noindent é uma série de potências em \(x\), então suas primeiras duas derivadas são \(\displaystyle y' = \sum_{n=1}^{\infty} n c_n x^{n-1}\) e \(\displaystyle y'' = \sum_{n=2}^{\infty} n(n-1)c_n x^{n-2}\).
+        \item \textbf{Identidade.} Se \(\displaystyle\sum_{n=0}^{\infty} c_n (x-a)^n = 0\) para todo \(x\) em um intervalo, então \(c_n = 0\) para todo \(n\).
+        \item \textbf{Analítica em um ponto.} Uma função \(f\) é dita analítica em um ponto \(x=a\) se existe uma série de potências centrada em \(x-a\) que converge para \(f(x)\) em algum intervalo \((a-R, a+R)\), onde \(R>0\).
+    \end{itemize}
+\end{rem}
 
 \begin{defn}
     Um ponto \(x=x_0\) é chamado de \emph{ponto ordinário} da equação diferencial
@@ -86,6 +104,22 @@
     \end{equation}
     \noindent onde \(r\) é a raiz de uma equação indicial associada. A série converge pelo menos em algum intervalo \(0<x-x_0<R\).
 \end{thm}
+
+\begin{defn}
+    Assuma que \(\nu\geq0\). Então,
+    \begin{equation}
+        x^2y'' + xy' + (x^2 - \nu^2)y = 0
+    \end{equation}
+    \noindent é chamada de \emph{equação de Bessel de ordem \(\nu\)}.
+\end{defn}
+
+\begin{defn}
+    Considerando \(n\) um inteiro não-negativo, temos 
+    \begin{equation}
+        (1-x^2)y'' - 2xy' + n(n+1)y = 0
+    \end{equation}
+    \noindent que é chamada de \emph{equação de Legendre de ordem \(n\)}.
+\end{defn}
 
 \section{Séries de Fourier}
 
@@ -130,14 +164,101 @@
 \begin{defn}
     A \emph{série de Fourier} de uma função \(f\) definida no intervalo \((-p,p)\) é dada por
     \begin{equation}
-        f(x) = \frac{1}{2}a_0 + \sum_{n=1}^{\infty} \left( a_n \cos\left(\frac{n\pi x}{p}\right) + b_n \sin\left(\frac{n\pi x}{p}\right) \right),
+        f(x) = \frac{1}{2}a_0 + \sum_{n=1}^{\infty} \left( a_n \cos\frac{n\pi x}{p} + b_n \sin\frac{n\pi x}{p} \right),
     \end{equation}
     onde os coeficientes \(a_n\) e \(b_n\) são dados por
     \begin{align}
         a_0 &= \frac{1}{p} \int_{-p}^{p} f(x) \, dx, \\
-        a_n &= \frac{1}{p} \int_{-p}^{p} f(x) \cos\left(\frac{n\pi x}{p}\right) \, dx, \\
-        b_n &= \frac{1}{p} \int_{-p}^{p} f(x) \sin\left(\frac{n\pi x}{p}\right) \, dx.
+        a_n &= \frac{1}{p} \int_{-p}^{p} f(x) \cos\frac{n\pi x}{p} \, dx, \\
+        b_n &= \frac{1}{p} \int_{-p}^{p} f(x) \sin\frac{n\pi x}{p} \, dx.
     \end{align}
+\end{defn}
+
+\begin{defn}
+    Uma função \(f\) é dita \emph{contínua por partes} em um intervalo \([a,b]\) se existe um número finito de pontos de descontinuidade \(x_1<x_2<\cdots<x_n\) em \([a,b]\) e \(f\) é contínua em cada subintervalo \((x_k, x_{k+1})\) para \(k=0,1,\ldots,n\). Consequentemente,
+    \begin{itemize}
+        \item Os limites laterais \(f(x+)\) e \(f(x-)\) existem para todo \(x \in (a,b)\).
+        \item Os limites laterais \(f(a+)\) e \(f(b-)\) existem, mas não é necessário que \(f\) seja contínua ou mesmo definida em \(a\) ou em \(b\)
+    \end{itemize}
+\end{defn}
+
+\begin{thm} (condições para convergência)
+    Sejam \(f\) e \(f'\) contínuas por partes em \([-p,p]\). Então para todo \(x \in (-p,p)\), a série de Fourier de \(f\) converge para \(f(x)\) em um ponto de continuidade. Em um ponto de descontinuidade, a série de Fourier converge para a média
+    \begin{equation}
+        \frac{f(x+) + f(x-)}{2},
+    \end{equation}
+    \noindent onde \(f(x+)\) e \(f(x-)\) são os limites laterais de \(f\) em \(x\), respectivamente.
+\end{thm}
+
+\begin{thm} (propriedades de funções pares/ímpares)
+    \begin{enumerate}
+        \item[(a)] O produto de duas funções pares é par.
+        \item[(b)] O produto de duas funções ímpares é par.
+        \item[(c)] O produto de uma função par por uma função ímpar é ímpar.
+        \item[(d)] A soma (diferença) de duas funções pares é par.
+        \item[(e)] A soma (diferença) de duas funções ímpares é ímpar.
+        \item[(f)] Se \(f\) é par, então \(\int_{-a}^{a} f(x) \, dx = 2\int_{0}^{a} f(x) \, dx\).
+        \item[(g)] Se \(f\) é ímpar, então \(\int_{-a}^{a} f(x) \, dx = 0\).
+    \end{enumerate}
+\end{thm}
+
+\begin{defn} (séries de Fourier para funções pares/ímpares)
+    \begin{enumerate}
+        \item[(i)] A série de Fourier de uma função par \(f\) definida no intervalo \((-p,p)\) é a \textbf{série em cossenos}
+        \begin{equation}
+            f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos\left(\frac{n\pi x}{p}\right),
+        \end{equation}
+        \noindent onde 
+        \begin{align}
+            a_0 &= \frac{2}{p} \int_{0}^{p} f(x) \, dx, \\
+            a_n &= \frac{2}{p} \int_{0}^{p} f(x) \cos\left(\frac{n\pi x}{p}\right) \, dx.
+        \end{align}
+        \item[(ii)] A série de Fourier de uma função ímpar \(f\) definida no intervalo \((-p,p)\) é a \textbf{série em senos}
+        \begin{equation}
+            f(x) = \sum_{n=1}^{\infty} b_n \sin\left(\frac{n\pi x}{p}\right),
+        \end{equation}
+        \noindent onde
+        \begin{equation}
+            b_n = \frac{2}{p} \int_{0}^{p} f(x) \sin\left(\frac{n\pi x}{p}\right) \, dx.
+        \end{equation}
+    \end{enumerate}
+\end{defn}
+
+\renewcommand{\arraystretch}{1.15}
+\begin{rem} (revisão de EDOs) \newline
+    \begin{tabular}[c]{ll}
+        \textbf{Equação de coeficientes constantes} & \textbf{Soluções gerais} \\
+        \hline
+        \(y'+\alpha y=0\) & \(y=ce^{-\alpha x}\) \\
+        \(y''+\alpha^2 y=0,\quad \alpha>0\) & \(y=c_1\cos(\alpha x)+c_2\sin(\alpha x)\) \\
+        \(y''-\alpha^2 y=0,\quad \alpha>0\) & \(\begin{cases} y=c_1e^{-\alpha x}+c_2e^{\alpha x} \\ y=c_1\cosh(\alpha x)+c_2\sinh(\alpha x) \end{cases}\) \\
+        \\ \textbf{Equação de Cauchy-Euler} & \textbf{Soluções gerais, \(x>0\)} \\
+        \hline
+        \(x^2y''+ xy'- \alpha^2 y=0,\quad \alpha\geq 0\) & \(\begin{cases} y=c_1x^{-\alpha}+c_2x^{\alpha},\quad\alpha>0 \\ y=c_1+c_2\ln(x),\quad \alpha=0 \end{cases}\) \\
+        \\ \textbf{Equação paramétrica de Bessel \(\nu>0\)} & \textbf{Solução geral, \(x>0\)} \\
+        \hline
+        \(x^2y''+ xy' + \alpha^2 x^2 y=0\) & \(y=c_1J_0(\alpha x)+c_2Y_0(\alpha x)\) \\
+        \\ \textbf{Equação de Legendre \(n=0,1,2,\ldots\)} & \textbf{Soluções particulares são polinômios} \\
+        \hline
+        \((1-x^2)y'' - 2xy' + n(n+1)y=0\) & \(\begin{cases}
+            y=P_0(x)=1,\\
+            y=P_1(x)=x,\\
+            y=P_2(x)=\frac{1}{2}(3x^2-1),\ldots
+        \end{cases}\)
+    \end{tabular}
+\end{rem}
+
+\begin{defn}
+    Sejam \(p\), \(q\), \(r\) e \(r'\) funções reais contínuas em um intervalo \([a,b]\), e seja \(r(x)>0\) e \(p(x)>0\) para todo \(x \in [a,b]\). O problema de valor de contorno
+    \begin{equation}
+        \frac{d}{dx}\left[p(x)\frac{dy}{dx}\right] + q(x)y + \lambda r(x)y = 0, \quad a < x < b,
+    \end{equation}
+    \noindent sujeito às condições de contorno lineares e homogêneas
+    \begin{align}
+        A_1 y(a) + A_2 y'(a) &= 0, \\
+        B_1 y(b) + B_2 y'(b) &= 0,
+    \end{align}
+    \noindent onde \(A_1\), \(A_2\), \(B_1\) e \(B_2\) são constantes tais que \(A_1^2 + A_2^2 \neq 0\) e \(B_1^2 + B_2^2 \neq 0\), é chamado de \emph{problema de Sturm-Liouville regular}. Os valores de \(\lambda\) para os quais existem soluções não-triviais são chamados de \emph{autovalores}, e as soluções correspondentes são chamadas de \emph{autovetores}.
 \end{defn}
 
 \begin{thm} (propriedades do problema de Sturm-Liouville regular)
@@ -148,5 +269,50 @@
         \item[(d)] O conjunto de autovetores correspondente ao conjunto de autovalores é ortogonal com respeito à função peso \( p(x) \) no intervalo \([a,b]\).
     \end{enumerate}
 \end{thm}
+
+\section{Problemas de Valor de Contorno em Coordenadas Retangulares}
+\section{Problemas de Valor de Contorno em Outros Sistemas de Coordenadas}
+\section{Transformadas Integrais}
+
+\begin{defn}
+    A \emph{integral de Fourier} de uma função \(f\) definida no intervalo \(\left(-\infty, \infty\right)\) é dada por
+    \begin{equation}
+        f(x) = \frac{1}{\pi} \int_{0}^{\infty} \left[A(\alpha) \cos(\alpha x) + B(\alpha) \sin(\alpha x)\right] d\alpha,
+    \end{equation}
+    \noindent onde
+    \begin{align}
+        A(\alpha) &= \int_{-\infty}^{\infty} f(x) \cos(\alpha x) \, dx, \\
+        B(\alpha) &= \int_{-\infty}^{\infty} f(x) \sin(\alpha x) \, dx.
+    \end{align}
+\end{defn}
+
+\begin{thm} (condições para convergência da integral de Fourier)
+    Seja \(f\) e \(f'\) contínuas por partes em todo intervalo finito e seja \(f\) absolutamente integrável em \((-\infty, \infty)\). Então, a integral de Fourier de \(f\) converge para \(f(x)\) em um ponto de continuidade. Em um ponto de descontinuidade, a integral de Fourier converge para a média
+    \begin{equation}
+        \frac{f(x+) + f(x-)}{2},
+    \end{equation}
+    \noindent onde \(f(x+)\) e \(f(x-)\) são os limites laterais de \(f\) em \(x\), respectivamente.
+\end{thm}
+
+\begin{defn} (integrais de Fourier em senos e cossenos)
+    \begin{enumerate}
+        \item[(i)] A integral de Fourier de uma função par \(f\) definida no intervalo \(\left(-\infty, \infty\right)\) é a \textbf{integral em cossenos}
+        \begin{equation}
+            f(x) = \frac{2}{\pi} \int_{0}^{\infty} A(\alpha) \cos(\alpha x) \, d\alpha,
+        \end{equation}
+        \noindent onde
+        \begin{align}
+            A(\alpha) &= \int_{0}^{\infty} f(x) \cos(\alpha x) \, dx.
+        \end{align}
+        \item[(ii)] A integral de Fourier de uma função ímpar \(f\) definida no intervalo \(\left(-\infty, \infty\right)\) é a \textbf{integral em senos}
+        \begin{equation}
+            f(x) = \frac{2}{\pi} \int_{0}^{\infty} B(\alpha) \sin(\alpha x) \, d\alpha,
+        \end{equation}
+        \noindent onde
+        \begin{align}
+            B(\alpha) &= \int_{0}^{\infty} f(x) \sin(\alpha x) \, dx.
+        \end{align}
+    \end{enumerate}
+\end{defn}
 
 \end{document}

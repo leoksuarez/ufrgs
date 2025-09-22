@@ -7,6 +7,7 @@
 \usepackage{amsthm}
 \usepackage{amssymb}
 \usepackage{mathtools}
+\usepackage[hidelinks]{hyperref}
 \usepackage[portuguese]{babel}
 
 \theoremstyle{plain}
@@ -54,8 +55,119 @@
 \newpage
 
 \section{Espaços Vetoriais}
+
+\subsection{\(\mathbb{R}^n\) e \(\mathbb{C}^n\)}
+\begin{prop} (propriedades da aritmética complexa)
+    \begin{enumerate}
+        \item[\textup{(a)}] \textup{\textbf{comutatividade}} \(\alpha + \beta = \beta + \alpha\) e \(\alpha \beta = \beta \alpha \quad \forall \alpha, \beta \in \mathbb{C}\)
+        \item[\textup{(b)}] \textup{\textbf{associatividade}} \((\alpha + \beta) + \gamma = \alpha + (\beta + \gamma)\) e \((\alpha \beta) \gamma = \alpha (\beta \gamma) \quad \forall \alpha, \beta, \gamma \in \mathbb{C}\)
+        \item[\textup{(c)}] \textup{\textbf{identidades}} \(\alpha + 0 = \alpha\) e \(\alpha 1 = \alpha \quad \forall \alpha \in \mathbb{C}\)
+        \item[\textup{(d)}] \textup{\textbf{inverso aditivo}} \(\forall \alpha \in \mathbb{C}\ \exists!\beta \in \mathbb{C}: \alpha + \beta = 0\).
+        \item[\textup{(e)}] \textup{\textbf{inverso multiplicativo}} \(\forall \alpha \in \mathbb{C}, \alpha \neq 0\ \exists! \beta \in \mathbb{C}: \alpha \beta = 1\).
+        \item[\textup{(f)}] \textup{\textbf{distributividade}} \(\alpha(\beta + \gamma) = \alpha \beta + \alpha \gamma \quad \forall \alpha, \beta, \gamma \in \mathbb{C}\)
+    \end{enumerate}
+\end{prop}
+
+\begin{defn}
+    Suponha que \(n\) seja um inteiro não-negativo. Uma \emph{lista} de \emph{tamanho} \(n\) é uma coleção ordenada de \(n\) elementos (que podem ser números, outras listas, ou outros objetos mais abstratos). Duas listas são iguais sse têm o mesmo tamanho e os mesmos elementos na mesma ordem.
+\end{defn}
+
+\begin{defn}
+    A \emph{soma} em \(\mathbb{F}^n\) é definida somando as coordenadas correspondentes:
+    \[
+        (x_1, \ldots, x_n) + (y_1, \ldots, y_n) = (x_1 + y_1, \ldots, x_n + y_n).
+    \]
+\end{defn}
+
+\begin{prop} (comutatividade da soma em \(\mathbb{F}^n\))
+    Para todo \(x, y \in \mathbb{F}^n\), \(x + y = y + x\).
+\end{prop}
+
+\begin{defn}
+    Para todo \(x \in \mathbb{F}^n\), o \emph{inverso aditivo} de \(x\) é o vetor \(-x \in \mathbb{F}^n\) tal que \(x + (-x) = 0\). Explicitamente, se \(x = (x_1, \ldots, x_n)\), então \(-x = (-x_1, \ldots, -x_n)\).
+\end{defn}
+
+\begin{defn}
+    O \emph{produto} de um número \(\lambda\) e um vetor em \(\mathbb{F}^n\) é computado multiplicando cada coordenada do vetor por \(\lambda\):
+    \[
+        \lambda (x_1, \ldots, x_n) = (\lambda x_1, \ldots, \lambda x_n);
+    \]
+    \noindent onde \(\lambda \in \mathbb{F}\) e \((x_1, \ldots, x_n) \in \mathbb{F}^n\).
+\end{defn}
+
+\begin{defn}
+    Uma \emph{soma} em um conjunto \(V\) é uma função que associa um elemento \(u + v \in V\) a cada par de elementos \(u, v \in V\). Um \emph{produto por escalar} em \(V\) é uma função que associa um elemento \(\lambda v \in V\) a cada escalar \(\lambda \in \mathbb{F}\) e cada elemento \(v \in V\). 
+\end{defn}
+
+\subsection{Definição de Espaço Vetorial}
+\begin{defn}
+    Um \emph{espaço vetorial} é um conjunto \(V\) munido com as operações de soma e produto por escalar que satisfaz as seguintes propriedades.
+    \begin{enumerate}
+        \item[(A1)] \textbf{comutatividade} \(u + v = v + u\), para todo \(u, v \in V\).
+        \item[(A2)] \textbf{associatividade} \((u + v) + w = u + (v + w)\), para todo \(u, v, w \in V\).
+        \item[(A3)] \textbf{identidade aditiva} Existe \(0 \in V\) tal que \(v + 0 = v\), para todo \(v \in V\).
+        \item[(A4)] \textbf{inverso aditivo} Para todo \(v \in V\) existe \(-v \in V\) tal que \(v + (-v) = 0\).
+        \item[(A5)] \textbf{identidade multiplicativa} \(1v = v\), para todo \(v \in V\), onde \(1\) é o elemento identidade em \(\mathbb{F}\).
+        \item[(A6)] \textbf{distributividade} \(a(u + v) = au + av\) e \((a+b)v=av + bv\), para todo \(a, b \in \mathbb{F}\) e todo \(u, v \in V\).
+    \end{enumerate}
+\end{defn}
+
+\begin{prop}
+    Um espaço vetorial possui identidade aditiva única.
+\end{prop}
+
+\begin{prop}
+    Todo elemento de um espaço vetorial possui inverso aditivo único.
+\end{prop}
+
+\begin{prop}
+    \(0v = 0\) e \(a0 = 0\), para todo \(a \in \mathbb{F}\) e todo \(v \in V\).
+\end{prop}
+
+\begin{prop}
+    \((-1)v = -v\), para todo \(v \in V\).
+\end{prop}
+
+\subsection{Subespaços}
+\begin{defn}
+    Um subconjunto \(U\) de um espaço vetorial \(V\) é dito um \emph{subespaço} de \(V\) se \(U\) é um espaço vetorial com as mesmas operações de soma e produto por escalar definidas em \(V\).
+\end{defn}
+
+\begin{prop} (condições para subespaço)
+    Um subconjunto \(U\) de um espaço vetorial \(V\) é um subespaço de \(V\) sse os seguintes três itens são satisfeitos.
+    \begin{itemize}
+        \item \(0 \in U\).
+        \item Se \(u, v \in U\), então \(u + v \in U\).
+        \item Se \(u \in U\) e \(a \in \mathbb{F}\), então \(au \in U\).
+    \end{itemize}
+\end{prop}
+
+\begin{defn}
+    Suponha que \(V_1,\ldots,V_m\) são subespaços de \(V\). A \emph{soma} \(V_1 + \cdots + V_m\) é o conjunto de todas as somas possíveis de elementos de \(V_1, \ldots, V_m\), isto é,
+    \[
+        V_1 + \cdots + V_m = \{v_1 + \cdots + v_m : v_1 \in V_1, \ldots, v_m \in V_m\}.
+    \]
+\end{defn}
+
+\begin{prop}
+    Se \(V_1, \ldots, V_m\) são subespaços de \(V\), então \(V_1 + \cdots + V_m\) é o menor subespaço de \(V\) que contém \(V_1, \ldots, V_m\).
+\end{prop}
+
+\begin{defn}
+    Sejam \(V_1, \ldots, V_m\) subespaços de \(V\). A soma \(V_1 + \cdots + V_m\) é dita \emph{direta} se todo \(v \in V_1 + \cdots + V_m\) pode ser escrito de maneira única como \(v = v_1 + \cdots + v_m\), onde \(v_k \in V_k\). Se a soma é direta, escrevemos \(V = V_1 \oplus \cdots \oplus V_m\).
+\end{defn}
+
+\begin{prop} (condição para soma direta)
+    Suponha que \(V_1, \ldots, V_m\) são subespaços de \(V\). Então \(V = V_1 \oplus \cdots \oplus V_m\) sse a única maneira de escrever \(0\) como \(0 = v_1 + \cdots + v_m\), onde \(v_k \in V_k\) para cada \(k\), é com \(v_1 = \cdots = v_m = 0\).
+\end{prop}
+
+\begin{prop}
+    Sejam \(U\) e \(W\) subespaços de \(V\). Então \[U + W \ \text{é soma direta} \iff U \cap W = \{0\}.\]
+\end{prop}
+
 \section{Espaços Vetoriais de Dimensão Finita}
 
+\subsection{Span e Independência Linear}
 \begin{prop} (span é o menor subespaço que contém todos os vetores)
     O span de uma lista de vetores em \(V\) é o menor subespaço de \(V\) que contém todos os vetores da lista.
 \end{prop}
@@ -80,14 +192,15 @@
     \noindent Ainda, se \(j\) satisfaz a condição acima e o \(j\)-ésimo vetor for removido da lista, então o span dos vetores restantes é igual a \(\text{span}(v_1, \ldots, v_n)\).
 \end{lem}
 
-\begin{prop} (tamanho de uma lista linearmente independente \(\leq\) tamanho de uma lista geradora)
+\begin{prop}
     Em um espaço vetorial \(V\) de dimensão finita, o tamanho de qualquer lista linearmente independente é menor ou igual ao tamanho de qualquer lista geradora.
 \end{prop}
 
-\begin{prop} (subespaços de dimensão finita)
+\begin{prop}
     Todo subespaço de um espaço vetorial de dimensão finita é de dimensão finita.
 \end{prop}
 
+\subsection{Bases}
 \begin{defn}
     Uma \emph{base} de um espaço vetorial \(V\) é uma lista de vetores \(v_1, \ldots, v_n\) em \(V\) que é linearmente independente e gera \(V\).
 \end{defn}
@@ -100,18 +213,19 @@
     \noindent onde \(a_1, \ldots, a_n\) são escalares em \(\mathbb{F}\).
 \end{prop}
 
-\begin{prop} (toda lista geradora possui uma base)
+\begin{prop}
     Toda lista geradora em um espaço vetorial pode ser reduzida a uma base do espaço vetorial.
 \end{prop}
 
-\begin{prop} (toda lista linearmente independente pode ser estendida a uma base)
+\begin{prop}
     Toda lista linearmente independente em um espaço vetorial de dimensão finita pode ser estendida a uma base do espaço vetorial.
 \end{prop}
 
-\begin{prop} (todo subespaço de \(V\) é parte de uma soma direta igual a \(V\))
+\begin{prop}
     Suponha que \(V\) seja um espaço vetorial de dimensão finita e \(U\) é um subespaço de \(V\). Então existe um subespaço \(W\) de \(V\) tal que \(V = U \oplus W\).
 \end{prop}
 
+\subsection{Dimensão}
 \begin{prop} (o tamanho da base não depende da base)
     Se \(V\) é um espaço vetorial de dimensão finita, então todas as bases de \(V\) têm o mesmo tamanho.
 \end{prop}
@@ -120,19 +234,19 @@
     A \emph{dimensão} de um espaço vetorial \(V\) de dimensão finita é o tamanho de qualquer base de \(V\).
 \end{defn}
 
-\begin{prop} (dimensão do subespaço)
+\begin{prop}
     Se \(V\) é um espaço vetorial de dimensão finita e \(U\) é um subespaço de \(V\), então \(\dim(U) \leq \dim(V)\).
 \end{prop}
 
-\begin{prop} (lista linearmente independente com tamanho igual à dimensão é base)
+\begin{prop}
     Se \(V\) é um espaço vetorial de dimensão finita, então toda lista linearmente independente de vetores em \(V\) com tamanho igual a \(\dim(V)\) é uma base de \(V\).
 \end{prop}
 
-\begin{cor} (subespaço com mesma dimensão é o espaço todo)
+\begin{cor}
     Se \(V\) é um espaço vetorial de dimensão finita, então todo subespaço \(U\) de \(V\) com \(\dim(U) = \dim(V)\) é igual a \(V\).
 \end{cor}
 
-\begin{prop} (lista geradora com tamanho igual à dimensão é base)
+\begin{prop}
     Se \(V\) é um espaço vetorial de dimensão finita, então toda lista geradora de vetores em \(V\) com tamanho igual a \(\dim(V)\) é uma base de \(V\).
 \end{prop}
 
@@ -145,6 +259,7 @@
 
 \section{Transformações Lineares}
 
+\subsection{Espaços Vetoriais de Transformaçõess Lineares}
 \begin{defn}
     Uma transformação linear de \(V\) em \(W\) é uma função \(T: V \to W\) com as seguintes propriedades.
     \begin{enumerate}
@@ -189,6 +304,7 @@
     Suponha que \(T\) seja uma transformação linear de \(V\) em \(W\). Então \(T(0) = 0\).
 \end{cor}
 
+\subsection{Espaço Nulo e Imagem}
 \begin{defn}
     Para \(T \in \mathcal{L}(V, W)\), o \emph{espaço nulo} de \(T\) é o subconjunto de \(V\) definido por
     \[
@@ -216,7 +332,7 @@
 \end{defn}
 
 \begin{prop}
-    Seja \(T \in \mathcal{L}(V, W)\). Então \(\text{Im}(T)\) é um subespaço de \(W\).
+    Seja \(T \in \mathcal{L}(V, W)\). Então \(\textup{Im}(T)\) é um subespaço de \(W\).
 \end{prop}
 
 \begin{defn}
@@ -224,9 +340,9 @@
 \end{defn}
 
 \begin{thm} (teorema fundamental das transformações lineares)
-    Suponha que \(V\) seja um espaço vetorial de dimensão finita e que \(T \in \mathcal{L}(V, W)\). Então \(\text{Im}(T)\) é de dimensão finita e
+    Suponha que \(V\) seja um espaço vetorial de dimensão finita e que \(T \in \mathcal{L}(V, W)\). Então \(\textup{Im}(T)\) é de dimensão finita e
     \begin{equation}
-        \dim V = \dim \mathcal{N}(T) + \dim \text{Im}(T).
+        \dim V = \dim \mathcal{N}(T) + \dim \textup{Im}(T).
     \end{equation}
 \end{thm}
 
@@ -238,10 +354,213 @@
     Suponha que \(V\) e \(W\) são espaços vetoriais de dimensão finita com \(\dim V < \dim W\). Então nenhuma transformação linear de \(V\) em \(W\) é sobrejetora.
 \end{cor}
 
+\subsection{Matrizes}
+\begin{defn}
+    Suponha que \(m\) e \(n\) são inteiros não-negativos. Uma \emph{matriz} \(m\) por \(n\) é uma tabela retangular de elementos de \(\mathbb{F}\) com \(m\) linhas e \(n\) colunas:
+    \[
+        A = \begin{bmatrix}
+            A_{11} & A_{12} & \cdots & A_{1n} \\
+            A_{21} & A_{22} & \cdots & A_{2n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            A_{m1} & A_{m2} & \cdots & A_{mn}
+        \end{bmatrix},
+    \]
+    \noindent onde \(A_{jk} \in \mathbb{F}\) é o elemento na \(j\)-ésima linha e \(k\)-ésima coluna de \(A\).
+\end{defn}
+
+\begin{defn} (matriz de uma transformação linear)
+    Suponha que \(T \in \mathcal{L}(V, W)\) e que \(v_1, \ldots, v_n\) é uma base de \(V\) e \(w_1, \ldots, w_m\) é uma base de \(W\). A \emph{matriz} de \(T\) com respeito a essas bases é a matriz \(\mathcal{M}(T)\) de tamanho \(m\) por \(n\) cujas entradas \(A_{jk}\) são definidas por
+    \[
+        T(v_k) = A_{1k} w_1 + \cdots + A_{mk} w_m.
+    \]    
+\end{defn}
+
+\begin{defn}
+    A \emph{soma de duas matrizes de mesmo tamanho} é a matriz obtida somando as entradas correspondentes:
+    \[
+        A + B = \begin{bmatrix}
+            A_{11} + B_{11} & A_{12} + B_{12} & \cdots & A_{1n} + B_{1n} \\
+            A_{21} + B_{21} & A_{22} + B_{22} & \cdots & A_{2n} + B_{2n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            A_{m1} + B_{m1} & A_{m2} + B_{m2} & \cdots & A_{mn} + B_{mn}
+        \end{bmatrix}.
+    \]
+\end{defn}
+
+\begin{prop} (matriz da soma de transformações lineares)
+    Sejam \(S, T \in \mathcal{L}(V, W)\). Então \(\mathcal{M}(S + T) = \mathcal{M}(S) + \mathcal{M}(T)\).
+\end{prop}
+
+\begin{defn}
+    O produto de uma matriz por um escalar é a matriz obtida multiplicando cada entrada da matriz pelo escalar:
+    \[
+        \lambda A = \begin{bmatrix}
+            \lambda A_{11} & \lambda A_{12} & \cdots & \lambda A_{1n} \\
+            \lambda A_{21} & \lambda A_{22} & \cdots & \lambda A_{2n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \lambda A_{m1} & \lambda A_{m2} & \cdots & \lambda A_{mn}
+        \end{bmatrix}.
+    \]
+\end{defn}
+
+\begin{prop} (matriz do produto por escalar de uma transformação linear)
+    Sejam \(T \in \mathcal{L}(V, W)\) e \(\lambda \in \mathbb{F}\). Então \(\mathcal{M}(\lambda T) = \lambda \mathcal{M}(T)\).
+\end{prop}
+
+\begin{prop} \((\textup{dim } \mathbb{F}^{m,n} = mn)\)
+    Suponha que \(m\) e \(n\) sejam inteiros positivos. Com as operações de soma e produto por escalar definidas acima, \(\mathbb{F}^{m,n}\) é um espaço vetorial sobre \(\mathbb{F}\) com dimensão \(mn\).    
+\end{prop}
+
+\begin{defn} (multiplicação de matrizes)
+    Sejam \(A\) uma matriz \(m\) por \(n\) e \(B\) uma matriz \(n\) por \(p\). O \emph{produto} \(AB\) é a matriz \(m\) por \(p\) cujas entradas são definidas por
+    \[
+        (AB)_{jk} = \sum_{r=1}^{n} A_{jr} B_{rk}.
+    \]
+\end{defn}
+
+\begin{prop} (matriz do produto de transformações lineares)
+    Sejam \(T \in \mathcal{L}(U, V)\) e \(S \in \mathcal{L}(V, W)\). Então \(\mathcal{M}(ST) = \mathcal{M}(S) \mathcal{M}(T)\).
+\end{prop}
+
+\begin{prop} (entrada do produto de matrizes é igual ao produto de vetores linha por coluna)
+    Sejam \(A\) uma matriz \(m\) por \(n\) e \(B\) uma matriz \(n\) por \(p\). Então a entrada \((j, k)\) de \(AB\) é igual ao produto do \(j\)-ésimo vetor linha de \(A\) pelo \(k\)-ésimo vetor coluna de \(B\):
+    \[
+        (AB)_{jk} = A_{j.} B_{.k},
+    \]
+    \noindent se \(1 \leq j \leq m\) e \(1 \leq k \leq p\).
+\end{prop}
+
+\begin{prop} (coluna do produto de matrizes é igual ao produto da matriz pela coluna)
+    Sejam \(A\) uma matriz \(m\) por \(n\) e \(B\) uma matriz \(n\) por \(p\). Então a \(k\)-ésima coluna de \(AB\) é igual ao produto de \(A\) pela \(k\)-ésima coluna de \(B\):
+    \[
+        (AB)_{.k} = A B_{.k},
+    \]
+    \noindent se \(1 \leq k \leq p\).
+\end{prop}
+
+\begin{cor} (combinação linear de colunas)
+    Sejam \(A\) uma matriz \(m\) por \(n\) e \(b\) uma matriz \(n\) por \(1\). Então o produto \(Ab\) é uma combinação linear das colunas de \(A\) com os coeficientes dados pelas entradas de \(b\):
+    \[
+        Ab = b_1 A_{.1} + b_2 A_{.2} + \cdots + b_n A_{.n}.
+    \]
+\end{cor}
+
+\begin{cor} (multiplicação de matrizes como combinação linear de colunas)
+    Suponha que \(C\) é uma matriz \(m\) por \(c\) e \(R\) é uma matriz \(c\) por \(n\).
+    \begin{enumerate}
+        \item[\textup{(a)}] Se \(k \in \{1, \ldots, n\}\), então a \(k\)-ésima coluna de \(CR\) é uma combinação linear das colunas de \(C\) com os coeficientes dados pelas entradas da \(k\)-ésima coluna de \(R\).
+        \item[\textup{(b)}] Se \(j \in \{1, \ldots, m\}\), então a \(j\)-ésima linha de \(CR\) é uma combinação linear das linhas de \(R\) com os coeficientes dados pelas entradas da \(j\)-ésima linha de \(C\).
+    \end{enumerate}
+\end{cor}
+
+\begin{defn}
+    Seja \(A\) uma matriz \(m\) por \(n\). O \emph{posto} de \(A\), denotado por \(\text{rank}(A)\), é a dimensão do span das colunas de \(A\) em \(\mathbb{F}^{m1}\). O \emph{posto transposto} de \(A\), denotado por \(\text{rank}(A^t)\), é a dimensão do span das linhas de \(A\) em \(\mathbb{F}^{1n}\).
+\end{defn}
+
+\begin{defn}
+    A transposta de uma matriz \(A\), denotada por \(A^t\), é a matriz obtida trocando as linhas por colunas, isto é, a entrada \((j, k)\) de \(A^t\) é a entrada \((k, j)\) de \(A\):
+    \[
+        (A^t)_{jk} = A_{kj}.
+    \]
+\end{defn}
+
+\begin{prop} (fatoração coluna-linha)
+    Seja \(A\) uma matriz \(m\) por \(n\) com entradas em \(\mathbb{F}\) e posto \(c \geq 1\). Então existem uma matriz \(C\) \(m\) por \(c\) e uma matriz \(R\) \(c\) por \(n\), ambas com entradas em \(\mathbb{F}\), tais que \(A = CR\).
+\end{prop}
+
+\begin{prop} (posto é igual ao posto transposto)
+    Se \(A\) é uma matriz com entradas em \(\mathbb{F}\), então \(\textup{rank}(A) = \textup{rank}(A^t)\).
+\end{prop}
+
+\subsection{Invertibilidade e Isomorfismos}
+\begin{defn}
+    Uma transformação linear \(T \in \mathcal{L}(V, W)\) é dita \emph{invertível} se existe uma transformação linear \(S \in \mathcal{L}(W, V)\) tal que \(ST\) é igual ao operador identidade em \(V\) e \(TS\) é igual ao operador identidade em \(W\). Uma transformação linear \(S \in \mathcal{L}(W, V)\) que satisfaz \(ST = I\) e \(TS = I\) é dita a \emph{inversa} de \(T\).
+\end{defn}
+
+\begin{prop}
+    Uma transformação linear invertível tem uma única inversa. Se \(T \in \mathcal{L}(V, W)\) é invertível, então \(T^{-1} \in \mathcal{L}(W, V)\) é o único elemento de \(\mathcal{L}(W, V)\) tal que \(T^{-1}T = I\) e \(TT^{-1} = I\).
+\end{prop}
+
+\begin{prop}
+    Uma transformação linear é invertível sse é bijetora.
+\end{prop}
+
+\begin{prop}
+    Sejam \(V\) e \(W\) espaços vetoriais de dimensão finita e que \(\text{dim } V = \text{dim } W\). Então uma transformação linear \(T \in \mathcal{L}(V, W)\) é invertível sse \(T\) é injetora sse \(T\) é sobrejetora.
+\end{prop}
+
+\begin{prop}
+    Sejam \(V\) e \(W\) espaços vetoriais de dimensão finita, \(\text{dim } V = \text{dim } W\), \(S \in \mathcal{V, W}\) e \(T \in \mathcal{L}(W, U)\). Então \(ST = I\) sse \(TS = I\).
+\end{prop}
+
+\begin{defn}
+    Um \emph{isomorfismo} é uma transformação linear invertível. Se existe um isomorfismo de \(V\) em \(W\), então \(V\) e \(W\) são ditos \emph{isomorfos}.
+\end{defn}
+
+\begin{prop}
+    Dois espaços vetoriais de dimensão finita são isomorfos sse têm a mesma dimensão.
+\end{prop}
+
+\begin{prop}
+    Suponha \(v_1, \ldots, v_n\) é uma base de \(V\) e \(w_1, \ldots, w_n\) é base de \(W\). Então \(\mathcal{M}\) é um isomorfismo de \(\mathcal{L}(V, W)\) em \(\mathbb{F}^{m,n}\).
+\end{prop}
+
+\begin{cor}
+    Sejam \(V\) e \(W\) espaços vetoriais de dimensão finita. Então \(\mathcal{L}(V, W)\) é de dimensão finita e
+    \[
+        \dim \mathcal{L}(V, W) = (\dim V)(\dim W).
+    \]
+\end{cor}
+
+\begin{defn}
+    Seja \(v \in V\) e \(v_1,\ldots,v_n\) uma base de \(V\). A \emph{matriz de \(v\)} com respeito a essa base é a matriz \(n\) por \(1\) definida por
+    \[
+        \mathcal{M}(v) = \begin{bmatrix}
+            b_1 \\
+            b_2 \\
+            \vdots \\
+            b_n
+        \end{bmatrix},
+    \]
+    \noindent onde \(v = b_1 v_1 + b_2 v_2 + \cdots + b_n v_n\).
+\end{defn}
+
+\begin{cor}
+    Suponha \(T \in \mathcal{L}(V, W)\) e \(v_1,\ldots,v_n\) é uma base de \(V\) e \(w_1,\ldots,w_m\) é uma base de \(W\). Seja \(1 \leq k \leq n\). Então a \(k\)-ésima coluna de \(\mathcal{M}(T)\) é igual a \(\mathcal{M}(T(v_k))\).
+\end{cor}
+
+\begin{prop}
+    Suponha \(T \in \mathcal{L}(V, W)\), \(v_1,\ldots,v_n\) é uma base de \(V\) e \(w_1,\ldots,w_m\) é uma base de \(W\). Se \(v \in V\), então
+    \[
+        \mathcal{M}(T(v)) = \mathcal{M}(T) \mathcal{M}(v).
+    \]
+\end{prop}
+
+\subsection{Produtos e Quocientes de Espaços Vetoriais}
+\subsection{Dualidade}
+
 \section{Polinômios}
+
 \section{Autovalores e Autovetores}
+\subsection{Subespaços Invariantes}
+\subsection{O Polinômio Mínimo}
+\subsection{Matrizes Triangular-Superiores}
+\subsection{Operadores Diagonalizáveis}
+\subsection{Operadores Comutantes}
+
 \section{Espaços com Produto Interno}
+\subsection{Produtos Internos e Normas}
+\subsection{Bases Ortonormais}
+\subsection{Complementos Ortogonais e Problemas de Minimização}
+
 \section{Operadores em Espaços com Produto Interno}
+\subsection{Operadores Autoadjuntos e Operadores Normais}
+\subsection{Teorema Espectral}
+\subsection{Operadores Positivos}
+\subsection{Isometrias, Operadores Unitários e Fatoração Matricial}
+\subsection{Decomposição em Valores Singulares}
+\subsection{Consequências de Valores Singulares}
+
 \section{Operadores em Espaços Vetoriais Complexos}
 \section{Álgebra Multilinear e Determinantes}
 
