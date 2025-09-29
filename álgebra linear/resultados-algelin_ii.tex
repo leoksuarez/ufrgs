@@ -543,7 +543,77 @@
 
 \section{Autovalores e Autovetores}
 \subsection{Subespaços Invariantes}
+
+\begin{defn}
+    Uma transformação linear de um espaço vetorial em si mesmo é dita um \emph{operador} no espaço vetorial. O conjunto de todos os operadores em \(V\) é denotado por \(\mathcal{L}(V)\).    
+\end{defn}
+
+\begin{defn}
+    Suponha \(T \in \mathcal{L}(V)\). Um subespaço \(U\) de \(V\) é dito \emph{invariante} sob \(T\) se \(T(u) \in U\), para todo \(u \in U\).
+\end{defn}
+
+\begin{defn}
+    Suponha \(T \in \mathcal{L}(V)\). Um escalar \(\lambda \in \mathbb{F}\) é dito um \emph{autovalor} de \(T\) se existe \(v \in V\) tal que \(v \neq 0\) e \(T(v) = \lambda v\). 
+\end{defn}
+
+\begin{prop} (condições equivalentes para autovalor)
+    Seja \(V\) um espaço vetorial de dimensão finita, \(T \in \mathcal{L}(V)\) e \(\lambda \in \mathbb{F}\). Então as seguintes condições são equivalentes.
+    \begin{enumerate}
+        \item[\textup{(a)}] \(\lambda\) é um autovalor de \(T\).
+        \item[\textup{(b)}] \(T - \lambda I\) não é injetora.
+        \item[\textup{(c)}] \(T - \lambda I\) não é sobrejetora.
+        \item[\textup{(d)}] \(T - \lambda I\) não é invertível.
+    \end{enumerate}
+\end{prop}
+
+\begin{defn}
+    Suponha \(T \in \mathcal{L}(V)\) e \(\lambda\) é um autovalor de \(T\). O \emph{autovetor} de \(T\) correspondente a \(\lambda\) é qualquer vetor \(v \in V\) tal que \(v \neq 0\) e \(T(v) = \lambda v\).
+\end{defn}
+
+\begin{prop}
+    Seja \(T \in \mathcal{L}(V)\). Então toda lista de autovetores de \(T\) correspondente a autovalores distintos de \(T\) é linearmente independente.
+\end{prop}
+
+\begin{defn}
+    Suponha \(T \in \mathcal{L}(V)\) e \(m\) é um inteiro positivo.
+    \begin{itemize}
+        \item \(T^m \in \mathcal{L}(V)\) é definido por \(T^m = T T \cdots T\) (\(m\) vezes).
+        \item \(T^0\) é definido como o operador identidade em \(V\).
+        \item Se \(T\) é invertível com inversa \(T^{-1}\), então \(T^{-m} = (T^{-1})^m\).
+    \end{itemize}
+\end{defn}
+
+\begin{defn}
+    Suponha \(T \in \mathcal{L}(V)\) e \(p \in \mathcal{P}(\mathbb{F})\) é um polinômio dado por
+    \[    p(z) = a_0 + a_1 z + a_2 z^2 + \cdots + a_m z^m.\]
+    \noindent para todo \(z \in \mathbb{F}\). Então \(p(T) \in \mathcal{L}(V)\) é o operador em \(V\) definido por
+    \[    p(T) = a_0 I + a_1 T + a_2 T^2 + \cdots + a_m T^m.\]
+\end{defn}
+
+\begin{defn} (produto de polinômios)
+    Se \(p\), \(q \in \mathcal{P}(\mathbb{F})\), então o \emph{produto} \(pq\) é o polinômio em \(\mathcal{P}(\mathbb{F})\) definido por
+    \[    (pq)(z) = p(z) q(z),\]
+    \noindent para todo \(z \in \mathbb{F}\).
+\end{defn}
+
+\begin{prop} (propriedades multiplicativas)
+    Sejam \(p, q \in \mathcal{P}(\mathbb{F})\) e \(T \in \mathcal{L}(V)\). Então
+    \begin{enumerate}
+        \item[(a)] \((pq)(T) = p(T) q(T)\);
+        \item[(b)] \(p(T) q(T) = q(T) p(T)\).
+    \end{enumerate}
+\end{prop}
+
+\begin{prop} (espaço nulo e imagem de \(p(T)\) são invariantes sob \(T\))
+    Sejam \(T \in \mathcal{L}(V)\) e \(p \in \mathcal{P}(\mathbb{F})\). Então os subespaços \(\mathcal{N}(p(T))\) e \(\textup{Im}(p(T))\) são invariantes sob \(T\).
+\end{prop}
+
 \subsection{O Polinômio Mínimo}
+
+\begin{prop}
+    Todo operador em um espaço vetorial complexo não-nulo de dimensão finita tem um autovalor.
+\end{prop}
+
 \subsection{Matrizes Triangular-Superiores}
 \subsection{Operadores Diagonalizáveis}
 \subsection{Operadores Comutantes}

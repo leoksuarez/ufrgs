@@ -12,12 +12,13 @@
 \newtheorem{prop}[thm]{Proposição}
 \newtheorem{lem}[thm]{Lema}
 \newtheorem{cor}[thm]{Corolário}
+\newtheorem{res}[thm]{Resultado}
 
 \theoremstyle{definition}
-\newtheorem{defn}[thm]{Definição}
-\newtheorem{exmp}[thm]{Exemplo}
-\newtheorem{prblm}[thm]{Problema}
-\newtheorem{prcp}[thm]{Princípio}
+\newtheorem{defn}{Definição}[section]
+\newtheorem{exmp}[defn]{Exemplo}
+\newtheorem{prblm}[defn]{Problema}
+\newtheorem{prcp}[defn]{Princípio}
 
 \theoremstyle{remark}
 \newtheorem*{rem}{Nota}
@@ -56,20 +57,21 @@
 \begin{rem} (fatos importantes sobre séries de potências)
     \begin{itemize}
         \item \textbf{Definição.} Uma série de potências centrada em \(x-a\) é uma série infinita da forma \begin{equation}\sum_{n=0}^{\infty} c_n (x-a)^n = c_0 + c_1(x-a) + c_2(x-a)^2 + \cdots\end{equation}
-        \item \textbf{Convergência.} Uma série de potências é convergente no ponto \(x=x_0\) se a sua sequência de somas parciais \(\{S_N(x)\}\) converge para um número real para \(N\to\infty\), ou seja, \(\displaystyle\lim_{N\to\infty} S_N(x_0) = \lim_{N\to\infty} \sum_{n=0}^{N} c_n (x-a)^n\) existe. Se o limite não existe, a série diverge em \(x_0\).
+        \item \textbf{Convergência.} Uma série de potências é convergente no ponto \(x=x_0\) se a sua sequência de somas parciais \(\{S_N(x)\}\) converge para um número real para \(N\to\infty\), ou seja, \(\lim_{N\to\infty} S_N(x_0) = \lim_{N\to\infty} \sum_{n=0}^{N} c_n (x-a)^n\) existe. Se o limite não existe, a série diverge em \(x_0\).
         \item \textbf{Intervalo de convergência.} O conjunto de todos os pontos \(x\) para os quais a série de potências converge é chamado de intervalo de convergência. O centro do intervalo de convergência é o centro \(a\) da série de potências.
         \item \textbf{Raio de convergência.} O raio \(R\) do intervalo de convergência de uma série de potências é chamado de raio de convergência. Se a série converge para todo \(x\), então \(R=\infty\). Se \(R>\), então a série converge para \(|x-a|<R\) e diverge para \(|x-a|>R\). Se \(R=0\), então a série converge somente em \(x=a\). Uma série de potências pode ou não convergir nos pontos finais do intervalo de convergência.
-        \item \textbf{Convergência absoluta.} Dentro de seu intervalo de convergência, uma série de potências converge absolutamente, ou seja, a série \(\displaystyle\sum_{n=0}^{\infty} |c_n (x-a)^n|\) também converge para todo \(x \in (a-R, a+R)\).
+        \item \textbf{Convergência absoluta.} Dentro de seu intervalo de convergência, uma série de potências converge absolutamente, ou seja, a série \(\sum_{n=0}^{\infty} |c_n (x-a)^n|\) também converge para todo \(x \in (a-R, a+R)\).
         \item \textbf{Teste da razão.} A convergência de uma série de potências pode ser determinada pelo teste da razão. Suponha que \(c_n\neq0\) para todo \(n\) em \(\sum_{n=0}^{\infty} c_n (x-a)^n\), e que 
         \begin{equation}
             \lim_{n\to\infty} \left| \frac{c_{n+1}(x-a)^{n+1}}{c_n (x-a)^n} \right| = |x-a| \lim_{n\to\infty} \left| \frac{c_{n+1}}{c_n} \right| = L.
         \end{equation}
         \noindent Se \(L<1\), a série converge absolutamente; se \(L>1\), a série diverge; se \(L=1\), o teste é inconclusivo. O teste da razão é sempre inconclusivo nos pontos \(x=a\pm R\).
-        \item \textbf{Uma série de potências define uma função.} Uma série de potências \(\displaystyle\sum_{n=0}^{\infty} c_n (x-a)^n\) define uma função \(f\) por \(\displaystyle f(x) = \sum_{n=0}^{\infty} c_n (x-a)^n\) para todo \(x\) no intervalo de convergência. Se o raio de convergência é \(R>0\) ou \(R = \infty\), então \(f\) é contínua, diferenciável e integrável nos intervalos \((a-R, a+R)\) ou \((-\infty, \infty)\), respectivamente. Além disso, \(f\) pode ser diferenciada e integrada termo a termo. Convergência em um ponto final do intervalo pode ser perdida após a diferenciação ou integração. Se 
+        \item \textbf{Uma série de potências define uma função.} Uma série de potências \(\sum_{n=0}^{\infty} c_n (x-a)^n\) define uma função \(f\) por \( f(x) = \sum_{n=0}^{\infty} c_n (x-a)^n\) para todo \(x\) no intervalo de convergência. Se o raio de convergência é \(R>0\) ou \(R = \infty\), então \(f\) é contínua, diferenciável e integrável nos intervalos \((a-R, a+R)\) ou \((-\infty, \infty)\), respectivamente. Além disso, \(f\) pode ser diferenciada e integrada termo a termo. Convergência em um ponto final do intervalo pode ser perdida após a diferenciação ou integração. Se 
         \[ f(x) = \sum_{n=0}^{\infty} c_n x^n = c_0 + c_1 x + c_2 x^2 + \cdots \]
-        \noindent é uma série de potências em \(x\), então suas primeiras duas derivadas são \(\displaystyle y' = \sum_{n=1}^{\infty} n c_n x^{n-1}\) e \(\displaystyle y'' = \sum_{n=2}^{\infty} n(n-1)c_n x^{n-2}\).
-        \item \textbf{Identidade.} Se \(\displaystyle\sum_{n=0}^{\infty} c_n (x-a)^n = 0\) para todo \(x\) em um intervalo, então \(c_n = 0\) para todo \(n\).
+        \noindent é uma série de potências em \(x\), então suas primeiras duas derivadas são \( y' = \sum_{n=1}^{\infty} n c_n x^{n-1}\) e \( y'' = \sum_{n=2}^{\infty} n(n-1)c_n x^{n-2}\).
+        \item \textbf{Identidade.} Se \(\sum_{n=0}^{\infty} c_n (x-a)^n = 0\) para todo \(x\) em um intervalo, então \(c_n = 0\) para todo \(n\).
         \item \textbf{Analítica em um ponto.} Uma função \(f\) é dita analítica em um ponto \(x=a\) se existe uma série de potências centrada em \(x-a\) que converge para \(f(x)\) em algum intervalo \((a-R, a+R)\), onde \(R>0\).
+        \item \textbf{Aritmética de séries de potências.} Séries de potências podem ser combinadas pelas operações de soma, multiplicação e divisão. Os procedimentos são semelhantes aos usados para polinômios.
     \end{itemize}
 \end{rem}
 
@@ -105,13 +107,67 @@
     \noindent onde \(r\) é a raiz de uma equação indicial associada. A série converge pelo menos em algum intervalo \(0<x-x_0<R\).
 \end{thm}
 
+\begin{rem}
+    Suponha que \(x=0\) é ponto singular regular da equação \eqref{eq:edo1} e que as raízes \(r_1\) e \(r_2\) da equação indicial associada satisfaçam \(r_1 \geq r_2\). Então:
+    \begin{itemize}
+        \item Se \(r_1 - r_2\) não é inteiro positivo, então existem duas soluções linearmente independentes da forma
+        \begin{equation}
+            y_1 = x^{r_1} \sum_{n=0}^{\infty} c_n x^n, \quad c_0 \neq 0, \qquad y_2 = x^{r_2} \sum_{n=0}^{\infty} d_n x^n, \quad d_0 \neq 0.
+        \end{equation}
+        \item Se \(r_1 = r_2\), então as soluções são da forma
+        \begin{equation}
+            y_1 = x^{r_1} \sum_{n=0}^{\infty} c_n x^n, \quad c_0 \neq 0, \qquad y_2 = y_1 \ln|x| + x^{r_2} \sum_{n=0}^{\infty} d_n x^n, \quad d_0 \neq 0.
+        \end{equation}
+        \item Se \(r_1 - r_2 = N\), onde \(N\) é um inteiro positivo, então existem soluções da forma
+        \begin{equation}
+            y_1 = x^{r_1} \sum_{n=0}^{\infty} c_n x^n, \quad c_0 \neq 0, \qquad y_2 = C y_1 \ln|x| + x^{r_2} \sum_{n=0}^{\infty} d_n x^n, \quad d_0 \neq 0,
+        \end{equation}
+        \noindent onde \(C\) é uma constante que pode ser zero.
+    \end{itemize}
+\end{rem}
+
 \begin{defn}
     Assuma que \(\nu\geq0\). Então,
-    \begin{equation}
+    \begin{equation}\label{eq:bessel}
         x^2y'' + xy' + (x^2 - \nu^2)y = 0
     \end{equation}
     \noindent é chamada de \emph{equação de Bessel de ordem \(\nu\)}.
 \end{defn}
+
+\begin{res}
+    A solução geral da equação de Bessel de ordem \(\nu\) é dada por
+    \begin{equation}
+        y = c_1 J_{\nu}(x) + c_2 J_{-\nu}(x), \quad \nu \notin \mathbb{Z},
+    \end{equation}
+    \noindent onde \(J_{\nu}(x)\) é a função de Bessel de primeira espécie e ordem \(\nu\), definida por
+    \begin{equation}
+        J_{\nu}(x) = \sum_{n=0}^{\infty} \frac{(-1)^n}{n! \Gamma(n+\nu+1)} \left(\frac{x}{2}\right)^{2n+\nu},
+    \end{equation}
+    \noindent que converge no intervalo \((0,\infty)\). O termo \(\Gamma(n+\nu+1)\) é a função gama, também conhecida como fatorial generalizado, definida por \(\Gamma(x) = \int_0^{\infty} t^{x-1} e^{-t} \, dt\) para \(x>0\) e satisfaz a propriedade \(\Gamma(x+1) = x\Gamma(x)\).
+\end{res}
+
+\begin{res}
+    Para todo valor de \(\nu\), a solução geral de \eqref{eq:bessel} pode ser escrita como
+    \begin{equation}
+        y = c_1 J_{\nu}(x) + c_2 Y_{\nu}(x),
+    \end{equation}
+    \noindent onde \(Y_{\nu}(x)\) é a função de Bessel de segunda espécie e ordem \(\nu\), definida por
+    \begin{equation}
+        Y_{\nu}(x) = \frac{J_{\nu}(x) \cos(\nu \pi) - J_{-\nu}(x)}{\sin(\nu \pi)},
+    \end{equation}
+    \noindent que também converge no intervalo \((0,\infty)\).
+\end{res}
+
+\begin{prop} (algumas propriedades das funções de Bessel)
+    Para funções de Bessel de ordem \(m\), \(m=0,1,2,\ldots\), temos as seguintes propriedades:
+    \begin{align*}
+        &J_{-m}(x) = (-1)^m J_m(x), \quad & &J_m(-x) = (-1)^m J_m(x), \\
+        &J_m(0) = \begin{cases}
+            0, \quad m > 0 \\
+            1, \quad m = 0
+        \end{cases}, \quad & &\lim_{x\to 0^{+}} Y_m(x) = -\infty
+    \end{align*}
+\end{prop}
 
 \begin{defn}
     Considerando \(n\) um inteiro não-negativo, temos 
@@ -120,6 +176,33 @@
     \end{equation}
     \noindent que é chamada de \emph{equação de Legendre de ordem \(n\)}.
 \end{defn}
+
+\begin{res}
+    Os polinômios de Legendre \(P_n(x)\) são soluções particulares da equação de Legendre de ordem \(n\), dadas por
+    \begin{align*}
+        P_0(x) &= 1, & \quad P_1(x) &= x,\\
+        P_2(x) &= \frac{1}{2}(3x^2 - 1), & \quad P_3(x) &= \frac{1}{2}(5x^3 - 3x),\\
+        P_4(x) &= \frac{1}{8}(35x^4 - 30x^2 + 3), & \quad P_5(x) &= \frac{1}{8}(63x^5 - 70x^3 + 15x). 
+    \end{align*}
+
+    \noindent A fórmula de Rodrigues, que gera os polinômios de Legendre, é dada por
+    \begin{equation}
+        P_n(x) = \frac{1}{2^n n!} \frac{d^n}{dx^n} (x^2 - 1)^n, \quad n=0,1,2,\ldots
+    \end{equation}
+\end{res}
+
+\begin{prop} (algumas propriedades dos polinômios de Legendre)
+    \begin{align*}
+        &P_n(-x) = (-1)^n P_n(x), &\quad & P_n(1) = 1, \quad & P_n(-1) = (-1)^n, \\
+        &P_n(0) = 0, \quad n \text{ ímpar}, &\quad & P'_n(0) = 0, \quad n \text{ par} &
+    \end{align*}
+\end{prop}
+
+\begin{res} (relação de recorrência dos polinômios de Legendre)
+    \begin{equation}
+        (n+1)P_{n+1}(x) - (2n+1)xP_n(x) + nP_{n-1}(x) = 0, \quad n=1,2,3,\ldots
+    \end{equation}
+\end{res}
 
 \section{Séries de Fourier}
 
@@ -251,7 +334,7 @@
 \begin{defn}
     Sejam \(p\), \(q\), \(r\) e \(r'\) funções reais contínuas em um intervalo \([a,b]\), e seja \(r(x)>0\) e \(p(x)>0\) para todo \(x \in [a,b]\). O problema de valor de contorno
     \begin{equation}
-        \frac{d}{dx}\left[p(x)\frac{dy}{dx}\right] + q(x)y + \lambda r(x)y = 0, \quad a < x < b,
+        \frac{d}{dx}\left[r(x)\frac{dy}{dx}\right] + q(x)y + \lambda p(x)y = 0, \quad a < x < b,
     \end{equation}
     \noindent sujeito às condições de contorno lineares e homogêneas
     \begin{align}
@@ -261,7 +344,7 @@
     \noindent onde \(A_1\), \(A_2\), \(B_1\) e \(B_2\) são constantes tais que \(A_1^2 + A_2^2 \neq 0\) e \(B_1^2 + B_2^2 \neq 0\), é chamado de \emph{problema de Sturm-Liouville regular}. Os valores de \(\lambda\) para os quais existem soluções não-triviais são chamados de \emph{autovalores}, e as soluções correspondentes são chamadas de \emph{autovetores}.
 \end{defn}
 
-\begin{thm} (propriedades do problema de Sturm-Liouville regular)
+\begin{thm} (algumas propriedades do problema de Sturm-Liouville regular)
     \begin{enumerate}
         \item[(a)] Existe um número infinito de autovalores reais que podem ser ordenados em uma sequência crescente \( \lambda_1 < \lambda_2 < \lambda_3 < \ldots \) tal que \( \lim_{n \to \infty} \lambda_n = +\infty \).
         \item[(b)] A cada autovalor \( \lambda_n \) corresponde um único autovetor \( y_n(x) \), a menos de um fator multiplicativo constante.
@@ -312,6 +395,29 @@
         \begin{align}
             B(\alpha) &= \int_{0}^{\infty} f(x) \sin(\alpha x) \, dx.
         \end{align}
+    \end{enumerate}
+\end{defn}
+
+\begin{defn} (pares de transformadas de Fourier)
+    \begin{enumerate}
+        \item[(i)] Transformada de Fourier: \begin{equation}
+            \mathcal{F}\{f(x)\} = \int_{-\infty}^{\infty} f(x) e^{-i\alpha x} \, dx = F(\alpha).
+        \end{equation}
+        \item[(ii)] Transformada inversa de Fourier: \begin{equation}
+            \mathcal{F}^{-1}\{F(\alpha)\} = \frac{1}{2\pi} \int_{-\infty}^{\infty} F(\alpha) e^{i\alpha x} \, d\alpha = f(x).
+        \end{equation}
+        \item[(iii)] Transformada de Fourier em senos: \begin{equation}
+            \mathcal{F}_s\{f(x)\} = \int_{0}^{\infty} f(x) \sin(\alpha x) \, dx = F_s(\alpha).
+        \end{equation}
+        \item[(iv)] Transformada inversa de Fourier em senos: \begin{equation}
+            \mathcal{F}_s^{-1}\{F_s(\alpha)\} = \frac{2}{\pi} \int_{0}^{\infty} F_s(\alpha) \sin(\alpha x) \, d\alpha = f(x).
+        \end{equation}
+        \item[(v)] Transformada de Fourier em cossenos: \begin{equation}
+            \mathcal{F}_c\{f(x)\} = \int_{0}^{\infty} f(x) \cos(\alpha x) \, dx = F_c(\alpha).
+        \end{equation}
+        \item[(vi)] Transformada inversa de Fourier em cossenos: \begin{equation}
+            \mathcal{F}_c^{-1}\{F_c(\alpha)\} = \frac{2}{\pi} \int_{0}^{\infty} F_c(\alpha) \cos(\alpha x) \, d\alpha = f(x).
+        \end{equation}
     \end{enumerate}
 \end{defn}
 
