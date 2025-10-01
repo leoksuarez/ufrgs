@@ -110,19 +110,19 @@
 \begin{rem}
     Suponha que \(x=0\) é ponto singular regular da equação \eqref{eq:edo1} e que as raízes \(r_1\) e \(r_2\) da equação indicial associada satisfaçam \(r_1 \geq r_2\). Então:
     \begin{itemize}
-        \item Se \(r_1 - r_2\) não é inteiro positivo, então existem duas soluções linearmente independentes da forma
+        \item [\textbf{Caso I.}] Se \(r_1 - r_2\) não é inteiro positivo, então existem duas soluções linearmente independentes da forma
         \begin{equation}
             y_1 = x^{r_1} \sum_{n=0}^{\infty} c_n x^n, \quad c_0 \neq 0, \qquad y_2 = x^{r_2} \sum_{n=0}^{\infty} d_n x^n, \quad d_0 \neq 0.
         \end{equation}
-        \item Se \(r_1 = r_2\), então as soluções são da forma
+        \item [\textbf{Caso II.}] Se \(r_1 - r_2 = N\), onde \(N\) é um inteiro positivo, então existem soluções da forma
         \begin{equation}
-            y_1 = x^{r_1} \sum_{n=0}^{\infty} c_n x^n, \quad c_0 \neq 0, \qquad y_2 = y_1 \ln|x| + x^{r_2} \sum_{n=0}^{\infty} d_n x^n, \quad d_0 \neq 0.
-        \end{equation}
-        \item Se \(r_1 - r_2 = N\), onde \(N\) é um inteiro positivo, então existem soluções da forma
-        \begin{equation}
-            y_1 = x^{r_1} \sum_{n=0}^{\infty} c_n x^n, \quad c_0 \neq 0, \qquad y_2 = C y_1 \ln|x| + x^{r_2} \sum_{n=0}^{\infty} d_n x^n, \quad d_0 \neq 0,
+            y_1 = x^{r_1} \sum_{n=0}^{\infty} c_n x^n, \quad c_0 \neq 0, \qquad y_2 = C y_1 \ln x + x^{r_2} \sum_{n=0}^{\infty} d_n x^n, \quad d_0 \neq 0,
         \end{equation}
         \noindent onde \(C\) é uma constante que pode ser zero.
+        \item [\textbf{Caso III.}] Se \(r_1 = r_2\), então as soluções são da forma
+        \begin{equation}
+            y_1 = x^{r_1} \sum_{n=0}^{\infty} c_n x^n, \quad c_0 \neq 0, \qquad y_2 = y_1 \ln x + x^{r_2} \sum_{n=1}^{\infty} d_n x^n.
+        \end{equation}
     \end{itemize}
 \end{rem}
 
@@ -267,21 +267,21 @@
 
 \begin{thm} (condições para convergência)
     Sejam \(f\) e \(f'\) contínuas por partes em \([-p,p]\). Então para todo \(x \in (-p,p)\), a série de Fourier de \(f\) converge para \(f(x)\) em um ponto de continuidade. Em um ponto de descontinuidade, a série de Fourier converge para a média
-    \begin{equation}
+    \begin{equation*}
         \frac{f(x+) + f(x-)}{2},
-    \end{equation}
+    \end{equation*}
     \noindent onde \(f(x+)\) e \(f(x-)\) são os limites laterais de \(f\) em \(x\), respectivamente.
 \end{thm}
 
 \begin{thm} (propriedades de funções pares/ímpares)
     \begin{enumerate}
-        \item[(a)] O produto de duas funções pares é par.
-        \item[(b)] O produto de duas funções ímpares é par.
-        \item[(c)] O produto de uma função par por uma função ímpar é ímpar.
-        \item[(d)] A soma (diferença) de duas funções pares é par.
-        \item[(e)] A soma (diferença) de duas funções ímpares é ímpar.
-        \item[(f)] Se \(f\) é par, então \(\int_{-a}^{a} f(x) \, dx = 2\int_{0}^{a} f(x) \, dx\).
-        \item[(g)] Se \(f\) é ímpar, então \(\int_{-a}^{a} f(x) \, dx = 0\).
+        \item[\textup{(a)}] O produto de duas funções pares é par.
+        \item[\textup{(b)}] O produto de duas funções ímpares é par.
+        \item[\textup{(c)}] O produto de uma função par por uma função ímpar é ímpar.
+        \item[\textup{(d)}] A soma (diferença) de duas funções pares é par.
+        \item[\textup{(e)}] A soma (diferença) de duas funções ímpares é ímpar.
+        \item[\textup{(f)}] Se \(f\) é par, então \(\int_{-a}^{a} f(x) \, dx = 2\int_{0}^{a} f(x) \, dx\).
+        \item[\textup{(g)}] Se \(f\) é ímpar, então \(\int_{-a}^{a} f(x) \, dx = 0\).
     \end{enumerate}
 \end{thm}
 
@@ -318,7 +318,7 @@
         \\ \textbf{Equação de Cauchy-Euler} & \textbf{Soluções gerais, \(x>0\)} \\
         \hline
         \(x^2y''+ xy'- \alpha^2 y=0,\quad \alpha\geq 0\) & \(\begin{cases} y=c_1x^{-\alpha}+c_2x^{\alpha},\quad\alpha>0 \\ y=c_1+c_2\ln(x),\quad \alpha=0 \end{cases}\) \\
-        \\ \textbf{Equação paramétrica de Bessel \(\nu>0\)} & \textbf{Solução geral, \(x>0\)} \\
+        \\ \textbf{Equação paramétrica de Bessel \(\nu=0\)} & \textbf{Solução geral, \(x>0\)} \\
         \hline
         \(x^2y''+ xy' + \alpha^2 x^2 y=0\) & \(y=c_1J_0(\alpha x)+c_2Y_0(\alpha x)\) \\
         \\ \textbf{Equação de Legendre \(n=0,1,2,\ldots\)} & \textbf{Soluções particulares são polinômios} \\
@@ -346,12 +346,60 @@
 
 \begin{thm} (algumas propriedades do problema de Sturm-Liouville regular)
     \begin{enumerate}
-        \item[(a)] Existe um número infinito de autovalores reais que podem ser ordenados em uma sequência crescente \( \lambda_1 < \lambda_2 < \lambda_3 < \ldots \) tal que \( \lim_{n \to \infty} \lambda_n = +\infty \).
-        \item[(b)] A cada autovalor \( \lambda_n \) corresponde um único autovetor \( y_n(x) \), a menos de um fator multiplicativo constante.
-        \item[(c)] Autovetores correspondentes a autovalores distintos são linearmente independentes.
-        \item[(d)] O conjunto de autovetores correspondente ao conjunto de autovalores é ortogonal com respeito à função peso \( p(x) \) no intervalo \([a,b]\).
+        \item[\textup{(a)}] Existe um número infinito de autovalores reais que podem ser ordenados em uma sequência crescente \( \lambda_1 < \lambda_2 < \lambda_3 < \ldots \) tal que \( \lim_{n \to \infty} \lambda_n = +\infty \).
+        \item[\textup{(b)}] A cada autovalor \( \lambda_n \) corresponde um único autovetor \( y_n(x) \), a menos de um fator multiplicativo constante.
+        \item[\textup{(c)}] Autovetores correspondentes a autovalores distintos são linearmente independentes.
+        \item[\textup{(d)}] O conjunto de autovetores correspondente ao conjunto de autovalores é ortogonal com respeito à função peso \( p(x) \) no intervalo \([a,b]\).
     \end{enumerate}
 \end{thm}
+
+\begin{defn}
+    A série de \emph{Fourier-Bessel} de uma função \(f\) definida no intervalo \((0,b)\) é dada por
+    \begin{enumerate}
+        \item [(i)] \begin{gather}
+            f(x) = \sum_{i=1}^{\infty} c_i J_n(\alpha_{i}x) \\
+            c_i = \frac{2}{b^2 J_{n+1}^2(\alpha_i b)} \int_0^b x f(x) J_n(\alpha_i x) \, dx
+        \end{gather}
+        \noindent onde os \(\alpha_i\) são as raízes de \(J_n(\alpha b) = 0\).
+        \item [(ii)] \begin{gather}
+            f(x) = \sum_{i=1}^{\infty} c_i J_n(\alpha_{i}x) \\
+            c_i = \frac{2\alpha_{i}^2}{(\alpha_{i}^2 b^2 - n^2 + h^2)J_n^2(\alpha_i b)} \int_0^b x f(x) J_n(\alpha_i x) \, dx
+        \end{gather}
+        \noindent onde os \(\alpha_i\) são as raízes de \(h J_n(\alpha b) + \alpha b J_n'(\alpha b) = 0\).
+        \item [(iii)] \begin{gather}
+            f(x) = c_1 + \sum_{i=1}^{\infty} c_i J_0(\alpha_{i}x) \\
+            c_1 = \frac{2}{b^2} \int_0^b x f(x) \, dx, \quad c_i = \frac{2}{b^2 J_0^2(\alpha_i b)} \int_0^b x f(x) J_0(\alpha_i x) \, dx
+        \end{gather}
+        \noindent onde os \(\alpha_i\) são as raízes de \(J_0'(\alpha b) = 0\).
+    \end{enumerate}
+\end{defn}
+
+\begin{prop} (convergência da série de Fourier-Bessel)
+    Sejam \(f\) e \(f'\) contínuas por partes em \([0,b]\). Então para todo \(x\) no intervalo \((0,b)\), a série de Fourier-Bessel de \(f\) converge para \(f(x)\) em um ponto de continuidade. Em um ponto de descontinuidade, a série de Fourier-Bessel converge para a média
+    \begin{equation*}
+        \frac{f(x+) + f(x-)}{2},
+    \end{equation*}
+    \noindent onde \(f(x+)\) e \(f(x-)\) são os limites laterais de \(f\) em \(x\), respectivamente.
+\end{prop}
+
+\begin{defn}
+    A série de \emph{Fourier-Legendre} de uma função \(f\) definida no intervalo \((-1,1)\) é dada por
+    \begin{equation}
+        f(x) = \sum_{n=0}^{\infty} c_n P_n(x),
+    \end{equation}
+    \noindent onde os coeficientes \(c_n\) são dados por
+    \begin{equation}
+        c_n = \frac{2n+1}{2} \int_{-1}^{1} f(x) P_n(x) \, dx.
+\end{equation}
+\end{defn}
+
+\begin{prop} (convergência da série de Fourier-Legendre)
+    Sejam \(f\) e \(f'\) contínuas por partes em \([-1,1]\). Então para todo \(x\) no intervalo \((-1,1)\), a série de Fourier-Legendre de \(f\) converge para \(f(x)\) em um ponto de continuidade. Em um ponto de descontinuidade, a série de Fourier-Legendre converge para a média
+    \begin{equation*}
+        \frac{f(x+) + f(x-)}{2},
+    \end{equation*}
+    \noindent onde \(f(x+)\) e \(f(x-)\) são os limites laterais de \(f\) em \(x\), respectivamente.
+\end{prop}
 
 \section{Problemas de Valor de Contorno em Coordenadas Retangulares}
 \section{Problemas de Valor de Contorno em Outros Sistemas de Coordenadas}
