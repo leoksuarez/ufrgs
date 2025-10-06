@@ -17,10 +17,10 @@
 \newtheorem{cor}[thm]{Corolário}
 
 \theoremstyle{definition}
-\newtheorem{defn}[thm]{Definição}
-\newtheorem{exmp}[thm]{Exemplo}
-\newtheorem{prblm}[thm]{Problema}
-\newtheorem{prcp}[thm]{Princípio}
+\newtheorem{defn}{Definição}[section]
+\newtheorem{exmp}[defn]{Exemplo}
+\newtheorem{prblm}[defn]{Problema}
+\newtheorem{prcp}[defn]{Princípio}
 
 \theoremstyle{remark}
 \newtheorem*{rem}{Nota}
@@ -187,9 +187,9 @@
 \begin{lem} (lema de dependência linear)
     Suponha que \(v_1, \ldots, v_n\) é linearmente dependente em \(V\). Então existe \(j \in \{1, \ldots, n\}\) tal que
     \begin{equation}
-        v_j \in \text{span}(v_1, \ldots, v_{j-1}).
+        v_j \in \textup{span}(v_1, \ldots, v_{j-1}).
     \end{equation}
-    \noindent Ainda, se \(j\) satisfaz a condição acima e o \(j\)-ésimo vetor for removido da lista, então o span dos vetores restantes é igual a \(\text{span}(v_1, \ldots, v_n)\).
+    \noindent Ainda, se \(j\) satisfaz a condição acima e o \(j\)-ésimo vetor for removido da lista, então o span dos vetores restantes é igual a \(\textup{span}(v_1, \ldots, v_n)\).
 \end{lem}
 
 \begin{prop}
@@ -263,19 +263,19 @@
 \begin{defn}
     Uma transformação linear de \(V\) em \(W\) é uma função \(T: V \to W\) com as seguintes propriedades.
     \begin{enumerate}
-        \item \(T(u + v) = T(u) + T(v)\), para todo \(u, v \in V\).\hfill\emph{(aditividade)}
-        \item \(T(\lambda u) = \lambda T(u)\), para todo \(u \in V\) e todo escalar \(\lambda \in \mathbb{F}\).\hfill\emph{(homogeneidade)}
+        \item \(T(u + v) = Tu + Tv\), para todo \(u, v \in V\).\hfill\emph{(aditividade)}
+        \item \(T(\lambda u) = \lambda Tu\), para todo \(u \in V\) e todo escalar \(\lambda \in \mathbb{F}\).\hfill\emph{(homogeneidade)}
     \end{enumerate}
 \end{defn}
 
 \begin{lem}
-    Suponha que \(v_1,\ldots,v_n\) é uma base de \(V\) e \(w_1,\ldots,w_n \in W\). Então existe uma única transformação linear \(T: V \to W\) tal que \(T(v_k) = w_k\), para \(k = 1, \ldots, n\).
+    Suponha que \(v_1,\ldots,v_n\) é uma base de \(V\) e \(w_1,\ldots,w_n \in W\). Então existe uma única transformação linear \(T: V \to W\) tal que \(Tv_k = w_k\), para \(k = 1, \ldots, n\).
 \end{lem}
 
 \begin{defn}
     Suponha \(S, T \in \mathcal{L}(V, W)\) e \(\lambda \in \mathbb{F}\). A \emph{soma} \(S + T\) e o \emph{produto por escalar} \(\lambda T\) são as transformações lineares de \(V\) em \(W\) definidas por
     \[
-        (S + T)(v) = S(v) + T(v) \quad \text{e} \quad (\lambda T)(v) = \lambda (T(v)),
+        (S + T)(v) = S(v) + Tv \quad \text{e} \quad (\lambda T)(v) = \lambda (Tv),
     \]
     \noindent para todo \(v \in V\).
 \end{defn}
@@ -287,7 +287,7 @@
 \begin{defn}
     Se \(T \in \mathcal{L}(U, V)\) e \(S \in \mathcal{L}(V, W)\), então o \emph{produto} \(ST\) é a transformação linear de \(U\) em \(W\) definida por
     \[
-        (ST)(u) = S(T(u)),
+        (ST)(u) = S(Tu),
     \]
     \noindent para todo \(u \in U\).
 \end{defn}
@@ -308,7 +308,7 @@
 \begin{defn}
     Para \(T \in \mathcal{L}(V, W)\), o \emph{espaço nulo} de \(T\) é o subconjunto de \(V\) definido por
     \[
-        \mathcal{N}(T) = \{v \in V : T(v) = 0\}.
+        \mathcal{N}(T) = \{v \in V : Tv = 0\}.
     \]
 \end{defn}
 
@@ -317,7 +317,7 @@
 \end{prop}
 
 \begin{defn}
-    Uma função \(T: V \to W\) é \emph{injetora} se \(T(v_1) = T(v_2)\) implica \(v_1 = v_2\), para todo \(v_1, v_2 \in V\).
+    Uma função \(T: V \to W\) é \emph{injetora} se \(Tv_1 = TTv_2\) implica \(v_1 = v_2\), para todo \(v_1, v_2 \in V\).
 \end{defn}
 
 \begin{prop}
@@ -327,7 +327,7 @@
 \begin{defn}
     Para \(T \in \mathcal{L}(V, W)\), a \emph{imagem} de \(T\) é o subconjunto de \(W\) definido por
     \[
-        \text{Im}(T) = \{T(v) : v \in V\}.
+        \text{Im}(T) = \{Tv : v \in V\}.
     \]
 \end{defn}
 
@@ -336,7 +336,7 @@
 \end{prop}
 
 \begin{defn}
-    Uma função \(T: V \to W\) é \emph{sobrejetora} se para todo \(w \in W\) existe \(v \in V\) tal que \(T(v) = w\).
+    Uma função \(T: V \to W\) é \emph{sobrejetora} se para todo \(w \in W\) existe \(v \in V\) tal que \(Tv = w\).
 \end{defn}
 
 \begin{thm} (teorema fundamental das transformações lineares)
@@ -371,7 +371,7 @@
 \begin{defn} (matriz de uma transformação linear)
     Suponha que \(T \in \mathcal{L}(V, W)\) e que \(v_1, \ldots, v_n\) é uma base de \(V\) e \(w_1, \ldots, w_m\) é uma base de \(W\). A \emph{matriz} de \(T\) com respeito a essas bases é a matriz \(\mathcal{M}(T)\) de tamanho \(m\) por \(n\) cujas entradas \(A_{jk}\) são definidas por
     \[
-        T(v_k) = A_{1k} w_1 + \cdots + A_{mk} w_m.
+        Tv_k = A_{1k} w_1 + \cdots + A_{mk} w_m.
     \]    
 \end{defn}
 
@@ -526,20 +526,93 @@
 \end{defn}
 
 \begin{cor}
-    Suponha \(T \in \mathcal{L}(V, W)\) e \(v_1,\ldots,v_n\) é uma base de \(V\) e \(w_1,\ldots,w_m\) é uma base de \(W\). Seja \(1 \leq k \leq n\). Então a \(k\)-ésima coluna de \(\mathcal{M}(T)\) é igual a \(\mathcal{M}(T(v_k))\).
+    Suponha \(T \in \mathcal{L}(V, W)\) e \(v_1,\ldots,v_n\) é uma base de \(V\) e \(w_1,\ldots,w_m\) é uma base de \(W\). Seja \(1 \leq k \leq n\). Então a \(k\)-ésima coluna de \(\mathcal{M}(T)\) é igual a \(\mathcal{M}(Tv_k)\).
 \end{cor}
 
 \begin{prop}
     Suponha \(T \in \mathcal{L}(V, W)\), \(v_1,\ldots,v_n\) é uma base de \(V\) e \(w_1,\ldots,w_m\) é uma base de \(W\). Se \(v \in V\), então
     \[
-        \mathcal{M}(T(v)) = \mathcal{M}(T) \mathcal{M}(v).
+        \mathcal{M}(Tv) = \mathcal{M}(T) \mathcal{M}(v).
     \]
 \end{prop}
 
-\subsection{Produtos e Quocientes de Espaços Vetoriais}
 \subsection{Dualidade}
 
+\begin{defn}
+    Um \emph{funcional linear} em \(V\) é uma transformação linear de \(V\) em \(\mathbb{F}\). Em outras palavras, um funcional linear é um elemento de \(\mathcal{L}(V, \mathbb{F})\).
+\end{defn}
+
+\begin{defn}
+    O \emph{dual} de \(V\), denotado por \(V'\), é o espaço vetorial de todos os funcionais lineares sobre \(V\), ou seja, \(V' = \mathcal{L}(V, \mathbb{F})\).
+\end{defn}
+
+\begin{prop}
+    Se \(V\) é um espaço vetorial de dimensão finita, então \(V'\) é de dimensão finita e \(\dim V' = \dim V\).
+\end{prop}
+
+\begin{defn}
+    Se \(v_1, \ldots, v_n\) é uma base de \(V\), então a \emph{base dual} de \(V'\) com respeito a essa base é a lista \(\varphi_1, \ldots, \varphi_n\) de funcionais lineares em \(V\) definida por
+    \[
+        \varphi_i(v_j) = \begin{cases}
+            1 & \text{se } i = j \\
+            0 & \text{se } i \neq j
+        \end{cases}, \quad \forall i,j = 1,\ldots,n.
+    \]
+\end{defn}
+
 \section{Polinômios}
+
+\begin{defn}
+    Um número \(\lambda \in \mathbb{F}\) é dito um \emph{zero} (ou \emph{raiz}) de um polinômio \(p \in \mathcal{P}(\mathbb{F})\) se \(p(\lambda) = 0\).
+\end{defn}
+
+\begin{prop} (todo zero de um polinômio corresponde a um fator de grau um)
+    Suponha que \(m\) é um inteiro positivo e \(p \in \mathcal{P}_m(\mathbb{F})\) é um polinômio de grau \(m\). Seja \(\lambda \in \mathbb{F}\). Então \(p(\lambda) = 0\) sse existe \(q \in \mathcal{P}_{m-1}(\mathbb{F})\) tal que \(p(z) = (z - \lambda) q(z)\), para todo \(z \in \mathbb{F}\).
+\end{prop}
+
+\begin{prop}
+    Seja \(p \in \mathcal{P}(\mathbb{F})\) um polinômio de grau \(m\), \(m\) inteiro positivo. Então \(p\) tem no máximo \(m\) zeros distintos em \(\mathbb{F}\).
+\end{prop}
+
+\begin{prop} (algoritmo da divisão para polinômios)
+    Suponha que \(p, s \in \mathcal{P}(\mathbb{F})\) e que \(s \neq 0\). Então existem únicos \(q, r \in \mathcal{P}(\mathbb{F})\) tais que
+    \[
+        p = sq + r,
+    \]
+    \noindent e \(\text{gr }r < \text{gr }s\).
+\end{prop}
+
+\begin{thm} (teorema fundamental da álgebra, primeira versão)
+    Todo polinômio não-constante com coeficientes complexos tem pelo menos um zero complexo.
+\end{thm}
+
+\begin{thm} (teorema fundamental da álgebra, segunda versão)
+    Se \(p \in \mathcal{P}(\mathbb{C})\) é um polinômio não-constante, então \(p\) tem uma fatoração única da forma
+    \[
+        p(z) = c (z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_m),
+    \]
+    \noindent onde \(c, \lambda_1, \ldots, \lambda_m \in \mathbb{C}\).
+\end{thm}
+
+\begin{prop} (polinômios com coeficientes reais possuem zeros em pares)
+    Seja \(p \in \mathcal{P}(\mathbb{C})\) um polinômio com coeficientes reais. Se \(\lambda \in \mathbb{C}\) é um zero de \(p\), então o conjugado complexo \(\overline{\lambda}\) de \(\lambda\) também é um zero de \(p\).
+\end{prop}
+
+\begin{thm} (fatoração de um polinômio quadrático)
+    Suponha que \(b, c \in \mathbb{R}\). Então existe uma fatoração polinomial da forma
+    \[
+        x^2 + bx + c = (x - \lambda_1)(x - \lambda_2),
+    \]
+    \noindent com \(\lambda_1, \lambda_2 \in \mathbb{R}\) sse \(b^2 \geq 4c\).
+\end{thm}
+
+\begin{thm} (fatoração de um polinômio sobre \(\mathbb{R}\))
+    Seja \(p \in \mathcal{P}(\mathbb{R})\) um polinômio não-constante. Então \(p\) tem uma fatoração única da forma
+    \[
+        p(x) = c (x - \lambda_1)\cdots(x - \lambda_m)(x^2 + b_1 x + c_1) \cdots (x^2 + b_M x + c_M),
+    \]
+    \noindent onde \(c, \lambda_1, \ldots, \lambda_m, b_1, c_1, \ldots, b_M, c_M \in \mathbb{R}\) e \(b_j^2 < 4c_j\), para \(j = 1, \ldots, M\).
+\end{thm}
 
 \section{Autovalores e Autovetores}
 \subsection{Subespaços Invariantes}
@@ -549,11 +622,11 @@
 \end{defn}
 
 \begin{defn}
-    Suponha \(T \in \mathcal{L}(V)\). Um subespaço \(U\) de \(V\) é dito \emph{invariante} sob \(T\) se \(T(u) \in U\), para todo \(u \in U\).
+    Suponha \(T \in \mathcal{L}(V)\). Um subespaço \(U\) de \(V\) é dito \emph{invariante} sob \(T\) se \(Tu \in U\), para todo \(u \in U\).
 \end{defn}
 
 \begin{defn}
-    Suponha \(T \in \mathcal{L}(V)\). Um escalar \(\lambda \in \mathbb{F}\) é dito um \emph{autovalor} de \(T\) se existe \(v \in V\) tal que \(v \neq 0\) e \(T(v) = \lambda v\). 
+    Suponha \(T \in \mathcal{L}(V)\). Um escalar \(\lambda \in \mathbb{F}\) é dito um \emph{autovalor} de \(T\) se existe \(v \in V\) tal que \(v \neq 0\) e \(Tv = \lambda v\). 
 \end{defn}
 
 \begin{prop} (condições equivalentes para autovalor)
@@ -567,7 +640,7 @@
 \end{prop}
 
 \begin{defn}
-    Suponha \(T \in \mathcal{L}(V)\) e \(\lambda\) é um autovalor de \(T\). O \emph{autovetor} de \(T\) correspondente a \(\lambda\) é qualquer vetor \(v \in V\) tal que \(v \neq 0\) e \(T(v) = \lambda v\).
+    Suponha \(T \in \mathcal{L}(V)\) e \(\lambda\) é um autovalor de \(T\). O \emph{autovetor} de \(T\) correspondente a \(\lambda\) é qualquer vetor \(v \in V\) tal que \(v \neq 0\) e \(Tv = \lambda v\).
 \end{defn}
 
 \begin{prop}
@@ -610,16 +683,163 @@
 
 \subsection{O Polinômio Mínimo}
 
-\begin{prop}
+\begin{thm}
     Todo operador em um espaço vetorial complexo não-nulo de dimensão finita tem um autovalor.
+\end{thm}
+
+\begin{defn}
+    Um \emph{polinômio mônico} é um polinômio cujo coeficiente líder é \(1\).
+\end{defn}
+
+\begin{prop} (existência, unicidade e grau do polinômio mínimo)
+    Suponha que \(V\) é um espaço vetorial de dimensão finita e \(T \in \mathcal{L}(V)\). Então existe um único polinômio mônico \(p \in \mathcal{P}(\mathbb{F})\) de grau mínimo tal que \(p(T) = 0\). Ainda, \(\text{gr }p \leq \dim V\).
+\end{prop}
+
+\begin{defn}
+    Seja \(V\) um espaço vetorial de dimensão finita e \(T \in \mathcal{L}(V)\). O \emph{polinômio mínimo} de \(T\) é o único polinômio mônico \(p \in \mathcal{P}(\mathbb{F})\) de grau mínimo tal que \(p(T) = 0\).
+\end{defn}
+
+\begin{prop} (autovalores são os zeros do polinômio mínimo)
+    Suponha que \(V\) é um espaço vetorial de dimensão finita e \(T \in \mathcal{L}(V)\) e \(\lambda \in \mathbb{F}\).
+    \begin{enumerate}
+        \item [\textup{(a)}] Os zeros do polinômio mínimo de \(T\) são os autovalores de \(T\).
+        \item [\textup{(b)}] Se \(V\) é um espaço vetorial complexo, então o polinômio mínimo de \(T\) é da forma
+        \[
+            (z-\lambda_1)\cdots(z-\lambda_m),
+        \]
+        \noindent onde \(\lambda_1, \ldots, \lambda_m\) são os autovalores de \(T\).
+    \end{enumerate}
 \end{prop}
 
 \subsection{Matrizes Triangular-Superiores}
+
+\begin{defn}
+    Seja \(T \in \mathcal{L}(V)\). A \emph{matriz} de \(T\) com respeito a uma base \(v_1, \ldots, v_n\) de \(V\) é a matriz \(\mathcal{M}(T)\) de tamanho \(n\) por \(n\)
+    \[
+    \mathcal{M}(T) = \begin{pmatrix}
+        A_{11} & A_{12} & \cdots & A_{1n} \\
+        A_{21} & A_{22} & \cdots & A_{2n} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        A_{n1} & A_{n2} & \cdots & A_{nn}
+    \end{pmatrix},
+    \]
+    \noindent cujas entradas \(A_{jk}\) são definidas por
+    \[
+        Tv_k = A_{1k} v_1 + A_{2k} v_2 + \cdots + A_{nk} v_n.
+    \]
+    A notação \(\mathcal{M}(T, (v_1, \ldots, v_n))\) também é usada para denotar a matriz de \(T\) com respeito à base \(v_1, \ldots, v_n\).
+\end{defn}
+
+\begin{defn}
+    A \emph{diagonal} de uma matriz quadrada consiste nas entradas na linha do canto superior esquerdo até a linha do canto inferior direito.
+\end{defn}
+
+\begin{defn}
+    Uma matriz quadrada é dita \emph{triangular-superior} se todas as entradas abaixo da diagonal são zero.
+\end{defn}
+
+\begin{prop} (condições para matriz triangular-superior)
+    Seja \(T \in \mathcal{L}(V)\) e \(v_1, \ldots, v_n\) uma base de \(V\). Então as seguintes condições são equivalentes.
+    \begin{enumerate}
+        \item[\textup{(a)}] A matriz de \(T\) com respeito à base \(v_1, \ldots, v_n\) é triangular-superior.
+        \item[\textup{(b)}] \(\textup{span}(v_1, \ldots, v_k)\) é invariante sob \(T\), para \(k = 1, \ldots, n\).
+        \item[\textup{(c)}] \(Tv_k \in \textup{span}(v_1, \ldots, v_k)\), para \(k = 1, \ldots, n\).
+    \end{enumerate}
+\end{prop}
+
+\begin{prop}
+    Suponha que \(T \in \mathcal{L}(V)\) e que \(V\) tem uma base tal que a matriz de \(T\) com respeito a essa base é triangular-superior com entradas diagonais \(\lambda_1, \ldots, \lambda_n\). então
+    \[
+        (T - \lambda_1I)\cdots(T - \lambda_n I) = 0.
+    \]
+\end{prop}
+
+\begin{prop} (determinação de autovalores a partir de matriz triangular-superior)
+    Suponha que \(T \in \mathcal{L}(V)\) tem uma matriz triangular-superior com respeito a alguma base de \(V\). Então os autovalores de \(T\) são exatamente as entradas na diagonal da matriz.
+\end{prop}
+
+\begin{prop} (condição necessária e suficiente para existência de matriz triangular-superior)
+    Suponha que \(V\) é um espaço vetorial de dimensão finita e \(T \in \mathcal{L}(V)\). Então \(T\) tem uma matriz triangular-superior com respeito a alguma base de \(V\) sse o polinômio mínimo de \(T\) é igual a \((z - \lambda_1) \cdots (z - \lambda_m)\), para alguns \(\lambda_1, \ldots, \lambda_m \in \mathbb{F}\).
+\end{prop}
+
+\begin{cor} (se \(\mathbb{F}=\mathbb{C}\), então todo operador em \(V\) tem matriz triangular-superior)
+    Sejam \(V\) um espaço vetorial complexo de dimensão finita e \(T \in \mathcal{L}(V)\). Então \(T\) tem uma matriz triangular-superior com respeito a alguma base de \(V\).
+\end{cor}
+
 \subsection{Operadores Diagonalizáveis}
-\subsection{Operadores Comutantes}
+
+\begin{defn}
+    Uma \emph{matriz diagonal} é uma matriz quadrada cujas entradas fora da diagonal são todas zero.
+\end{defn}
+
+\begin{defn}
+    Um operador em \(V\) é dito \emph{diagonalizável} se o operador tem uma matriz diagonal com respeito a alguma base de \(V\).
+\end{defn}
+
+\begin{defn}
+    Suponha que \(T \in \mathcal{L}(V)\) e \(\lambda \in \mathbb{F}\). O \emph{autoespaço} de \(T\) correspondente a \(\lambda\) é o subespaço \(E(\lambda, T)\) de \(V\) definido por
+    \[
+        E(\lambda, T) = \mathcal{N}(T - \lambda I) = \{v \in V : Tv = \lambda v\}.
+    \]
+    \noindent Então, \(E(\lambda, T)\) é o conjunto de todos os autovetores de \(T\) correspondentes a \(\lambda\), juntamente com o vetor nulo.
+\end{defn}
+
+\begin{prop} (soma de autoespaços é direta)
+    Suponha que \(T \in \mathcal{L}(V)\) e que \(\lambda_1, \ldots, \lambda_m\) são autovalores distintos de \(T\). Então a soma \(E(\lambda_1, T) + \cdots + E(\lambda_m, T)\) é direta. Além disso, se \(V\) é de dimensão finita, então
+    \[
+        \dim E(\lambda_1, T) + \cdots + \dim E(\lambda_m, T) \leq \dim V.
+    \]
+\end{prop}
+
+\begin{thm} (condições para diagonalizabilidade)
+    Suponha que \(V\) é um espaço vetorial de dimensão finita e \(T \in \mathcal{L}(V)\). Sejam \(\lambda_1,\ldots,\lambda_m\) autovalores distintos de \(T\). Então as seguintes condições são equivalentes.
+    \begin{enumerate}
+        \item[\textup{(a)}] \(T\) é diagonalizável.
+        \item[\textup{(b)}] \(V\) tem uma base de autovetores de \(T\).
+        \item[\textup{(c)}] \(V = E(\lambda_1, T) \oplus \cdots \oplus E(\lambda_m, T)\).
+        \item[\textup{(d)}] \(\dim V = \dim E(\lambda_1, T) + \cdots + \dim E(\lambda_m, T)\).
+    \end{enumerate}
+\end{thm}
+
+\begin{prop} (autovalores suficientes implicam diagonalizabilidade)
+    Suponha que \(V\) é um espaço vetorial de dimensão finita e \(T \in \mathcal{L}(V)\). Se \(T\) tem \(\dim V\) autovalores distintos, então \(T\) é diagonalizável.
+\end{prop}
 
 \section{Espaços com Produto Interno}
 \subsection{Produtos Internos e Normas}
+
+\begin{defn}
+    Para \(x, y \in \mathbb{R}^n\), o \emph{produto interno} de \(x\) e \(y\) é o número real \(x \cdot y\) definido por
+    \[
+        x \cdot y = x_1 y_1 + \cdots + x_n y_n,
+    \]
+    \noindent onde \(x = (x_1, \ldots, x_n)\) e \(y = (y_1, \ldots, y_n)\).
+\end{defn}
+
+\begin{defn}
+    Um \emph{produto interno} em \(V\) é uma função que toma um par ordenado \((u, v)\) de elementos de \(V\) e atribui a ele um número escalar \(\langle u, v \rangle \in \mathbb{F}\) e tem as seguintes propriedades.
+    \begin{itemize}
+        \item \textbf{positividade:} \(\langle v, v \rangle \geq 0\), para todo \(v \in V\), e \(\langle v, v \rangle = 0\) sse \(v = 0\);
+        \item \textbf{aditividade na primeira variável:} \(\langle u + v, w \rangle = \langle u, w \rangle + \langle v, w \rangle\), para todos \(u, v, w \in V\);
+        \item \textbf{homogeneidade na primeira variável:} \(\langle \lambda v, w \rangle = \lambda \langle v, w \rangle\), para todo \(\lambda \in \mathbb{F}\) e todos \(v, w \in V\);
+        \item \textbf{conjugação simétrica:} \(\langle w, v \rangle = \overline{\langle v, w \rangle}\), para todos \(v, w \in V\).
+    \end{itemize}
+\end{defn}
+
+\begin{defn}
+    Um \emph{espaço com produto interno} é um par \((V, \langle \cdot, \cdot \rangle)\), onde \(V\) é um espaço vetorial sobre \(\mathbb{F}\) e \(\langle \cdot, \cdot \rangle\) é um produto interno em \(V\).
+\end{defn}
+
+\begin{prop} (propriedades básicas do produto interno)
+    \begin{enumerate}
+        \item [\textup{(a)}] Para cada \(v \in V\) fixado, a função que toma \(u \in V\) em \(\langle u, v \rangle\) é uma transformação linear em \(V\).
+        \item [\textup{(b)}] \(\langle 0, v \rangle = 0\) para todo \(v \in V\).
+        \item [\textup{(c)}] \(\langle v, 0 \rangle = 0\) para todo \(v \in V\).
+        \item [\textup{(d)}] \(\langle u, v + w \rangle = \langle u, v \rangle + \langle u, w \rangle\), para todos \(u, v, w \in V\).
+        \item [\textup{(e)}] \(\langle u, \lambda v \rangle = \overline{\lambda} \langle u, v \rangle\), para todo \(\lambda \in \mathbb{F}\) e todos \(u, v \in V\).
+    \end{enumerate}
+\end{prop}
+
 \subsection{Bases Ortonormais}
 \subsection{Complementos Ortogonais e Problemas de Minimização}
 
