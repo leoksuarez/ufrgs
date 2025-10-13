@@ -1,0 +1,86 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage[portuguese]{babel}
+
+\DeclareMathOperator{\im}{im}
+
+\title{ÁLGEBRA LINEAR II}
+\author{MAT01156}
+\date{03/10/2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+    \item Seja $T: \mathcal{V} \rightarrow \mathcal{V}$ um operador linear em um espaço vetorial V.
+    \begin{enumerate}
+        \item Prove que T é invertível se, e somente se, $\lambda=0$ não é autovalor de T.
+        \item Suponha que T seja invertível e tenha autovetores $v_{1},...,v_{m}$ associados aos autovalores $\lambda_{1},...,\lambda_{m}$. Prove que $v_{1},...,v_{m}$ são autovetores de $T^{-1}$.
+    \end{enumerate}
+
+    \item Seja $T: \mathcal{V} \rightarrow \mathcal{V}$ um operador linear invertível e suponha que W seja um subespaço de V que é invariante com respeito a T.
+    \begin{enumerate}
+        \item Prove que a restrição $T|_{\mathcal{W}}: \mathcal{W} \rightarrow \mathcal{W}$.
+        \item Prove que $\mathcal{W}$ é invariante com respeito ao operador $T^{-1}$.
+    \end{enumerate}
+
+    \item Seja V um espaço vetorial de dimensão $n \ge 1$ sobre os complexos e seja $T \in \mathcal{L}(\mathcal{V})$. Prove que, para todo j com $1 \le j \le n$ existe um subespaço U de V tal que U é invariante com relação a T e $dim(\mathcal{U})=j$.
+
+    \item Seja $T: \mathcal{V} \rightarrow \mathcal{W}$ uma transformação linear. Prove que existem bases $\mathcal{B}=\{v_{1},...,v_{n}\}$ de V e $\mathcal{B}^{\prime}=\{w_{1},...,w_{m}\}$ de W tais que $T(v_{i}) \in \text{Span}(v_{i})$ para $1 \le i \le \min\{m,n\}$ e $T(v_{i})=\vec{0}$ se $m<i \le n$. Em particular, se $\mathcal{V}=\mathcal{W}$ temos que a matriz $M(T,\mathcal{B},\mathcal{B}^{\prime})$ é diagonal.
+
+    \item Seja $T \in \mathcal{L}(\mathcal{V})$ onde V é um espaço vetorial de dimensão finita sobre os complexos.
+    \begin{enumerate}
+        \item Prove que $\mathcal{V} = \text{Im}(T^{0}) \supset \text{Im}(T) \supset \text{Im}(T^{2}) \supset \cdot\cdot\cdot$.
+        \item Suponha que existe um inteiro positivo m tal que $\text{Im}(T^{m+1})=\text{Im}(T^{m})$. Prove que $\text{Im}(T^{m+j})=\text{Im}(T^{m})$ para todo inteiro positivo j.
+        \item Prove que $\text{Im}(T^{\text{dim}(\mathcal{V})+1})=\text{Im}(T^{\text{dim}(\mathcal{V})})$.
+    \end{enumerate}
+
+    \item Seja V um espaço vetorial sobre R. Um operador $T \in \mathcal{L}(\mathcal{V})$ é dito uma projeção se $T^{2}=T$.
+    \begin{enumerate}
+        \item Prove que, se T é uma projeção ortogonal, então todo autovalor $\lambda$ de T satisfaz $\lambda \in \{0,1\}$.
+        \item Seja $S \in \mathcal{L}(\mathcal{V})$ tal que todos os autovalores de S pertencem ao conjunto \{0,1\}. Podemos dizer que S é uma projeção?
+        \item A sua resposta ao item (b) seria diferente se o operador S fosse diagonalizável?
+    \end{enumerate}
+
+    \item Seja V um espaço vetorial sobre os reais e seja $T \in \mathcal{L}(\mathcal{V})$ um operador linear.
+    \begin{enumerate}
+        \item Prove que, se $T^{2}$ possui um autovalor positivo, então T possui um autovalor.
+        \item Podemos generalizar o item (a) para potências pares de T? Isto é, se existe um inteiro positivo m tal que $T^{2m}$ possui um autovalor positivo, podemos garantir que T tem um autovalor? Em caso afirmativo, demonstre. Em caso negativo, apresente um contraexemplo.
+    \end{enumerate}
+
+    \item Suponha que V é um espaço vetorial de dimensão finita sobre $\mathbb{C}$. Prove que T é diagonalizável se, e somente se, $\mathcal{V} = \text{Nul}(T-\lambda I) \oplus \text{Im}(T-\lambda I)$ para todo $\lambda \in \mathbb{C}$.
+
+    \item Seja V um espaço vetorial de dimensão finita sobre um corpo F e sejam $\mathcal{B}$ e $\mathcal{B}^{\prime}$ duas bases de V. Definimos a matriz mudança de base $M_{\mathcal{B}\rightarrow\mathcal{B^{\prime}}}$ como $M_{\mathcal{B}\rightarrow\mathcal{B^{\prime}}} = M(I,\mathcal{B},\mathcal{B}^{\prime})$ onde I é o operador identidade em V.
+    \begin{enumerate}
+        \item Considere as bases $\mathcal{B}=\{1-x, 1+x, x^{2}-x\}$ e $\mathcal{B}^{\prime}=\{1, 1+2x, 1+x+x^{2}\}$ do espaço vetorial $\mathbb{R}_{\le2}[x]$ formado pelo polinômios na variável com coeficientes reais e grau no máximo dois. Determine a matriz $M_{\mathcal{B}\rightarrow\mathcal{B^{\prime}}}$.
+        \item Prove que, para todo $v \in \mathcal{V}$, $[v]_{\mathcal{B}^{\prime}} = M_{\mathcal{B}\rightarrow\mathcal{B}^{\prime}}[v]_{B^{\prime}}$.
+        \item Prove que, para quaisquer bases $\mathcal{B}$ e $\mathcal{B}^{\prime}$ de V, $M_{\mathcal{B}\rightarrow\mathcal{B^{\prime}}}$ é invertível. Além disso, $M_{\mathcal{B}\rightarrow\mathcal{B^{\prime}}}^{-1} = M_{\mathcal{B^{\prime}}\rightarrow\mathcal{B}}$.
+        \item Seja A uma matriz invertível em $\mathbb{F}^{n\times n}$. Se V tem dimensão $n$ e $\mathcal{B}^{\prime}$ é uma base de V, então existe uma base B de V tal que $M=M_{\mathcal{B}\rightarrow\mathcal{B^{\prime}}}$.
+        \item Dada uma matriz $A \in \mathbb{F}^{n\times n}$, dizemos que $v \in \mathbb{R}^{n}-\{\vec{0}\}$ é um autovetor de A se $Av=\lambda v$ para algum $\lambda \in \mathcal{F}$. Tal $\lambda$ é dito autovalor da matriz associado a v. Suponha que A e B sejam matrizes em $\mathbb{F}^{n\times n}$ tais que $A=SBS^{-1}$ onde S é uma matriz invertível em $\mathbb{F}^{n\times n}$. Prove que A e B têm os mesmos autovalores.
+    \end{enumerate}
+
+\end{enumerate}
+
+\begin{center}
+    \textbf{Soluções}
+\end{center}
+
+\begin{enumerate}
+    \item[\textbf{E1}] 
+    \item[\textbf{E2}] 
+    \item[\textbf{E3}] 
+    \item[\textbf{E4}] 
+    \item[\textbf{E5}] 
+    \item[\textbf{E6}] 
+    \item[\textbf{E7}] 
+    \item[\textbf{E8}] 
+    \item[\textbf{E9}] 
+    \item[\textbf{E10}]
+\end{enumerate}
+
+\end{document}

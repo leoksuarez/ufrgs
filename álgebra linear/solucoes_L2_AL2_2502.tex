@@ -1,0 +1,156 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage[portuguese]{babel}
+
+\DeclareMathOperator{\im}{im}
+
+\begin{document}
+
+\begin{center}
+    \textbf{MAT01156 \\ ÁLGEBRA LINEAR II} \\
+    \textbf{21/09/2025}
+\end{center}
+
+\begin{enumerate}
+    \item Seja $T:\mathcal{V}\rightarrow\mathcal{W}$ uma transformação linear. Assinale verdadeiro (V) ou falso (F), justificando a sua resposta. Em outras palavras, quando verdadeiro, demonstre. Quando falso, apresente um contraexemplo.
+    \begin{enumerate}
+        \item[( \ )] $v\in\mathcal{V}$ tal que $T(v)=\vec{0}$, então $v=\vec{0}.$
+        \item[( \ )] Se $T(w)=T(u)+T(v)$ então $w=u+v$.
+        \item[( \ )] Se $v$ é combinação linear de $v_{1},...,v_{m}$, então $T(v)$ é combinação linear de $T(v_{1}),...,T(v_{m}).$
+        \item[( \ )] Se $u, v, w$ são colineares, então $T(u), T(v), T(w)$ são colineares. Para este item, dizemos que os pontos $u, v, w$ são colineares se $v-w$ é um múltiplo escalar de $u-v$.
+        \item[( \ )] Se $T(v_{1}),...,T(v_{m})$ é linearmente independente, então $v_{1},...,v_{m}$ é linearmente independente.
+        \item[( \ )] Se os vetores $T(v_{1}),...,T(v_{m})$ geram W, então os vetores $v_{1},...,v_{m}$ geram V.
+        \item[( \ )] Se $\mathcal{V} = \mathcal{W}$ e $T(v_1),..., T(v_m)$ gera V, então $v_{1},...,v_{m}$ gera V.
+        \item[( \ )] Supondo que V e W têm dimensão finita, temos que T é sobrejetora se, e somente se, $\ker(T)=\dim(\mathcal{V})-\dim(\mathcal{W})$.
+        \item[( \ )] Para todo $w\in\mathcal{W},$ o conjunto $\{v\in\mathcal{V}:T(v)=w\}$ é um subespaço de V.
+        \item[( \ )] Se $\mathcal{V}=\mathcal{W}$ temos $\mathcal{V}=\ker(T)\oplus \im(T)$.
+    \end{enumerate}
+
+    \item Dados os vetores $u_{1}=(2,-1)$, $u_{2}=(1, 1)$ e $u_{3}=(-1,-4)$ e os vetores $v_{1}=(1,3),$ $v_{2}=(2,3)$ e $v_{3}=(-5,-6)$, decida se existe um operador linear $T:\mathbb{R}^{2}\rightarrow\mathbb{R}^{2}$ tal que $T(u_{1})=v_{1}$, $T(u_{2})=v_{2}$ e $T(u_{3})=v_{3}$. 
+    A resposta seria a mesma se substituíssemos $v_{3}$ pelo vetor (5, -6)? Justifique.
+
+    \item Um conjunto C em um espaço vetorial V sobre $\mathbb{R}$ é convexo se, para quaisquer u, $v\in C$ e qualquer $\lambda\in[0,1]$, temos $\lambda u+(1-\lambda)v\in C$. Prove que a imagem de um conjunto convexo por uma transformação linear é um conjunto convexo.
+    
+    \item Considere a base $\mathcal{B}=\{u_{1},u_{2},u_{3}\}$ de $\mathbb{R}^{3}$ dada por $u=(1,1,1)$, $v=(1,-1,1)$ e $w=(1,1,-1)$.
+    \begin{enumerate}
+        \item[(a)] Considere as transformações lineares $T:\mathbb{R}^{3}\rightarrow\mathbb{R}^{2}$ e $U:\mathbb{R}^{3}\rightarrow\mathbb{R}_{\le3}[x]$ dadas por $T(a,b,c) = (a+2b,b-c)$ e $U(a,b,c) = (a+c)x + (b-a)x^2 - (b+c)x^3$. Seja $\mathcal{B}_{n}$ a base canônica de $\mathbb{R}^{n}$ e seja $\mathcal{B}^{\prime}$ a base canônica de $\mathbb{R}_{\le3}[x]$. 
+        Escreva as matrizes $M(T,\mathcal{B}_{3},\mathcal{B}_{2})$, $M(U,\mathcal{B}_{3},\mathcal{B}^{\prime})$, $M(T,\mathcal{B},\mathcal{B}_{2})$ e $M(U,\mathcal{B},\mathcal{B}^{\prime})$.
+        \item[(b)] Dê expressões para os funcionais lineares na base dual de $\mathcal{B}$ para o dual de $\mathbb{R}^{3}$.
+    \end{enumerate}
+    
+    \item Seja $T:\mathcal{V}\rightarrow\mathcal{W}$ uma transformação linear e sejam $\mathcal{V}_{1}\subseteq\mathcal{V}$ e $\mathcal{W}_{1}\subseteq\mathcal{W}$ subespaços.
+    \begin{enumerate}
+        \item[(a)] Prove que $T(\mathcal{V}_{1})=\{T(v):v\in\mathcal{V}_{1}\}$ é um subespaço de W. Além disso, se $\mathcal{V}_{1}$ tem dimensão finita, temos $\dim(T(\mathcal{V}_{1}))\le \dim(\mathcal{V}_{1})$.
+        \item[(b)] Nas condições do item (a), podemos garantir que $\dim(T(\mathcal{V}_{1}))=\dim(\mathcal{V}_{1})$ se T é sobrejetora? E se T é injetora?
+        \item[(c)] Prove que $T^{-1}(\mathcal{W}_{1})=\{v:T(v)\in\mathcal{W}_{1}\}$ é um subespaço de V. Além disso, se V tem dimensão finita e T é sobrejetora, temos $\dim(T^{-1}(\mathcal{W}_{1}))\ge \dim(\mathcal{W}_{1})$.
+        \item[(d)] Sem a hipótese de T ser sobrejetora no item (c), é possível demonstrar alguma relação de ordem entre $\dim(T^{-1}(\mathcal{W}_{1}))$ e $\dim(\mathcal{W}_{1})$?
+    \end{enumerate}
+    
+    \item Sejam V e W espaços vetoriais sobre um corpo F e sejam $v_{1},...,v_{n}\in\mathcal{V}.$ Dados $w_{1},...,w_{n}\in W$, prove que as seguintes afirmações são equivalentes:
+    \begin{enumerate}
+        \item[(i)] Existe uma transformação linear $T:\mathcal{V}\rightarrow\mathcal{W}$ tal que $T(v_{i})=w_{i}$ para todo $i \in \{1,..., n\}$.
+        \item[(ii)] Se $\alpha_{1},...,\alpha_{n}$ satisfazem $\alpha_{1}v_{1}+\cdot\cdot\cdot+\alpha_{n}v_{n}=\vec{0},$ então $\alpha_{1}w_{1}+\cdot\cdot\cdot+\alpha_{n}w_{n}=\vec{0}.$
+    \end{enumerate}
+    
+    \item Seja V um espaço vetorial de dimensão n e seja $\mathcal{B}^{\prime}$ uma base do dual $\mathcal{V}^{\prime}$ de V. Prove que existe uma base B de V tal que $\mathcal{B}^{\prime}$ é a base dual de B.
+    
+    \item Um operador linear $T:\mathcal{V}\rightarrow\mathcal{V}$ é dito nilpotente se existe um inteiro positivo n tal que a composição $T^{n}$ é o operador nulo. Prove que, para todo operador nilpotente T, existe $v\ne\vec{0}$ tal que $T(v)=\vec{0}$.
+    
+    \item Seja $\mathcal{C}(T)$ o conjunto dos operadores lineares em $\mathcal{L}(\mathcal{V})$ que comutam com um determinado operador linear $T\in\mathcal{L}(\mathcal{V})$, isto é, $U\in\mathcal{C}(T)\iff U\circ T=T\circ U.$
+    \begin{enumerate}
+        \item[(a)] Prove que $\mathcal{C}(T)$ é um subespaço de $\mathcal{L}(\mathcal{V})$ com a propriedade que $U_{1},U_{2}\in\mathcal{C}(T)\Rightarrow U_{1}\circ U_{2}\in\mathcal{C}(T)$.
+        \item[(b)] No caso em que T: $\mathbb{R}_{\le2}[x]\rightarrow\mathbb{R}_{\le2}[x]$ satisfaz $T(p)=xp^{\prime},$ determine uma base de $\mathcal{C}(T)$.
+    \end{enumerate}
+    
+    \item Seja $T:\mathcal{V}\rightarrow\mathcal{W}$ uma transformação linear sobrejetora entre espaços de dimensão finita. Prove que existe um subespaço vetorial $\mathcal{V}_{1}$ de V tal que a restrição de T a $\mathcal{V}_{1}$ é um isomorfismo entre $\mathcal{V}_{1}$ e \(\mathcal{W}\).
+    
+    \item Seja T: $\mathcal{V}\rightarrow\mathcal{V}$ um operador linear em um espaço de dimensão finita. Prove que $\mathcal{V}=\ker T \oplus \im T$ se, e somente se, $\ker T=\ker T^{2}$.
+    
+    \item Considere os subespaços vetoriais $\mathcal{I}$ e $\mathcal{N}$ do espaço $C^{\infty}(\mathbb{R})$ das funções contínuas com domínio $\mathbb{R}$, gerados por $\{\cos x, \sin x\}$ e $\{e^x \cos x, e^x \sin x, e^{2x} \cos x, e^{2x} \sin x, \newline e^{3x} \cos x, e^{3x} \sin x\}$, respectivamente. 
+    Determine a matriz do operador de derivação em cada um desses subespaços.
+\end{enumerate}
+
+\begin{center}
+    \textbf{Soluções}
+\end{center}
+
+\begin{enumerate}
+    \item[\textbf{E1}] 
+    
+    \item[\textbf{E2}] Imediatamente, vemos que \(u_3 = u_1 - 3 u_2\). Então, \(Tu_3 = T(u_1 - 3 u_2) = Tu_1 - 3Tu_2 \implies v_3 = v_1 - 3v_2 \implies (-5,-6) = (1,3) - 3(2,3) \implies (-5,-6) = (-5,-6)\). Se \(v_3 = (5,-6)\), teríamos \((5,-6)\neq(-5,-6)\), logo não existiria o operador \(T\).
+
+    \item[\textbf{E3}] 
+    \item[\textbf{E4}]
+    \item[\textbf{E5}] 
+        \begin{enumerate}
+            \item[(a)] Provamos que \(T(\mathcal{V}_1)\) é subespaço de \(\mathcal{W}\). De fato, como \(v_1=0 \in \mathcal{V}_1\) (pois \(\mathcal{V}_1\) é subespaço), temos \(T0 = 0 \in T(\mathcal{V}_1)\). Se \(v_1+v_2 \in \mathcal{V}_1\), então \(Tv_1 + Tv_2 = T(v_1+v_2) \in T(\mathcal{V}_1)\). Finalmente, se \(v \in \mathcal{V}_1\) e \(\lambda \in \mathbb{F}\), então \(\lambda v \in \mathcal{V}_1\) e \(\lambda Tv = T(\lambda v) \in T(\mathcal{V}_1)\). Portanto, \(T(\mathcal{V}_1)\) é subespaço de \(\mathcal{W}\). Agora, pelo Teorema do Núcleo e da Imagem, temos
+                \begin{align}
+                    \dim \mathcal{V}_1 &= \dim \ker T + \dim T(\mathcal{V}_1) \\
+                    \dim T(\mathcal{V}_1) &= \dim \mathcal{V}_1 - \dim \ker T \\
+                    &\leq \dim \mathcal{V}_1.
+                \end{align}
+            \item[(b)] Do Teorema do Núcleo e da Imagem, temos \(\dim T(\mathcal{V}_1) = \dim \mathcal{V}_1\) sse \(\dim \ker T = 0\), ou seja, se \(T\) é injetora. A sobrejetividade de \(T\) não garante a igualdade das dimensões.
+            \item[(c)] Provamos que \(T^{-1}(\mathcal{W}_1)\) é subespaço de \(\mathcal{V}\). De fato, como \(0 \in \mathcal{W}_1\) (pois \(\mathcal{W}_1\) é subespaço), temos \(T0 = 0 \in T^{-1}(\mathcal{W}_1)\). Se \(v_1, v_2 \in T^{-1}(\mathcal{W}_1)\), então \(Tv_1, Tv_2 \in \mathcal{W}_1\) e, portanto, \(T(v_1+v_2) = Tv_1 + Tv_2 \in \mathcal{W}_1\), ou seja, \(v_1 + v_2 \in T^{-1}(\mathcal{W}_1)\). Finalmente, se \(v \in T^{-1}(\mathcal{W}_1)\) e \(\lambda \in \mathbb{F}\), então \(Tv \in \mathcal{W}_1\) e, portanto, \(T(\lambda v) = \lambda Tv \in \mathcal{W}_1\), ou seja, \(\lambda v \in T^{-1}(\mathcal{W}_1)\). Portanto, \(T^{-1}(\mathcal{W}_1)\) é subespaço de \(\mathcal{V}\). Agora, pelo Teorema do Núcleo e da Imagem, temos
+                
+            \item[(d)]
+        \end{enumerate}
+    \item[\textbf{E6}] Primeiro, suponha que a afirmação \((i)\) é verdadeira. Se \(\alpha_1 v_1 + \cdots + \alpha_n v_n = 0\), então \(T(\alpha_1 v_1 + \cdots + \alpha_n v_n) = T(0) = 0\). Pela linearidade de \(T\), temos \(\alpha_1 T(v_1) + \cdots + \alpha_n T(v_n) = 0\), ou seja, a afirmação \((ii)\) é verdadeira.
+    
+    Agora, suponha que a afirmação \((ii)\) é verdadeira. 
+    \item[\textbf{E7}] 
+    \item[\textbf{E8}] Dado \(T\) nilpotente, existe \(n \in \mathbb{Z}^{+}\) tal que \(T^n v=0\) para todo \(v \in \mathcal{V}\). Seja \(k\) o menor inteiro positivo tal que existe \(v \in \mathcal{V}\) com \(T^k v = 0\). Note que \(k \geq 1\), pois \(T^0 v = v\) para todo \(v \in \mathcal{V}\). Se \(k=1\), então \(T v = 0\) e estamos feitos. Suponha que \(k > 1\). Então, existe \(v \in \mathcal{V}\) tal que \(T^k v = 0\) e \(T^{k-1} v \neq 0\). Seja \(u = T^{k-1} v\). Então, \(u \neq 0\) e \(T u = T(T^{k-1} v) = T^k v = 0\). Portanto, existe \(u \neq 0\) tal que \(T u = 0\).
+    \item[\textbf{E9}] 
+    \item[\textbf{E10}] Da sobrejetividade de \(T\), temos que \(\dim \im T = \dim \mathcal{W}\). Pelo Teorema do Núcleo e da Imagem, \(\dim \mathcal{V} = \dim \ker T + \dim \mathcal{W}\). 
+    Para encontrar um subespaço \(\mathcal{V}_1\) tal que \(T\vert_{\mathcal{V}_1}\) seja um isomorfismo, precisamos que \(T\vert_{\mathcal{V}_1}\) seja injetora e sobrejetora.
+
+    Primeiro, encontramos um subespaço \(\mathcal{V}_1\) com mesma dimensão de \(\mathcal{W}\). Seja \(u_1, \ldots, u_n\) uma base de \(\ker T\) e seja \(u_1, \ldots, u_n, v_1, \ldots, v_m\) uma base de \(\mathcal{V}\) tal que \(v_1, \ldots, v_m\) é uma base de \(\mathcal{V}_1\).
+    Pelo TNI, \(n+m = n+\dim \mathcal{W} \implies \dim \mathcal{W} = m = \dim \mathcal{V}_1\). Para mostrar que \(T\vert_{\mathcal{V}_1}\) é injetora, tome \(v \in \mathcal{V}_1\) tal que \(Tv=0\).
+    Então \(v \in \ker T\). Mas \(\ker T \cap \mathcal{V}_1 = \{0\}\), pois \(u_1, \ldots, u_n, v_1, \ldots, v_m\) é uma lista linearmente independente de vetores. Logo, \(T\vert_{\mathcal{V}_1}\) é injetora.
+    A sobrejetividade segue do TNI, pois \(\dim \ker T\vert_{\mathcal{V}_1} = 0\) e \(\dim \mathcal{W} = \dim \mathcal{V}_1 = \dim \im T\vert_{\mathcal{V}_1}\).
+
+    \item[\textbf{E11}] Primeiro, suponha que \(\mathcal{V} = \ker T \oplus \im T\). Queremos mostrar que \(\ker T = \ker T^2\), isto é, que \(\ker T^2 \subseteq \ker T\) (a outra inclusão é trivial). Seja \(v \in \ker T^2\), então \(T(Tv)=0\). 
+    Vemos que \(Tv \in \ker T\) e, claro, \(Tv \in \im T\). Pela hipótese, \(\ker T \cap \im T = \{0\}\), pois \(\ker T + \im T\) é soma direta. Logo, \(Tv=0\) e \(v \in \ker T\).
+    
+    Agora, suponha que \(\ker T=\ker T^2\). Provamos que \(\mathcal{V} = \ker T \oplus \im T\), ou seja, \(\mathcal{V} = \ker T + \im T\) e \(\ker T \cap \im T = \{0\}\). A igualdade \(\mathcal{V} = \ker T + \im T\) é trivial, pois \(T \in \mathcal{L}(V)\).
+    Mostramos que \(\ker T + \im T = \{0\}\). Tome \(Tv \in \ker T \cap \im T\). Então, \(T(Tv) = 0\), ou seja, \(v \in \ker T^2\). Da hipótese, \(v \in \ker T\), que implica \(Tv = 0\).
+
+    \item[\textbf{E12}] Para construir a matriz de derivação em \(\mathcal{U}\) e \(\mathcal{W}\), basta observar o efeito do operador \(D\) nos vetores da base de \(\mathcal{U}\) e \(\mathcal{W}\). 
+    Os vetores-coluna da matriz da transformação \(\mathcal{M}(D_\mathcal{U})\) serão construídos com os escalares necessários para escrever \(Du_k\) como combinação linear dos vetores da base de \(\mathcal{U}\).
+    Então, temos
+    \begin{align*}
+        &D_\mathcal{U}\cos x = (\cos x)' = -\sin x\\
+        &D_\mathcal{U}\sin x = (\sin x)' = \cos x.
+    \end{align*}
+    \noindent Logo, a matriz de derivação em \(\mathcal{U}\) é \[
+        \begin{pmatrix}
+            0 & 1\\
+            -1 & 0
+        \end{pmatrix}.
+        \]
+    Analogamente, para o subespaço \(\mathcal{W}\), temos
+    \begin{align*}
+        &D_\mathcal{W} e^x \cos x = (e^x \cos x)' = e^x \cos x - e^x \sin x\\
+        &D_\mathcal{W} e^x \sin x = (e^x \sin x)' = e^x \sin x + e^x \cos x\\
+        &D_\mathcal{W} e^{2x} \cos x = (e^{2x} \cos x)' = 2e^{2x} \cos x - e^{2x} \sin x\\
+        &D_\mathcal{W} e^{2x} \sin x = (e^{2x} \sin x)' = 2e^{2x} \sin x + e^{2x} \cos x\\
+        &D_\mathcal{W} e^{3x} \cos x = (e^{3x} \cos x)' = 3e^{3x} \cos x - e^{3x} \sin x\\
+        &D_\mathcal{W} e^{3x} \sin x = (e^{3x} \sin x)' = 3e^{3x} \sin x + e^{3x} \cos x.
+    \end{align*}
+    \noindent Portanto, a matriz de derivação em \(\mathcal{W}\) é \[
+        \begin{pmatrix}
+            1 & 1 & 0 & 0 & 0 & 0\\
+            -1 & 1 & 0 & 0 & 0 & 0\\
+            0 & 0 & 2 & 1 & 0 & 0\\
+            0 & 0 & -1 & 2 & 0 & 0\\
+            0 & 0 & 0 & 0 & 3 & 1\\
+            0 & 0 & 0 & 0 & -1 & 3
+        \end{pmatrix}.
+        \]
+     
+\end{enumerate}
+
+\end{document}

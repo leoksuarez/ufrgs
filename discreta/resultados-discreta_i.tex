@@ -15,6 +15,7 @@
 \newtheorem{prop}[thm]{Proposição}
 \newtheorem{lem}[thm]{Lema}
 \newtheorem{cor}[thm]{Corolário}
+\newtheorem{res}[thm]{Resultado}
 
 \theoremstyle{definition}
 \newtheorem{defn}[thm]{Definição}
@@ -54,7 +55,7 @@
 \tableofcontents
 \newpage
 
-\section{MÉTODOS DE CONTAGEM}
+\section{Métodos de Contagem}
 \begin{prcp} (princípio da adição)
     Se existem \(r_1\) objetos distintos no primeiro conjunto, \(r_2\) no segundo conjunto, \ldots, \(r_n\) no n-ésimo conjunto e esses conjuntos são \emph{disjuntos dois a dois}, então o número de maneiras de selecionar um objeto de um dos \(n\) conjuntos é \(r_1 + r_2 + \cdots + r_n\).
 \end{prcp}
@@ -110,7 +111,7 @@
 \end{prop}
 
 
-\section{INCLUSÃO-EXCLUSÃO}
+\section{Inclusão-Exclusão}
 
 \begin{thm} (princípio da inclusão-exclusão)
     Sejam \(A_1, A_2, \ldots, A_n\) subconjuntos finitos de um conjunto universal \(U\). Seja \(S_k\) a soma de todas as interseções de \(k\) conjuntos dentre os \(A_i\). então
@@ -119,14 +120,37 @@
     \end{equation}
 \end{thm}
 
-\section{FUNÇÕES GERADORAS}
+\section{Funções Geradoras}
 
 \begin{defn}
-    Suponha que \(a_r\) seja o número de maneiras de selecionar \(r\) objetos em um certo problema de contagem. Então \(g(x)\) é a \emph{função geradora} de \(a_r\) se
+    Suponha que \(a_r\) seja o número de maneiras de selecionar \(r\) objetos em um certo problema de contagem. Então \(g(x)\) é a \emph{função geradora ordinária} de \(a_r\) se
     \begin{equation}
         g(x) = a_0 + a_1 x + a_2 x^2 + \cdots = \sum_{r=0}^{\infty} a_r x^r.
     \end{equation}
 \end{defn}
+
+\begin{thm} Sendo \(f(x)\) e \(g(x)\) funções geradoras de \(a_r\) e \(b_r\), respectivamente, então
+    \begin{enumerate}
+        \item[\textup{(a)}] \(Af(x) + Bg(x)\) é a função geradora de \(Aa_r + Bb_r\), onde \(A\) e \(B\) são constantes.
+        \item[\textup{(b)}] \(\displaystyle f(x)g(x) = \sum_{n=0}^{\infty} \left( \sum_{k=0}^{n} a_k b_{n-k} \right) x^n\).
+        \item[\textup{(c)}] A função geradora para \(a_0+a_1+a_2+\cdots+a_r\) é igual a \((1+x+x^2+\cdots)f(x)\).
+        \item[\textup{(d)}] A função geradora para \((ra_r)\) é igual a \(xf'(x)\).
+        \item[\textup{(e)}] \(\displaystyle \int f(x) dx = \sum_{n=0}^{\infty} \frac{a_n}{n+1} x^{n+1}\).
+    \end{enumerate}
+\end{thm}
+
+\begin{thm} (teorema binomial generalizado)
+    \begin{equation}
+        (1+x)^n=1+nx+\frac{n(n-1)}{2!}x^2+\frac{n(n-1)(n-2)}{3!}x^3+\cdots = \sum_{k=0}^{\infty} \binom{n}{k} x^k,
+    \end{equation}
+    \noindent onde
+    \[
+        \binom{n}{k} = \begin{cases}
+            n(n-1)(n-2)\cdots(n-k+1)/k! & \text{se } k \geq 1, \\
+            1 & \text{se } k=0, \\
+        \end{cases}
+    \]
+\end{thm}
 
 \begin{prop} (expansões polinomiais)
     \begin{enumerate}
@@ -134,7 +158,7 @@
         \item[\textup{(b)}] \(\displaystyle\frac{1}{1-x} = 1 + x + x^2 + x^3 + \cdots\)
         \item[\textup{(c)}] \((1+x)^n = \displaystyle 1 + \binom{n}{1} x + \binom{n}{2} x^2 + \cdots + \binom{n}{n} x^n\)
         \item[\textup{(d)}] \((1-x^m)^n = \displaystyle 1 - \binom{n}{1} x^m + \binom{n}{2} x^{2m} - \cdots + (-1)^n \binom{n}{n} x^{mn}\)
-        \item[\textup{(e)}] \(\frac{1}{(1-x)^n} = \displaystyle 1 + \binom{1+n-1}{n-1} x + \binom{2+n-1}{n-1} x^2 + \cdots = \sum_{k=0}^{\infty} \binom{n+k-1}{n-1} x^k\)
+        \item[\textup{(e)}] \(\displaystyle \frac{1}{(1-x)^n} = \displaystyle 1 + \binom{1+n-1}{n-1} x + \binom{2+n-1}{n-1} x^2 + \cdots = \sum_{k=0}^{\infty} \binom{n+k-1}{n-1} x^k\)
         \item[\textup{(f)}] Se \(h(x)=f(x)g(x)\), onde \(\displaystyle f(x)=a_0 + a_1 x + a_2 x^2 + \cdots = \sum_{j=0}^{\infty} a_j x^j\) e \(\displaystyle g(x)=b_0 + b_1 x + b_2 x^2 + \cdots = \sum_{j=0}^{\infty} b_j x^j\), então
         \begin{equation}
             h(x) = a_0b_0 + (a_0b_1 + a_1b_0)x + (a_0b_2 + a_1b_1 + a_2b_0)x^2 + \cdots = \sum_{j=0}^{\infty} \left( \sum_{k=0}^{j} a_k b_{j-k} \right) x^j.
@@ -142,8 +166,90 @@
     \end{enumerate}
 \end{prop}
 
-\section{RELAÇÕES DE RECORRÊNCIA}
+\begin{defn}
+    A série de potências
+    \begin{equation}
+        g(x) = a_0 + a_1 \frac{x}{1!} + a_2 \frac{x^2}{2!} + a_3 \frac{x^3}{3!} + \cdots = \sum_{r=0}^{\infty} a_r \frac{x^r}{r!}
+    \end{equation}
+    \noindent é chamada de \emph{função geradora exponencial} da sequência \((a_r)\).
+\end{defn}
 
-\section{TEORIA DE GRAFOS}
+\begin{defn}
+    Uma \emph{partição} de um inteiro positivo \(n\) é uma coleção de inteiros positivos cuja soma é \(n\).
+\end{defn}
+
+\begin{thm} 
+    O número \(p_k(n)\) de partições de \(n\) tendo \(k\) como a maior parte é igual ao número \(q_k(n)\) de partições de \(n\) com exatamente \(k\) partes, isto é, \(p_k(n) = q_k(n)\).
+\end{thm}
+
+\begin{cor}
+    Seja \(P_k(n)\) o número de partições de \(n\) em partes não maiores que \(k\) e \(Q_k(n)\) o número de partições de \(n\) em no máximo \(k\) partes. Então \(P_k(n) = Q_k(n)\).
+\end{cor}
+
+\begin{thm}
+    \(F(n) = G(n)\), onde \(F(n)\) é o número de partições de \(n\) em que cada parte aparece pelo menos duas vezes e \(G(n)\) é o número de partições de \(n\) em partes maiores do que \(2\) e tais que nenhuma parte é consecutiva.
+\end{thm}
+
+\begin{thm}
+    O número de partições autoconjugadas de \(n\) é igual ao número de partições de \(n\) em partes ímpares distintas.
+\end{thm}
+
+\begin{thm}
+    O número de partições de \(n\) em partes distintas é igual ao número de partições de \(n\) em partes ímpares.
+\end{thm}
+
+\section{Relações de Recorrência}
+
+\begin{defn}
+    Uma relação de recorrência é dita \emph{homogênea} se todos os termos da relação envolvem algum \(a_k\). Quando um termo adicional envolvendo uma função de \(n\) (ou uma constante) aparece na relação de recorrência, como 
+    \begin{equation}
+        a_n = c_1 a_{n-1} + \cdots + c_k a_{n-k} + f(n),
+    \end{equation}
+    \noindent a relação é dita \emph{não-homogênea}.
+\end{defn}
+
+\begin{res}
+    A solução geral de uma relação de recorrência da forma 
+    \begin{equation}
+        a_n = c_1 a_{n-1} + c_2 a_{n-2} + \cdots + c_r a_{n-r}
+    \end{equation}
+    \noindent envolve uma soma de soluções individuais da forma \(a_n=\alpha^n\). Para determinar os valores possíveis de \(\alpha\), substituímos \(a_k=\alpha^k\) na relação de recorrência, o que leva à \emph{equação característica}
+    \begin{equation}\label{eq:caracteristica}
+        \alpha^r - c_1 \alpha^{r-1} - c_2 \alpha^{r-2} - \cdots - c_r = 0.
+    \end{equation}
+    Se \(\alpha_1, \alpha_2, \ldots, \alpha_r\) são os \(r\) zeros da equação \eqref{eq:caracteristica}, então a solução geral da relação de recorrência é dada por
+    \begin{equation}
+        a_n = A_1 \alpha_1^n + A_2 \alpha_2^n + \cdots + A_r \alpha_r^n,
+    \end{equation}
+    \noindent onde \(A_1, A_2, \ldots, A_r\) são constantes determinadas pelas condições iniciais. Dadas os valores iniciais \(a_0', a_1', \ldots, a_{r-1}'\), podemos encontrar as constantes \(A_1, A_2, \ldots, A_r\) resolvendo o sistema de equações
+    \begin{equation}
+        A_1\alpha_1^k + A_2\alpha_2^k + \cdots + A_r\alpha_r^k = a_k', \quad k=0,1,\ldots,r-1.
+    \end{equation}
+    As \(r\) equações lineares acima podem ser resolvidas por eliminação gaussiana para determinar as \(r\) constantes \(A_i\). Se a solução da \href{eq:caracteristica}{equação característica} tem raízes múltiplas, digamos \(\alpha_1\) é uma raiz de multiplicidade \(m\), então os termos correspondentes na solução geral são
+    \begin{equation}
+        A_1 \alpha_1^n + A_2 n \alpha_1^n + A_3 n^2 \alpha_1^n + \cdots + A_m n^{m-1} \alpha_1^n.
+    \end{equation}
+\end{res}
+
+\begin{res}
+    A solução geral de uma relação de recorrência não-homogênea da forma
+    \begin{equation}\label{eq:nao-homogenea}
+        a_n = c_1 a_{n-1} + c_2 a_{n-2} + \cdots + c_r a_{n-r} + f(n)
+    \end{equation}
+    \noindent é dada por \(a_n = a_n^{(0)} + a^{*}_{n}\), onde \(a_n^{(0)}\) é a solução geral da relação homogênea associada e \(a^{*}_{n}\) é uma solução particular da relação não-homogênea.
+\end{res}
+
+\begin{res} (soluções conhecidas para funções \(f(n)\) específicas) \vspace{2mm}\newline
+    \begin{tabular}[c]{ll}
+        \(f(n)\) & \textup{solução particular} \(a^{*}_{n}\) \\
+        \hline
+        \(d\)\textup{, constante} & \(B\) \\
+        \(dn\) & \(B_1n + B_0\) \\
+        \(dn^2\) & \(B_2 n^2 + B_1 n + B_0\) \\
+        \(d^n\) & \(B d^n\) \\
+    \end{tabular}
+\end{res}
+
+\section{Teoria de Grafos}
 
 \end{document}

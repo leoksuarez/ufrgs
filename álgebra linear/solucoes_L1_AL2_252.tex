@@ -1,0 +1,105 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage[portuguese]{babel}
+
+\title{ÁLGEBRA LINEAR II}
+\author{MAT01156}
+\date{22/08/2025}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+    \item O objetivo dessa questão é mostrar que o conjunto dos números complexos $\mathbb{C}=\{a+bi : a,b \in \mathbb{R}\}$ onde $i^{2}=-1$, satisfaz propriedades de um corpo. As operações de soma e produto para números complexos são definidas como:
+    \begin{itemize}
+        \item[(i)] $(a+bi)+(c+di)=(a+c)+(b+d)i$
+        \item[(ii)] $(a+bi)\cdot(c+di)=(ac-bd)+(ad+bc)i$
+    \end{itemize}
+    (Você pode supor conhecidas as propriedades de números reais.)
+    \begin{enumerate}
+        \item Prove que as operações de soma e produto são comutativas.
+        \item Prove que $(a+bi)\cdot((c+di)+(e+fi))=((a+bi)\cdot(c+di))+((a+bi)\cdot(e+fi))$.
+        \item Prove que existem elementos $e, f \in \mathbb{C}$ tais que $x+e=x$ e $x\cdot f=x$ para todo $x \in \mathbb{C}$. Prove que e e f são únicos com essa propriedade.
+        \item Prove que, para todo $x \in \mathbb{C}$ existe $y \in \mathbb{C}$ tal que $x+y=e$ com e definido no item (c). Prove que, para todo x, o elemento y com essa propriedade é único.
+        \item Prove que, para todo $x \in \mathbb{C}\backslash\{e\}$ existe $y \in \mathbb{C}$ tal que $x\cdot y=f,$ com e, f definidos no item (a). Prove que, para todo $x \ne e$ o elemento y com essa propriedade é único. Argumente que a existência de y tal que $e \cdot y = f$ implica que todos os elementos de C são iguais.
+    \end{enumerate}
+
+    \item Seja V um espaço vetorial sobre o corpo F. Prove que, para quaisquer $a \in \mathbb{F}$ e $v \in \mathcal{V}$, vale que $av=\vec{0}$ se, e somente se, $a=0$ ou $v=\vec{0}$.
+
+    \item Seja U um subconjunto de um espaço vetorial V sobre um corpo F. Dizemos que U é fechado com respeito à soma se $u+v \in \mathcal{U}$ para quaisquer u, $v \in \mathcal{U}$. Dizemos que U é fechado com respeito à multiplicação por escalar se $a \cdot u \in \mathcal{U}$ para quaisquer $u \in \mathcal{U}$ e $a \in \mathbb{F}$. Responda aos itens abaixo:
+    \begin{enumerate}
+        \item Mostre que é possível definir V e U tais que $\vec{0} \in \mathcal{U}$ e $\mathcal{U}$ é fechado com respeito à soma, mas U não é subespaço de V.
+        \item Mostre que é possível definir $\mathcal{V}$ e $\mathcal{U}$ tais que $\vec{0} \in \mathcal{U}$ e $\mathcal{U}$ é fechado com respeito à multiplicação por escalar, mas U não é subespaço de V.
+        \item Mostre que, se U é fechado com respeito à soma e à multiplicação por escalar, mas não é subespaço de V, então $u=\emptyset$.
+    \end{enumerate}
+
+    \item Sejam $\mathcal{U}_{1}$ e $\mathcal{U}_{2}$ subespaços de um espaço vetorial V. Prove que:
+    \begin{enumerate}
+        \item $\mathcal{U}_{1} \cup \mathcal{U}_{2}$ é subespaço de V se, e somente se, $\mathcal{U}_{1} \subseteq \mathcal{U}_{2}$ ou $\mathcal{U}_{2} \subseteq \mathcal{U}_{1}$.
+        \item $\mathcal{U}_{1} + \mathcal{U}_{2}$ é uma soma direta se, e somente se, $\mathcal{U}_{1} \cap \mathcal{U}_{2} = \{\vec{0}\}$.
+    \end{enumerate}
+    Seja $\mathcal{U}_{3}$ um subespaço de V. Responda se cada um dos itens abaixo é verdadeiro ou falso. Em caso afirmativo, demonstre. Em caso negativo, apresente um contraexemplo.
+    \begin{enumerate}
+        \setcounter{enumii}{2}
+        \item Se $\mathcal{U}_{1} + \mathcal{U}_{3} = \mathcal{U}_{2} + \mathcal{U}_{3}$, então $\mathcal{U}_{1} = \mathcal{U}_{2}$.
+        \item Se $\mathcal{U}_{1} \oplus \mathcal{U}_{3} = \mathcal{U}_{2} \oplus \mathcal{U}_{3}$, então $\mathcal{U}_{1} = \mathcal{U}_{2}$.
+    \end{enumerate}
+
+    \item Considere o conjunto das sequências $\{(a_{1},a_{2},...): a_{i} \in \mathbb{R} \text{ para todo } i\}$. Você pode supor que este conjunto forma um espaço vetorial V sobre R com as operações $(a_{1},a_{2},...)+(b_{1},b_{2},...)=(a_{1}+b_{1},a_{2}+b_{2},...)$ e $c\cdot(a_{1},a_{2},...)=(ca_{1},ca_{2},...)$. Em cada um dos itens abaixo, determine se o conjunto apresentado é um subespaço de V e se tem dimensão finita. Em caso afirmativo, demonstre (e determine a dimensão, caso seja finita). Em caso negativo, justifique:
+    \begin{enumerate}
+        \item $\mathcal{U}_{1} \subset \mathcal{V}$ é tal que $(a_{1},a_{2},...) \in \mathcal{U}_{1}$ se e somente se $a_{i}=0$ para todo i ímpar.
+        \item $\mathcal{U}_{2} \subset \mathcal{V}$ tal que $(a_{1},a_{2},...) \in \mathcal{U}_{2}$ se e somente se o conjunto $\{i:a_{i} \ne 0\}$ tem exatamente dois elementos.
+        \item Seja $k \ge 1$, $\mathcal{U}_{3} \subset \mathcal{V}$ tal que $(a_{1},a_{2},...) \in \mathcal{U}_{3}$ se e somente se o conjunto $\{i:a_{i} \ne 0\}$ tem no máximo k elementos.
+        \item $\mathcal{U}_{4} \subset \mathcal{V}$ é tal que $(a_{1},a_{2},...) \in \mathcal{U}_{4}$ se e somente se o conjunto $\{i:a_{i} \ne 0\}$ é finito.
+        \item Seja $k \ge 1$, $\mathcal{U}_{5} \subset \mathcal{V}$ tal que $(a_{1},a_{2},...) \in \mathcal{U}_{5}$ se e somente se $a_{i}=0$ para todo $i>k$.
+        \item Seja $k \ge 1$, $\mathcal{U}_{6} \subset \mathcal{V}$ é tal que $(a_{1},a_{2},...) \in \mathcal{U}_{6}$ se e somente se $a_{i}=-a_{i-1}$ para todo $i \ge 3$.
+    \end{enumerate}
+
+    \item Seja V um espaço de dimensão finita. Para todo subespaço U de V, existe um subespaço W tal que $\mathcal{U} \oplus \mathcal{W} = \mathcal{V}$.
+
+    \item Para cada um dos itens abaixo, considere o subespaço de $\mathbb{R}[x]$ gerado pelos polinômios listados. Determine a dimensão do subespaço e verifique se o polinômio $x^{4}+2x^{3}-1$ pertence ao subespaço. Justifique as suas respostas.
+    \begin{enumerate}
+        \item $\mathcal{U}_{1} = \text{Span}(x^{4}-x, x^{3}, x^{4}+x^{3}, x+1)$
+        \item $\mathcal{U}_{2} = \text{Span}(x^{4}-x^{3}, x^{3}-x^{2}, x^{4}-1, x-1, x^{2}-x)$
+    \end{enumerate}
+
+    \item Seja V um espaço vetorial de dimensão finita.
+    \begin{enumerate}
+        \item Prove que, se U é um subespaço de V e $dim(\mathcal{U}) = dim(\mathcal{V})$, então $\mathcal{U}=\mathcal{V}$.
+        \item Prove que, se $\mathcal{U}_{1}, \mathcal{U}_{2}$ são subespaços de V tais que $dim(\mathcal{U}_{1}) + dim(\mathcal{U}_{2}) > dim(\mathcal{V})$, então $\mathcal{U}_{1} \cap \mathcal{U}_{2}$ contém um vetor $v \ne \vec{0}$.
+    \end{enumerate}
+
+    \item Seja V um espaço vetorial de dimensão finita. Prove que, se $\mathcal{U}_{1},...,\mathcal{U}_{m}$ são subespaços de $\mathcal{V}$ tais que $\mathcal{V} = \mathcal{U}_{1} \oplus \mathcal{U}_{2} \oplus ... \oplus \mathcal{U}_{m}$, então $dim(\mathcal{V}) = dim(\mathcal{U}_{1}) + dim(\mathcal{U}_{2}) + \cdot\cdot\cdot + dim(\mathcal{U}_{m})$.
+
+    \item Sejam $X_{1}, X_{2}, ...$ subconjuntos linearmente independentes de um espaço vetorial V.
+    \begin{enumerate}
+        \item Se $X_{1} \subset X_{2} \subset \cdot\cdot\cdot$, prove que $X=\bigcup_{i=1}^{\infty}X_{i}$ é linearmente independente.
+        \item Se $|X_{i}|=i$ para todo i, prove que existe um subconjunto linearmente independente $Y=\{v_{1},v_{2},...\} \subset \mathcal{V}$ tal que $v_{i} \in X_{i}$ para todo i.
+        \item Considere o espaço vetorial V do exercício 5 cujos elementos têm a forma $(a_{1},a_{2},...)$ onde $a_{i} \in \mathbb{R}$. Para cada inteiro positivo i, considere o elemento $e_{i}=(a_{1},a_{2},...)$ tal que $a_{i}=1$ e $a_{j}=0$ para todo $j \ne i$. Seja $X_{n}=\{e_{1},...,e_{n}\}$ para todo n. O conjunto $X=\bigcup_{n=1}^{\infty}X_{n}$ é uma base de V? É uma base de algum dos subespaços de V listado no exercício 5?
+    \end{enumerate}
+
+\end{enumerate}
+
+\begin{center}
+    \textbf{Soluções}
+\end{center}
+
+\begin{enumerate}
+    \item[\textbf{E1}]
+    \item[\textbf{E2}]
+    \item[\textbf{E3}]
+    \item[\textbf{E4}]
+    \item[\textbf{E5}]
+    \item[\textbf{E6}]
+    \item[\textbf{E7}]
+    \item[\textbf{E8}]
+    \item[\textbf{E9}]
+    \item[\textbf{E10}]
+\end{enumerate}
+
+\end{document}

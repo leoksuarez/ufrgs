@@ -25,6 +25,8 @@
 \theoremstyle{remark}
 \newtheorem*{rem}{Nota}
 
+\DeclareMathOperator{\im}{im}
+
 \geometry{
  a4paper,
  left=3cm,
@@ -308,12 +310,12 @@
 \begin{defn}
     Para \(T \in \mathcal{L}(V, W)\), o \emph{espaço nulo} de \(T\) é o subconjunto de \(V\) definido por
     \[
-        \mathcal{N}(T) = \{v \in V : Tv = 0\}.
+        \ker(T) = \{v \in V : Tv = 0\}.
     \]
 \end{defn}
 
 \begin{prop}
-    Seja \(T \in \mathcal{L}(V, W)\). Então \(\mathcal{N}(T)\) é um subespaço de \(V\).
+    Seja \(T \in \mathcal{L}(V, W)\). Então \(\ker(T)\) é um subespaço de \(V\).
 \end{prop}
 
 \begin{defn}
@@ -321,7 +323,7 @@
 \end{defn}
 
 \begin{prop}
-    Seja \(T \in \mathcal{L}(V, W)\). Então \(T\) é injetora se e somente se \(\mathcal{N}(T) = \{0\}\).
+    Seja \(T \in \mathcal{L}(V, W)\). Então \(T\) é injetora se e somente se \(\ker(T) = \{0\}\).
 \end{prop}
 
 \begin{defn}
@@ -332,7 +334,7 @@
 \end{defn}
 
 \begin{prop}
-    Seja \(T \in \mathcal{L}(V, W)\). Então \(\textup{Im}(T)\) é um subespaço de \(W\).
+    Seja \(T \in \mathcal{L}(V, W)\). Então \(\im(T)\) é um subespaço de \(W\).
 \end{prop}
 
 \begin{defn}
@@ -340,9 +342,9 @@
 \end{defn}
 
 \begin{thm} (teorema fundamental das transformações lineares)
-    Suponha que \(V\) seja um espaço vetorial de dimensão finita e que \(T \in \mathcal{L}(V, W)\). Então \(\textup{Im}(T)\) é de dimensão finita e
+    Suponha que \(V\) seja um espaço vetorial de dimensão finita e que \(T \in \mathcal{L}(V, W)\). Então \(\im(T)\) é de dimensão finita e
     \begin{equation}
-        \dim V = \dim \mathcal{N}(T) + \dim \textup{Im}(T).
+        \dim V = \dim \ker(T) + \dim \im(T).
     \end{equation}
 \end{thm}
 
@@ -529,11 +531,15 @@
     Suponha \(T \in \mathcal{L}(V, W)\) e \(v_1,\ldots,v_n\) é uma base de \(V\) e \(w_1,\ldots,w_m\) é uma base de \(W\). Seja \(1 \leq k \leq n\). Então a \(k\)-ésima coluna de \(\mathcal{M}(T)\) é igual a \(\mathcal{M}(Tv_k)\).
 \end{cor}
 
-\begin{prop}
+\begin{prop} (transformações lineares atuam como multiplicação de matrizes)
     Suponha \(T \in \mathcal{L}(V, W)\), \(v_1,\ldots,v_n\) é uma base de \(V\) e \(w_1,\ldots,w_m\) é uma base de \(W\). Se \(v \in V\), então
     \[
         \mathcal{M}(Tv) = \mathcal{M}(T) \mathcal{M}(v).
     \]
+\end{prop}
+
+\begin{prop}
+    Sejam \(V\) e \(W\) espaços vetoriais de dimensão finita e \(T \in \mathcal{L}(V, W)\). Então \(\dim \im(T)\) é igual ao posto de \(\mathcal{M}(T)\).
 \end{prop}
 
 \subsection{Dualidade}
@@ -559,60 +565,6 @@
         \end{cases}, \quad \forall i,j = 1,\ldots,n.
     \]
 \end{defn}
-
-\section{Polinômios}
-
-\begin{defn}
-    Um número \(\lambda \in \mathbb{F}\) é dito um \emph{zero} (ou \emph{raiz}) de um polinômio \(p \in \mathcal{P}(\mathbb{F})\) se \(p(\lambda) = 0\).
-\end{defn}
-
-\begin{prop} (todo zero de um polinômio corresponde a um fator de grau um)
-    Suponha que \(m\) é um inteiro positivo e \(p \in \mathcal{P}_m(\mathbb{F})\) é um polinômio de grau \(m\). Seja \(\lambda \in \mathbb{F}\). Então \(p(\lambda) = 0\) sse existe \(q \in \mathcal{P}_{m-1}(\mathbb{F})\) tal que \(p(z) = (z - \lambda) q(z)\), para todo \(z \in \mathbb{F}\).
-\end{prop}
-
-\begin{prop}
-    Seja \(p \in \mathcal{P}(\mathbb{F})\) um polinômio de grau \(m\), \(m\) inteiro positivo. Então \(p\) tem no máximo \(m\) zeros distintos em \(\mathbb{F}\).
-\end{prop}
-
-\begin{prop} (algoritmo da divisão para polinômios)
-    Suponha que \(p, s \in \mathcal{P}(\mathbb{F})\) e que \(s \neq 0\). Então existem únicos \(q, r \in \mathcal{P}(\mathbb{F})\) tais que
-    \[
-        p = sq + r,
-    \]
-    \noindent e \(\text{gr }r < \text{gr }s\).
-\end{prop}
-
-\begin{thm} (teorema fundamental da álgebra, primeira versão)
-    Todo polinômio não-constante com coeficientes complexos tem pelo menos um zero complexo.
-\end{thm}
-
-\begin{thm} (teorema fundamental da álgebra, segunda versão)
-    Se \(p \in \mathcal{P}(\mathbb{C})\) é um polinômio não-constante, então \(p\) tem uma fatoração única da forma
-    \[
-        p(z) = c (z - \lambda_1)(z - \lambda_2) \cdots (z - \lambda_m),
-    \]
-    \noindent onde \(c, \lambda_1, \ldots, \lambda_m \in \mathbb{C}\).
-\end{thm}
-
-\begin{prop} (polinômios com coeficientes reais possuem zeros em pares)
-    Seja \(p \in \mathcal{P}(\mathbb{C})\) um polinômio com coeficientes reais. Se \(\lambda \in \mathbb{C}\) é um zero de \(p\), então o conjugado complexo \(\overline{\lambda}\) de \(\lambda\) também é um zero de \(p\).
-\end{prop}
-
-\begin{thm} (fatoração de um polinômio quadrático)
-    Suponha que \(b, c \in \mathbb{R}\). Então existe uma fatoração polinomial da forma
-    \[
-        x^2 + bx + c = (x - \lambda_1)(x - \lambda_2),
-    \]
-    \noindent com \(\lambda_1, \lambda_2 \in \mathbb{R}\) sse \(b^2 \geq 4c\).
-\end{thm}
-
-\begin{thm} (fatoração de um polinômio sobre \(\mathbb{R}\))
-    Seja \(p \in \mathcal{P}(\mathbb{R})\) um polinômio não-constante. Então \(p\) tem uma fatoração única da forma
-    \[
-        p(x) = c (x - \lambda_1)\cdots(x - \lambda_m)(x^2 + b_1 x + c_1) \cdots (x^2 + b_M x + c_M),
-    \]
-    \noindent onde \(c, \lambda_1, \ldots, \lambda_m, b_1, c_1, \ldots, b_M, c_M \in \mathbb{R}\) e \(b_j^2 < 4c_j\), para \(j = 1, \ldots, M\).
-\end{thm}
 
 \section{Autovalores e Autovetores}
 \subsection{Subespaços Invariantes}
@@ -678,37 +630,7 @@
 \end{prop}
 
 \begin{prop} (espaço nulo e imagem de \(p(T)\) são invariantes sob \(T\))
-    Sejam \(T \in \mathcal{L}(V)\) e \(p \in \mathcal{P}(\mathbb{F})\). Então os subespaços \(\mathcal{N}(p(T))\) e \(\textup{Im}(p(T))\) são invariantes sob \(T\).
-\end{prop}
-
-\subsection{O Polinômio Mínimo}
-
-\begin{thm}
-    Todo operador em um espaço vetorial complexo não-nulo de dimensão finita tem um autovalor.
-\end{thm}
-
-\begin{defn}
-    Um \emph{polinômio mônico} é um polinômio cujo coeficiente líder é \(1\).
-\end{defn}
-
-\begin{prop} (existência, unicidade e grau do polinômio mínimo)
-    Suponha que \(V\) é um espaço vetorial de dimensão finita e \(T \in \mathcal{L}(V)\). Então existe um único polinômio mônico \(p \in \mathcal{P}(\mathbb{F})\) de grau mínimo tal que \(p(T) = 0\). Ainda, \(\text{gr }p \leq \dim V\).
-\end{prop}
-
-\begin{defn}
-    Seja \(V\) um espaço vetorial de dimensão finita e \(T \in \mathcal{L}(V)\). O \emph{polinômio mínimo} de \(T\) é o único polinômio mônico \(p \in \mathcal{P}(\mathbb{F})\) de grau mínimo tal que \(p(T) = 0\).
-\end{defn}
-
-\begin{prop} (autovalores são os zeros do polinômio mínimo)
-    Suponha que \(V\) é um espaço vetorial de dimensão finita e \(T \in \mathcal{L}(V)\) e \(\lambda \in \mathbb{F}\).
-    \begin{enumerate}
-        \item [\textup{(a)}] Os zeros do polinômio mínimo de \(T\) são os autovalores de \(T\).
-        \item [\textup{(b)}] Se \(V\) é um espaço vetorial complexo, então o polinômio mínimo de \(T\) é da forma
-        \[
-            (z-\lambda_1)\cdots(z-\lambda_m),
-        \]
-        \noindent onde \(\lambda_1, \ldots, \lambda_m\) são os autovalores de \(T\).
-    \end{enumerate}
+    Sejam \(T \in \mathcal{L}(V)\) e \(p \in \mathcal{P}(\mathbb{F})\). Então os subespaços \(\ker(p(T))\) e \(\im(p(T))\) são invariantes sob \(T\).
 \end{prop}
 
 \subsection{Matrizes Triangular-Superiores}
@@ -779,7 +701,7 @@
 \begin{defn}
     Suponha que \(T \in \mathcal{L}(V)\) e \(\lambda \in \mathbb{F}\). O \emph{autoespaço} de \(T\) correspondente a \(\lambda\) é o subespaço \(E(\lambda, T)\) de \(V\) definido por
     \[
-        E(\lambda, T) = \mathcal{N}(T - \lambda I) = \{v \in V : Tv = \lambda v\}.
+        E(\lambda, T) = \ker(T - \lambda I) = \{v \in V : Tv = \lambda v\}.
     \]
     \noindent Então, \(E(\lambda, T)\) é o conjunto de todos os autovetores de \(T\) correspondentes a \(\lambda\), juntamente com o vetor nulo.
 \end{defn}
@@ -839,6 +761,36 @@
         \item [\textup{(e)}] \(\langle u, \lambda v \rangle = \overline{\lambda} \langle u, v \rangle\), para todo \(\lambda \in \mathbb{F}\) e todos \(u, v \in V\).
     \end{enumerate}
 \end{prop}
+
+\begin{defn}
+    Para \(v \in V\), a \emph{norma} de \(v\), denotada por \(\|v\|\), é o número real não-negativo definido por \(\|v\| = \sqrt{\langle v, v \rangle}\).
+\end{defn}
+
+\begin{prop} (propriedades básicas da norma)
+    Seja \(v \in V\).
+    \begin{enumerate}
+        \item [\textup{(a)}] \(\|v\| \geq 0\) e \(\|v\| = 0\) sse \(v = 0\).
+        \item [\textup{(b)}] \(\|\lambda v\| = |\lambda| \|v\|\), para todo \(\lambda \in \mathbb{F}\).
+    \end{enumerate}
+\end{prop}
+
+\begin{defn}
+    Dois vetores \(u, v \in V\) são ditos \emph{ortogonais} se \(\langle u, v \rangle = 0\).
+\end{defn}
+
+\begin{prop} (ortogonalidade e o zero)
+    \begin{enumerate}
+        \item [\textup{(a)}] O vetor nulo é ortogonal a todo vetor em \(V\).
+        \item [\textup{(b)}] O vetor nulo é o único vetor em \(V\) que é ortogonal a si mesmo.
+    \end{enumerate}
+\end{prop}
+
+\begin{thm} (teorema de Pitágoras)
+    Sejam \(u, v \in V\). Se \(u\) e \(v\) são ortogonais, então
+    \[
+        \|u + v\|^2 = \|u\|^2 + \|v\|^2.
+    \]
+\end{thm}
 
 \subsection{Bases Ortonormais}
 \subsection{Complementos Ortogonais e Problemas de Minimização}
