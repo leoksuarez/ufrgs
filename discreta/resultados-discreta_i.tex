@@ -68,8 +68,8 @@
     Dado qualquer conjunto \(S\) construído pelo princípio multiplicativo, é preciso saber dizer quais elementos de \(S\) são da primeira parte de \(S\) e quais são da segunda parte.
 \end{prcp}
 
-\begin{thm} (arranjos com repetições)
-    Se existem \(n\) objetos, com \(r_1\) do tipo 1, \(r_2\) do tipo 2, \ldots, \(r_m\) do tipo \(m\), onde \(r_1 + r_2 + \cdots + r_m = n\), então o número de arranjos distintos que podem ser formados com esses \(n\) objetos é dado por
+\begin{thm} (permutações com repetição)
+    Se existem \(n\) objetos, com \(r_1\) do tipo 1, \(r_2\) do tipo 2, \ldots, \(r_m\) do tipo \(m\), onde \(r_1 + r_2 + \cdots + r_m = n\), então o número de permutações com esses \(n\) objetos é dado por
     \begin{align}
         P(n;r_1,r_2,\ldots,r_m) &= \binom{n}{r_1}\binom{n-r_1}{r_2}\cdots\binom{n-r_1-r_2-\cdots-r_{m-1}}{r_m} \\
         &= \frac{n!}{r_1!r_2!\cdots r_m!}.
@@ -82,7 +82,7 @@
 
 \begin{prop} (formas equivalentes para seleções com repetições)
     \begin{enumerate}
-        \item O número de maneiras de selecionar \(r\) objetos com repetição dentro \(n\) tipos distintos.
+        \item O número de maneiras de selecionar \(r\) objetos com repetição dentre \(n\) tipos distintos.
         \item O número de maneiras de distribuir \(r\) objetos idênticos em \(n\) caixas distintas.
         \item O número de soluções inteiras não negativas da equação
         \begin{equation}
@@ -117,6 +117,44 @@
     Sejam \(A_1, A_2, \ldots, A_n\) subconjuntos finitos de um conjunto universal \(U\). Seja \(S_k\) a soma de todas as interseções de \(k\) conjuntos dentre os \(A_i\). então
     \begin{equation}
         \left| \bigcup_{i=1}^{n} A_i \right| = S_1 - S_2 + S_3 - S_4 + \cdots + (-1)^{n+1} S_n.
+    \end{equation}
+\end{thm}
+
+\begin{defn}
+    Chamamos de \emph{função \(\varphi\) de Euler} a função que atribui a cada inteiro positivo \(m\) o número de inteiros positivos menores ou iguais a \(m\) que são coprimos a \(m\).
+\end{defn}
+
+\begin{thm}
+    O valor de \(\varphi(m)\) é dado por
+    \begin{equation}
+        \varphi(m) = m \left( 1 - \frac{1}{p_1} \right) \left( 1 - \frac{1}{p_2} \right) \cdots \left( 1 - \frac{1}{p_t} \right),
+    \end{equation}
+    \noindent onde \(p_1, p_2, \ldots, p_t\) são os fatores primos distintos de \(m\), isto é, \(m = p_1^{k_1} p_2^{k_2} \cdots p_t^{k_t}\).
+\end{thm}
+
+\begin{defn}
+    Uma permutação de \(a_1, a_2, \ldots, a_n\) é chamada de \emph{caótica} quando nenhum dos elementos \(a_i\) está em sua posição natural \(i\). O número de permutações caóticas (ou de \emph{desarranjos}) de \(n\) objetos é denotado por \(D_n\).
+\end{defn}
+
+\begin{res}
+    O número de permutações caóticas de \(n\) objetos é dado por
+    \begin{equation}
+        D_n = n! \left( 1 - \frac{1}{1!} + \frac{1}{2!} - \frac{1}{3!} + \cdots + \frac{(-1)^n}{n!} \right).
+    \end{equation}
+\end{res}
+
+\begin{thm}
+    Seja \(\vert A \vert = n\) e \(\vert B \vert = k\). Se \(n=k\), para \(n>0\), o número de funções bijetoras \(f: A \to B\) é \(n!\).
+\end{thm}
+
+\begin{thm}
+    Para \(n \leq k\), o número de funções injetoras \(f: A \to B\) é \(k(k-1)(k-2)\cdots(k-n+1) = \displaystyle\frac{k!}{(k-n)!}\).
+\end{thm}
+
+\begin{thm}
+    Para \(n \geq k\), o número de funções sobrejetoras \(f: A \to B\) é dado por
+    \begin{equation}
+        T(n,k) = \sum_{i=0}^{k} (-1)^i \binom{k}{i} (k-i)^n.
     \end{equation}
 \end{thm}
 
