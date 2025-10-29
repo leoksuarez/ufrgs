@@ -36,9 +36,9 @@
     \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
     \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
     \vspace{3cm}
-    \textbf{\Large MÉTODOS APLICADOS II} \\
+    \textbf{\Large MÉTODOS APLICADOS DE MATEMÁTICA II} \\
     \vspace{1cm}
-    \textbf{\large LISTA DE RESULTADOS} \\
+    \textbf{\large LISTA DE DEFINIÇÕES E RESULTADOS} \\
     \vspace{3cm}
 
     \textbf{LEONARDO SUAREZ}
@@ -53,6 +53,8 @@
 \newpage
 
 \section{Soluções por Séries de Potências}
+
+\subsection{Revisão de Séries de Potências}
 
 \begin{rem} (fatos importantes sobre séries de potências)
     \begin{itemize}
@@ -75,6 +77,8 @@
     \end{itemize}
 \end{rem}
 
+\subsection{Soluções sobre Pontos Ordinários}
+
 \begin{defn}
     Um ponto \(x=x_0\) é chamado de \emph{ponto ordinário} da equação diferencial
     \begin{equation}\label{eq:edo1}
@@ -94,6 +98,8 @@
     \]
     Uma solução de série de potência converge pelo menos no intervalo \(|x - x_0| < R\), onde \(R\) é a distância do ponto \(x_0\) ao ponto singular mais próximo, ou também a \emph{cota inferior} do raio de convergência.
 \end{thm}
+
+\subsection{Soluções sobre Pontos Singulares}
 
 \begin{defn}
     Uma ponto singular \(x=x_0\) é chamado de \emph{ponto singular regular} da equação \eqref{eq:edo1} se as funções \(p(x)=(x-x_0)P(x)\) e \(q(x)=(x-x_0)^2Q(x)\) são analíticas em \(x_0\). Caso contrário, \(x_0\) é chamado de \emph{ponto singular irregular}.
@@ -125,6 +131,8 @@
         \end{equation}
     \end{itemize}
 \end{rem}
+
+\subsection{Funções Especiais}
 
 \begin{defn}
     Assuma que \(\nu\geq0\). Então,
@@ -206,6 +214,8 @@
 
 \section{Séries de Fourier}
 
+\subsection{Funções Ortogonais}
+
 \begin{defn} 
     O \emph{produto interno} de duas funções \(f_1\) e \(f_2\) em um intervalo \([a,b]\) é o número
     \begin{equation}
@@ -231,6 +241,8 @@
     A \emph{norma quadrada} de uma função \(\phi_n\) é \(\Vert \phi _n \Vert^2 = \langle \phi_n, \phi_n \rangle = \int_a^b \phi_n(x)^2 \, dx\), e a \emph{norma} é dada por \(\Vert \phi_n \Vert = \sqrt{\langle \phi_n, \phi_n \rangle} = \sqrt{\int_a^b \phi_n(x)^2 \, dx}\). Se \(\Vert \phi_n \Vert = 1\), então \(\{\phi_n\}\) é um conjunto \emph{ortonormal} no intervalo \([a,b]\).
 \end{defn}
 
+\subsection{Séries de Fourier}
+
 \begin{defn}
     Um conjunto de funções reais \(\{\phi_0(x), \phi_1(x), \phi_2(x), \ldots\}\) é \emph{ortogonal com respeito a uma função peso} \(w(x)\) em \([a,b]\) se
     \begin{equation}
@@ -244,9 +256,13 @@
     \noindent é chamada de \emph{série de Fourier generalizada} de \(f\).
 \end{defn}
 
+\begin{rem}
+    O conjunto \(\left\{1, \cos\frac{n\pi x}{p}, \sin\frac{m\pi x}{p} \right\}, n=1,2,3,\ldots, m=1,2,3,\ldots\) é ortogonal em \([-p,p]\) com respeito à função peso \(w(x)=1\).
+\end{rem}
+
 \begin{defn}
     A \emph{série de Fourier} de uma função \(f\) definida no intervalo \((-p,p)\) é dada por
-    \begin{equation}
+    \begin{equation}\label{eq:serie-fourier}
         f(x) = \frac{1}{2}a_0 + \sum_{n=1}^{\infty} \left( a_n \cos\frac{n\pi x}{p} + b_n \sin\frac{n\pi x}{p} \right),
     \end{equation}
     onde os coeficientes \(a_n\) e \(b_n\) são dados por
@@ -256,6 +272,17 @@
         b_n &= \frac{1}{p} \int_{-p}^{p} f(x) \sin\frac{n\pi x}{p} \, dx.
     \end{align}
 \end{defn}
+
+\begin{rem}
+    A série de Fourier \eqref{eq:serie-fourier} pode ser escrita na forma complexa como
+    \begin{equation}\label{eq:serie-fourier-complexa}
+        f(x) = \sum_{n=-\infty}^{\infty} c_n e^{i n \pi x / p},
+    \end{equation}
+    \noindent onde
+    \begin{equation}
+        c_0 = \frac{a_0}{2}, \quad c_n = \frac{1}{2}(a_n - i b_n), \quad c_{-n} = \frac{1}{2}(a_n + i b_n), \quad n=1,2,3,\ldots
+    \end{equation}
+\end{rem}
 
 \begin{defn}
     Uma função \(f\) é dita \emph{contínua por partes} em um intervalo \([a,b]\) se existe um número finito de pontos de descontinuidade \(x_1<x_2<\cdots<x_n\) em \([a,b]\) e \(f\) é contínua em cada subintervalo \((x_k, x_{k+1})\) para \(k=0,1,\ldots,n\). Consequentemente,
@@ -307,6 +334,8 @@
     \end{enumerate}
 \end{defn}
 
+\subsection{Problema de Sturm-Liouville}
+
 \renewcommand{\arraystretch}{1.15}
 \begin{rem} (revisão de EDOs) \newline
     \begin{tabular}[c]{ll}
@@ -352,6 +381,8 @@
         \item[\textup{(d)}] O conjunto de autovetores correspondente ao conjunto de autovalores é ortogonal com respeito à função peso \( p(x) \) no intervalo \([a,b]\).
     \end{enumerate}
 \end{thm}
+
+\subsection{Séries de Fourier-Bessel e Séries de Fourier-Legendre}
 
 \begin{defn}
     A série de \emph{Fourier-Bessel} de uma função \(f\) definida no intervalo \((0,b)\) é dada por
@@ -402,12 +433,65 @@
 \end{prop}
 
 \section{Problemas de Valor de Contorno em Coordenadas Retangulares}
+
+\subsection{Equações Diferenciais Parciais Separáveis}
+
+\begin{thm} (princípio da superposição)
+    Se \(u_1, u_2, \ldots, u_k\) são soluções de uma EDP linear homogênea, então a combinação linear
+    \begin{equation}
+        u = c_1 u_1 + c_2 u_2 + \cdots + c_k u_k,
+    \end{equation}
+    \noindent onde \(c_1, c_2, \ldots, c_k\) são constantes, também é uma solução da EDP.
+\end{thm}
+
+\begin{rem}
+    Vamos assumir que quando tivermos um conjunto infinito \(u_1, u_2, \ldots\) de soluções de uma equação linear homogênea, podemos construir outra solução \(u\) como uma série infinita
+    \begin{equation}
+        u = \sum_{k=1}^{\infty} c_k u_k,
+    \end{equation}
+    \noindent onde \(c_1, c_2, \ldots\) são constantes.
+\end{rem}
+
+\begin{defn}
+    A equação diferencial parcial linear de segunda ordem
+    \begin{equation}
+        A \frac{\partial^2 u}{\partial x^2} + B \frac{\partial^2 u}{\partial x \partial y} + C \frac{\partial^2 u}{\partial y^2} + D \frac{\partial u}{\partial x} + E \frac{\partial u}{\partial y} + F u = G,
+    \end{equation}
+    \noindent onde \(A\), \(B\), \(C\), \(D\), \(E\), \(F\) e \(G\) são constantes reais, é classificada como:
+    \begin{itemize}
+        \item \emph{hiperbólica} se \(B^2 - 4AC > 0\),
+        \item \emph{parabólica} se \(B^2 - 4AC = 0\),
+        \item \emph{elíptica} se \(B^2 - 4AC < 0\).
+    \end{itemize}
+\end{defn}
+
+\begin{defn} (equações clássicas)
+    \begin{align}
+        &k \frac{\partial^2 u}{\partial x^2} = \frac{\partial u}{\partial t}, \quad k>0 \label{eq:calor-1d} \\
+        &a^2 \frac{\partial^2 u}{\partial x^2} = \frac{\partial^2 u}{\partial t^2} \label{eq:onda-1d} \\
+        &\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0 \label{eq:laplace-2d}
+    \end{align}
+    As equações \eqref{eq:calor-1d}, \eqref{eq:onda-1d} e \eqref{eq:laplace-2d} são chamadas, respectivamente, de \emph{equação do calor unidimensional}, \emph{equação da onda unidimensional} e \emph{equação de Laplace bidimensional}, onde a constante \(k\) é o coeficiente de difusão térmica e \(a\) é a velocidade da onda no meio.
+    Note que a equação do calor é parabólica, a equação da onda é hiperbólica e a equação de Laplace é elíptica.
+\end{defn}
+
+\begin{rem}
+    Em geral, existem três tipos de condições de contorno:
+    \begin{itemize}
+        \item[(i)] Condições de Dirichlet: especificam o valor da função na fronteira do domínio (ex.: \(u=0\) na fronteira).
+        \item[(ii)] Condições de Neumann: especificam o valor da derivada normal da função na fronteira do domínio (ex.: \(\partial u/\partial n=0\) na fronteira).
+        \item[(iii)] Condições de Robin: combinam condições de Dirichlet e Neumann em diferentes partes da fronteira do domínio (ex.: \(\partial u/\partial n + hu = g\) na fronteira, onde \(h\) é uma constante e \(g\) é uma função definida na fronteira).
+    \end{itemize}
+\end{rem}
+
 \section{Problemas de Valor de Contorno em Outros Sistemas de Coordenadas}
 \section{Transformadas Integrais}
 
+\subsection{Integral de Fourier}
+
 \begin{defn}
     A \emph{integral de Fourier} de uma função \(f\) definida no intervalo \(\left(-\infty, \infty\right)\) é dada por
-    \begin{equation}
+    \begin{equation}\label{eq:integral-fourier}
         f(x) = \frac{1}{\pi} \int_{0}^{\infty} \left[A(\alpha) \cos(\alpha x) + B(\alpha) \sin(\alpha x)\right] d\alpha,
     \end{equation}
     \noindent onde
@@ -446,13 +530,26 @@
     \end{enumerate}
 \end{defn}
 
+\begin{rem}
+    A integral de Fourier \eqref{eq:integral-fourier} também possui a forma complexa, ou forma exponencial, que é análoga à forma complexa da série de Fourier \eqref{eq:serie-fourier-complexa}.
+    \begin{equation}
+        f(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} C(\alpha) e^{-i\alpha x} \, d\alpha,
+    \end{equation}
+    \noindent onde
+    \begin{equation}
+        C(\alpha) = \int_{-\infty}^{\infty} f(x) e^{i\alpha x} \, dx.
+    \end{equation}
+\end{rem}
+
+\subsection{Transformada de Fourier}
+
 \begin{defn} (pares de transformadas de Fourier)
     \begin{enumerate}
         \item[(i)] Transformada de Fourier: \begin{equation}
-            \mathcal{F}\{f(x)\} = \int_{-\infty}^{\infty} f(x) e^{-i\alpha x} \, dx = F(\alpha).
+            \mathcal{F}\{f(x)\} = \int_{-\infty}^{\infty} f(x) e^{i\alpha x} \, dx = F(\alpha).
         \end{equation}
         \item[(ii)] Transformada inversa de Fourier: \begin{equation}
-            \mathcal{F}^{-1}\{F(\alpha)\} = \frac{1}{2\pi} \int_{-\infty}^{\infty} F(\alpha) e^{i\alpha x} \, d\alpha = f(x).
+            \mathcal{F}^{-1}\{F(\alpha)\} = \frac{1}{2\pi} \int_{-\infty}^{\infty} F(\alpha) e^{-i\alpha x} \, d\alpha = f(x).
         \end{equation}
         \item[(iii)] Transformada de Fourier em senos: \begin{equation}
             \mathcal{F}_s\{f(x)\} = \int_{0}^{\infty} f(x) \sin(\alpha x) \, dx = F_s(\alpha).

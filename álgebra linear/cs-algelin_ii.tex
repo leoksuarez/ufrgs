@@ -40,9 +40,9 @@
     \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
     \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
     \vspace{3cm}
-    \textbf{\Large ÁLGEBRA LINEAR} \\
+    \textbf{\Large ÁLGEBRA LINEAR II} \\
     \vspace{1cm}
-    \textbf{\large LISTA DE RESULTADOS} \\
+    \textbf{\large LISTA DE DEFINIÇÕES E RESULTADOS} \\
     \vspace{3cm}
 
     \textbf{LEONARDO SUAREZ}
@@ -59,7 +59,7 @@
 \section{Espaços Vetoriais}
 
 \subsection{\(\mathbb{R}^n\) e \(\mathbb{C}^n\)}
-\begin{prop} (propriedades da aritmética complexa)
+\begin{prop} (propriedades da aritmética complexa).
     \begin{enumerate}
         \item[\textup{(a)}] \textup{\textbf{comutatividade}} \(\alpha + \beta = \beta + \alpha\) e \(\alpha \beta = \beta \alpha \quad \forall \alpha, \beta \in \mathbb{C}\)
         \item[\textup{(b)}] \textup{\textbf{associatividade}} \((\alpha + \beta) + \gamma = \alpha + (\beta + \gamma)\) e \((\alpha \beta) \gamma = \alpha (\beta \gamma) \quad \forall \alpha, \beta, \gamma \in \mathbb{C}\)
@@ -81,7 +81,7 @@
     \]
 \end{defn}
 
-\begin{prop} (comutatividade da soma em \(\mathbb{F}^n\))
+\begin{prop} (comutatividade da soma em \(\mathbb{F}^n\)).
     Para todo \(x, y \in \mathbb{F}^n\), \(x + y = y + x\).
 \end{prop}
 
@@ -135,7 +135,7 @@
     Um subconjunto \(U\) de um espaço vetorial \(V\) é dito um \emph{subespaço} de \(V\) se \(U\) é um espaço vetorial com as mesmas operações de soma e produto por escalar definidas em \(V\).
 \end{defn}
 
-\begin{prop} (condições para subespaço)
+\begin{prop} (condições para subespaço).
     Um subconjunto \(U\) de um espaço vetorial \(V\) é um subespaço de \(V\) sse os seguintes três itens são satisfeitos.
     \begin{itemize}
         \item \(0 \in U\).
@@ -159,7 +159,7 @@
     Sejam \(V_1, \ldots, V_m\) subespaços de \(V\). A soma \(V_1 + \cdots + V_m\) é dita \emph{direta} se todo \(v \in V_1 + \cdots + V_m\) pode ser escrito de maneira única como \(v = v_1 + \cdots + v_m\), onde \(v_k \in V_k\). Se a soma é direta, escrevemos \(V = V_1 \oplus \cdots \oplus V_m\).
 \end{defn}
 
-\begin{prop} (condição para soma direta)
+\begin{prop} (condição para soma direta).
     Suponha que \(V_1, \ldots, V_m\) são subespaços de \(V\). Então \(V = V_1 \oplus \cdots \oplus V_m\) sse a única maneira de escrever \(0\) como \(0 = v_1 + \cdots + v_m\), onde \(v_k \in V_k\) para cada \(k\), é com \(v_1 = \cdots = v_m = 0\).
 \end{prop}
 
@@ -170,7 +170,7 @@
 \section{Espaços Vetoriais de Dimensão Finita}
 
 \subsection{Span e Independência Linear}
-\begin{prop} (span é o menor subespaço que contém todos os vetores)
+\begin{prop} (span é o menor subespaço que contém todos os vetores).
     O span de uma lista de vetores em \(V\) é o menor subespaço de \(V\) que contém todos os vetores da lista.
 \end{prop}
 
@@ -186,7 +186,7 @@
     \noindent é \(a_1 = a_2 = \cdots = a_n = 0\). Caso contrário, a lista é dita \emph{linearmente dependente}. A lista vazia é dita linearmente independente.
 \end{defn}
 
-\begin{lem} (lema de dependência linear)
+\begin{lem} (lema de dependência linear).
     Suponha que \(v_1, \ldots, v_n\) é linearmente dependente em \(V\). Então existe \(j \in \{1, \ldots, n\}\) tal que
     \begin{equation}
         v_j \in \textup{span}(v_1, \ldots, v_{j-1}).
@@ -207,7 +207,7 @@
     Uma \emph{base} de um espaço vetorial \(V\) é uma lista de vetores \(v_1, \ldots, v_n\) em \(V\) que é linearmente independente e gera \(V\).
 \end{defn}
 
-\begin{prop} (critério para base)
+\begin{prop} (critério para base).
     Uma lista de vetores \(v_1, \ldots, v_n\) em um \(V\) é uma base de \(V\) sse todo vetor em \(V\) pode ser escrito de maneira única como uma combinação linear de \(v_1, \ldots, v_n\), isto é,
     \begin{equation}
         v = a_1 v_1 + a_2 v_2 + \cdots + a_n v_n,
@@ -219,6 +219,10 @@
     Toda lista geradora em um espaço vetorial pode ser reduzida a uma base do espaço vetorial.
 \end{prop}
 
+\begin{cor}
+    Todo espaço vetorial de dimensão finita possui uma base.
+\end{cor}
+
 \begin{prop}
     Toda lista linearmente independente em um espaço vetorial de dimensão finita pode ser estendida a uma base do espaço vetorial.
 \end{prop}
@@ -228,7 +232,7 @@
 \end{prop}
 
 \subsection{Dimensão}
-\begin{prop} (o tamanho da base não depende da base)
+\begin{prop} (o tamanho da base não depende da base).
     Se \(V\) é um espaço vetorial de dimensão finita, então todas as bases de \(V\) têm o mesmo tamanho.
 \end{prop}
 
@@ -252,7 +256,7 @@
     Se \(V\) é um espaço vetorial de dimensão finita, então toda lista geradora de vetores em \(V\) com tamanho igual a \(\dim(V)\) é uma base de \(V\).
 \end{prop}
 
-\begin{prop} (dimensão de soma)
+\begin{prop} (dimensão de soma).
     Se \(V_1\) e \(V_2\) são subespaços de um espaço vetorial de dimensão finita \(V\), então
     \begin{equation}
         \dim(V_1 + V_2) = \dim(V_1) + \dim(V_2) - \dim(V_1 \cap V_2).
@@ -294,7 +298,7 @@
     \noindent para todo \(u \in U\).
 \end{defn}
 
-\begin{prop} (propriedades algébricas do produto de transformações lineares)
+\begin{prop} (propriedades algébricas do produto de transformações lineares).
     \begin{itemize}
         \item \(\left(T_1 T_2\right)T_3 = T_1\left(T_2T_3\right)\) sempre que \(T_1, T_2, T_3\) são transformações lineares tais que os produtos são definidos.\hfill\emph{(associatividade)}
         \item \(T_1I = IT_1 = T_1\) sempre que \(T_1 \in \mathcal{L}(V, W)\), onde o primeiro \(I\) é a identidade em \(V\) e o segundo \(I\) é a identidade em \(W\).\hfill\emph{(elemento neutro)}
@@ -341,7 +345,7 @@
     Uma função \(T: V \to W\) é \emph{sobrejetora} se para todo \(w \in W\) existe \(v \in V\) tal que \(Tv = w\).
 \end{defn}
 
-\begin{thm} (teorema fundamental das transformações lineares)
+\begin{thm} (teorema fundamental das transformações lineares).
     Suponha que \(V\) seja um espaço vetorial de dimensão finita e que \(T \in \mathcal{L}(V, W)\). Então \(\im(T)\) é de dimensão finita e
     \begin{equation}
         \dim V = \dim \ker(T) + \dim \im(T).
@@ -370,7 +374,7 @@
     \noindent onde \(A_{jk} \in \mathbb{F}\) é o elemento na \(j\)-ésima linha e \(k\)-ésima coluna de \(A\).
 \end{defn}
 
-\begin{defn} (matriz de uma transformação linear)
+\begin{defn} (matriz de uma transformação linear).
     Suponha que \(T \in \mathcal{L}(V, W)\) e que \(v_1, \ldots, v_n\) é uma base de \(V\) e \(w_1, \ldots, w_m\) é uma base de \(W\). A \emph{matriz} de \(T\) com respeito a essas bases é a matriz \(\mathcal{M}(T)\) de tamanho \(m\) por \(n\) cujas entradas \(A_{jk}\) são definidas por
     \[
         Tv_k = A_{1k} w_1 + \cdots + A_{mk} w_m.
@@ -389,7 +393,7 @@
     \]
 \end{defn}
 
-\begin{prop} (matriz da soma de transformações lineares)
+\begin{prop} (matriz da soma de transformações lineares).
     Sejam \(S, T \in \mathcal{L}(V, W)\). Então \(\mathcal{M}(S + T) = \mathcal{M}(S) + \mathcal{M}(T)\).
 \end{prop}
 
@@ -405,26 +409,26 @@
     \]
 \end{defn}
 
-\begin{prop} (matriz do produto por escalar de uma transformação linear)
+\begin{prop} (matriz do produto por escalar de uma transformação linear).
     Sejam \(T \in \mathcal{L}(V, W)\) e \(\lambda \in \mathbb{F}\). Então \(\mathcal{M}(\lambda T) = \lambda \mathcal{M}(T)\).
 \end{prop}
 
-\begin{prop} \((\textup{dim } \mathbb{F}^{m,n} = mn)\)
+\begin{prop} \((\textup{dim } \mathbb{F}^{m,n} = mn)\).
     Suponha que \(m\) e \(n\) sejam inteiros positivos. Com as operações de soma e produto por escalar definidas acima, \(\mathbb{F}^{m,n}\) é um espaço vetorial sobre \(\mathbb{F}\) com dimensão \(mn\).    
 \end{prop}
 
-\begin{defn} (multiplicação de matrizes)
+\begin{defn} (multiplicação de matrizes).
     Sejam \(A\) uma matriz \(m\) por \(n\) e \(B\) uma matriz \(n\) por \(p\). O \emph{produto} \(AB\) é a matriz \(m\) por \(p\) cujas entradas são definidas por
     \[
         (AB)_{jk} = \sum_{r=1}^{n} A_{jr} B_{rk}.
     \]
 \end{defn}
 
-\begin{prop} (matriz do produto de transformações lineares)
+\begin{prop} (matriz do produto de transformações lineares).
     Sejam \(T \in \mathcal{L}(U, V)\) e \(S \in \mathcal{L}(V, W)\). Então \(\mathcal{M}(ST) = \mathcal{M}(S) \mathcal{M}(T)\).
 \end{prop}
 
-\begin{prop} (entrada do produto de matrizes é igual ao produto de vetores linha por coluna)
+\begin{prop} (entrada do produto de matrizes é igual ao produto de vetores linha por coluna).
     Sejam \(A\) uma matriz \(m\) por \(n\) e \(B\) uma matriz \(n\) por \(p\). Então a entrada \((j, k)\) de \(AB\) é igual ao produto do \(j\)-ésimo vetor linha de \(A\) pelo \(k\)-ésimo vetor coluna de \(B\):
     \[
         (AB)_{jk} = A_{j.} B_{.k},
@@ -432,7 +436,7 @@
     \noindent se \(1 \leq j \leq m\) e \(1 \leq k \leq p\).
 \end{prop}
 
-\begin{prop} (coluna do produto de matrizes é igual ao produto da matriz pela coluna)
+\begin{prop} (coluna do produto de matrizes é igual ao produto da matriz pela coluna).
     Sejam \(A\) uma matriz \(m\) por \(n\) e \(B\) uma matriz \(n\) por \(p\). Então a \(k\)-ésima coluna de \(AB\) é igual ao produto de \(A\) pela \(k\)-ésima coluna de \(B\):
     \[
         (AB)_{.k} = A B_{.k},
@@ -440,14 +444,14 @@
     \noindent se \(1 \leq k \leq p\).
 \end{prop}
 
-\begin{cor} (combinação linear de colunas)
+\begin{cor} (combinação linear de colunas).
     Sejam \(A\) uma matriz \(m\) por \(n\) e \(b\) uma matriz \(n\) por \(1\). Então o produto \(Ab\) é uma combinação linear das colunas de \(A\) com os coeficientes dados pelas entradas de \(b\):
     \[
         Ab = b_1 A_{.1} + b_2 A_{.2} + \cdots + b_n A_{.n}.
     \]
 \end{cor}
 
-\begin{cor} (multiplicação de matrizes como combinação linear de colunas)
+\begin{cor} (multiplicação de matrizes como combinação linear de colunas).
     Suponha que \(C\) é uma matriz \(m\) por \(c\) e \(R\) é uma matriz \(c\) por \(n\).
     \begin{enumerate}
         \item[\textup{(a)}] Se \(k \in \{1, \ldots, n\}\), então a \(k\)-ésima coluna de \(CR\) é uma combinação linear das colunas de \(C\) com os coeficientes dados pelas entradas da \(k\)-ésima coluna de \(R\).
@@ -466,11 +470,11 @@
     \]
 \end{defn}
 
-\begin{prop} (fatoração coluna-linha)
+\begin{prop} (fatoração coluna-linha).
     Seja \(A\) uma matriz \(m\) por \(n\) com entradas em \(\mathbb{F}\) e posto \(c \geq 1\). Então existem uma matriz \(C\) \(m\) por \(c\) e uma matriz \(R\) \(c\) por \(n\), ambas com entradas em \(\mathbb{F}\), tais que \(A = CR\).
 \end{prop}
 
-\begin{prop} (posto é igual ao posto transposto)
+\begin{prop} (posto é igual ao posto transposto).
     Se \(A\) é uma matriz com entradas em \(\mathbb{F}\), então \(\textup{rank}(A) = \textup{rank}(A^t)\).
 \end{prop}
 
@@ -531,7 +535,7 @@
     Suponha \(T \in \mathcal{L}(V, W)\) e \(v_1,\ldots,v_n\) é uma base de \(V\) e \(w_1,\ldots,w_m\) é uma base de \(W\). Seja \(1 \leq k \leq n\). Então a \(k\)-ésima coluna de \(\mathcal{M}(T)\) é igual a \(\mathcal{M}(Tv_k)\).
 \end{cor}
 
-\begin{prop} (transformações lineares atuam como multiplicação de matrizes)
+\begin{prop} (transformações lineares atuam como multiplicação de matrizes).
     Suponha \(T \in \mathcal{L}(V, W)\), \(v_1,\ldots,v_n\) é uma base de \(V\) e \(w_1,\ldots,w_m\) é uma base de \(W\). Se \(v \in V\), então
     \[
         \mathcal{M}(Tv) = \mathcal{M}(T) \mathcal{M}(v).
@@ -581,7 +585,7 @@
     Suponha \(T \in \mathcal{L}(V)\). Um escalar \(\lambda \in \mathbb{F}\) é dito um \emph{autovalor} de \(T\) se existe \(v \in V\) tal que \(v \neq 0\) e \(Tv = \lambda v\). 
 \end{defn}
 
-\begin{prop} (condições equivalentes para autovalor)
+\begin{prop} (condições equivalentes para autovalor).
     Seja \(V\) um espaço vetorial de dimensão finita, \(T \in \mathcal{L}(V)\) e \(\lambda \in \mathbb{F}\). Então as seguintes condições são equivalentes.
     \begin{enumerate}
         \item[\textup{(a)}] \(\lambda\) é um autovalor de \(T\).
@@ -615,13 +619,13 @@
     \[    p(T) = a_0 I + a_1 T + a_2 T^2 + \cdots + a_m T^m.\]
 \end{defn}
 
-\begin{defn} (produto de polinômios)
+\begin{defn} (produto de polinômios).
     Se \(p\), \(q \in \mathcal{P}(\mathbb{F})\), então o \emph{produto} \(pq\) é o polinômio em \(\mathcal{P}(\mathbb{F})\) definido por
     \[    (pq)(z) = p(z) q(z),\]
     \noindent para todo \(z \in \mathbb{F}\).
 \end{defn}
 
-\begin{prop} (propriedades multiplicativas)
+\begin{prop} (propriedades multiplicativas).
     Sejam \(p, q \in \mathcal{P}(\mathbb{F})\) e \(T \in \mathcal{L}(V)\). Então
     \begin{enumerate}
         \item[(a)] \((pq)(T) = p(T) q(T)\);
@@ -629,8 +633,8 @@
     \end{enumerate}
 \end{prop}
 
-\begin{prop} (espaço nulo e imagem de \(p(T)\) são invariantes sob \(T\))
-    Sejam \(T \in \mathcal{L}(V)\) e \(p \in \mathcal{P}(\mathbb{F})\). Então os subespaços \(\ker(p(T))\) e \(\im(p(T))\) são invariantes sob \(T\).
+\begin{prop} (espaço nulo e imagem de \(p(T)\) são invariantes sob \(T\)).
+    Sejam \(T \in \mathcal{L}(V)\) e \(p \in \mathcal{P}(\mathbb{F})\). Então os subespaços \(\ker p(T)\) e \(\im p(T)\) são invariantes sob \(T\).
 \end{prop}
 
 \subsection{Matrizes Triangular-Superiores}
@@ -660,7 +664,7 @@
     Uma matriz quadrada é dita \emph{triangular-superior} se todas as entradas abaixo da diagonal são zero.
 \end{defn}
 
-\begin{prop} (condições para matriz triangular-superior)
+\begin{prop} (condições para matriz triangular-superior).
     Seja \(T \in \mathcal{L}(V)\) e \(v_1, \ldots, v_n\) uma base de \(V\). Então as seguintes condições são equivalentes.
     \begin{enumerate}
         \item[\textup{(a)}] A matriz de \(T\) com respeito à base \(v_1, \ldots, v_n\) é triangular-superior.
@@ -676,15 +680,15 @@
     \]
 \end{prop}
 
-\begin{prop} (determinação de autovalores a partir de matriz triangular-superior)
+\begin{prop} (determinação de autovalores a partir de matriz triangular-superior).
     Suponha que \(T \in \mathcal{L}(V)\) tem uma matriz triangular-superior com respeito a alguma base de \(V\). Então os autovalores de \(T\) são exatamente as entradas na diagonal da matriz.
 \end{prop}
 
-\begin{prop} (condição necessária e suficiente para existência de matriz triangular-superior)
+\begin{prop} (condição necessária e suficiente para existência de matriz triangular-superior).
     Suponha que \(V\) é um espaço vetorial de dimensão finita e \(T \in \mathcal{L}(V)\). Então \(T\) tem uma matriz triangular-superior com respeito a alguma base de \(V\) sse o polinômio mínimo de \(T\) é igual a \((z - \lambda_1) \cdots (z - \lambda_m)\), para alguns \(\lambda_1, \ldots, \lambda_m \in \mathbb{F}\).
 \end{prop}
 
-\begin{cor} (se \(\mathbb{F}=\mathbb{C}\), então todo operador em \(V\) tem matriz triangular-superior)
+\begin{cor} (se \(\mathbb{F}=\mathbb{C}\), então todo operador em \(V\) tem matriz triangular-superior).
     Sejam \(V\) um espaço vetorial complexo de dimensão finita e \(T \in \mathcal{L}(V)\). Então \(T\) tem uma matriz triangular-superior com respeito a alguma base de \(V\).
 \end{cor}
 
@@ -706,14 +710,14 @@
     \noindent Então, \(E(\lambda, T)\) é o conjunto de todos os autovetores de \(T\) correspondentes a \(\lambda\), juntamente com o vetor nulo.
 \end{defn}
 
-\begin{prop} (soma de autoespaços é direta)
+\begin{prop} (soma de autoespaços é direta).
     Suponha que \(T \in \mathcal{L}(V)\) e que \(\lambda_1, \ldots, \lambda_m\) são autovalores distintos de \(T\). Então a soma \(E(\lambda_1, T) + \cdots + E(\lambda_m, T)\) é direta. Além disso, se \(V\) é de dimensão finita, então
     \[
         \dim E(\lambda_1, T) + \cdots + \dim E(\lambda_m, T) \leq \dim V.
     \]
 \end{prop}
 
-\begin{thm} (condições para diagonalizabilidade)
+\begin{thm} (condições para diagonalizabilidade).
     Suponha que \(V\) é um espaço vetorial de dimensão finita e \(T \in \mathcal{L}(V)\). Sejam \(\lambda_1,\ldots,\lambda_m\) autovalores distintos de \(T\). Então as seguintes condições são equivalentes.
     \begin{enumerate}
         \item[\textup{(a)}] \(T\) é diagonalizável.
@@ -723,7 +727,7 @@
     \end{enumerate}
 \end{thm}
 
-\begin{prop} (autovalores suficientes implicam diagonalizabilidade)
+\begin{prop} (autovalores suficientes implicam diagonalizabilidade).
     Suponha que \(V\) é um espaço vetorial de dimensão finita e \(T \in \mathcal{L}(V)\). Se \(T\) tem \(\dim V\) autovalores distintos, então \(T\) é diagonalizável.
 \end{prop}
 
@@ -752,7 +756,7 @@
     Um \emph{espaço com produto interno} é um par \((V, \langle \cdot, \cdot \rangle)\), onde \(V\) é um espaço vetorial sobre \(\mathbb{F}\) e \(\langle \cdot, \cdot \rangle\) é um produto interno em \(V\).
 \end{defn}
 
-\begin{prop} (propriedades básicas do produto interno)
+\begin{prop} (propriedades básicas do produto interno).
     \begin{enumerate}
         \item [\textup{(a)}] Para cada \(v \in V\) fixado, a função que toma \(u \in V\) em \(\langle u, v \rangle\) é uma transformação linear em \(V\).
         \item [\textup{(b)}] \(\langle 0, v \rangle = 0\) para todo \(v \in V\).
@@ -766,7 +770,7 @@
     Para \(v \in V\), a \emph{norma} de \(v\), denotada por \(\|v\|\), é o número real não-negativo definido por \(\|v\| = \sqrt{\langle v, v \rangle}\).
 \end{defn}
 
-\begin{prop} (propriedades básicas da norma)
+\begin{prop} (propriedades básicas da norma).
     Seja \(v \in V\).
     \begin{enumerate}
         \item [\textup{(a)}] \(\|v\| \geq 0\) e \(\|v\| = 0\) sse \(v = 0\).
@@ -778,21 +782,62 @@
     Dois vetores \(u, v \in V\) são ditos \emph{ortogonais} se \(\langle u, v \rangle = 0\).
 \end{defn}
 
-\begin{prop} (ortogonalidade e o zero)
+\begin{prop} (ortogonalidade e o zero).
     \begin{enumerate}
         \item [\textup{(a)}] O vetor nulo é ortogonal a todo vetor em \(V\).
         \item [\textup{(b)}] O vetor nulo é o único vetor em \(V\) que é ortogonal a si mesmo.
     \end{enumerate}
 \end{prop}
 
-\begin{thm} (teorema de Pitágoras)
+\begin{thm} (teorema de Pitágoras).
     Sejam \(u, v \in V\). Se \(u\) e \(v\) são ortogonais, então
     \[
         \|u + v\|^2 = \|u\|^2 + \|v\|^2.
     \]
 \end{thm}
 
+\begin{prop} (decomposição ortogonal).
+    Suponha que \(u, v \in V\), com \(v\neq0\). Faça \(\displaystyle c=\frac{\langle u,v \rangle}{\Vert v \Vert^2}\) e \(\displaystyle w = u - \frac{\langle u,v \rangle}{\Vert v \Vert^2} v\). Então \(u = cv + w\) e \(\langle w, v \rangle = 0\).
+\end{prop}
+
+\begin{thm} (desigualdade de Cauchy-Schwarz).
+    Sejam \(u, v \in V\). Então
+    \begin{equation}
+        |\langle u, v \rangle| \leq \|u\| \|v\|.
+    \end{equation}
+    \noindent Além disso, a igualdade ocorre sse um de \(u, v\) é um múltiplo escalar do outro.
+\end{thm}
+
+\begin{cor} (desigualdade triangular).
+    Sejam \(u, v \in V\). Então
+    \begin{equation}
+        \|u + v\| \leq \|u\| + \|v\|.
+    \end{equation}
+    \noindent Essa desigualdade é uma igualdade sse um de \(u, v\) é um múltiplo escalar do outro com escalar não-negativo.
+\end{cor}
+
+\begin{cor} (igualdade do paralelogramo).
+    Sejam \(u, v \in V\). Então
+    \begin{equation}
+        \|u + v\|^2 + \|u - v\|^2 = 2\|u\|^2 + 2\|v\|^2.
+    \end{equation}
+\end{cor}
+
 \subsection{Bases Ortonormais}
+
+\begin{defn}
+    \begin{itemize}
+        \item Uma lista de vetores é dita \emph{ortonormal} se cada vetor na lista tem norma \(1\) e é ortogonal a todos os outros vetores na lista.
+        \item Em outras palavras, uma lista \(e_1, \ldots, e_m\) de vetores em \(V\) é ortonormal se
+        \[
+            \langle e_j, e_k \rangle = \begin{cases}
+                1 & \text{se } j = k \\
+                0 & \text{se } j \neq k
+            \end{cases}, \quad \forall j,k = 1,\ldots,m. 
+        \]
+    \end{itemize}
+\end{defn}
+
 \subsection{Complementos Ortogonais e Problemas de Minimização}
 
 \section{Operadores em Espaços com Produto Interno}

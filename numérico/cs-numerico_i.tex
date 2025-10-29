@@ -1,0 +1,193 @@
+\documentclass[12pt]{article}
+\usepackage{lmodern}
+\usepackage{geometry}
+\usepackage{enumitem}
+\setlist[description]{leftmargin=1cm,labelindent=1cm}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[hidelinks]{hyperref}
+\usepackage[portuguese]{babel}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{prop}[thm]{Proposição}
+\newtheorem{lem}[thm]{Lema}
+\newtheorem{cor}[thm]{Corolário}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definição}[section]
+\newtheorem{exmp}[defn]{Exemplo}
+\newtheorem{prblm}[defn]{Problema}
+\newtheorem{prcp}[defn]{Princípio}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Nota}
+
+\geometry{
+ a4paper,
+ left=3cm,
+ top=2cm,
+ right=2cm,
+ bottom=2cm
+}
+
+\begin{document}
+\begin{center}
+    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
+    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
+    \vspace{3cm}
+    \textbf{\Large CÁLCULO NUMÉRICO} \\
+    \vspace{1cm}
+    \textbf{\large LISTA DE DEFINIÇÕES E RESULTADOS} \\
+    \vspace{3cm}
+
+    \textbf{LEONARDO SUAREZ}
+
+    \vfill
+    \textbf{\large Porto Alegre, RS} \\
+    \textbf{\large \today}
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Representação de números e aritmética de máquina}
+
+\subsection{Sistema de numeração e mudança de base}
+
+\begin{defn} (sistema de numeração de base \(b\)). 
+    Dado um número natural \(b > 1\) e o conjunto de símbolos \(\{\pm, 0, 1, 2, \ldots, b-1\}\), a sequência de símbolos
+    \begin{equation}
+        (d_n d_{n-1} \ldots d_1 d_0 . d_{-1} d_{-2} \ldots)_b
+    \end{equation}
+
+    representa o número positivo
+    \begin{equation}
+        d_n b^n + d_{n-1} b^{n-1} + \ldots + d_1 b^1 + d_0 b^0 + d_{-1} b^{-1} + d_{-2} b^{-2} + \ldots
+    \end{equation}
+
+    Para representar números negativos, utiliza-se o símbolo \(-\) antes da sequência. Cada \(d_i\) é chamado de dígito e deve pertencer ao conjunto \(\{0, 1, 2, \ldots, b-1\}\).
+\end{defn}
+
+\begin{rem}
+    Se \(b > 10\), é comum utilizar letras do alfabeto para representar dígitos maiores que 9. Por exemplo, na base hexadecimal (base 16), os dígitos são representados como \(0, 1, 2, \ldots, 9, A, B, C, D, E, F\), onde \(A\) representa 10, \(B\) representa 11, e assim por diante até \(F\) que representa 15.
+\end{rem}
+
+\subsection{Notação científica e notação normalizada}
+
+\begin{defn}
+    Um número \(x\) na base \(b\) é dito estar representado em \emph{notação científica normalizada} quando está escrito na forma
+    \begin{equation}
+        x = (-1)^s (M)_b \times b^E
+    \end{equation}
+    onde \((M)_b = (d_0. d_{-1}, d_{-2}, \ldots)_b\) é o mantissa, \(s \in \{0, 1\}\) é o sinal, e \(E\) é o expoente. Além disso, para que a notação esteja normalizada, o dígito mais significativo \(d_0\) deve ser diferente de zero (ou seja, \(d_0 \neq 0\)).
+\end{defn}
+
+\subsection{Representação decimal finita}
+
+\begin{defn} (número de dígitos significativos).
+    Um número decimal \(x = \pm d_0. d_{-1}\ldots d_{-i}\linebreak d_{-i-1}\ldots d_{-i-n}d_{-i-n-1} \times 10^E\) é dito ter \(n\) \emph{dígitos significativos} quando \(d_j = 0\) para \(j \geq -i\) ou \(j \leq -i-n-1\).
+\end{defn}
+
+\subsection{Representação de números em máquina}
+
+\begin{defn}
+    A \emph{precisão} \(p\) de uma máquina é o número de dígitos significativos usado para representar um número em sua aritmética.
+\end{defn}
+
+\begin{rem}
+    Note que \(p = \vert M \vert + 1\) em binário e \(p =\vert M \vert\) para outras bases, onde \(\vert M \vert\) é o número de dígitos na mantissa.
+\end{rem}
+
+\begin{defn}
+    O \emph{épsilon de máquina} \(\epsilon_{mach}\) é definido de forma que \(1+\epsilon_{mach}\) seja o menor número representável maior que 1, isto é, \(1+\epsilon_{mach}\) é representável, mas não existem números representáveis em \((1, 1+\epsilon_{mach})\).
+\end{defn}
+
+\subsection{Tipos de erros}
+
+\begin{defn} (erro absoluto e erro relativo).
+    Seja \(x\) um número real e \(\overline{x}\) sua aproximação. O \emph{erro absoluto} \(EA\) da aproximação é definido como
+    \begin{equation}
+        EA := \vert x - \overline{x} \vert
+    \end{equation}
+    O \emph{erro relativo} \(ER\) é definido como
+    \begin{equation}
+        ER := \frac{EA}{\vert x \vert}, \quad x \neq 0
+    \end{equation}
+\end{defn}
+
+\begin{defn} (número de dígitos significativos corretos).
+    A aproximação \(\overline{x}\) de \(x\) é dita ter \(k\) \emph{dígitos significativos corretos} se
+    \begin{equation}
+        ER < \frac{1}{2} \times 10^{-k}
+    \end{equation}
+\end{defn}
+
+\begin{rem}
+    Uma maneira de estimar \(k\) é utilizando a fórmula
+    \begin{equation}
+        DIGSE(x, \overline{x}) = k = \left\lfloor -\log_{10}(ER) + \frac{1}{2} \right\rfloor
+    \end{equation}
+\end{rem}
+
+\subsection{Condicionamento de um problema}
+
+\begin{defn}
+    Seja \(f\) uma função diferenciável. O \emph{número de condicionamento} de um problema é definido como
+    \begin{equation}
+        \kappa_f(x) := \left\vert \frac{xf'(x)}{f(x)} \right\vert
+    \end{equation}
+    \noindent e fornece uma estimativa de quanto os erros na entrada podem afetar a saída do problema.
+\end{defn}
+
+\begin{rem}
+    De modo geral, quando \(f\) depende de várias variáveis, podemos obter o erro aproximado na saída como
+    \begin{equation}
+        \delta_f = \vert f(x_1, x_2, \ldots, x_n) - f(\overline{x}_1, \overline{x}_2, \ldots, \overline{x}_n) \vert \approx \sum_{i=1}^{n} \left\vert \frac{\partial f}{\partial x_i} (x_1, x_2, \ldots, x_n)\right\vert \delta_{x_i}
+    \end{equation}
+\end{rem}
+
+\section{Solução de equações de uma variável}
+
+\subsection{Existência e unicidade}
+\subsection{Método da bisseção}
+\subsection{Iteração de ponto-fixo}
+\subsection{Método de Newton-Raphson}
+\subsection{Método das secantes}
+\subsection{Critérios de parada}
+
+\section{Solução de sistemas lineares}
+
+\subsection{Eliminação gaussiana}
+\subsection{Complexidade de algoritmos em álgebra linear}
+\subsection{Sistemas triangulares}
+\subsection{Fatoração LU}
+\subsection{Método da matriz tridiagonal}
+\subsection{Condicionamento de sistemas lineares}
+\subsection{Métodos iterativos para sistemas lineares}
+\subsection{Cálculo de autovalores e autovetores}
+
+\section{Solução de sistemas de equações não lineares}
+
+\subsection{Método de Newton para sistemas}
+\subsection{Linearização de uma função de várias variáveis}
+
+\section{Interpolação}
+
+\subsection{Interpolação polinomial}
+\subsection{Diferenças divididas de Newton}
+\subsection{Polinômios de Lagrange}
+\subsection{Aproximação de funções reais por polinômios interpoladores}
+\subsection{Interpolação linear segmentada}
+\subsection{Interpolação cúbica segmentada - spline}
+
+\section{Ajuste de curvas}
+
+\subsection{Ajuste de uma reta}
+\subsection{Ajuste linear geral}
+\subsection{Aproximando problemas não lineares por problemas lineares}
+
+\end{document}
