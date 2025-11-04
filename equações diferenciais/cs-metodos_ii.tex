@@ -467,10 +467,11 @@
 
 \begin{defn} (equações clássicas)
     \begin{align}
-        &k \frac{\partial^2 u}{\partial x^2} = \frac{\partial u}{\partial t}, \quad k>0 \label{eq:calor-1d} \\
-        &a^2 \frac{\partial^2 u}{\partial x^2} = \frac{\partial^2 u}{\partial t^2} \label{eq:onda-1d} \\
-        &\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2} = 0 \label{eq:laplace-2d}
+        &k u_{xx} = u_t, \quad k>0 \label{eq:calor-1d} \\
+        &a^2 u_{xx} = u_{tt} \label{eq:onda-1d} \\
+        &\nabla^2 u = 0 \label{eq:laplace-2d}
     \end{align}
+    \noindent onde \(\nabla^2 = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}\).
     As equações \eqref{eq:calor-1d}, \eqref{eq:onda-1d} e \eqref{eq:laplace-2d} são chamadas, respectivamente, de \emph{equação do calor unidimensional}, \emph{equação da onda unidimensional} e \emph{equação de Laplace bidimensional}, onde a constante \(k\) é o coeficiente de difusão térmica e \(a\) é a velocidade da onda no meio.
     Note que a equação do calor é parabólica, a equação da onda é hiperbólica e a equação de Laplace é elíptica.
 \end{defn}

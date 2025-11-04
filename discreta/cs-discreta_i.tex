@@ -56,17 +56,22 @@
 \newpage
 
 \section{Métodos de Contagem}
-\begin{prcp} (princípio da adição)
+
+\subsection{Princípios aditivo e multiplicativo}
+
+\begin{prcp} (princípio da adição).
     Se existem \(r_1\) objetos distintos no primeiro conjunto, \(r_2\) no segundo conjunto, \ldots, \(r_n\) no n-ésimo conjunto e esses conjuntos são \emph{disjuntos dois a dois}, então o número de maneiras de selecionar um objeto de um dos \(n\) conjuntos é \(r_1 + r_2 + \cdots + r_n\).
 \end{prcp}
 
-\begin{prcp} (princípio da multiplicação)
+\begin{prcp} (princípio da multiplicação).
     Se um processo pode ser dividido em \(n\) etapas, onde a primeira etapa pode ser realizada de \(r_1\) maneiras distintas, a segunda etapa pode ser realizada de \(r_2\) maneiras distintas, \ldots, e a n-ésima etapa pode ser realizada de \(r_n\) maneiras distintas, então o número total de maneiras de realizar o processo é \(r_1 \cdot r_2 \cdots r_n\), dado que a escolha de cada etapa é independente das outras.
 \end{prcp}
 
-\begin{prcp} (princípio da composição de conjuntos)
+\begin{prcp} (princípio da composição de conjuntos).
     Dado qualquer conjunto \(S\) construído pelo princípio multiplicativo, é preciso saber dizer quais elementos de \(S\) são da primeira parte de \(S\) e quais são da segunda parte.
 \end{prcp}
+
+\subsection{Permutações com repetição}
 
 \begin{thm} (permutações com repetição)
     Se existem \(n\) objetos, com \(r_1\) do tipo 1, \(r_2\) do tipo 2, \ldots, \(r_m\) do tipo \(m\), onde \(r_1 + r_2 + \cdots + r_m = n\), então o número de permutações com esses \(n\) objetos é dado por
@@ -76,11 +81,13 @@
     \end{align}
 \end{thm}
 
-\begin{thm} (seleções com repetições)
+\subsection{Combinações com repetição}
+
+\begin{thm} (seleções com repetição).
     O número de seleções com repetição de \(r\) objetos dentre \(n\) tipos distintos é \(C(r+n-1,r)\).
 \end{thm}
 
-\begin{prop} (formas equivalentes para seleções com repetições)
+\begin{prop} (formas equivalentes para seleções com repetição).
     \begin{enumerate}
         \item O número de maneiras de selecionar \(r\) objetos com repetição dentre \(n\) tipos distintos.
         \item O número de maneiras de distribuir \(r\) objetos idênticos em \(n\) caixas distintas.
@@ -91,14 +98,16 @@
     \end{enumerate}
 \end{prop}
 
-\begin{thm} (teorema binomial)
+\subsection{Coeficientes binomiais}
+
+\begin{thm} (teorema binomial).
     Para quaisquer inteiros não-negativos \(n\),
     \begin{equation}
         (x+y)^n = \sum_{k=0}^{n} \binom{n}{k} x^k y^{n-k}.
     \end{equation}
 \end{thm}
 
-\begin{prop} (identidades binomiais)
+\begin{prop} (identidades binomiais).
     \begin{gather}
         \binom{n}{0}+\binom{n}{1}+\binom{n}{2}+\cdots+\binom{n}{n} = 2^n \\
         \binom{n}{0}+\binom{n+1}{1}+\binom{n+2}{2}+\cdots+\binom{n+r}{r} = \binom{n+r+1}{r+1} \\
@@ -110,8 +119,9 @@
     \end{gather}
 \end{prop}
 
-
 \section{Inclusão-Exclusão}
+
+\subsection{Cardinalidade da união de \(n\) conjuntos}
 
 \begin{thm} (princípio da inclusão-exclusão)
     Sejam \(A_1, A_2, \ldots, A_n\) subconjuntos finitos de um conjunto universal \(U\). Seja \(S_k\) a soma de todas as interseções de \(k\) conjuntos dentre os \(A_i\). então
@@ -119,6 +129,8 @@
         \left| \bigcup_{i=1}^{n} A_i \right| = S_1 - S_2 + S_3 - S_4 + \cdots + (-1)^{n+1} S_n.
     \end{equation}
 \end{thm}
+
+\subsection{A função \(\varphi\) de Euler}
 
 \begin{defn}
     Chamamos de \emph{função \(\varphi\) de Euler} a função que atribui a cada inteiro positivo \(m\) o número de inteiros positivos menores ou iguais a \(m\) que são coprimos a \(m\).
@@ -131,6 +143,8 @@
     \end{equation}
     \noindent onde \(p_1, p_2, \ldots, p_t\) são os fatores primos distintos de \(m\), isto é, \(m = p_1^{k_1} p_2^{k_2} \cdots p_t^{k_t}\).
 \end{thm}
+
+\subsection{Permutações caóticas}
 
 \begin{defn}
     Uma permutação de \(a_1, a_2, \ldots, a_n\) é chamada de \emph{caótica} quando nenhum dos elementos \(a_i\) está em sua posição natural \(i\). O número de permutações caóticas (ou de \emph{desarranjos}) de \(n\) objetos é denotado por \(D_n\).
@@ -167,6 +181,8 @@
     \end{equation}
 \end{defn}
 
+\subsection{Cálculo de coeficientes de funções geradoras}
+
 \begin{thm} Sendo \(f(x)\) e \(g(x)\) funções geradoras de \(a_r\) e \(b_r\), respectivamente, então
     \begin{enumerate}
         \item[\textup{(a)}] \(Af(x) + Bg(x)\) é a função geradora de \(Aa_r + Bb_r\), onde \(A\) e \(B\) são constantes.
@@ -177,7 +193,7 @@
     \end{enumerate}
 \end{thm}
 
-\begin{thm} (teorema binomial generalizado)
+\begin{thm} (teorema binomial generalizado).
     \begin{equation}
         (1+x)^n=1+nx+\frac{n(n-1)}{2!}x^2+\frac{n(n-1)(n-2)}{3!}x^3+\cdots = \sum_{k=0}^{\infty} \binom{n}{k} x^k,
     \end{equation}
@@ -190,7 +206,7 @@
     \]
 \end{thm}
 
-\begin{prop} (expansões polinomiais)
+\begin{prop} (expansões polinomiais).
     \begin{enumerate}
         \item[\textup{(a)}] \(\displaystyle\frac{1-x^{m+1}}{1-x} = 1 + x + x^2 + \cdots + x^m\)
         \item[\textup{(b)}] \(\displaystyle\frac{1}{1-x} = 1 + x + x^2 + x^3 + \cdots\)
@@ -204,6 +220,10 @@
     \end{enumerate}
 \end{prop}
 
+\subsection{Função geradora exponencial}
+
+A função geradora exponencial é útil quando estamos interessados em contar objetos onde a ordem dos elementos importa, como em permutações ou arranjos. Quando a ordem é irrelevante, usamos a função geradora ordinária.
+
 \begin{defn}
     A série de potências
     \begin{equation}
@@ -211,6 +231,8 @@
     \end{equation}
     \noindent é chamada de \emph{função geradora exponencial} da sequência \((a_r)\).
 \end{defn}
+
+\subsection{Partições de um inteiro}
 
 \begin{defn}
     Uma \emph{partição} de um inteiro positivo \(n\) é uma coleção de inteiros positivos cuja soma é \(n\).
@@ -237,6 +259,8 @@
 \end{thm}
 
 \section{Relações de Recorrência}
+
+\subsection{Resolução de relações de recorrência lineares homogêneas}
 
 \begin{defn}
     Uma relação de recorrência é dita \emph{homogênea} se todos os termos da relação envolvem algum \(a_k\). Quando um termo adicional envolvendo uma função de \(n\) (ou uma constante) aparece na relação de recorrência, como 
@@ -269,6 +293,8 @@
     \end{equation}
 \end{res}
 
+\subsection{Resolução de relações de recorrência lineares não-homogêneas}
+
 \begin{res}
     A solução geral de uma relação de recorrência não-homogênea da forma
     \begin{equation}\label{eq:nao-homogenea}
@@ -277,7 +303,7 @@
     \noindent é dada por \(a_n = a_n^{(0)} + a^{*}_{n}\), onde \(a_n^{(0)}\) é a solução geral da relação homogênea associada e \(a^{*}_{n}\) é uma solução particular da relação não-homogênea.
 \end{res}
 
-\begin{res} (soluções conhecidas para funções \(f(n)\) específicas para \(c\neq 1\)) \vspace{2mm}\newline
+\begin{res} (soluções conhecidas para funções \(f(n)\) específicas para \(c\neq 1\)). \vspace{2mm}\newline
     \begin{tabular}[c]{ll}
         \(f(n)\) & \textup{solução particular} \(a^{*}_{n}\) \\
         \hline
@@ -288,6 +314,88 @@
     \end{tabular}
 \end{res}
 
-\section{Teoria de Grafos}
+\section{O princípio da casa dos pombos}
+
+\begin{thm} (princípio da casa dos pombos).
+    Se \(n+1\) pombos são colocados em \(n\) gaiolas, então pelo menos uma gaiola contém dois ou mais pombos.
+\end{thm}
+
+\begin{thm} (princípio da casa dos pombos generalizado).
+    Se \(n\) gaiolas são ocupadas por \(nk+1\) pombos, para algum inteiro \(k \geq 1\), então pelo menos uma gaiola contém \(k+1\) ou mais pombos.
+\end{thm}
+
+\begin{thm}\label{eq:pcp}
+    Se colocarmos em \(n\) gaiolas \(k\) pombos, então pelo menos uma gaiola deverá conter pelo menos \(\displaystyle \left \lfloor \frac{(k-1)}{n} \right \rfloor + 1\) pombos.
+\end{thm}
+
+\begin{proof}
+    Suponha, por absurdo, que nenhuma gaiola contém mais que \(\displaystyle \left \lfloor \frac{(k-1)}{n} \right \rfloor\) pombos. Então,
+    \begin{equation*}
+        n \left \lfloor \frac{(k-1)}{n} \right \rfloor \leq n \frac{(k-1)}{n} = k-1 < k,
+    \end{equation*}
+    \noindent o que é uma contradição.
+\end{proof}
+
+\begin{thm} (Erdős-Szekeres).
+    Qualquer sequência de \(n^2+1\) números inteiros distintos contém uma subsequência crescente ou decrescente de \(n+1\) termos.
+\end{thm}
+
+\begin{proof}
+    Considera a sequência \(a_1, \ldots, a_{n^2+1}\). Seja \(t_i\) o número de termos na maior subsequência crescente começando em \(a_i\). Se algum \(t_i=n+1\), o teorema está demonstrado. 
+    Caso contrário, temos que \(1\leq t_i \leq n\) para todo \(i\). Observa que há \(n^2+1\) pombos (\(t_i\)'s) para \(n\) gaiolas (os números \(1, \ldots, n\)). Pelo \eqref{eq:pcp}, pelo menos uma gaiola deverá conter
+    \begin{equation*}
+        \left \lfloor \frac{n^2+1-1}{n} \right \rfloor + 1 = n+1
+    \end{equation*}
+    \noindent pombos, isto é, há pelo menos \(n+1\) \(t_i\)'s iguais. Para mostrar que os \(a_i\)'s correspondentes formam uma subsequência decrescente, suponha, por absurdo, que \(a_i < a_j\) (\(a_i \neq a_j\) pois os termos são diferentes) para \(i < j\).
+    Logo, encontramos uma subsequência crescente de \(t_{j}+1\) termos que começa em \(a_i\), o que é uma contradição.
+\end{proof}
+
+\section{Noções sobre Grafos}
+
+\begin{defn}
+    Um \emph{grafo} G é um tripla que consiste em um \emph{conjunto de vértices} \(V(G)\), um \emph{conjunto de arcos} \(E(G)\), e uma relação que associa a cada arco dois vértices (não necessariamente distintos), chamados de \emph{extremidades} do arco.
+\end{defn}
+
+\begin{defn}
+    Um \emph{laço} é um arco cujas extremidades são iguais. \emph{Arcos múltiplos} são arcos que possuem o mesmo par de extremidades. 
+    
+    Um \emph{grafo simples} é um grafo que não possui laços nem arcos múltiplos. Especificamos um grafo simples pelo seus conjunto de vértices e conjunto de arcos, sendo o conjunto de arcos uma coleção de pares não ordenados de vértices. 
+    
+    Quando \(u\) e \(v\) são as extremidades de um arco, eles são \emph{adjacentes} e \emph{vizinhos}, escrevemos, então, \(u \leftrightarrow v\).
+\end{defn}
+
+\begin{defn}
+    O \emph{complemento} \(\overline{G}\) de um grafo simples \(G\) é o grafo simples com conjunto de vértices \(V(G)\) definido por \(uv \in E(\overline{G})\) sse \(uv \notin E(G)\).
+    Um \emph{clique} em um grafo é um conjunto de vértices adjacentes dois a dois. Um \emph{conjunto independente} (ou \emph{conjunto estável}) num grafo é o conjunto de vértices não adjacentes.
+\end{defn}
+
+\begin{defn}
+    Um grafo \(G\) é \emph{bipartido} se \(V(G)\) é a união de dois conjuntos independentes disjuntos (possivelmente vazios) chamados de \emph{conjuntos partidos} de \(G\).
+\end{defn}
+
+\begin{defn}
+    Um \emph{caminho} é um grafo simples cujos vértices podem ser ordenados tal que dois vértices são adjacentes sse eles são consecutivos na lista.
+    Um \emph{ciclo} é um grafo com o mesmo número de vértices e de arcos cujos vértices podem ser postos em volta dum círculo tal que dois vértices são adjacentes sse eles aparecem consecutivamente em torno do círculo.
+\end{defn}
+
+\begin{defn}
+    Um \emph{subgrafo} de um grafo \(G\) é um grafo \(H\) tal que \(V(H) \subset V(G)\) e \(E(H) \subset E(G)\) e a atribuição de arcos a vértices em \(H\) é a mesma que em \(G\).
+    Então escrevemos \(H \subset G\) e dizemos que "\(G\) contém \(H\)".
+    
+    Um grafo \(G\) é \emph{conexo} se cada par de vértices em \(G\) pertence a um caminho; caso contrário, \(G\) é \emph{desconexo}.
+\end{defn}
+
+\begin{defn}
+    Seja \(G\) um grafo sem laços com \(V(G) = \{v_1, \ldots, v_n\}\) e \(E(G) = \{e_1, \ldots, e_m\}\). A \emph{matriz de adjacência} de \(G\), denotada por \(A(G)\), é a matriz \(n\) por \(n\) em que a entrada \(a_{i,j}\)
+    é o número de arcos em \(G\) com extremidades \(\{v_i, v_j\}\). A \emph{matriz de incidência} \(M(G)\) é a matriz \(n\) por \(m\) na qual a entrada \(m_{i,j}\) é \(1\) se \(v_i\) é uma extremidade de \(e_j\) e 0 caso contrário.
+
+    Se o vértice \(v\) é uma extremidade do arco \(e\), então \(v\) e \(e\) são \emph{incidentes}. O \emph{grau} do vértice \(v\) (em um grafo sem laços) é o número de arcos incidentes.
+\end{defn}
+
+\subsection{(Multi)grafos eulerianos}
+
+\subsection{Isomorfismo}
+
+\subsection{Planaridade}
 
 \end{document}

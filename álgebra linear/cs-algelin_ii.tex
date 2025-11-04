@@ -825,7 +825,7 @@
 
 \subsection{Bases Ortonormais}
 
-\begin{defn}
+\begin{defn} (lista ortonormal).
     \begin{itemize}
         \item Uma lista de vetores é dita \emph{ortonormal} se cada vetor na lista tem norma \(1\) e é ortogonal a todos os outros vetores na lista.
         \item Em outras palavras, uma lista \(e_1, \ldots, e_m\) de vetores em \(V\) é ortonormal se
@@ -838,7 +838,150 @@
     \end{itemize}
 \end{defn}
 
+\begin{prop} (norma de uma combinação linear de vetores ortonormais).
+    Se \(e_1, \ldots, e_m\) é uma lista ortonormal de vetores em \(V\), então
+    \begin{equation}
+        \|a_1 e_1 + a_2 e_2 + \cdots + a_m e_m\|^2 = |a_1|^2 + |a_2|^2 + \cdots + |a_m|^2,
+    \end{equation}
+    \noindent para todos os escalares \(a_1, a_2, \ldots, a_m \in \mathbb{F}\).
+\end{prop}
+
+\begin{cor} (listas ortonormais são linearmente independentes).
+    Toda lista ortonormal de vetores é linearmente independente.
+\end{cor}
+
+\begin{prop} (desigualdade de Bessel)
+    Suponha que \(e_1, \ldots, e_m\) é uma lista ortonormal de vetores em \(V\). Então, para todo \(v \in V\),
+    \begin{equation}
+        |\langle v, e_1 \rangle|^2 + |\langle v, e_2 \rangle|^2 + \cdots + |\langle v, e_m \rangle|^2 \leq \|v\|^2.
+    \end{equation}
+\end{prop}
+
+\begin{defn}
+    Uma \emph{base ortonormal} de \(V\) é uma base de \(V\) que é uma lista ortonormal de vetores.
+\end{defn}
+
+\begin{prop}
+    Seja \(V\) um espaço vetorial de dimensão finita com produto interno. Então toda lista ortonormal de vetores em \(V\) de tamanho \(\dim V\) é uma base ortonormal de \(V\).
+\end{prop}
+
+\begin{prop} (vetor como combinação linear de uma base ortonormal).
+    Suponha que \(e_1, \ldots, e_n\) é uma base ortonormal de \(V\). Então, para todo \(v \in V\),
+    \begin{enumerate}
+        \item [\textup{(a)}] \(v = \langle v, e_1 \rangle e_1 + \langle v, e_2 \rangle e_2 + \cdots + \langle v, e_n \rangle e_n\) (identidade de Parseval);
+        \item [\textup{(b)}] \(\|v\|^2 = |\langle v, e_1 \rangle|^2 + |\langle v, e_2 \rangle|^2 + \cdots + |\langle v, e_n \rangle|^2\).
+        \item [\textup{(c)}] \(\langle u, v \rangle = \langle u, e_1 \rangle \overline{\langle v, e_1 \rangle} + \langle u, e_2 \rangle \overline{\langle v, e_2 \rangle} + \cdots + \langle u, e_n \rangle \overline{\langle v, e_n \rangle}\), para todo \(u \in V\).
+    \end{enumerate}
+\end{prop}
+
+\begin{thm} (processo de ortogonalização de Gram-Schmidt).
+    Suponha que \(v_1, \ldots, v_m\) é uma lista de vetores linearmente independente em \(V\). Faça \(f_1 = v_1\). Para \(k=2, \ldots, m\), defina \(f_k\) indutivamente por 
+    \[
+        f_k = v_k - \sum_{j=1}^{k-1} \frac{\langle v_k, f_j \rangle}{\|f_j\|^2} f_j.
+    \]
+    \noindent Para todo \(k = 1, \ldots, m\), defina \(e_k = \frac{f_k}{\|f_k\|}\). Então \(e_1, \ldots, e_m\) é uma lista ortonormal de vetores em \(V\) tal que
+    \[
+        \textup{span}(e_1, \ldots, e_k) = \textup{span}(v_1, \ldots, v_k),
+    \]
+    \noindent para todo \(k = 1, \ldots, m\).
+\end{thm}
+
+\begin{prop} (existência de base ortonormal).
+    Todo espaço vetorial de dimensão finita com produto interno tem uma base ortonormal.
+\end{prop}
+
+\begin{cor} (toda lista ortonormal pode ser estendida a uma base ortonormal).
+    Suponha que \(V\) é um espaço vetorial de dimensão finita com produto interno. Então toda lista ortonormal de vetores em \(V\) pode ser estendida a uma base ortonormal de \(V\).
+\end{cor}
+
+\begin{prop} (matriz triangular-superior com respeito a uma base ortonormal).
+    Seja \(V\) um espaço vetorial de dimensão finita com produto interno e \(T \in \mathcal{L}(V)\). Então \(T\) tem uma matriz triangular-superior com respeito a alguma base ortonormal de \(V\) sse o polinômio mínimo de \(T\) é igual a \((z - \lambda_1) \cdots (z - \lambda_m)\), para alguns \(\lambda_1, \ldots, \lambda_m \in \mathbb{F}\).
+\end{prop}
+
+\begin{thm} (teorema de Schur).
+    Todo operador em um espaço vetorial complexo de dimensão finita tem uma matriz triangular-superior com respeito a alguma base ortonormal.
+\end{thm}
+
+\begin{thm} (teorema de representação de Riesz).
+    Suponha que \(V\) é um espaço vetorial de dimensão finita com produto interno e \(\varphi \in V'\). Então existe um único vetor \(v \in V\) tal que
+    \[
+        \varphi(u) = \langle u, v \rangle,
+    \]
+    para todo \(u \in V\).
+\end{thm}
+
 \subsection{Complementos Ortogonais e Problemas de Minimização}
+
+\begin{defn} (complemento ortogonal, \(U^\perp\)).
+    Se \(U\) é um subconjunto de \(V\), então o \emph{complemento ortogonal} de \(U\), denotado por \(U^\perp\), é o conjunto de todos os vetores em \(V\) que são ortogonais a todos os vetores em \(U\):
+    \[
+        U^\perp = \{v \in V : \langle v, u \rangle = 0 \forall u \in U\}.
+    \]
+\end{defn}
+
+\begin{prop} (propriedades do complemento ortogonal).
+    \begin{enumerate}
+        \item [\textup{(a)}] Se \(U\) é um subconjunto de \(V\), então \(U^\perp\) é um subespaço de \(V\).
+        \item [\textup{(b)}] \(\{0\}^\perp = V\).
+        \item [\textup{(c)}] \(V^\perp = \{0\}\).
+        \item [\textup{(d)}] Se \(U\) é um subconjunto de \(V\), então \(U \cap U^\perp \subset \{0\}\).
+        \item [\textup{(e)}] Se \(U\) e \(W\) são subconjuntos de \(V\) com \(U \subset W\), então \(W^\perp \subset U^\perp\).
+    \end{enumerate}
+\end{prop}
+
+\begin{prop} (soma direta de um subespaço e seu complemento ortogonal).
+    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita com produto interno \(V\). Então
+    \[
+        V = U \oplus U^\perp.
+    \]
+\end{prop}
+
+\begin{cor} (dimensão do complemento ortogonal).
+    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita com produto interno \(V\). Então
+    \[
+        \dim U^\perp = \dim V - \dim U.
+    \]
+\end{cor}
+
+\begin{cor} (complemento ortogonal do complemento ortogonal).
+    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita com produto interno \(V\). Então
+    \[
+        (U^\perp)^\perp = U.
+    \]
+\end{cor}
+
+\begin{cor} (\(U^\perp = \{0\} \iff U = V\) para \(U\) subespaço de dimensão finita de \(V\)).
+    Suponha que \(U\) é um subespaço de um espaço vetorial de dimensão finita com produto interno \(V\). Então 
+    \[
+        U^\perp = \{0\} \iff U = V.
+    \]
+\end{cor}
+
+\begin{defn} (projeção ortogonal).
+    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita com produto interno \(V\). A \emph{projeção ortogonal} de \(V\) sobre \(U\) é o operador \(P_U \in \mathcal{L}(V)\) definido por 
+    \[
+        P_U v = u,
+    \]
+    \noindent onde \(v = u + w\) com \(u \in U\) e \(w \in U^\perp\), para todo \(v \in V\).
+\end{defn}
+
+\begin{prop} (propriedades da projeção ortogonal).
+    Suponha que \(U\) é um subespaço de um espaço vetorial de dimensão finita com produto interno \(V\) e \(P_U\) é a projeção ortogonal de \(V\) sobre \(U\). Então
+    \begin{enumerate}
+        \item [\textup{(a)}] \(P_U \in \mathcal{L}(V)\);
+        \item [\textup{(b)}] \(P_U u = u\), para todo \(u \in U\);
+        \item [\textup{(c)}] \(P_U w = 0\), para todo \(w \in U^\perp\);
+        \item [\textup{(d)}] \(\im P_U = U\);
+        \item [\textup{(e)}] \(\ker P_U = U^\perp\);
+        \item [\textup{(f)}] \(v - P_U v \in U^\perp\), para todo \(v \in V\).
+        \item [\textup{(g)}] \(P_U^2 = P_U\);
+        \item [\textup{(h)}] \(\|P_U v\| \leq \|v\|\), para todo \(v \in V\).
+        \item [\textup{(i)}] se \(e_1, \ldots, e_m\) é uma base ortonormal de \(U\) e \(v \in V\), então
+        \[
+            P_U v = \langle v, e_1 \rangle e_1 + \langle v, e_2 \rangle e_2 + \cdots + \langle v, e_m \rangle e_m.
+        \]
+    \end{enumerate}
+\end{prop}
 
 \section{Operadores em Espaços com Produto Interno}
 \subsection{Operadores Autoadjuntos e Operadores Normais}
