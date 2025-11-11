@@ -392,6 +392,16 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     Se o vértice \(v\) é uma extremidade do arco \(e\), então \(v\) e \(e\) são \emph{incidentes}. O \emph{grau} do vértice \(v\) (em um grafo sem laços) é o número de arcos incidentes.
 \end{defn}
 
+\begin{rem}
+    Uma matriz de adjacência é determinada por um ordenamento dos vértices. Toda matriz de adjacência é \emph{simétrica} (\(a_{i,j}=a_{j,i}\)). Uma matriz de adjacência de um grafo simples \(G\) tem entradas \(0\) ou \(1\), com zeros na diagonal. O grau de um vértice \(v\) é a soma das entradas na linha para \(v\) tanto em \(A(G)\) quanto em \(M(G)\).
+\end{rem}
+
+\begin{defn}
+    Um \emph{isomorfismo} de um grafo simples \(G\) em um grafo simples \(H\) é uma bijeção \(f: V(G) \to V(H)\) tal que \(uv \in E(G)\) sse \(f(u)f(v) \in E(H)\). Se existe um isomorfismo de \(G\) em \(H\), então dizemos que \(G\) e \(H\) são \emph{isomorfos} e escrevemos \(G \cong H\).
+\end{defn}
+
+
+
 \subsection{(Multi)grafos eulerianos}
 
 \subsection{Isomorfismo}

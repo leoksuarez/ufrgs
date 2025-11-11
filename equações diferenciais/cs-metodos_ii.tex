@@ -4,7 +4,7 @@
 \usepackage{enumitem}
 \setlist[description]{leftmargin=1cm,labelindent=1cm}
 \usepackage{amsmath, amsthm, amssymb, mathtools}
-\usepackage[hidelinks]{hyperref}
+\usepackage{hyperref}
 \usepackage[portuguese]{babel}
 
 \theoremstyle{plain}
@@ -56,7 +56,7 @@
 
 \subsection{Revisão de Séries de Potências}
 
-\begin{rem} (fatos importantes sobre séries de potências)
+\begin{rem} (fatos importantes sobre séries de potências).
     \begin{itemize}
         \item \textbf{Definição.} Uma série de potências centrada em \(x-a\) é uma série infinita da forma \begin{equation}\sum_{n=0}^{\infty} c_n (x-a)^n = c_0 + c_1(x-a) + c_2(x-a)^2 + \cdots\end{equation}
         \item \textbf{Convergência.} Uma série de potências é convergente no ponto \(x=x_0\) se a sua sequência de somas parciais \(\{S_N(x)\}\) converge para um número real para \(N\to\infty\), ou seja, \(\lim_{N\to\infty} S_N(x_0) = \lim_{N\to\infty} \sum_{n=0}^{N} c_n (x-a)^n\) existe. Se o limite não existe, a série diverge em \(x_0\).
@@ -91,7 +91,7 @@
 \noindent são analíticos em \(x_0\). Caso contrário, \(x_0\) é chamado de \emph{ponto singular}.
 \end{defn}
 
-\begin{thm} (existência de soluções por séries de potências)
+\begin{thm} (existência de soluções por séries de potências).
     Se \(x_0\) é ponto ordinário da equação \eqref{eq:edo1}, então podemos encontrar duas soluções linearmente independentes na forma de séries de potências centradas em \(x_0\), ou seja,
     \[
     y = \sum_{n=0}^{\infty} c_n (x - x_0)^n.
@@ -105,7 +105,7 @@
     Uma ponto singular \(x=x_0\) é chamado de \emph{ponto singular regular} da equação \eqref{eq:edo1} se as funções \(p(x)=(x-x_0)P(x)\) e \(q(x)=(x-x_0)^2Q(x)\) são analíticas em \(x_0\). Caso contrário, \(x_0\) é chamado de \emph{ponto singular irregular}.
 \end{defn}
 
-\begin{thm} (teorema de Frobenius)
+\begin{thm} (teorema de Frobenius).
     Se \(x_0\) é ponto singular regular da equação \eqref{eq:edo1}, então existe pelo menos uma solução da forma
     \begin{equation}
         y = (x - x_0)^r \sum_{n=0}^{\infty} c_n (x - x_0)^n = \sum_{n=0}^{\infty} c_n (x - x_0)^{n+r},
@@ -166,7 +166,7 @@
     \noindent que também converge no intervalo \((0,\infty)\).
 \end{res}
 
-\begin{prop} (algumas propriedades das funções de Bessel)
+\begin{prop} (algumas propriedades das funções de Bessel).
     Para funções de Bessel de ordem \(m\), \(m=0,1,2,\ldots\), temos as seguintes propriedades:
     \begin{align*}
         &J_{-m}(x) = (-1)^m J_m(x), \quad & &J_m(-x) = (-1)^m J_m(x), \\
@@ -179,7 +179,7 @@
 
 \begin{defn}
     Considerando \(n\) um inteiro não-negativo, temos 
-    \begin{equation}
+    \begin{equation}\label{eq:legendre}
         (1-x^2)y'' - 2xy' + n(n+1)y = 0
     \end{equation}
     \noindent que é chamada de \emph{equação de Legendre de ordem \(n\)}.
@@ -194,20 +194,20 @@
     \end{align*}
 
     \noindent A fórmula de Rodrigues, que gera os polinômios de Legendre, é dada por
-    \begin{equation}
+    \begin{equation}\label{eq:rodrigues}
         P_n(x) = \frac{1}{2^n n!} \frac{d^n}{dx^n} (x^2 - 1)^n, \quad n=0,1,2,\ldots
     \end{equation}
 \end{res}
 
-\begin{prop} (algumas propriedades dos polinômios de Legendre)
+\begin{prop} (algumas propriedades dos polinômios de Legendre).
     \begin{align*}
         &P_n(-x) = (-1)^n P_n(x), &\quad & P_n(1) = 1, \quad & P_n(-1) = (-1)^n, \\
         &P_n(0) = 0, \quad n \text{ ímpar}, &\quad & P'_n(0) = 0, \quad n \text{ par} &
     \end{align*}
 \end{prop}
 
-\begin{res} (relação de recorrência dos polinômios de Legendre)
-    \begin{equation}
+\begin{res} (relação de recorrência dos polinômios de Legendre).
+    \begin{equation}\label{eq:recorrencia-legendre}
         (n+1)P_{n+1}(x) - (2n+1)xP_n(x) + nP_{n-1}(x) = 0, \quad n=1,2,3,\ldots
     \end{equation}
 \end{res}
@@ -292,7 +292,7 @@
     \end{itemize}
 \end{defn}
 
-\begin{thm} (condições para convergência)
+\begin{thm} (condições para convergência).
     Sejam \(f\) e \(f'\) contínuas por partes em \([-p,p]\). Então para todo \(x \in (-p,p)\), a série de Fourier de \(f\) converge para \(f(x)\) em um ponto de continuidade. Em um ponto de descontinuidade, a série de Fourier converge para a média
     \begin{equation*}
         \frac{f(x+) + f(x-)}{2},
@@ -300,7 +300,7 @@
     \noindent onde \(f(x+)\) e \(f(x-)\) são os limites laterais de \(f\) em \(x\), respectivamente.
 \end{thm}
 
-\begin{thm} (propriedades de funções pares/ímpares)
+\begin{thm} (propriedades de funções pares/ímpares).
     \begin{enumerate}
         \item[\textup{(a)}] O produto de duas funções pares é par.
         \item[\textup{(b)}] O produto de duas funções ímpares é par.
@@ -312,7 +312,7 @@
     \end{enumerate}
 \end{thm}
 
-\begin{defn} (séries de Fourier para funções pares/ímpares)
+\begin{defn} (séries de Fourier para funções pares/ímpares).
     \begin{enumerate}
         \item[(i)] A série de Fourier de uma função par \(f\) definida no intervalo \((-p,p)\) é a \textbf{série em cossenos}
         \begin{equation}
@@ -373,7 +373,7 @@
     \noindent onde \(A_1\), \(A_2\), \(B_1\) e \(B_2\) são constantes tais que \(A_1^2 + A_2^2 \neq 0\) e \(B_1^2 + B_2^2 \neq 0\), é chamado de \emph{problema de Sturm-Liouville regular}. Os valores de \(\lambda\) para os quais existem soluções não-triviais são chamados de \emph{autovalores}, e as soluções correspondentes são chamadas de \emph{autovetores}.
 \end{defn}
 
-\begin{thm} (algumas propriedades do problema de Sturm-Liouville regular)
+\begin{thm} (algumas propriedades do problema de Sturm-Liouville regular).
     \begin{enumerate}
         \item[\textup{(a)}] Existe um número infinito de autovalores reais que podem ser ordenados em uma sequência crescente \( \lambda_1 < \lambda_2 < \lambda_3 < \ldots \) tal que \( \lim_{n \to \infty} \lambda_n = +\infty \).
         \item[\textup{(b)}] A cada autovalor \( \lambda_n \) corresponde um único autovetor \( y_n(x) \), a menos de um fator multiplicativo constante.
@@ -405,7 +405,7 @@
     \end{enumerate}
 \end{defn}
 
-\begin{prop} (convergência da série de Fourier-Bessel)
+\begin{prop} (convergência da série de Fourier-Bessel).
     Sejam \(f\) e \(f'\) contínuas por partes em \([0,b]\). Então para todo \(x\) no intervalo \((0,b)\), a série de Fourier-Bessel de \(f\) converge para \(f(x)\) em um ponto de continuidade. Em um ponto de descontinuidade, a série de Fourier-Bessel converge para a média
     \begin{equation*}
         \frac{f(x+) + f(x-)}{2},
@@ -424,7 +424,7 @@
 \end{equation}
 \end{defn}
 
-\begin{prop} (convergência da série de Fourier-Legendre)
+\begin{prop} (convergência da série de Fourier-Legendre).
     Sejam \(f\) e \(f'\) contínuas por partes em \([-1,1]\). Então para todo \(x\) no intervalo \((-1,1)\), a série de Fourier-Legendre de \(f\) converge para \(f(x)\) em um ponto de continuidade. Em um ponto de descontinuidade, a série de Fourier-Legendre converge para a média
     \begin{equation*}
         \frac{f(x+) + f(x-)}{2},
@@ -436,7 +436,7 @@
 
 \subsection{Equações Diferenciais Parciais Separáveis}
 
-\begin{thm} (princípio da superposição)
+\begin{thm} (princípio da superposição).
     Se \(u_1, u_2, \ldots, u_k\) são soluções de uma EDP linear homogênea, então a combinação linear
     \begin{equation}
         u = c_1 u_1 + c_2 u_2 + \cdots + c_k u_k,
@@ -465,13 +465,13 @@
     \end{itemize}
 \end{defn}
 
-\begin{defn} (equações clássicas)
+\begin{defn} (equações clássicas).
     \begin{align}
         &k u_{xx} = u_t, \quad k>0 \label{eq:calor-1d} \\
         &a^2 u_{xx} = u_{tt} \label{eq:onda-1d} \\
         &\nabla^2 u = 0 \label{eq:laplace-2d}
     \end{align}
-    \noindent onde \(\nabla^2 = \frac{\partial^2}{\partial x^2} + \frac{\partial^2}{\partial y^2}\).
+    \noindent onde \(\nabla^2 = \partial^2/\partial x^2 + \partial^2/\partial y^2\).
     As equações \eqref{eq:calor-1d}, \eqref{eq:onda-1d} e \eqref{eq:laplace-2d} são chamadas, respectivamente, de \emph{equação do calor unidimensional}, \emph{equação da onda unidimensional} e \emph{equação de Laplace bidimensional}, onde a constante \(k\) é o coeficiente de difusão térmica e \(a\) é a velocidade da onda no meio.
     Note que a equação do calor é parabólica, a equação da onda é hiperbólica e a equação de Laplace é elíptica.
 \end{defn}
@@ -502,7 +502,7 @@
     \end{align}
 \end{defn}
 
-\begin{thm} (condições para convergência da integral de Fourier)
+\begin{thm} (condições para convergência da integral de Fourier).
     Seja \(f\) e \(f'\) contínuas por partes em todo intervalo finito e seja \(f\) absolutamente integrável em \((-\infty, \infty)\). Então, a integral de Fourier de \(f\) converge para \(f(x)\) em um ponto de continuidade. Em um ponto de descontinuidade, a integral de Fourier converge para a média
     \begin{equation}
         \frac{f(x+) + f(x-)}{2},
@@ -510,7 +510,7 @@
     \noindent onde \(f(x+)\) e \(f(x-)\) são os limites laterais de \(f\) em \(x\), respectivamente.
 \end{thm}
 
-\begin{defn} (integrais de Fourier em senos e cossenos)
+\begin{defn} (integrais de Fourier em senos e cossenos).
     \begin{enumerate}
         \item[(i)] A integral de Fourier de uma função par \(f\) definida no intervalo \(\left(-\infty, \infty\right)\) é a \textbf{integral em cossenos}
         \begin{equation}
@@ -533,7 +533,7 @@
 
 \begin{rem}
     A integral de Fourier \eqref{eq:integral-fourier} também possui a forma complexa, ou forma exponencial, que é análoga à forma complexa da série de Fourier \eqref{eq:serie-fourier-complexa}.
-    \begin{equation}
+    \begin{equation}\label{eq:integral-fourier-complexa}
         f(x) = \frac{1}{2\pi} \int_{-\infty}^{\infty} C(\alpha) e^{-i\alpha x} \, d\alpha,
     \end{equation}
     \noindent onde
@@ -544,27 +544,37 @@
 
 \subsection{Transformada de Fourier}
 
-\begin{defn} (pares de transformadas de Fourier)
+\begin{defn} (pares de transformadas de Fourier).
     \begin{enumerate}
         \item[(i)] Transformada de Fourier: \begin{equation}
-            \mathcal{F}\{f(x)\} = \int_{-\infty}^{\infty} f(x) e^{i\alpha x} \, dx = F(\alpha).
+            \widehat{f}(\alpha) = \mathcal{F}\{f(x)\} = \int_{-\infty}^{\infty} f(x) e^{i\alpha x} \, dx.
         \end{equation}
-        \item[(ii)] Transformada inversa de Fourier: \begin{equation}
-            \mathcal{F}^{-1}\{F(\alpha)\} = \frac{1}{2\pi} \int_{-\infty}^{\infty} F(\alpha) e^{-i\alpha x} \, d\alpha = f(x).
+        \item[] Transformada inversa de Fourier: \begin{equation}
+            f(x) = \mathcal{F}^{-1}\{\widehat{f}(\alpha)\} = \frac{1}{2\pi} \int_{-\infty}^{\infty} \widehat{f}(\alpha) e^{-i\alpha x} \, d\alpha.
         \end{equation}
-        \item[(iii)] Transformada de Fourier em senos: \begin{equation}
-            \mathcal{F}_s\{f(x)\} = \int_{0}^{\infty} f(x) \sin(\alpha x) \, dx = F_s(\alpha).
+        \item[(ii)] Transformada de Fourier em senos: \begin{equation}
+            \widehat{f}_s(\alpha) = \mathcal{F}_s\{f(x)\} = \int_{0}^{\infty} f(x) \sin(\alpha x) \, dx.
         \end{equation}
-        \item[(iv)] Transformada inversa de Fourier em senos: \begin{equation}
-            \mathcal{F}_s^{-1}\{F_s(\alpha)\} = \frac{2}{\pi} \int_{0}^{\infty} F_s(\alpha) \sin(\alpha x) \, d\alpha = f(x).
+        \item[] Transformada inversa de Fourier em senos: \begin{equation}
+            f(x) = \mathcal{F}_s^{-1}\{\widehat{f}_s(\alpha)\} = \frac{2}{\pi} \int_{0}^{\infty} \widehat{f}_s(\alpha) \sin(\alpha x) \, d\alpha.
         \end{equation}
-        \item[(v)] Transformada de Fourier em cossenos: \begin{equation}
-            \mathcal{F}_c\{f(x)\} = \int_{0}^{\infty} f(x) \cos(\alpha x) \, dx = F_c(\alpha).
+        \item[(iii)] Transformada de Fourier em cossenos: \begin{equation}
+            \widehat{f}_c(\alpha) = \mathcal{F}_c\{f(x)\} = \int_{0}^{\infty} f(x) \cos(\alpha x) \, dx.
         \end{equation}
-        \item[(vi)] Transformada inversa de Fourier em cossenos: \begin{equation}
-            \mathcal{F}_c^{-1}\{F_c(\alpha)\} = \frac{2}{\pi} \int_{0}^{\infty} F_c(\alpha) \cos(\alpha x) \, d\alpha = f(x).
+        \item[] Transformada inversa de Fourier em cossenos: \begin{equation}
+            f(x) = \mathcal{F}_c^{-1}\{\widehat{f}_c(\alpha)\} = \frac{2}{\pi} \int_{0}^{\infty} \widehat{f}_c(\alpha) \cos(\alpha x) \, d\alpha.
         \end{equation}
     \end{enumerate}
 \end{defn}
+
+\begin{rem}
+    A \emph{transformada de Fourier} \(\mathcal{F}\) é um operador linear que transforma uma função \(f(x)\) em uma função \(\widehat{f}(\alpha)\) no domínio da frequência. A \emph{transformada inversa de Fourier} \(\mathcal{F}^{-1}\) recupera a função original \(f(x)\) a partir de sua transformada \(\widehat{f}(\alpha)\).
+    Em outras palavras, \(\mathcal{F}\{f(x)\}\) é a projeção de \(f(x)\) sobre as funções base \(e^{i\alpha x}\) do espaço de funções, enquanto \(\mathcal{F}^{-1}\{\widehat{f}(\alpha)\}\) reconstrói \(f(x)\) a partir dessas projeções.
+\end{rem}
+
+\begin{res} (algumas propriedades das transformadas de Fourier).
+    Suponha que \(f\) é uma função contínua e absolutamente integrável no intervalo \((-\infty, \infty)\) e que \(f'\) seja contínua por partes em todo intervalo finito. Se \(f(x) \to 0\) quando \(|x| \to \infty\), então:
+    
+\end{res}
 
 \end{document}

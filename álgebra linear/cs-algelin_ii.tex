@@ -915,7 +915,7 @@
 \begin{defn} (complemento ortogonal, \(U^\perp\)).
     Se \(U\) é um subconjunto de \(V\), então o \emph{complemento ortogonal} de \(U\), denotado por \(U^\perp\), é o conjunto de todos os vetores em \(V\) que são ortogonais a todos os vetores em \(U\):
     \[
-        U^\perp = \{v \in V : \langle v, u \rangle = 0 \forall u \in U\}.
+        U^\perp = \{v \in V : \langle v, u \rangle = 0 \quad \forall\,  u \in U\}.
     \]
 \end{defn}
 
@@ -983,8 +983,72 @@
     \end{enumerate}
 \end{prop}
 
+\begin{prop} (minimização da distância a um subespaço).
+    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita com produto interno \(V\), \(v \in V\) e \(u \in U\). Então 
+    \begin{equation}
+        \| v - P_U v \| \leq \| v - u \|.
+    \end{equation}
+    Além disso, a igualdade ocorre sse \(u = P_U v\).
+\end{prop}
+
 \section{Operadores em Espaços com Produto Interno}
+
 \subsection{Operadores Autoadjuntos e Operadores Normais}
+
+\begin{defn} (adjunta, \(T^*\)).
+    Suponha que \(T \in \mathcal{V, W}\). A \emph{adjunta} de \(T\) é a função \(T^* W \to V\) tal que
+
+    \begin{equation} \label{eq:adjunta}
+        \langle Tv, w \rangle = \langle v, T^* w \rangle,
+    \end{equation}
+
+    \noindent para todo \(v \in V\) e todo \(w \in W\).
+\end{defn}
+
+\begin{rem}
+    Nota que na equação \eqref{eq:adjunta}, o produto interno à esquerda é o produto interno em \(W\) e o produto interno à direita é o produto interno em \(V\).
+\end{rem}
+
+\begin{prop} (adjunta de uma transformação linear é uma transformação linear).
+    Se \(T \in \mathcal{V, W}\), então \(T^* \in \mathcal{W, V}\).
+\end{prop}
+
+\begin{prop} (propriedades da adjunta).
+    \begin{enumerate}
+        \item [\textup{(a)}] \((S + T)^* = S^* + T^*\), para todos \(S, T \in \mathcal{V, W}\).
+        \item [\textup{(b)}] \((\lambda T)^* = \overline{\lambda} T^*\), para todo \(\lambda \in \mathbb{F}\) e todo \(T \in \mathcal{V, W}\).
+        \item [\textup{(c)}] \((T^*)^* = T\);
+        \item [\textup{(d)}] \((ST)^* = T^* S^*\), para todos \(S \in \mathcal{W, X}\) e \(T \in \mathcal{V, W}\).
+        \item [\textup{(e)}] \(I^* = I\), onde \(I\) é o operador identidade em \(V\).
+        \item [\textup{(f)}] Se \(T\) é invertível, então \(T^*\) é invertível e \((T^*)^{-1} = (T^{-1})^*\).
+    \end{enumerate}
+\end{prop}
+
+\begin{prop} (espaço nulo e imagem da adjunta).
+    Se \(T \in \mathcal{V, W}\), então
+    \begin{enumerate}
+        \item [\textup{(a)}] \(\ker T^* = (\im T)^\perp\);
+        \item [\textup{(b)}] \(\im T^* = (\ker T)^\perp\);
+        \item [\textup{(c)}] \(\ker T = (\im T^*)^\perp\);
+        \item [\textup{(d)}] \(\im T = (\ker T^*)^\perp\).
+    \end{enumerate}
+\end{prop}
+
+\begin{defn} (conjugada transposta, \(A^*\)).
+    A \emph{conjugada tranposta} de uma matriz \(A\) \(m\) por \(n\) é a matriz \(A^*\) \(n\) por \(m\) definida por
+    \[
+        (A^*)_{jk} = \overline{A_{kj}},
+    \]
+    \noindent para todo \(j = 1, \ldots, n\) e todo \(k = 1, \ldots, m\).
+\end{defn}
+
+\begin{prop} (matriz da adjunta é igual à conjugada transposta da matriz).
+    Seja \(T \in \mathcal{V, W}\). Se \(e_1, \ldots, e_n\) é uma base ortonormal de \(V\) e \(f_1, \ldots, f_m\) é uma base ortonormal de \(W\), então
+    \[
+        \mathcal{M}(T^*, (f_1, \ldots, f_m), (e_1, \ldots, e_n)) = (\mathcal{M}(T, (e_1, \ldots, e_n), (f_1, \ldots, f_m)))^*.
+    \]
+\end{prop}
+
 \subsection{Teorema Espectral}
 \subsection{Operadores Positivos}
 \subsection{Isometrias, Operadores Unitários e Fatoração Matricial}
