@@ -348,9 +348,32 @@
 \begin{thm} (teorema fundamental das transformações lineares).
     Suponha que \(V\) seja um espaço vetorial de dimensão finita e que \(T \in \mathcal{L}(V, W)\). Então \(\im(T)\) é de dimensão finita e
     \begin{equation}
-        \dim V = \dim \ker(T) + \dim \im(T).
+        \dim V = \dim \ker T + \dim \im T.
     \end{equation}
 \end{thm}
+
+\begin{proof}
+    Sejam \(u_1, \ldots, u_n\) uma base de \(\ker T\) e \(u_1, \ldots, u_n, v_1, \ldots, v_m\) uma base de \(V\). Então temos que \(\dim \ker T = n\) e \(\dim V = n+m\). Resta provar que \(\dim \im T = m\).
+    Escreve
+    \[
+        v = a_1 u_1 + \cdots + a_n u_n + b_1 v_1 + \cdots + b_m v_m
+    \]
+    \noindent para qualquer \(v \in V\) e com \(\{a_i\}_{i=1}^n, \{b_j\}_{j=1}^m \in \mathbb{F}\). Aplica \(T\) e fica 
+    \[
+        Tv = b_1 Tv_1 + \cdots + b_m Tv_m ,
+    \]
+    \noindent isto é, \(Tv_1, \ldots, Tv_m\) gera \(\im T\). Para provar que \(Tv_1, \ldots, Tv_m\) é LI, considere a equação
+    \begin{gather}
+        c_1 Tv_1 + \cdots + c_m Tv_m = 0 \\
+        T(c_1 v_1 + \cdots + c_m v_m) = 0,
+    \end{gather}
+    \noindent com \(\{c_j\}_{j=1}^m \in \mathbb{F}\), e nota que \(c_1 v_1 + \cdots + c_m v_m \in \ker T\). Então escreve 
+    \begin{gather}
+        c_1 v_1 + \cdots + c_m v_m = d_1 u_1 + \cdots + d_n u_n \\
+        c_1 v_1 + \cdots + c_m v_m - d_1 u_1 - \cdots - d_n u_n = 0.
+    \end{gather}
+    Como \(u_1, \ldots, u_n, v_1, \ldots, v_m\) é base, a última equação acima possui apenas a solução trivial \(c_1 = \cdots = c_m = d_1 = \cdots = d_n = 0\). Logo a lista \(Tv_1, \ldots, Tv_m\) é LI e forma, portanto, uma base para \(\im T\).
+\end{proof}
 
 \begin{cor}
     Suponha que \(V\) e \(W\) são espaços vetoriais de dimensão finita com \(\dim V > \dim W\). Então nenhuma transformação linear de \(V\) em \(W\) é injetora.
@@ -492,11 +515,28 @@
 \end{prop}
 
 \begin{prop}
-    Sejam \(V\) e \(W\) espaços vetoriais de dimensão finita e que \(\text{dim } V = \text{dim } W\). Então uma transformação linear \(T \in \mathcal{L}(V, W)\) é invertível sse \(T\) é injetora sse \(T\) é sobrejetora.
+    Sejam \(V\) e \(W\) espaços vetoriais de dimensão finita e que \(\dim V = \dim W\). Então uma transformação linear \(T \in \mathcal{L}(V, W)\) é invertível sse \(T\) é injetora sse \(T\) é sobrejetora.
 \end{prop}
 
+\begin{proof}
+    Sejam \(V\) e \(W\) espaços vetoriais de dimensão finita e \(\dim V = \dim W\). Seja \(T \in \mathcal{L}(V, W)\). Suponha que \(T\) é injetora. Do Teorema do Posto, temos 
+    \begin{gather}
+        \dim V = \dim \ker T + \dim \im T \\
+        \dim W = \dim \im T
+    \end{gather}
+    Logo, \(T\) é sobrejetora. Agora, suponha que \(T\) é sobrejetora. Novamente, do Teorema do Posto, escreve 
+    \begin{gather}
+        \dim V = \dim \ker T + \dim W \\
+        \dim \ker T = 0,
+    \end{gather} 
+    \noindent o que prova que \(T\) é injetora. Portanto, temos a equivalência 
+    \[
+        T \text{ é invertível } \iff T \text{ é injetora } \iff T \text{ é sobrejetora}.
+    \]
+\end{proof}
+
 \begin{prop}
-    Sejam \(V\) e \(W\) espaços vetoriais de dimensão finita, \(\text{dim } V = \text{dim } W\), \(S \in \mathcal{V, W}\) e \(T \in \mathcal{L}(W, U)\). Então \(ST = I\) sse \(TS = I\).
+    Sejam \(V\) e \(W\) espaços vetoriais de dimensão finita, \(\text{dim } V = \text{dim } W\), \(S \in \mathcal{L}(V, W)\) e \(T \in \mathcal{L}(W, U)\). Então \(ST = I\) sse \(TS = I\).
 \end{prop}
 
 \begin{defn}
@@ -506,6 +546,22 @@
 \begin{prop}
     Dois espaços vetoriais de dimensão finita são isomorfos sse têm a mesma dimensão.
 \end{prop}
+
+\begin{proof}
+    Sejam \(V\) e \(W\) espaços vetoriais de dimensão finita isomorfos. Então existe uma transformação linear \(T\) invertível de \(V\) em \(W\). Do Teorema do Núcleo e da Imagem, temos 
+    \[
+        \dim V = \dim \ker T + \dim \im T.
+    \]
+    Como \(T\) é injetora e sobrejetora, vem
+    \[
+        \dim V = \dim W,
+    \]
+    \noindent o que prova a primeira direção. Suponha agora que \(\dim V = \dim W\). Sejam \(v_1, \ldots, v_n\) uma base de \(V\) e \(w_1, \ldots, w_n\) uma base de \(W\). Define \(T \in \mathcal{L}(V, W)\) como 
+    \[
+        T(a_1 v_1 + \cdots + a_n v_n) = a_1 w_1 + \cdots + a_n w_n.
+    \]
+    Dado que \(v_1, \ldots, v_n\) é base de \(V\), \(T\) está bem-definida. Nota que \(a_1 w_1 + \cdots + a_n w_n = 0\) possui apenas a solução trivial, logo \(T\) é injetora. Por fim, como \(\dim V = \dim W\), \(T\) é também sobrejetora.
+\end{proof}
 
 \begin{prop}
     Suponha \(v_1, \ldots, v_n\) é uma base de \(V\) e \(w_1, \ldots, w_n\) é base de \(W\). Então \(\mathcal{M}\) é um isomorfismo de \(\mathcal{L}(V, W)\) em \(\mathbb{F}^{m,n}\).
@@ -518,7 +574,7 @@
     \]
 \end{cor}
 
-\begin{defn}
+\begin{defn} (matriz de um vetor).
     Seja \(v \in V\) e \(v_1,\ldots,v_n\) uma base de \(V\). A \emph{matriz de \(v\)} com respeito a essa base é a matriz \(n\) por \(1\) definida por
     \[
         \mathcal{M}(v) = \begin{bmatrix}
@@ -578,7 +634,7 @@
 \end{defn}
 
 \begin{defn}
-    Suponha \(T \in \mathcal{L}(V)\). Um subespaço \(U\) de \(V\) é dito \emph{invariante} sob \(T\) se \(Tu \in U\), para todo \(u \in U\).
+    Suponha \(T \in \mathcal{L}(V)\). Um subespaço \(U\) de \(V\) é dito \emph{invariante} sob \(T\) se \(Tu \in U\) para todo \(u \in U\).
 \end{defn}
 
 \begin{defn}
@@ -599,9 +655,21 @@
     Suponha \(T \in \mathcal{L}(V)\) e \(\lambda\) é um autovalor de \(T\). O \emph{autovetor} de \(T\) correspondente a \(\lambda\) é qualquer vetor \(v \in V\) tal que \(v \neq 0\) e \(Tv = \lambda v\).
 \end{defn}
 
-\begin{prop}
+\begin{thm}
     Seja \(T \in \mathcal{L}(V)\). Então toda lista de autovetores de \(T\) correspondente a autovalores distintos de \(T\) é linearmente independente.
-\end{prop}
+\end{thm}
+
+\begin{proof}
+    Seja \(\{\lambda_i\}_{i=1}^p\) uma lista de autovalores distintos de \(T\). Suponha, por absurdo, que a lista de autovetores \(\{v_i\}_{i=1}^p\) seja LD. Tome a menor lista LD \(\{v_i\}_{i=1}^n\), \(1 \leq n \leq p\) tal que todos os coeficientes da equação 
+    \[
+        a_1 v_1 + \cdots + a_n v_n = 0
+    \]
+    \noindent sejam não nulos. Aplica \(T - \lambda_n I\) e fica 
+    \[
+        a_1 (\lambda_1 - \lambda_n) + \cdots + a_{n-1} (\lambda_{n-1} - \lambda_n)v_{n-1} = 0.
+    \]
+    Como os autovalores são distintos, todos os coeficientes são não nulos. Então, encontramos uma lista de autovetores LD de tamanho \(n-1\), o que contradiz a minimalidade de \(\{v_i\}_{i=1}^n\).
+\end{proof}
 
 \begin{defn}
     Suponha \(T \in \mathcal{L}(V)\) e \(m\) é um inteiro positivo.
@@ -850,7 +918,7 @@
     Toda lista ortonormal de vetores é linearmente independente.
 \end{cor}
 
-\begin{prop} (desigualdade de Bessel)
+\begin{prop} (desigualdade de Bessel).
     Suponha que \(e_1, \ldots, e_m\) é uma lista ortonormal de vetores em \(V\). Então, para todo \(v \in V\),
     \begin{equation}
         |\langle v, e_1 \rangle|^2 + |\langle v, e_2 \rangle|^2 + \cdots + |\langle v, e_m \rangle|^2 \leq \|v\|^2.
@@ -996,7 +1064,7 @@
 \subsection{Operadores Autoadjuntos e Operadores Normais}
 
 \begin{defn} (adjunta, \(T^*\)).
-    Suponha que \(T \in \mathcal{V, W}\). A \emph{adjunta} de \(T\) é a função \(T^* W \to V\) tal que
+    Suponha que \(T \in \mathcal{L}(V, W)\). A \emph{adjunta} de \(T\) é a função \(T^*: W \to V\) tal que
 
     \begin{equation} \label{eq:adjunta}
         \langle Tv, w \rangle = \langle v, T^* w \rangle,
@@ -1006,26 +1074,26 @@
 \end{defn}
 
 \begin{rem}
-    Nota que na equação \eqref{eq:adjunta}, o produto interno à esquerda é o produto interno em \(W\) e o produto interno à direita é o produto interno em \(V\).
+    Na equação \eqref{eq:adjunta}, o produto interno à esquerda é o produto interno em \(W\) e o produto interno à direita é o produto interno em \(V\).
 \end{rem}
 
 \begin{prop} (adjunta de uma transformação linear é uma transformação linear).
-    Se \(T \in \mathcal{V, W}\), então \(T^* \in \mathcal{W, V}\).
+    Se \(T \in \mathcal{L}(V, W)\), então \(T^* \in \mathcal{L}(W, V)\).
 \end{prop}
 
 \begin{prop} (propriedades da adjunta).
     \begin{enumerate}
-        \item [\textup{(a)}] \((S + T)^* = S^* + T^*\), para todos \(S, T \in \mathcal{V, W}\).
-        \item [\textup{(b)}] \((\lambda T)^* = \overline{\lambda} T^*\), para todo \(\lambda \in \mathbb{F}\) e todo \(T \in \mathcal{V, W}\).
+        \item [\textup{(a)}] \((S + T)^* = S^* + T^*\), para todos \(S, T \in \mathcal{L}(V, W)\).
+        \item [\textup{(b)}] \((\lambda T)^* = \overline{\lambda} T^*\), para todo \(\lambda \in \mathbb{F}\) e todo \(T \in \mathcal{L}(V, W)\).
         \item [\textup{(c)}] \((T^*)^* = T\);
-        \item [\textup{(d)}] \((ST)^* = T^* S^*\), para todos \(S \in \mathcal{W, X}\) e \(T \in \mathcal{V, W}\).
+        \item [\textup{(d)}] \((ST)^* = T^* S^*\), para todos \(S \in \mathcal{L}(W, X)\) e \(T \in \mathcal{L}(V, W)\).
         \item [\textup{(e)}] \(I^* = I\), onde \(I\) é o operador identidade em \(V\).
         \item [\textup{(f)}] Se \(T\) é invertível, então \(T^*\) é invertível e \((T^*)^{-1} = (T^{-1})^*\).
     \end{enumerate}
 \end{prop}
 
 \begin{prop} (espaço nulo e imagem da adjunta).
-    Se \(T \in \mathcal{V, W}\), então
+    Se \(T \in \mathcal{L}(V, W)\), então
     \begin{enumerate}
         \item [\textup{(a)}] \(\ker T^* = (\im T)^\perp\);
         \item [\textup{(b)}] \(\im T^* = (\ker T)^\perp\);
@@ -1043,10 +1111,38 @@
 \end{defn}
 
 \begin{prop} (matriz da adjunta é igual à conjugada transposta da matriz).
-    Seja \(T \in \mathcal{V, W}\). Se \(e_1, \ldots, e_n\) é uma base ortonormal de \(V\) e \(f_1, \ldots, f_m\) é uma base ortonormal de \(W\), então
+    Seja \(T \in \mathcal{L}(V, W)\). Se \(e_1, \ldots, e_n\) é uma base ortonormal de \(V\) e \(f_1, \ldots, f_m\) é uma base ortonormal de \(W\), então
     \[
         \mathcal{M}(T^*, (f_1, \ldots, f_m), (e_1, \ldots, e_n)) = (\mathcal{M}(T, (e_1, \ldots, e_n), (f_1, \ldots, f_m)))^*.
     \]
+\end{prop}
+
+\begin{defn} (operador autoadjunto).
+    Um operador \(T \in \mathcal{L}(V)\) é chamado de \emph{autoadjunto} se \(T = T^*\).
+\end{defn}
+
+\begin{rem}
+    Um operador \(T \in \mathcal{L}(V)\) é autoadjunto sse
+    \[
+        \langle Tv, w \rangle = \langle v, Tw \rangle
+    \]
+    \noindent para todos \(v, w \in V\).
+\end{rem}
+
+\begin{prop} (autovalores de operadores autoadjuntos).
+    Todo autovalor de um operador autoadjunto é real.
+\end{prop}
+
+\begin{prop} (sobre \(\mathbb{C}\), \(Tv\) é ortogonal a \(v\) para todo \(v \iff T = 0\)).
+    Suponha que \(V\) é um espaço vetorial complexo com produto interno e \(T \in \mathcal{L}(V)\). Então \(Tv\) é ortogonal a \(v\) para todo \(v \in V\) sse \(T = 0\).
+\end{prop}
+
+\begin{prop} (sobre \(\mathbb{C}\), \(\langle Tv, v \rangle\) é real para todo \(v \iff T\) é autoadjunto).
+    Suponha que \(V\) é um espaço vetorial complexo com produto interno e \(T \in \mathcal{L}(V)\). Então \(\langle Tv, v \rangle\) é real para todo \(v \in V\) sse \(T\) é autoadjunto.
+\end{prop}
+
+\begin{prop} (\(T\) é autoadjunto e \(\langle Tv, v \rangle = 0\) para todo \(v \iff T = 0\)).
+    Suponha que \(T\) é um operador autoadjunto em \(V\). Então \(\langle Tv, v \rangle = 0\) para todo \(v \in V\) sse \(T = 0\).
 \end{prop}
 
 \subsection{Teorema Espectral}

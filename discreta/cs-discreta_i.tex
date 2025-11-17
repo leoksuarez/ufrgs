@@ -1,14 +1,11 @@
-\documentclass[12pt]{article}
-\usepackage{lmodern}
-\usepackage{geometry}
-\usepackage{enumitem}
-\setlist[description]{leftmargin=1cm,labelindent=1cm}
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amssymb}
-\usepackage{mathtools}
-\usepackage[hidelinks]{hyperref}
+\documentclass{article}
+\usepackage{fontspec}
+\setmainfont{Libertinus Serif}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
 \usepackage[portuguese]{babel}
+
+\setlist[description]{leftmargin=1cm,labelindent=1cm}
 
 \theoremstyle{plain}
 \newtheorem{thm}{Teorema}[section]
@@ -25,14 +22,6 @@
 
 \theoremstyle{remark}
 \newtheorem*{rem}{Nota}
-
-\geometry{
- a4paper,
- left=3cm,
- top=2cm,
- right=2cm,
- bottom=2cm
-}
 
 \begin{document}
 \begin{center}

@@ -1,11 +1,11 @@
-\documentclass[12pt]{article}
-\usepackage{lmodern}
-\usepackage{geometry}
-\usepackage{enumitem}
-\setlist[description]{leftmargin=1cm,labelindent=1cm}
-\usepackage{amsmath, amsthm, amssymb, mathtools}
-\usepackage{hyperref}
+\documentclass{article}
+\usepackage{fontspec}
+\setmainfont{Libertinus Serif}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
 \usepackage[portuguese]{babel}
+
+\setlist[description]{leftmargin=1cm,labelindent=1cm}
 
 \theoremstyle{plain}
 \newtheorem{thm}{Teorema}[section]
@@ -17,19 +17,9 @@
 \theoremstyle{definition}
 \newtheorem{defn}{Definição}[section]
 \newtheorem{exmp}[defn]{Exemplo}
-\newtheorem{prblm}[defn]{Problema}
-\newtheorem{prcp}[defn]{Princípio}
 
 \theoremstyle{remark}
 \newtheorem*{rem}{Nota}
-
-\geometry{
- a4paper,
- left=3cm,
- top=2cm,
- right=2cm,
- bottom=2cm
-}
 
 \begin{document}
 \begin{center}
@@ -486,7 +476,36 @@
 \end{rem}
 
 \section{Problemas de Valor de Contorno em Outros Sistemas de Coordenadas}
+
+\subsection{Coordenadas Polares}
+\subsection{Coordenadas Polares e Cilíndricas}
+\subsection{Coordenadas Esféricas}
+
 \section{Transformadas Integrais}
+
+\subsection{Transformada de Laplace}
+
+\begin{defn}
+    A \emph{transformada de Laplace} de uma função \(f(t)\), definida para \(t \geq 0\), é a função \(\mathcal{L}\{f(t)\} = F(s)\) dada por
+    \begin{equation}
+        F(s) = \int_{0}^{\infty} f(t) e^{-st} \, dt,
+    \end{equation}
+    \noindent onde \(s\) é um número complexo.
+\end{defn}
+
+\begin{prop} (transformada de Laplace de derivadas parciais).
+    As transformadas das derivadas parciais \(\partial u/\partial t\) e \(\partial^2 u/\partial t^2\) são dadas por
+    \begin{align}
+        \mathcal{L}\left\{\frac{\partial u}{\partial t}\right\} &= s U(x,s) - u(x,0), \\
+        \mathcal{L}\left\{\frac{\partial^2 u}{\partial t^2}\right\} &= s^2 U(x,s) - s u(x,0) - \frac{\partial u}{\partial t}(x,0),
+    \end{align}
+    \noindent onde \(U(x,s) = \mathcal{L}\{u(x,t)\}\).
+
+    Como estamos transformando em relação a \(t\), assumimos que é possível intercambiar integração e diferenciação na transformada de \(\partial^2u/\partial x^2\), ou seja,
+    \begin{equation}
+        \mathcal{L}\left\{\frac{\partial^2 u}{\partial x^2}\right\} = \frac{\partial^2}{\partial x^2} \mathcal{L}\{u(x,t)\} = \frac{d^2 U}{d x^2}(x,s).
+    \end{equation}
+\end{prop}
 
 \subsection{Integral de Fourier}
 
@@ -574,7 +593,15 @@
 
 \begin{res} (algumas propriedades das transformadas de Fourier).
     Suponha que \(f\) é uma função contínua e absolutamente integrável no intervalo \((-\infty, \infty)\) e que \(f'\) seja contínua por partes em todo intervalo finito. Se \(f(x) \to 0\) quando \(|x| \to \infty\), então:
-    
+    \begin{equation}
+        \mathcal{F}\{f'(x)\} = i\alpha \widehat{f}(\alpha).
+    \end{equation}
+
+    Se \(f\) e \(f'\) são contínuas, \(f\) é absolutamente integrável em \((0, \infty)\), e \(f''\) é contínua por partes em todo intervalo finito, então:
+    \begin{enumerate}
+        \item [\textup{(a)}] \(\mathcal{F}_s\{f''(x)\} = -\alpha^2 \widehat{f}_c(\alpha) + \alpha f(0)\).
+        \item [\textup{(b)}] \(\mathcal{F}_c\{f''(x)\} = \alpha^2 \widehat{f}_s(\alpha) - f'(0)\).
+    \end{enumerate}
 \end{res}
 
 \end{document}
