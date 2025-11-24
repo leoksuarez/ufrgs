@@ -486,18 +486,18 @@
 \subsection{Transformada de Laplace}
 
 \begin{defn}
-    A \emph{transformada de Laplace} de uma função \(f(t)\), definida para \(t \geq 0\), é a função \(\mathcal{L}\{f(t)\} = F(s)\) dada por
+    A \emph{transformada de Laplace} de uma função \(u(x,t)\) com respeito à variável \(t\) é dada por
     \begin{equation}
-        F(s) = \int_{0}^{\infty} f(t) e^{-st} \, dt,
+        \mathcal{L}\{u(x,t)\} = \int_{0}^{\infty} e^{-st} u(x,t) \, dt = U(x,s),
     \end{equation}
-    \noindent onde \(s\) é um número complexo.
+    \noindent onde \(x\) é tratado como um parâmetro.
 \end{defn}
 
 \begin{prop} (transformada de Laplace de derivadas parciais).
     As transformadas das derivadas parciais \(\partial u/\partial t\) e \(\partial^2 u/\partial t^2\) são dadas por
     \begin{align}
-        \mathcal{L}\left\{\frac{\partial u}{\partial t}\right\} &= s U(x,s) - u(x,0), \\
-        \mathcal{L}\left\{\frac{\partial^2 u}{\partial t^2}\right\} &= s^2 U(x,s) - s u(x,0) - \frac{\partial u}{\partial t}(x,0),
+        \mathcal{L}\left\{\frac{\partial u}{\partial t}\right\} &= s U(x,s) - u(x,0), \label{eq:laplace-derivada-primeira} \\
+        \mathcal{L}\left\{\frac{\partial^2 u}{\partial t^2}\right\} &= s^2 U(x,s) - s u(x,0) - \frac{\partial u}{\partial t}(x,0), \label{eq:laplace-derivada-segunda}
     \end{align}
     \noindent onde \(U(x,s) = \mathcal{L}\{u(x,t)\}\).
 
@@ -506,6 +506,10 @@
         \mathcal{L}\left\{\frac{\partial^2 u}{\partial x^2}\right\} = \frac{\partial^2}{\partial x^2} \mathcal{L}\{u(x,t)\} = \frac{d^2 U}{d x^2}(x,s).
     \end{equation}
 \end{prop}
+
+\begin{rem}
+    De \eqref{eq:laplace-derivada-primeira} e \eqref{eq:laplace-derivada-segunda}, vemos que a transformada de Laplace incorpora as condições iniciais diretamente na transformação, o que é particularmente útil para resolver a equação do calor e a equação da onda.
+\end{rem}
 
 \subsection{Integral de Fourier}
 
@@ -597,11 +601,27 @@
         \mathcal{F}\{f'(x)\} = i\alpha \widehat{f}(\alpha).
     \end{equation}
 
+    De maneira similar, sob as hipóteses adicionais que \(f'\) é contínua em \((-\infty, \infty)\), \(f''(x)\) é contínua por partes em todo intervalo finito, e \(f'(x) \to 0\) quando \(|x| \to \infty\), temos 
+    \begin{equation}
+        \mathcal{F}\{f''(x)\} = -(i\alpha)^2 \widehat{f}(\alpha) = -\alpha^2 \widehat{f}(\alpha).
+    \end{equation}
+
     Se \(f\) e \(f'\) são contínuas, \(f\) é absolutamente integrável em \((0, \infty)\), e \(f''\) é contínua por partes em todo intervalo finito, então:
     \begin{enumerate}
         \item [\textup{(a)}] \(\mathcal{F}_s\{f''(x)\} = -\alpha^2 \widehat{f}_c(\alpha) + \alpha f(0)\).
         \item [\textup{(b)}] \(\mathcal{F}_c\{f''(x)\} = \alpha^2 \widehat{f}_s(\alpha) - f'(0)\).
     \end{enumerate}
 \end{res}
+
+\begin{thm} (teorema da convolução para transformada de Fourier).
+    Se \(f\) e \(g\) são funções contínuas e absolutamente integráveis em \((-\infty, \infty)\), então a convolução de \(f\) e \(g\), definida por
+    \begin{equation}
+        (f * g)(x) = \int_{-\infty}^{\infty} f(x - \tau) g(\tau) \, d\tau,
+    \end{equation}
+    \noindent satisfaz
+    \begin{equation}
+        \mathcal{F}\{f * g\} = \widehat{f}(\alpha) \cdot \widehat{g}(\alpha).
+    \end{equation}
+\end{thm}
 
 \end{document}

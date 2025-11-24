@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{fontspec}
+\setmainfont{Libertinus Serif}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
+\usepackage[portuguese]{babel}
+
+\begin{document}
+
+\begin{flushleft}
+    UFRGS - Instituto de Matemática e Estatística \\
+    Departamento de Matemática Pura e Aplicada \\
+    MAT 01326 - Matemática Discreta I \\
+\end{flushleft}
+\vspace{0.25cm}
+
+\begin{center}
+    {\LARGE Lista 5 - Pombos e Grafos} \\
+    \vspace{0.4cm}
+    {\large \textbf{Soluções}}
+
+\end{center}
+
+\begin{enumerate}
+    \item [\textbf{E1}]
+    \item [\textbf{E2}]
+        Como as notas da prova variam de 0 a 10, com apenas uma casa decimal, temos 100 notas possíveis (de 0.0 até 10.0). Então, precisamos de pelo menos 101 estudantes para que pelo menos dois deles tirem notas iguais. \qed
+    \item [\textbf{E3}]
+        Nota que há 164 numerações possíveis entre 100 e 263, inclusive. Podemos, então, numerar no máximo 82 casas de modo que não existam casas com números consecutivos. Como \(83 > 82\), pelo PCP, ao menos duas casas terão números consecutivos. \qed
+    \item [\textbf{E4}]
+        Seja \(G = (N, A)\) um grafo simples com \(|N(G)| = n\), \(|N(G)| \geq 2\). Dado \(v \in V(G)\), temos que \(0 \leq d_G(v) \leq n-1\).
+        No entanto, perceba que as situações \(d_G(V) = 0\) e \(d_G(V) = n-1\) são mutuamente exclusivas, pois se há vértice desconectado em \(G\), não há vértice conectado a todos os outros vértices. Logo, existem \(n-1\) opções possíveis para \(d_G(v)\).
+        Se distribuirmos \(n\) vértices (pombos) em \(n-1\) graus possíveis (gaiolas), vemos que pelo menos dois vértices terão o mesmo grau. \qed    
+    \item [\textbf{E5}]
+    \item [\textbf{E6}] Seja \(G=(N,A)\) uma árvore com pelo menos dois vértices. Tome um caminho maximal não trivial e sejam \(u\) e \(v\) suas extremidades (este caminho existe porque o grafo possui um número finito de vértices). 
+    Da definição de caminho, é claro que \(d(u)\), \(d(v) \neq 0\). Ainda, se \(d(u), d(v) > 1\), haveria duas possibilidades: ou \(u\) e \(v\) são adjacentes a vértices que não estão no caminho, ou \(u\) e \(v\) são adjacentes a vértices que já estão no caminho.
+    No entanto, a primeira possibilidade contradiz o fato de o caminho ser maximal, enquanto que a segunda contradiz o fato de \(G\) ser um grafo acíclico. Logo, \(d(u)=d(v)=1\). \qed
+    \item [\textbf{E7}]
+    \item [\textbf{E8}]
+    \item [\textbf{E9}]
+    \item [\textbf{E10}]
+\end{enumerate}
+
+\end{document}
+

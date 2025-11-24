@@ -1,14 +1,11 @@
-\documentclass[12pt]{article}
-\usepackage{lmodern}
-\usepackage{geometry}
-\usepackage{enumitem}
-\setlist[description]{leftmargin=1cm,labelindent=1cm}
-\usepackage{amsmath}
-\usepackage{amsthm}
-\usepackage{amssymb}
-\usepackage{mathtools}
-\usepackage[hidelinks]{hyperref}
+\documentclass{article}
+\usepackage{fontspec}
+\setmainfont{Libertinus Serif}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
 \usepackage[portuguese]{babel}
+
+\setlist[description]{leftmargin=1cm,labelindent=1cm}
 
 \theoremstyle{plain}
 \newtheorem{thm}{Teorema}[section]
@@ -26,6 +23,7 @@
 \newtheorem*{rem}{Nota}
 
 \DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\spn}{span}
 
 \geometry{
  a4paper,
@@ -189,9 +187,9 @@
 \begin{lem} (lema de dependência linear).
     Suponha que \(v_1, \ldots, v_n\) é linearmente dependente em \(V\). Então existe \(j \in \{1, \ldots, n\}\) tal que
     \begin{equation}
-        v_j \in \textup{span}(v_1, \ldots, v_{j-1}).
+        v_j \in \spn(v_1, \ldots, v_{j-1}).
     \end{equation}
-    \noindent Ainda, se \(j\) satisfaz a condição acima e o \(j\)-ésimo vetor for removido da lista, então o span dos vetores restantes é igual a \(\textup{span}(v_1, \ldots, v_n)\).
+    \noindent Ainda, se \(j\) satisfaz a condição acima e o \(j\)-ésimo vetor for removido da lista, então o span dos vetores restantes é igual a \(\spn(v_1, \ldots, v_n)\).
 \end{lem}
 
 \begin{prop}
@@ -736,8 +734,8 @@
     Seja \(T \in \mathcal{L}(V)\) e \(v_1, \ldots, v_n\) uma base de \(V\). Então as seguintes condições são equivalentes.
     \begin{enumerate}
         \item[\textup{(a)}] A matriz de \(T\) com respeito à base \(v_1, \ldots, v_n\) é triangular-superior.
-        \item[\textup{(b)}] \(\textup{span}(v_1, \ldots, v_k)\) é invariante sob \(T\), para \(k = 1, \ldots, n\).
-        \item[\textup{(c)}] \(Tv_k \in \textup{span}(v_1, \ldots, v_k)\), para \(k = 1, \ldots, n\).
+        \item[\textup{(b)}] \(\spn(v_1, \ldots, v_k)\) é invariante sob \(T\), para \(k = 1, \ldots, n\).
+        \item[\textup{(c)}] \(Tv_k \in \spn(v_1, \ldots, v_k)\), para \(k = 1, \ldots, n\).
     \end{enumerate}
 \end{prop}
 
@@ -949,7 +947,7 @@
     \]
     \noindent Para todo \(k = 1, \ldots, m\), defina \(e_k = \frac{f_k}{\|f_k\|}\). Então \(e_1, \ldots, e_m\) é uma lista ortonormal de vetores em \(V\) tal que
     \[
-        \textup{span}(e_1, \ldots, e_k) = \textup{span}(v_1, \ldots, v_k),
+        \spn(e_1, \ldots, e_k) = \spn(v_1, \ldots, v_k),
     \]
     \noindent para todo \(k = 1, \ldots, m\).
 \end{thm}
@@ -1145,8 +1143,68 @@
     Suponha que \(T\) é um operador autoadjunto em \(V\). Então \(\langle Tv, v \rangle = 0\) para todo \(v \in V\) sse \(T = 0\).
 \end{prop}
 
+\begin{defn} (operador normal).
+    Um operador \(T \in \mathcal{L}(V)\) é chamado de \emph{normal} se \(T T^* = T^* T\).
+\end{defn}
+
+\begin{rem}
+    Todo operador autoadjunto é normal.
+\end{rem}
+
+\begin{prop} (\(T\) é normal sse \(Tv\) e \(T^* v\) têm a mesma norma).
+    Suponha que \(T \in \mathcal{L}(V)\). Então \(T\) é normal se, e somente se, \(\|Tv\| = \|T^* v\|\) para todo \(v \in V\).
+\end{prop}
+
+\begin{prop} (imagem, núcleo e autovetores de um operador normal).
+    Seja \(T \in \mathcal{L}(V)\) um operador normal. Então
+    \begin{enumerate}
+        \item [\textup{(a)}] \(\ker T = \ker T^*\);
+        \item [\textup{(b)}] \(\im T = \im T^*\);
+        \item [\textup{(c)}] \(V = \ker T \oplus \im T\);
+        \item [\textup{(d)}] \(T - \lambda I\) é normal, para todo \(\lambda \in \mathbb{F}\);
+        \item [\textup{(e)}] se \(v \in V\) e \(\lambda \in \mathbb{F}\), então \(Tv = \lambda v \iff T^* v = \overline{\lambda} v\).
+    \end{enumerate}
+\end{prop}
+
+\begin{prop} (autovetores ortogonais para operadores normais).
+    Suponha que \(T \in \mathcal{L}(V)\) é um operador normal. Então autovetores de \(T\) correspondentes a autovalores distintos são ortogonais.
+\end{prop}
+
+\begin{prop} (\(T\) é normal sse as partes real e imaginária de \(T\) comutam).
+    Seja \(\mathbb{F} = \mathbb{C}\) e \(T \in \mathcal{L}(V)\). Então \(T\) é normal sse existem operadores autoadjuntos \(A, B \in \mathcal{L}(V)\) tais que \(T = A + iB\) e \(AB = BA\).
+\end{prop}
+
 \subsection{Teorema Espectral}
+
+\begin{thm} (teorema espectral sobre \(\mathbb{R}\)).
+    Suponha que \(V\) é um espaço vetorial real de dimensão finita com produto interno e \(T \in \mathcal{L}(V)\). Então as seguintes condições são equivalentes.
+    \begin{enumerate}
+        \item[\textup{(a)}] \(T\) é autoadjunto.
+        \item[\textup{(b)}] \(V\) tem uma base ortonormal de autovetores de \(T\).
+        \item[\textup{(c)}] \(T\) tem uma matriz diagonal com respeito a alguma base ortonormal de \(V\).
+    \end{enumerate}
+\end{thm}
+
+\begin{thm} (teorema espectral sobre \(\mathbb{C}\)).
+    Suponha que \(V\) é um espaço vetorial complexo de dimensão finita com produto interno e \(T \in \mathcal{L}(V)\). Então as seguintes condições são equivalentes.
+    \begin{enumerate}
+        \item[\textup{(a)}] \(T\) é normal.
+        \item[\textup{(b)}] \(V\) tem uma base ortonormal de autovetores de \(T\).
+        \item[\textup{(c)}] \(T\) tem uma matriz diagonal com respeito a alguma base ortonormal de \(V\).
+    \end{enumerate}
+    
+\end{thm}
+
 \subsection{Operadores Positivos}
+
+\begin{defn} (operador positivo).
+    Um operador \(T \in \mathcal{L}(V)\) é chamado de \emph{positivo} se \(T\) é autoadjunto e \(\langle Tv, v \rangle \geq 0\) para todo \(v \in V\).
+\end{defn}
+
+\begin{defn}
+    Um operador \(R\) é chamado de \emph{raiz quadrada} de um operador \(T\) se \(R^2 = T\).
+\end{defn}
+
 \subsection{Isometrias, Operadores Unitários e Fatoração Matricial}
 \subsection{Decomposição em Valores Singulares}
 \subsection{Consequências de Valores Singulares}
