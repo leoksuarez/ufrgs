@@ -493,6 +493,14 @@
     \noindent onde \(x\) é tratado como um parâmetro.
 \end{defn}
 
+\begin{rem}
+    Se \(\mathcal{L}\{f(t)\} = \int_{0}^{\infty} e^{-st} f(t) \, dt = F(s)\), então a transformada inversa de Laplace é
+    \begin{equation}
+        \mathcal{L}^{-1}\{F(s)\} = \frac{1}{2\pi i} \int_{\gamma-i\infty}^{\gamma+i\infty} e^{st} F(s) \, ds,
+    \end{equation}
+    \noindent onde \(\gamma\) é um número real tal que a integral seja convergente.
+\end{rem}
+
 \begin{prop} (transformada de Laplace de derivadas parciais).
     As transformadas das derivadas parciais \(\partial u/\partial t\) e \(\partial^2 u/\partial t^2\) são dadas por
     \begin{align}
@@ -566,6 +574,20 @@
 \end{rem}
 
 \subsection{Transformada de Fourier}
+
+\begin{rem}
+    Transformadas integrais ocorrem em \textbf{pares de transformadas}. Se \(f(x)\) é transformada em \(F(\alpha)\) por uma \textbf{transformada integral}
+    \begin{equation}
+        F(\alpha) = \int_{a}^{b} K(x,\alpha) f(x) \, dx,
+    \end{equation}
+\end{rem}
+
+\noindent então a função \(f\) pode ser recuperada por outra transformada integral 
+\begin{equation}
+    f(x) = \int_{c}^{d} L(x,\alpha) F(\alpha) \, d\alpha,
+\end{equation}
+
+\noindent chamada de \textbf{transformada inversa}, onde \(K(x,\alpha)\) e \(L(x,\alpha)\) são os \textbf{núcleos} de suas respectivas transformadas. Identificamos \(K(s,t)=e^{-st}\) como o núcleo da transformada de Laplace e \(L(s,t) = e^{st}/(2\pi i)\) como o núcleo da transformada inversa de Laplace.
 
 \begin{defn} (pares de transformadas de Fourier).
     \begin{enumerate}

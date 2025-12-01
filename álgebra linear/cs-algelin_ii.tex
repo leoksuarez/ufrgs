@@ -1205,11 +1205,34 @@
     Um operador \(R\) é chamado de \emph{raiz quadrada} de um operador \(T\) se \(R^2 = T\).
 \end{defn}
 
-\subsection{Isometrias, Operadores Unitários e Fatoração Matricial}
-\subsection{Decomposição em Valores Singulares}
-\subsection{Consequências de Valores Singulares}
+\begin{prop} (caracterização de operadores positivos).
+    Seja \(T \in \mathcal{L}(V)\). Então as seguintes condições são equivalentes.
+    \begin{enumerate}
+        \item [\textup{(a)}] \(T\) é um operador positivo.
+        \item [\textup{(b)}] \(T\) é autoadjunto e todos os autovalores de \(T\) são não negativos.
+        \item [\textup{(c)}] Com respeito a alguma base ortonormal de \(V\), a matriz de \(T\) é diagonal e todos os elementos da diagonal são não negativos.
+        \item [\textup{(d)}] \(T\) tem uma raiz quadrada positiva.
+        \item [\textup{(e)}] \(T\) tem uma raiz quadrada autoadjunta.
+        \item [\textup{(f)}] \(T = R^* R\) para algum \(R \in \mathcal{L}(V)\).
+    \end{enumerate}
+\end{prop}
+
+\begin{prop} (todo operador positivo tem uma única raiz quadrada positiva).
+    Todo operador positivo \(T \in \mathcal{L}(V)\) tem uma única raiz quadrada positiva \(\sqrt{T}\).
+\end{prop}
+
+\begin{prop} (\(T\) positivo e \(\langle Tv, v \rangle = 0 \implies Tv = 0\)).
+    Suponha que \(T\) é um operador positivo em \(V\) e \(v \in V\) tal que \(\langle Tv, v \rangle = 0\). Então \(Tv = 0\).
+\end{prop}
 
 \section{Operadores em Espaços Vetoriais Complexos}
+
+\subsection{Autovetores Generalizados e Operadores Nilpotentes}
+
+\subsection{Decomposição de Autoespaços Generalizados}
+
+\subsection{Consequências da Decomposição de Autoespaços Generalizados}
+
 \section{Álgebra Multilinear e Determinantes}
 
 \end{document}

@@ -1,9 +1,8 @@
-\documentclass[12pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsfonts}
+\documentclass{article}
+\usepackage{fontspec}
+\setmainfont{Libertinus Serif}
 \usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
 \usepackage[portuguese]{babel}
 
 \DeclareMathOperator{\im}{im}
@@ -23,7 +22,13 @@
 
 \begin{enumerate}
     \item [\textbf{E1}]
-    \item [\textbf{E2}]
+    \item [\textbf{E2}] Escreve \(v = \langle v, u_1 \rangle u_1 + \cdots + \langle v, u_n \rangle u_m\) e \(w = \langle w, u_1 \rangle u_1 + \cdots + \langle w, u_m \rangle u_m\). Então,
+    \[
+        \langle v, w \rangle = \left\langle \sum_{i=1}^m \langle v, u_i \rangle u_i, \sum_{j=1}^m \langle w, u_j \rangle u_j \right\rangle = \sum_{i=1}^m \sum_{j=1}^m \langle v, u_i \rangle \overline{\langle w, u_j \rangle} \langle u_i, u_j \rangle.
+    \] Como \(\{u_1, \ldots, u_n\}\) é ortonormal, \(\langle u_i, u_j \rangle = 0\) se \(i \neq j\) e \(\langle u_i, u_i \rangle = 1\). Portanto,
+    \[
+        \langle v, w \rangle = \sum_{i=1}^n \langle v, u_i \rangle \overline{\langle w, u_i \rangle}.
+    \]
     \item [\textbf{E3}]
     \item [\textbf{E4}]
     \item [\textbf{E5}]
