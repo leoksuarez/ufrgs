@@ -305,7 +305,7 @@
 \begin{defn} (séries de Fourier para funções pares/ímpares).
     \begin{enumerate}
         \item[(i)] A série de Fourier de uma função par \(f\) definida no intervalo \((-p,p)\) é a \textbf{série em cossenos}
-        \begin{equation}
+        \begin{equation} \label{eq:fourier-cos}
             f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} a_n \cos\left(\frac{n\pi x}{p}\right),
         \end{equation}
         \noindent onde 
@@ -314,9 +314,9 @@
             a_n &= \frac{2}{p} \int_{0}^{p} f(x) \cos\left(\frac{n\pi x}{p}\right) \, dx.
         \end{align}
         \item[(ii)] A série de Fourier de uma função ímpar \(f\) definida no intervalo \((-p,p)\) é a \textbf{série em senos}
-        \begin{equation}
+        \begin{equation} \label{eq:fourier-sin}
             f(x) = \sum_{n=1}^{\infty} b_n \sin\left(\frac{n\pi x}{p}\right),
-        \end{equation}
+        \end{equation},
         \noindent onde
         \begin{equation}
             b_n = \frac{2}{p} \int_{0}^{p} f(x) \sin\left(\frac{n\pi x}{p}\right) \, dx.
@@ -475,11 +475,122 @@
     \end{itemize}
 \end{rem}
 
+No método de separação de variáveis (ou método de Fourier), assumimos que uma solução particular da EDP pode ser escrita como o produto de funções, cada uma dependendo de uma única variável. Por exemplo, para a equação do calor unidimensional \eqref{eq:calor-1d}, assumimos uma solução da forma \(u(x,t) = X(x)T(t)\). Substituindo essa forma na EDP e separando as variáveis, obtemos duas EDOs que podem ser resolvidas individualmente.
+
+Em problemas de valor de contorno homogêneos, as condições de contorno de uma das EDOs geralmente levam a um problema de Sturm-Liouville na variável espacial, cujas soluções fornecem os autovalores e autovetores necessários para construir a solução geral da EDP original. Encontrados os autovalores, substituímos na outra EDO para determinar a solução temporal (ou a outra solução espacial, dependendo do problema). As outras condições iniciais (ou de contorno), permitem determinar os coeficientes da série que compõe a solução geral. A solução final é então expressa como uma série infinita de funções baseadas nos autovetores encontrados.
+
+Para PVCs não homogêneos envolvendo as equações do calor \eqref{eq:calor-1d} e da onda \eqref{eq:onda-1d}, consideramos duas situações. Primeiro, para resolver um PVC com uma equação não homogênea independente do tempo e condições de contorno independentes do tempo, como 
+    \begin{align}
+        &k u_{xx} = f(x), \quad 0 < x < L, t > 0 \\
+        & u(0, t) = u_0, u(L, t) = u_1, \quad t > 0 \\
+        & u(x, 0) = f(x), \quad 0 < x < L,
+    \end{align}
+    \noindent onde \(u_0\) e \(u_1\) são constantes, podemos dividir o problema em dois problemas: um problema estacionário (independente do tempo) e um problema transiente (dependente do tempo). Determinamos a solução geral fazendo a mudança de variável \(u(x,t) = v(x,t) + w(x)\), onde \(w(x)\) é a solução do problema estacionário e \(v(x,t)\) é a solução do problema transiente com condições de contorno homogêneas.
+
+Em segundo lugar, para resolver um PVC com uma equação não homogênea dependente do tempo e condições de contorno homogêneas, como 
+    \begin{align}
+        &k u_{xx} = u_t + g(x,t), \quad 0 < x < L, t > 0 \\
+        & u(0, t) = 0, u(L, t) = 0, \quad t > 0 \\
+        & u(x, 0) = f(x), \quad 0 < x < L,
+    \end{align}
+    \noindent onde \(g(x,t)\) é uma função conhecida, podemos assumir que os coeficientes \(u_n(t)\) e \(g_n(t)\) podem ser determinados tal que ambos \(u(x,t)\) e \(g(x,t)\) possam ser expressos como séries de Fourier em senos \eqref{eq:fourier-sin}:
+    \begin{align}
+        &u(x,t) = \sum_{n=1}^{\infty} u_n(t) \sin\left(\frac{n\pi x}{L}\right), \\
+        &g(x,t) = \sum_{n=1}^{\infty} g_n(t) \sin\left(\frac{n\pi x}{L}\right).
+    \end{align}
+    A ideia é substituir essas séries na EDP original e, em seguida, igualar os coeficientes dos termos correspondentes para obter um conjunto de EDOs para os coeficientes \(u_n(t)\). Cada EDO pode ser resolvida individualmente, e a solução geral do PVC é então dada pela soma das soluções individuais.
+
+No caso da equação de Laplace \eqref{eq:laplace-2d}, em que precisamos determinar a temperatura estacionária numa placa retangular, por exemplo, podemos separar o problema não homogêneo em dois problemas homogêneos em cada direção, resolvendo cada um deles com o método de separação de variáveis e, em seguida, combinando as soluções para obter a solução geral do problema original.
+
+Com essa abordagem, podemos \emph{às vezes} transformar uma EDP em um conjunto de EDOs, que são mais fáceis de resolver. No entanto, é importante notar que nem todas as EDPs podem ser resolvidas por separação de variáveis, e a aplicabilidade do método depende das condições de contorno e da geometria do domínio.
+
 \section{Problemas de Valor de Contorno em Outros Sistemas de Coordenadas}
 
 \subsection{Coordenadas Polares}
+
+Consideramos o problema de determinar a temperatura \(u(r, \theta)\) em uma placa circular. Modelamos a distribuição de temperatura usando a equação de Laplace em coordenadas polares \((r, \theta)\), onde \(r\) é a distância radial do centro da placa e \(\theta\) é o ângulo medido a partir de um eixo fixo.
+
+A equação de Laplace em coordenadas polares é
+    \begin{equation}
+        \frac{\partial^2 u}{\partial r^2} + \frac{1}{r} \frac{\partial u}{\partial r} + \frac{1}{r^2} \frac{\partial^2 u}{\partial \theta^2} = 0.
+    \end{equation}
+
+Para encontrar soluções por separação de variáveis, assumimos uma solução da forma \(u(r,\theta) = R(r)\Theta(\theta)\). Substituindo essa forma na equação de Laplace e separando as variáveis, obtemos duas EDOs:
+    \begin{align}
+        r^2 R''(r) + r R'(r) - \lambda R(r) &= 0, \\
+        \Theta''(\theta) + \lambda \Theta(\theta) &= 0,
+    \end{align}
+onde \(\lambda\) é uma constante de separação. Observe que a primeira equação é uma equação de Cauchy-Euler.
+
+\begin{rem}
+    O laplaciano de \(u\) em coordenadas polares é dado por
+    \begin{equation}
+        \nabla^2 u = \frac{\partial^2 u}{\partial r^2} + \frac{1}{r} \frac{\partial u}{\partial r} + \frac{1}{r^2} \frac{\partial^2 u}{\partial \theta^2}.
+    \end{equation}
+\end{rem}
+
 \subsection{Coordenadas Polares e Cilíndricas}
+
+As equações do calor e da onda bidimensionais em coordenadas retangulares
+\begin{align}
+    &k\left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right) = \frac{\partial u}{\partial t}, \quad k>0, \\
+    &a^2\left(\frac{\partial^2 u}{\partial x^2} + \frac{\partial^2 u}{\partial y^2}\right) = \frac{\partial^2 u}{\partial t^2},
+\end{align}
+
+\noindent podem ser reescritas em coordenadas polares \((r, \theta)\) como
+
+\begin{align}
+    &k\left(\frac{\partial^2 u}{\partial r^2} + \frac{1}{r} \frac{\partial u}{\partial r} + \frac{1}{r^2} \frac{\partial^2 u}{\partial \theta^2}\right) = \frac{\partial u}{\partial t}, \quad k>0, \\
+    &a^2\left(\frac{\partial^2 u}{\partial r^2} + \frac{1}{r} \frac{\partial u}{\partial r} + \frac{1}{r^2} \frac{\partial^2 u}{\partial \theta^2}\right) = \frac{\partial^2 u}{\partial t^2},
+\end{align}
+
+\noindent onde \(u(r, \theta, t)\). Se considerarmos apenas problemas que possuem \textbf{simetria radial}, as equações acima tomam a forma
+
+\begin{align}
+    &k\left(\frac{\partial^2 u}{\partial r^2} + \frac{1}{r} \frac{\partial u}{\partial r}\right) = \frac{\partial u}{\partial t}, \quad k>0, \\
+    &a^2\left(\frac{\partial^2 u}{\partial r^2} + \frac{1}{r} \frac{\partial u}{\partial r}\right) = \frac{\partial^2 u}{\partial t^2},
+\end{align}
+
+\noindent onde \(u(r,t)\).
+
+Primeiro, consideramos o problema de determinar o deslocamento \(u(r,t)\) de uma membrana circular vibrante com simetria radial. Modelamos a situação com a equação da onda em coordenadas cilíndricas \((r, \theta, z)\).
+    \begin{align}
+        &r^2 R''(r) + r R'(r) + \left(\frac{\lambda r^2}{a^2}\right) R(r) = 0, \\
+        &T''(t) + \lambda T(t) = 0,
+    \end{align}
+
+\noindent nota que a primeira equação é a equação paramétrica de Bessel de ordem zero \eqref{eq:bessel}.
+
+Agora, tomamos o problema de encontrar a temperatura estacionária \(u(r,z)\) em um cilindro circular. Modelamos a situação com a equação de Laplace em coordenadas cilíndricas \((r, \theta, z)\), onde \(r\) é a distância radial do eixo do cilindro, \(\theta\) é o ângulo azimutal (medido no plano \(xy\)) e \(z\) é a coordenada ao longo do eixo do cilindro. Supondo \(u = R(r)Z(z)\), a EDP se separa em 
+    \begin{align}
+        &r^2 R''(r) + r R'(r) - \mu^2 r^2 R(r) = 0, \\
+        &Z''(z) - \mu^2 Z(z) = 0,
+    \end{align}
+\noindent onde \(\mu\) é uma constante de separação. Veja que a primeira equação é a equação paramétrica de Bessel de ordem zero \eqref{eq:bessel}.
+
+\begin{rem}
+    O laplaciano de \(u\) em coordenadas cilíndricas é dado por
+    \begin{equation}
+        \nabla^2 u = \frac{\partial^2 u}{\partial r^2} + \frac{1}{r} \frac{\partial u}{\partial r} + \frac{1}{r^2} \frac{\partial^2 u}{\partial \theta^2} + \frac{\partial^2 u}{\partial z^2}.
+    \end{equation}
+\end{rem}
+
 \subsection{Coordenadas Esféricas}
+
+Dado o problema de encontrar a temperatura estacionária \(u(r, \theta)\) no interior de uma esfera, modelamos a situação com a equação de Laplace em coordenadas esféricas \((r, \theta, \phi)\), onde \(r\) é a distância radial do centro da esfera, \(\theta\) é o ângulo polar (medido a partir do eixo \(z\)) e \(\phi\) é o ângulo azimutal (medido no plano \(xy\)). Supondo \(u = R(r)\Theta(\theta)\), a EDP se separa em 
+    \begin{align}
+        &r^2 R''(r) + 2r R'(r) - n(n+1) R(r) = 0, \\
+        &\sin\theta \frac{d}{d\theta}\left(\sin\theta \frac{d\Theta}{d\theta}\right) + n(n+1) \sin^2\theta \Theta(\theta) = 0,
+    \end{align}
+
+\noindent onde \(n\) é uma constante de separação. Note que a primeira equação é uma equação de Cauchy-Euler e a segunda é a equação de Legendre \eqref{eq:legendre}.
+
+\begin{rem}
+    O laplaciano de \(u\) em coordenadas esféricas é dado por
+    \begin{equation}
+        \nabla^2 u = \frac{1}{r^2} \frac{\partial}{\partial r}\left(r^2 \frac{\partial u}{\partial r}\right) + \frac{1}{r^2 \sin\theta} \frac{\partial}{\partial \theta}\left(\sin\theta \frac{\partial u}{\partial \theta}\right) + \frac{1}{r^2 \sin^2\theta} \frac{\partial^2 u}{\partial \phi^2}.
+    \end{equation}
+\end{rem}
 
 \section{Transformadas Integrais}
 
@@ -630,8 +741,8 @@
 
     Se \(f\) e \(f'\) são contínuas, \(f\) é absolutamente integrável em \((0, \infty)\), e \(f''\) é contínua por partes em todo intervalo finito, então:
     \begin{enumerate}
-        \item [\textup{(a)}] \(\mathcal{F}_s\{f''(x)\} = -\alpha^2 \widehat{f}_c(\alpha) + \alpha f(0)\).
-        \item [\textup{(b)}] \(\mathcal{F}_c\{f''(x)\} = \alpha^2 \widehat{f}_s(\alpha) - f'(0)\).
+        \item [\textup{(a)}] \(\mathcal{F}_s\{f''(x)\} = -\alpha^2 \widehat{f}(\alpha) + \alpha f(0)\).
+        \item [\textup{(b)}] \(\mathcal{F}_c\{f''(x)\} = -\alpha^2 \widehat{f}(\alpha) - f'(0)\).
     \end{enumerate}
 \end{res}
 
