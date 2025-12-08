@@ -23,22 +23,57 @@
 
 \begin{enumerate}
     \item [\textbf{E1}]
+        Lista oito números da forma \(2525...25\). Como são oito números, pelo menos dois deles terão o mesmo resto quando divididos por \(7\). Então, a diferença entre eles é divisível por \(7\). Mas essa diferença é da forma \(25...25...000 = 25...25...10^{2k}\), como \(7\) não divide \(10^{2k}\), \(7\) deve dividir \(25...25\).
+        Aplica esse raciocínio indefinidamente e conclui que \(7\) divide infinitos números da forma \(2525...25\). \qed
     \item [\textbf{E2}]
-        Como as notas da prova variam de 0 a 10, com apenas uma casa decimal, temos 100 notas possíveis (de 0.0 até 10.0). Então, precisamos de pelo menos 101 estudantes para que pelo menos dois deles tirem notas iguais. \qed
+        Como as notas da prova variam de \(0\) a \(10\), com apenas uma casa decimal, temos \(100\) notas possíveis (de \(0.0\) até \(10.0\)). Então, precisamos de pelo menos \(101\) estudantes para que pelo menos dois deles tirem notas iguais. \qed
     \item [\textbf{E3}]
-        Nota que há 164 numerações possíveis entre 100 e 263, inclusive. Podemos, então, numerar no máximo 82 casas de modo que não existam casas com números consecutivos. Como \(83 > 82\), pelo PCP, ao menos duas casas terão números consecutivos. \qed
+        Nota que há \(164\) numerações possíveis entre \(100\) e \(263\), inclusive. Podemos, então, numerar no máximo \(82\) casas de modo que não existam casas com números consecutivos. Como \(83 > 82\), pelo PCP, ao menos duas casas terão números consecutivos. \qed
     \item [\textbf{E4}]
-        Seja \(G = (N, A)\) um grafo simples com \(|N(G)| = n\), \(|N(G)| \geq 2\). Dado \(v \in V(G)\), temos que \(0 \leq d_G(v) \leq n-1\).
-        No entanto, perceba que as situações \(d_G(V) = 0\) e \(d_G(V) = n-1\) são mutuamente exclusivas, pois se há vértice desconectado em \(G\), não há vértice conectado a todos os outros vértices. Logo, existem \(n-1\) opções possíveis para \(d_G(v)\).
+        Seja \(G = (V, A)\) um grafo simples com \(n \geq 2\) vértices. Dado \(v \in V(G)\), temos que \(0 \leq d(v) \leq n-1\), pois \(G\) não possui laços nem arestas múltiplas.
+        No entanto, perceba que as situações \(d(v) = 0\) e \(d(v) = n-1\) são mutuamente exclusivas, pois se há vértice desconectado em \(G\), não há vértice conectado a todos os outros vértices. Logo, existem \(n-1\) opções possíveis para \(d(v)\).
         Se distribuirmos \(n\) vértices (pombos) em \(n-1\) graus possíveis (gaiolas), vemos que pelo menos dois vértices terão o mesmo grau. \qed    
-    \item [\textbf{E5}]
-    \item [\textbf{E6}] Seja \(G=(N,A)\) uma árvore com pelo menos dois vértices. Tome um caminho maximal não trivial e sejam \(u\) e \(v\) suas extremidades (este caminho existe porque o grafo possui um número finito de vértices). 
-    Da definição de caminho, é claro que \(d(u)\), \(d(v) \neq 0\). Ainda, se \(d(u), d(v) > 1\), haveria duas possibilidades: ou \(u\) e \(v\) são adjacentes a vértices que não estão no caminho, ou \(u\) e \(v\) são adjacentes a vértices que já estão no caminho.
-    No entanto, a primeira possibilidade contradiz o fato de o caminho ser maximal, enquanto que a segunda contradiz o fato de \(G\) ser um grafo acíclico. Logo, \(d(u)=d(v)=1\). \qed
+    \item [\textbf{E5}] 
+        A primeira sequência não forma um grafo simples porque contém \(9\) elementos, logo o grau máximo de um vértice é \(8\) (grafos simples não contêm laços nem arestas múltiplas). Já a segunda sequência possui soma \(41\), o que não permite construir um grafo, pois a soma dos graus de qualquer grafo é um número par, igual a duas vezes o número de arestas.
+    \item [\textbf{E6}] 
+        Seja \(G=(V,A)\) uma árvore com pelo menos dois vértices. Tome um caminho maximal não trivial e sejam \(u\) e \(v\) suas extremidades (este caminho existe porque o grafo possui um número finito de vértices). 
+        Da definição de caminho, é claro que \(d(u)\) e \(d(v) \neq 0\). Ainda, se \(d(u)\) e \(d(v) > 1\), haveria duas possibilidades: ou \(u\) e \(v\) são adjacentes a vértices que não estão no caminho, ou \(u\) e \(v\) são adjacentes a vértices que já estão no caminho.
+        No entanto, a primeira possibilidade contradiz o fato de o caminho ser maximal, enquanto que a segunda contradiz o fato de \(G\) ser um grafo acíclico. Logo, \(d(u)\) ou \(d(v)=1\). \qed
     \item [\textbf{E7}]
-    \item [\textbf{E8}]
+        \begin{enumerate}
+            \item [(a)] Provamos por indução no número de vértices. Seja \(n\) o número de vértices de uma árvore \(T\). É claro que para \(n=1\), a árvore \(K_1\) é um grafo bipartido. Suponha que toda árvore com \(n-1\) vértices seja um grafo bipartido. Seja \(T\) uma árvore com \(n\) vértices e tome um vértice \(v\) de grau um. 
+                É evidente \(T-v\) ainda é uma árvore, pois a retirada de uma folha não cria ciclos nem desconecta o grafo (caso contrário \(v\) teria grau maior que um). Pela hipótese de indução, \(T-v\) é um grafo bipartido. Denota \(X\) e \(Y\) seus dois conjuntos estáveis e \(u\) o vizinho de \(v\). Se \(u \in X\), então \(X, Y \cup \{v\}\) é uma bipartição de \(T\). Se \(u \in Y\), então \(X \cup \{v\}, Y\) é uma bipartição de \(T\). Em ambos os casos, \(T\) é um grafo bipartido. \qed
+            \item [(b)] Dado que árvores são grafos acíclicos, as árvores que são grafos bipartidos completos são grafos do tipo \(K_{1,n}\) ou \(K_{m,1}\), pois o acréscimo de um vértice ao conjunto de cardinalidade \(1\) criaria um ciclo.
+        \end{enumerate}
+    \item [\textbf{E8}] 
+        Seja \(G\) um grafo conexo planar com \(n\) vértices. Suponha, por absurdo, que \(d(v) > 5\) para todo \(v \in V(G)\). Então, segue que 
+        \[
+            6n \leq \sum_{v \in V(G)} d(v) = 2m
+        \]
+        \noindent mas sabemos que para grafos conexos planares vale \(m \leq 3n-6\), então vem 
+        \[
+            6n \leq 2(3n-6) = 6n-12
+        \]
+        \noindent o que é uma contradição. \qed
     \item [\textbf{E9}]
+        Seja \(G\) um grafo conexo planar com \(n \leq 11\) vértices. Suponha, por absurdo, que \(d(v) > 4\) para todo \(v \in V(G)\). Escreve 
+        \[
+            5n \leq \sum_{v \in V(G)} d(v) = 2m
+        \]
+        \noindent e usa a desigualdade \(m \leq 3n-6\) para grafos conexos planares
+        \[
+            5n \leq 2(3n-6) = 6n - 12
+        \]
+        \noindent mas \(n \leq 11\), então fica
+        \[
+            55 \leq 54
+        \]
+        \noindent o que é uma contradição. \qed
     \item [\textbf{E10}]
+        \begin{enumerate}
+            \item [(a)] Seja \(G\) um grafo simples com \(n=5\) vértices. Nota que o grafo desconexo com o maior número de arestas possui \(\displaystyle\frac{1}{2}(4\cdot3)\) arestas, pois quatro vértices estariam todos conectados dois a dois e um vértice estaria desconectado do grafo. Logo, o acréscimo de uma aresta só teria como opção conectar o vértice isolado. \qed
+            \item [(b)] Pelo mesmo raciocínio do item anterior, temos que para todo grafo com \(n\) vértices, o menor número de arestas que garante a conexidade do grafo é \(\displaystyle\frac{1}{2}(n-1)(n-2)+1\). \qed
+        \end{enumerate}
 \end{enumerate}
 
 \end{document}

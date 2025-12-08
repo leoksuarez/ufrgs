@@ -343,7 +343,7 @@ A função geradora exponencial é útil quando estamos interessados em contar o
 
 \subsection{Conceitos Fundamentais}
 
-\begin{defn}
+\begin{defn} (grafo).
     Um \emph{grafo} G é um tripla que consiste em um \emph{conjunto de vértices} \(V(G)\), um \emph{conjunto de arcos} \(E(G)\), e uma relação que associa a cada arco dois vértices (não necessariamente distintos), chamados de \emph{extremidades} do arco.
 \end{defn}
 
@@ -357,11 +357,30 @@ A função geradora exponencial é útil quando estamos interessados em contar o
 
 \begin{defn} (complemento, clique, conjunto independente).
     O \emph{complemento} \(\overline{G}\) de um grafo simples \(G\) é o grafo simples com conjunto de vértices \(V(G)\) definido por \(uv \in E(\overline{G})\) sse \(uv \notin E(G)\).
-    Um \emph{clique} em um grafo é um conjunto de vértices adjacentes dois a dois. Um \emph{conjunto independente} (ou \emph{conjunto estável}) num grafo é o conjunto de vértices não adjacentes.
+    Uma \emph{clique} ou \emph{conjunto completo} em um grafo é um conjunto de vértices adjacentes dois a dois. Em outras palavras, \(X\) é uma clique se o grafo induzido \(G[X]\) é completo.
+    Um \emph{conjunto independente} (ou \emph{conjunto estável}) num grafo é o conjunto de vértices não adjacentes.
+
+    A cardinalidade de uma clique máxima de um grafo \(G\) é denotada por \(\omega(G)\) e a cardinalidade de um conjunto independente máximo é denotada por \(\alpha(G)\).
 \end{defn}
+
+\begin{rem}
+    Um conjunto \(X\) de vértices é uma clique em \(G\) sse \(X\) é estável em \(\overline{G}\). Segue que \(\omega(G) = \alpha(\overline{G})\).
+\end{rem}
+
+\begin{defn} (cobertura).
+    Uma \emph{cobertura} de um grafo é qualquer conjunto de vértices que contenha pelo menos uma das pontas de cada arco. Em outras palavras, um conjunto \(X\) de vértices é uma cobertura se toda aresta do grafo tem pelo menos uma de suas pontas em \(X\). A cardinalidade de uma cobertura mínima de um grafo \(G\) é denotada por \(\beta(G)\).
+\end{defn}
+
+\begin{rem}
+    Em qualquer grafo \(G\), um conjunto \(X\) de vértices é uma cobertura sse \(V(G) \setminus X\) é um conjunto estável. Segue imediatamente que \(\beta(G) = n(G) - \alpha(G)\).
+\end{rem}
 
 \begin{defn} (bipartido).
     Um grafo \(G\) é \emph{bipartido} se \(V(G)\) é a união de dois conjuntos independentes disjuntos (possivelmente vazios) chamados de \emph{conjuntos partidos} de \(G\).
+\end{defn}
+
+\begin{defn} (grafo completo, grafo bipartido completo).
+    Os caminhos e ciclos (não rotulados) com \(n\) vértices são denotados por \(P_n\) e \(C_n\), respectivamente. O \emph{grafo completo} com \(n\) vértices, denotado por \(K_n\), é o grafo simples em que cada par de vértices é adjacente. O \emph{grafo bipartido completo} ou \emph{biclique} \(K_{m,n}\) é o grafo bipartido simples cujos conjuntos partidos têm cardinalidades \(m\) e \(n\), respectivamente, e em que cada vértice de um conjunto partido é adjacente a todos os vértices do outro conjunto partido.
 \end{defn}
 
 \begin{defn} (caminho e ciclo).
@@ -373,7 +392,7 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     Um grafo \(G\) é bipartido sse não contém ciclos de comprimento ímpar.
 \end{thm}
 
-\begin{defn}
+\begin{defn} (subgrafo, conexidade).
     Um \emph{subgrafo} de um grafo \(G\) é um grafo \(H\) tal que \(V(H) \subset V(G)\) e \(E(H) \subset E(G)\) e a atribuição de arcos a vértices em \(H\) é a mesma que em \(G\).
     Então escrevemos \(H \subset G\) e dizemos que ``\(G\) contém \(H\)''.
     
@@ -399,12 +418,8 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     A relação de isomorfismo é uma relação de equivalência entre grafos simples.
 \end{prop}
 
-\begin{defn} 
+\begin{defn} (classe de isomorfismo).
     Uma \emph{classe de isomorfismo} de grafos é uma classe de equivalência de grafos sob a relação de isomorfismo.
-\end{defn}
-
-\begin{defn} 
-    Os caminhos e ciclos (não rotulados) com \(n\) vértices são denotados por \(P_n\) e \(C_n\), respectivamente. O \emph{grafo completo} com \(n\) vértices, denotado por \(K_n\), é o grafo simples em que cada par de vértices é adjacente. O \emph{grafo bipartido completo} ou \emph{biclique} \(K_{m,n}\) é o grafo bipartido simples cujos conjuntos partidos têm cardinalidades \(m\) e \(n\), respectivamente, e em que cada vértice de um conjunto partido é adjacente a todos os vértices do outro conjunto partido.
 \end{defn}
 
 \begin{defn} (grau, grau máximo, grau mínimo, regularidade, vizinhança).
@@ -415,13 +430,13 @@ A função geradora exponencial é útil quando estamos interessados em contar o
 \begin{lem} (lema dos apertos de mão).
     Dado um grafo \(G\), temos 
     \begin{equation}
-        \sum_{v \in V(G)} d(v) = 2|E(G)|,
+        \sum_{v \in V(G)} d(v) = 2 m(G),
     \end{equation}
-    \noindent onde \(|E(G)|\) é o número de arcos em \(G\).
+    \noindent onde \(m(G)\) é o número de arestas em \(G\).
 \end{lem}
 
 \begin{cor}
-    Em um grafo \(G\), o vértice médio tem grau \(\displaystyle \frac{2|E(G)|}{|V(G)|}\) e então \(\delta(G) \leq \displaystyle \frac{2|E(G)|}{|V(G)|} \leq \Delta(G)\), onde \(|V(G)|\) é o número de vértices em \(G\).
+    Em um grafo \(G\), o vértice médio tem grau \(\displaystyle \frac{2 m(G)}{n(G)}\) e então \(\delta(G) \leq \displaystyle \frac{2 m(G)}{n(G)} \leq \Delta(G)\), onde \(n(G)\) é o número de vértices em \(G\).
 \end{cor}
 
 \begin{cor}
@@ -432,7 +447,7 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     Um grafo \(k\)-regular com \(n\) vértices possui \(\displaystyle \frac{kn}{2}\) arcos.
 \end{cor}
 
-\begin{defn}
+\begin{defn} (sequência de graus).
     A \emph{sequência de graus} de um grafo \(G\) é a lista dos graus de seus vértices em ordem não crescente, como \(d_1 \leq \cdots \leq d_n\).
 \end{defn}
 
@@ -486,6 +501,10 @@ A função geradora exponencial é útil quando estamos interessados em contar o
 \end{thm}
 
 \subsection{Planaridade}
+
+\begin{defn} (grafo planar).
+    Um grafo é dito \emph{planar} se pode ser desenhado no plano de modo que suas arestas se cruzem apenas nos vértices.
+\end{defn}
 
 \begin{thm} (Euler).
     Seja \(G = (N, A)\) um grafo planar, \(n\) e \(m\) a cardinalidade de \(N\) e \(A\), respectivamente, \(p\) o número de componentes conexas de \(G\) e \(f\) o número de faces de uma realização planar de \(G\). Então 
@@ -551,7 +570,55 @@ A função geradora exponencial é útil quando estamos interessados em contar o
 \end{thm}
 
 \begin{thm}
+    Para todo grafo \(G\), tem-se \(\chi(G) \geq \displaystyle \frac{n(G)}{\alpha(G)}\), onde \(n(G)\) é o número de vértices de \(G\) e \(\alpha(G)\) é a cardinalidade de um conjunto independente máximo em \(G\).
+\end{thm}
+
+\begin{thm}
+    Para todo grafo \(G\), tem-se \(\chi(G) \geq \omega(G)\), onde \(\omega(G)\) é a cardinalidade de uma clique máxima em \(G\).
+\end{thm}
+
+\begin{thm}
     Um grafo \(G\) é bipartido sse \(\chi(G) = 2\).
+\end{thm}
+
+\begin{defn} (emparelhamento de arestas).
+    Duas arestas de um grafo \(G\) são \emph{adjacentes} se têm uma extremidade comum. Um \emph{emparelhamento} num grafo é um conjunto de arestas duas a duas não adjacentes. Em outras palavras, um emparelhamento é um conjunto \(E\) de arestas tal que \(\vert E \cap \Delta(v) \vert \leq 1\) para todo vértice \(v\), onde \(\Delta(v)\) é o conjunto de arestas incidentes a \(v\).
+\end{defn}
+
+\begin{defn} (emparelhamento maximal e máximo).
+    Um emparelhamento \(E\) é \emph{maximal} se não existe emparelhamento \(F\) tal que \(E \subset F\). Um emparelhamento \(E\) é \emph{máximo} se \(\vert E \vert \geq \vert F \vert\) para todo emparelhamento \(F\). Denota-se por
+    \[
+        \alpha'(G)
+    \]
+\noindent a cardinalidade de um emparelhamento máximo em um grafo \(G\).
+\end{defn}
+
+\begin{defn} (emparelhamento perfeito).
+    Um emparelhamento \(E\) em um grafo \(G\) é \emph{perfeito} se satura \(V(G)\). Dizemos que um emparelhamento \emph{satura} um conjunto de vértices se satura cada vértice do conjunto e dizemos que um emparelhamento \(E\) \emph{satura} um vértice \(v\) se \(\Delta(v) \cap E \neq \emptyset\).
+\end{defn}
+
+\begin{thm}
+    Em qualquer grafo \(G\), tem-se \(\alpha'(G) \leq \beta(G)\).
+\end{thm}
+
+\begin{defn} (coloração de arestas).
+    Uma coloração de arestas de um grafo \(G\) é uma partição de \(E(G)\) em emparelhamentos. Se \(\{E_1, \ldots, E_k\}\) é uma coloração das arestas de \(G\), diremos que cada \(E_i\) é uma \emph{cor} da coloração e \(k\) é o \emph{número de cores}.
+\end{defn}
+
+\begin{defn} (número cromático de arestas).
+    Uma coloração de arestas é \emph{mínima} se o número de cores é o menor possível. O \emph{número cromático de arestas} de um grafo \(G\), denotado por \(\chi'(G)\), é o número de cores em uma coloração mínima de \(G\).
+\end{defn}
+
+\begin{thm}
+    Em todo grafo \(G\), tem-se \(\chi'(G) \geq \Delta(G)\).
+\end{thm}
+
+\begin{thm}
+    Para todo grafo bipartido \(G\), tem-se \(\chi'(G) \leq \Delta(G)\).
+\end{thm}
+
+\begin{thm} (Vizing).
+    Em todo grafo \(G\), tem-se \(\chi'(G) \leq \Delta(G) + 1\).
 \end{thm}
 
 \end{document}
