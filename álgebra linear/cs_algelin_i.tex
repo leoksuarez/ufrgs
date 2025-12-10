@@ -471,6 +471,20 @@ When these statements are true, the least-squares solution \(\hat{\textbf{x}}\) 
     An \(n\times n\) matrix \(A\) is orthogonally diagonalizable iff \(A\) is a symmetric matrix.
 \end{thm}
 
+\begin{thm} (the spectral theorem).
+    An \(n \times n\) symmetric matrix \(A\) has the following properties:
+    \begin{enumerate}
+        \item[a.] \(A\) has \(n\) real eigenvalues, counting multiplicities.
+        \item[b.] For each eigenvalue, the dimension of the eigenspace equals the multiplicity of the eigenvalue.
+        \item[c.] The eigenspaces are mutually orthogonal, in the sense that eigenvectors corresponding to different eigenvalues are orthogonal.
+        \item[d.] \(A\) is orthogonally diagonalizable; that is, there is an orthogonal matrix \(P\) such that \(P^TAP\) is a diagonal matrix.
+    \end{enumerate}
+\end{thm}
+
+\begin{rem}
+    A matrix \(P\) is orthogonal iff its columns form an orthonormal basis of \(\mathbb{R}^n\). This is equivalent to the condition that \(P^{-1}=P^T\).
+\end{rem}
+
 \begin{thm} (the pricipal axes theorem).
     Let \(A\) be an \(n\times n\) symmetric matrix. Then there is an orthogonal change of variable, \(\textbf{x}=P\textbf{y}\), that transforms the quadratic form \(\textbf{x}^TA\textbf{x}\) into a quadratic form \(\textbf{y}^TD\textbf{y}\) with no cross-product term.
 \end{thm}
@@ -490,6 +504,14 @@ When these statements are true, the least-squares solution \(\hat{\textbf{x}}\) 
 
 \begin{thm}
     Let \(A\), \(\lambda_1\), and \(\textbf{u}_1\) be as in Theorem 6. Then the maximum value of \(\textbf{x}^TA\textbf{x}\) subject to the constraints \[\textbf{x}^T\textbf{x}=1,\quad\textbf{x}^T\textbf{u}_1=0\] is the second greatest eigenvalue, \(\lambda_2\), and this maximum value is attained when \(\textbf{x}\) is an eigenvector \(\textbf{u}_2\) corresponding to \(\lambda_2\).
+\end{thm}
+
+\begin{thm}
+    Let \(A\) be a symmetric \(n \times n\) matrix with orthogonal diagonalization \(A = PDP^{-1}\), where the entries on the diagonal of \(D\) are \(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n\) and where the columns of \(P\) are the corresponding orthonormal eigenvectors \(\textbf{u}_1, \textbf{u}_2, \ldots, \textbf{u}_n\). Then, for \(k = 2, \ldots, n\), the maximum value of \(\textbf{x}^T A \textbf{x}\) subject to the constraints
+    \[
+    \textbf{x}^T \textbf{x} = 1, \quad \textbf{x}^T \textbf{u}_1 = 0, \quad \ldots, \quad \textbf{x}^T \textbf{u}_{k-1} = 0
+    \]
+    is the eigenvalue \(\lambda_k\), and this maximum value is attained at \(\textbf{x} = \textbf{u}_k\).
 \end{thm}
 
 \end{document}
