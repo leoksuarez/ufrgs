@@ -1,5 +1,7 @@
 \documentclass{article}
 \usepackage{fontspec}
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
 \setmainfont{Libertinus Serif}
 \usepackage[a4paper, margin=1in]{geometry}
 \usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
@@ -25,14 +27,6 @@
 \DeclareMathOperator{\im}{im}
 \DeclareMathOperator{\spn}{span}
 
-\geometry{
- a4paper,
- left=3cm,
- top=2cm,
- right=2cm,
- bottom=2cm
-}
-
 \begin{document}
 \begin{center}
     \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
@@ -53,6 +47,8 @@
 \newpage
 \tableofcontents
 \newpage
+
+\begin{multicols}{2}
 
 \section{Espaços Vetoriais}
 
@@ -242,17 +238,17 @@
     Se \(V\) é um espaço vetorial de dimensão finita e \(U\) é um subespaço de \(V\), então \(\dim(U) \leq \dim(V)\).
 \end{prop}
 
-\begin{prop}
+\begin{thm}
     Se \(V\) é um espaço vetorial de dimensão finita, então toda lista linearmente independente de vetores em \(V\) com tamanho igual a \(\dim(V)\) é uma base de \(V\).
-\end{prop}
+\end{thm}
 
 \begin{cor}
     Se \(V\) é um espaço vetorial de dimensão finita, então todo subespaço \(U\) de \(V\) com \(\dim(U) = \dim(V)\) é igual a \(V\).
 \end{cor}
 
-\begin{prop}
+\begin{thm}
     Se \(V\) é um espaço vetorial de dimensão finita, então toda lista geradora de vetores em \(V\) com tamanho igual a \(\dim(V)\) é uma base de \(V\).
-\end{prop}
+\end{thm}
 
 \begin{prop} (dimensão de soma).
     Se \(V_1\) e \(V_2\) são subespaços de um espaço vetorial de dimensão finita \(V\), então
@@ -406,10 +402,10 @@
     A \emph{soma de duas matrizes de mesmo tamanho} é a matriz obtida somando as entradas correspondentes:
     \[
         A + B = \begin{bmatrix}
-            A_{11} + B_{11} & A_{12} + B_{12} & \cdots & A_{1n} + B_{1n} \\
-            A_{21} + B_{21} & A_{22} + B_{22} & \cdots & A_{2n} + B_{2n} \\
-            \vdots & \vdots & \ddots & \vdots \\
-            A_{m1} + B_{m1} & A_{m2} + B_{m2} & \cdots & A_{mn} + B_{mn}
+            A_{11} + B_{11} & \cdots & A_{1n} + B_{1n} \\
+            A_{21} + B_{21} & \cdots & A_{2n} + B_{2n} \\
+            \vdots & \ddots & \vdots \\
+            A_{m1} + B_{m1} & \cdots & A_{mn} + B_{mn}
         \end{bmatrix}.
     \]
 \end{defn}
@@ -527,10 +523,7 @@
         \dim V = \dim \ker T + \dim W \\
         \dim \ker T = 0,
     \end{gather} 
-    \noindent o que prova que \(T\) é injetora. Portanto, temos a equivalência 
-    \[
-        T \text{ é invertível } \iff T \text{ é injetora } \iff T \text{ é sobrejetora}.
-    \]
+    \noindent o que prova que \(T\) é injetora. Portanto, temos a equivalência \(T\) é invertível sse \(T\) é injetora sse \(T\) é sobrejetora.
 \end{proof}
 
 \begin{prop}
@@ -822,6 +815,8 @@
     Um \emph{espaço com produto interno} é um par \((V, \langle \cdot, \cdot \rangle)\), onde \(V\) é um espaço vetorial sobre \(\mathbb{F}\) e \(\langle \cdot, \cdot \rangle\) é um produto interno em \(V\).
 \end{defn}
 
+Para os resultados a seguir, seja \(V\) e \(W\) espaços com produto interno sobre \(\mathbb{F}\).
+
 \begin{prop} (propriedades básicas do produto interno).
     \begin{enumerate}
         \item [\textup{(a)}] Para cada \(v \in V\) fixado, a função que toma \(u \in V\) em \(\langle u, v \rangle\) é uma transformação linear em \(V\).
@@ -928,7 +923,7 @@
 \end{defn}
 
 \begin{prop}
-    Seja \(V\) um espaço vetorial de dimensão finita com produto interno. Então toda lista ortonormal de vetores em \(V\) de tamanho \(\dim V\) é uma base ortonormal de \(V\).
+    Seja \(V\) um espaço vetorial de dimensão finita. Então toda lista ortonormal de vetores em \(V\) de tamanho \(\dim V\) é uma base ortonormal de \(V\).
 \end{prop}
 
 \begin{prop} (vetor como combinação linear de uma base ortonormal).
@@ -953,11 +948,11 @@
 \end{thm}
 
 \begin{prop} (existência de base ortonormal).
-    Todo espaço vetorial de dimensão finita com produto interno tem uma base ortonormal.
+    Todo espaço vetorial de dimensão finita tem uma base ortonormal.
 \end{prop}
 
 \begin{cor} (toda lista ortonormal pode ser estendida a uma base ortonormal).
-    Suponha que \(V\) é um espaço vetorial de dimensão finita com produto interno. Então toda lista ortonormal de vetores em \(V\) pode ser estendida a uma base ortonormal de \(V\).
+    Suponha que \(V\) é um espaço vetorial de dimensão finita. Então toda lista ortonormal de vetores em \(V\) pode ser estendida a uma base ortonormal de \(V\).
 \end{cor}
 
 \begin{prop} (matriz triangular-superior com respeito a uma base ortonormal).
@@ -969,7 +964,7 @@
 \end{thm}
 
 \begin{thm} (teorema de representação de Riesz).
-    Suponha que \(V\) é um espaço vetorial de dimensão finita com produto interno e \(\varphi \in V'\). Então existe um único vetor \(v \in V\) tal que
+    Suponha que \(V\) é um espaço vetorial de dimensão finita e \(\varphi \in V'\). Então existe um único vetor \(v \in V\) tal que
     \[
         \varphi(u) = \langle u, v \rangle,
     \]
@@ -996,35 +991,35 @@
 \end{prop}
 
 \begin{prop} (soma direta de um subespaço e seu complemento ortogonal).
-    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita com produto interno \(V\). Então
+    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita \(V\). Então
     \[
         V = U \oplus U^\perp.
     \]
 \end{prop}
 
 \begin{cor} (dimensão do complemento ortogonal).
-    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita com produto interno \(V\). Então
+    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita \(V\). Então
     \[
         \dim U^\perp = \dim V - \dim U.
     \]
 \end{cor}
 
 \begin{cor} (complemento ortogonal do complemento ortogonal).
-    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita com produto interno \(V\). Então
+    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita \(V\). Então
     \[
         (U^\perp)^\perp = U.
     \]
 \end{cor}
 
 \begin{cor} (\(U^\perp = \{0\} \iff U = V\) para \(U\) subespaço de dimensão finita de \(V\)).
-    Suponha que \(U\) é um subespaço de um espaço vetorial de dimensão finita com produto interno \(V\). Então 
+    Suponha que \(U\) é um subespaço de um espaço vetorial de dimensão finita \(V\). Então 
     \[
         U^\perp = \{0\} \iff U = V.
     \]
 \end{cor}
 
 \begin{defn} (projeção ortogonal).
-    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita com produto interno \(V\). A \emph{projeção ortogonal} de \(V\) sobre \(U\) é o operador \(P_U \in \mathcal{L}(V)\) definido por 
+    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita \(V\). A \emph{projeção ortogonal} de \(V\) sobre \(U\) é o operador \(P_U \in \mathcal{L}(V)\) definido por 
     \[
         P_U v = u,
     \]
@@ -1050,7 +1045,7 @@
 \end{prop}
 
 \begin{prop} (minimização da distância a um subespaço).
-    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita com produto interno \(V\), \(v \in V\) e \(u \in U\). Então 
+    Seja \(U\) um subespaço de um espaço vetorial de dimensão finita \(V\), \(v \in V\) e \(u \in U\). Então 
     \begin{equation}
         \| v - P_U v \| \leq \| v - u \|.
     \end{equation}
@@ -1058,6 +1053,8 @@
 \end{prop}
 
 \section{Operadores em Espaços com Produto Interno}
+
+Suponha que \(\mathbb{F}\) seja \(\mathbb{R}\) ou \(\mathbb{C}\) e que \(V\) e \(W\) são espaços vetoriais de dimensão finita com produto interno sobre \(\mathbb{F}\).
 
 \subsection{Operadores Autoadjuntos e Operadores Normais}
 
@@ -1110,9 +1107,10 @@
 
 \begin{prop} (matriz da adjunta é igual à conjugada transposta da matriz).
     Seja \(T \in \mathcal{L}(V, W)\). Se \(e_1, \ldots, e_n\) é uma base ortonormal de \(V\) e \(f_1, \ldots, f_m\) é uma base ortonormal de \(W\), então
-    \[
-        \mathcal{M}(T^*, (f_1, \ldots, f_m), (e_1, \ldots, e_n)) = (\mathcal{M}(T, (e_1, \ldots, e_n), (f_1, \ldots, f_m)))^*.
-    \]
+    \begin{gather}
+        \mathcal{M}(T^*, (f_1, \ldots, f_m), (e_1, \ldots, e_n)) =\\
+        (\mathcal{M}(T, (e_1, \ldots, e_n), (f_1, \ldots, f_m)))^*.
+    \end{gather}
 \end{prop}
 
 \begin{defn} (operador autoadjunto).
@@ -1177,7 +1175,7 @@
 \subsection{Teorema Espectral}
 
 \begin{thm} (teorema espectral sobre \(\mathbb{R}\)).
-    Suponha que \(V\) é um espaço vetorial real de dimensão finita com produto interno e \(T \in \mathcal{L}(V)\). Então as seguintes condições são equivalentes.
+    Suponha que \(\mathbb{F} = \mathbb{R}\) e \(T \in \mathcal{L}(V)\). Então as seguintes condições são equivalentes.
     \begin{enumerate}
         \item[\textup{(a)}] \(T\) é autoadjunto.
         \item[\textup{(b)}] \(V\) tem uma base ortonormal de autovetores de \(T\).
@@ -1186,7 +1184,7 @@
 \end{thm}
 
 \begin{thm} (teorema espectral sobre \(\mathbb{C}\)).
-    Suponha que \(V\) é um espaço vetorial complexo de dimensão finita com produto interno e \(T \in \mathcal{L}(V)\). Então as seguintes condições são equivalentes.
+    Suponha que \(\mathbb{F} = \mathbb{C}\) e \(T \in \mathcal{L}(V)\). Então as seguintes condições são equivalentes.
     \begin{enumerate}
         \item[\textup{(a)}] \(T\) é normal.
         \item[\textup{(b)}] \(V\) tem uma base ortonormal de autovetores de \(T\).
@@ -1229,10 +1227,177 @@
 
 \subsection{Autovetores Generalizados e Operadores Nilpotentes}
 
+\begin{prop} (sequência de espaços nulos).
+    Suponha que \(T \in \mathcal{L}(V)\). Então 
+    \begin{gather*}
+        \{0\} \subseteq \ker T^{0} \subseteq \ker T^1 \subseteq \cdots \\
+        \cdots \subseteq \ker T^k \subseteq \ker T^{k+1} \subseteq \cdots .
+    \end{gather*}
+\end{prop}
+
+\begin{prop} (igualdade na sequência de espaços nulos).
+    Suponha que \(T \in \mathcal{L}(V)\) e \(m\) é um inteiro não negativo tal que 
+    \[
+        \ker T^m = \ker T^{m+1}.
+    \]
+    \noindent Então \(\ker T^m = \ker T^k\) para todo \(k \geq m\).
+\end{prop}
+
+\begin{prop} (espaços nulos estabilizam).
+    Suponha que \(T \in \mathcal{L}(V)\). Então 
+    \[
+        \ker T^{\dim V} = \ker T^{\dim V + 1} = \ker T^{\dim V + 2} = \cdots .
+    \]
+\end{prop}
+
+\begin{prop} (\(V\) é soma direta de \(\ker T^{\dim V}\) e \(\im T^{\dim V}\)).
+    Suponha que \(T \in \mathcal{L}(V)\). Então
+    \[
+        V = \ker T^{\dim V} \oplus \im T^{\dim V}.
+    \]
+\end{prop}
+
+\begin{defn} (autovetor generalizado).
+    Seja \(T \in \mathcal{L}(V)\) e \(\lambda \in \mathbb{F}\). Um vetor \(v \in V\) é chamado de \emph{autovetor generalizado} de \(T\) correspondente ao autovalor \(\lambda\) se \(v \neq 0\) e existe um inteiro positivo \(k\) tal que
+    \[
+        (T - \lambda I)^k v = 0.
+    \]
+\end{defn}
+
+\begin{prop} (base de autovetores generalizados para operadores em espaços complexos).
+    Suponha que \(\mathbb{F} = \mathbb{C}\) e \(T \in \mathcal{L}(V)\). Então \(V\) tem uma base de autovetores generalizados de \(T\).
+\end{prop}
+
+\begin{prop} (um autovetor generalizado corresponde a um autovalor único).
+    Seja \(T \in \mathcal{L}(V)\) e \(v \in V\) um autovetor generalizado de \(T\). Então existe um único autovalor \(\lambda\) de \(T\) tal que \(v\) é um autovetor generalizado de \(T\) correspondente a \(\lambda\).
+\end{prop}
+
+\begin{prop} (autovetores generalizados linearmente independentes).
+    Seja \(T \in \mathcal{L}(V)\). Então toda lista de autovetores generalizados de \(T\) correspondentes a autovalores distintos é linearmente independente.
+\end{prop}
+
+\begin{defn} (operador nilpotente).
+    Um operador \(T \in \mathcal{L}(V)\) é chamado de \emph{nilpotente} se existe um inteiro positivo \(k\) tal que \(T^k = 0\).
+\end{defn}
+
+\begin{prop} (operador nilpotente na potência da dimensão é zero).
+    Suponha que \(T \in \mathcal{L}(V)\) é um operador nilpotente. Então \(T^{\dim V} = 0\).
+\end{prop}
+
+\begin{prop} (autovalor de operador nilpotente).
+    Todo autovalor de um operador nilpotente é \(0\). Se \(\mathbb{F} = \mathbb{C}\) e \(0\) é o único autovalor de \(T\), então \(T\) é nilpotente.
+\end{prop}
+
+\begin{prop} (polinômio mínimo e matriz triangular-superior de operador nilpotente).
+    Suponha que \(T \in \mathcal{L}(V)\). Então as seguintes condições são equivalentes.
+    \begin{enumerate}
+        \item [\textup{(a)}] \(T\) é nilpotente.
+        \item [\textup{(b)}] O polinômio mínimo de \(T\) é igual a \(z^m\), para algum inteiro positivo \(m\).
+        \item [\textup{(c)}] Existe uma base de \(V\) com respeito à qual a matriz de \(T\) tem a forma 
+        \[
+            \begin{pmatrix*}
+                0 & & * \\
+                & \ddots & \\
+                0 & & 0
+            \end{pmatrix*}
+        \]
+    \end{enumerate}
+\end{prop}
+
 \subsection{Decomposição de Autoespaços Generalizados}
 
-\subsection{Consequências da Decomposição de Autoespaços Generalizados}
+\begin{defn} (autoespaços generalizados).
+    Seja \(T \in \mathcal{L}(V)\) e \(\lambda \in \mathbb{F}\). O \emph{autoespaço generalizado} de \(T\) correspondente ao autovalor \(\lambda\) é o subespaço
+    \[
+        G(\lambda, T) = \{v \in V : (T - \lambda I)^k v = 0\}.
+    \]
+    \noindent para algum inteiro positivo \(k\). Então, \(G(\lambda, T)\) é o conjunto de todos os autovetores generalizados de \(T\) correspondentes ao autovalor \(\lambda\), juntamente com o vetor zero.
+\end{defn}
 
-\section{Álgebra Multilinear e Determinantes}
+\begin{prop} (descrição de autoespaços generalizados).
+    Seja \(T \in \mathcal{L}(V)\) e \(\lambda \in \mathbb{F}\). Então \(G(\lambda, T) = \ker (T - \lambda I)^{\dim V}\).
+\end{prop}
+
+\begin{thm} (decomposição em autoespaços generalizados).
+    Suponha que \(\mathbb{F} = \mathbb{C}\) e \(T \in \mathcal{L}(V)\). Sejam \(\lambda_1, \ldots, \lambda_m\) os autovalores distintos de \(T\). Então
+    \begin{enumerate}
+        \item [\textup{(a)}] \(G(\lambda_k, T)\) é invariante sob \(T\), para todo \(k = 1, \ldots, m\);
+        \item [\textup{(b)}] \((T - \lambda_k I)|_{G(\lambda_k, T)}\) é nilpotente, para todo \(k = 1, \ldots, m\);
+        \item [\textup{(c)}] \(V = G(\lambda_1, T) \oplus G(\lambda_2, T) \oplus \cdots \oplus G(\lambda_m, T)\).
+    \end{enumerate}
+\end{thm}
+
+\begin{defn} (multiplicidade).
+    Seja \(T \in \mathcal{L}(V)\). A \emph{multiplicidade} de um autovalor \(\lambda\) de \(T\) é definida como a dimensão do autoespaço generalizado correspondente \(G(\lambda, T)\). Em outras palavras, a multiplicidade de \(\lambda\) é \(\dim \ker (T - \lambda I)^{\dim V}\).
+\end{defn}
+
+\begin{cor}
+    Suponha que \(\mathbb{F} = \mathbb{C}\) e \(T \in \mathcal{L}(V)\). Então a soma das multiplicidades de todos os autovalores de \(T\) é igual a \(\dim V\).
+\end{cor}
+
+\begin{defn} (matriz diagonal em bloco).
+    Uma \emph{matriz diagonal em bloco} é uma matriz quadrada da forma 
+    \[
+        \begin{pmatrix*}
+            A_1 & & 0 \\
+            & \ddots & \\
+            0 & & A_m
+        \end{pmatrix*}
+    \]
+    \noindent onde \(A_1, A_2, \ldots, A_m\) são matrizes quadradas (não necessariamente da mesma dimensão) na diagonal principal e os outros elementos são todos zero.
+\end{defn}
+
+\begin{prop} (matriz diagonal em bloco com blocos triangular-superiores).
+    Suponha que \(\mathbb{F} = \mathbb{C}\) e \(T \in \mathcal{L}(V)\). Sejam \(\lambda_1, \ldots, \lambda_m\) os autovalores distintos de \(T\) com multiplicidades \(d_1, \ldots, d_m\), respectivamente. Então existe uma base de \(V\) com respeito à qual a matriz de \(T\) é uma matriz diagonal em bloco da forma
+    \[
+        \begin{pmatrix*}
+            A_1 & & 0 \\
+            & \ddots & \\
+            0 & & A_m
+        \end{pmatrix*}
+    \]
+    \noindent onde cada \(A_k\) é uma matriz \(d_k\) por \(d_k\) triangular-superior com \(\lambda_k\) em cada entrada da diagonal principal, para todo \(k = 1, \ldots, m\).
+\end{prop}
+
+\subsection{Consequências da Decomposição em Autoespaços Generalizados}
+
+\begin{prop}
+    Suponha que \(T \in \mathcal{L}(V)\) seja nilpotente. Então \(I + T\) possui uma raiz quadrada.
+\end{prop}
+
+\begin{prop} (sobre \(\mathbb{C}\), operadores invertíveis possuem raiz quadrada).
+    Suponha que \(V\) seja um espaço vetorial complexo e \(T \in \mathcal{L}(V)\) seja invertível. Então \(T\) possui uma raiz quadrada.
+\end{prop}
+
+\begin{defn} (base de Jordan).
+    Suponha que \(T \in \mathcal{L}(V)\). Uma base de \(V\) é chamada de \emph{base de Jordan} para \(T\) se a matriz de \(T\) com respeito a essa base é uma matriz diagonal em bloco 
+    \[
+        \begin{pmatrix*}
+            A_1 & & 0 \\
+            & \ddots & \\
+            0 & & A_m
+        \end{pmatrix*}
+    \]
+    \noindent onde cada \(A_k\) é uma matriz triangular-superior da forma 
+    \[
+        \begin{pmatrix*}
+            \lambda_k & 1 & 0 & \cdots & 0 \\
+            0 & \lambda_k & 1 & \cdots & 0 \\
+            \vdots & \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & 0 & \cdots & 1 \\
+            0 & 0 & 0 & \cdots & \lambda_k
+        \end{pmatrix*}.
+    \]
+\end{defn}
+
+\begin{prop} (todo operador nilpotente tem uma base de Jordan).
+    Suponha que \(T \in \mathcal{L}(V)\) seja nilpotente. Então \(V\) tem uma base de Jordan para \(T\).
+\end{prop}
+
+\begin{prop}
+    Suponha que \(\mathbb{F} = \mathbb{C}\) e \(T \in \mathcal{L}(V)\). Então \(V\) tem uma base de Jordan para \(T\).
+\end{prop}
+
+\end{multicols}
 
 \end{document}
