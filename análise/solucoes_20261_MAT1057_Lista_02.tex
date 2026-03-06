@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{fontspec}
+\setmainfont{Libertinus Serif}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
+\usepackage[portuguese]{babel}
+
+\begin{document}
+
+\noindent
+Curso de Verão \hfill Prof. Arthur Miranda \\
+\noindent
+Introdução à Análise Real \hfill \textbf{\Large Soluções Lista 2} \hfill \today
+\vspace{0.5mm}
+\hrule
+
+\section*{Sequências de números reais}
+
+\begin{enumerate}
+    \item [\textbf{E1}] \(\neg(a_n \to l): l \in \mathbb{R} \, \exists \varepsilon > 0 \, \forall n_0 \in \mathbb{N} \, \exists n \geq n_0 : |a_n - l| \geq \varepsilon\). Em palavras, para \(l \in \mathbb{R}\), existe \(\varepsilon > 0\) tal que para todo \(n_0 \in \mathbb{N}\) existe \(n \geq n_0\) que implica \(|a_n - l| \geq \varepsilon\), isto é, uma sequência \((a_n)\) não converge para \(l\) sse para todo índice \(n_0\), existe \(n \geq n_0\) tal que os termos da sequência \((a_n)\) não se encerram no intervalo aberto \((l-\varepsilon, l+\varepsilon)\) para algum \(\varepsilon>0\).
+    \item [\textbf{E2}]
+        \begin{enumerate}
+            \item [(a)] \(\displaystyle\left\vert \frac{(-1)^n}{n} - 0 \right\vert = \frac{1}{n} < 0.0001 \iff \frac{1}{0.0001} < n\). Logo para \(n > n_0 = 10000\), tem-se \(a_n \to 0\).
+            \item [(b)] \(\displaystyle\left\vert \frac{1}{(n+2)^3} - 0 \right\vert = \frac{1}{(n+2)^3} < 0.00002 \iff 50000 < (n+2)^3 \iff \sqrt[3]{50000} < n+2\). Tomando \(n_0 = 38\), tem-se \(a_n \to 0\) para todo \(n > n_0\).
+            \item [(c)] \(\displaystyle\left\vert \frac{n-1}{n+2} - 1 \right\vert = \left\vert -\frac{3}{n+2} \right\vert = \frac{3}{n+2} < 0.001 \iff 3000 < n+2 \iff 2998 < n\). Logo para \(n > n_0 = 2998\), vem \(a_n \to 1\).
+            \item [(d)] \(\displaystyle\left\vert \frac{2n^2+2}{n^2+n+3} -2 \right\vert = \left\vert -\frac{2n+4}{n^2+n+3} \right\vert = \frac{2n+4}{n^2+n+3} < \frac{6n}{n^2} = \frac{6}{n} < 0.0001 \iff 60000 < n\) para todo \(n \in \mathbb{N}\). Então para todo \(n > n_0 = 60000\), \(a_n \to 2\).
+        \end{enumerate}
+    \item [\textbf{E3}]
+        \begin{enumerate}
+            \item [(a)] \(\displaystyle\left\vert \frac{n}{n^2+1} - 0 \right\vert = \frac{n}{n^2+1} < \frac{n}{n^2} = \frac{1}{n} < \varepsilon \iff \frac{1}{\varepsilon} < n\). Portanto, \(\displaystyle\frac{n}{n^2+1} \to 0\) para \(n > n_0 = 1/\varepsilon\).
+            \item [(b)] \(\displaystyle\left\vert \frac{2n^2}{n^2+7} - 2 \right\vert = \left\vert -\frac{14}{n^2+7} \right\vert = \frac{14}{n^2+7} < \frac{14}{n^2} < \varepsilon \iff \sqrt{\frac{14}{\varepsilon}} < n\). Logo para \(n > n_0 = \sqrt{14/\varepsilon}\), tem-se \(\displaystyle\frac{2n^2}{n^2+7} \to 2\).
+            \item [(c)] \(\displaystyle\left\vert \frac{3n\sqrt{n}}{n\sqrt{n}+5} - 3 \right\vert = \left\vert -\frac{15}{n\sqrt{n}+5} \right\vert = \frac{15}{n\sqrt{n}+5} < \frac{15}{n} < \varepsilon \iff 15/\varepsilon < n\). Então \(\displaystyle\frac{3n\sqrt{n}}{n\sqrt{n}+5} \to 3\) para todo \(n > n_0 = 15/\varepsilon\).
+        \end{enumerate}
+    \item [\textbf{E4}]
+        \begin{enumerate}
+            \item [(a)] Sendo \(\displaystyle x_n = \frac{n}{n^2+1}\) e \(y_n = \cos{\sqrt{n^2+1}}\), percebe que \(\displaystyle x_n = \frac{n}{n^2+1} = \frac{1}{n+1/n} \to 0\) ao \(n \to \infty\) e que \(y_n \in [-1,1]\) para todo \(n \in \mathbb{N}\). Logo \(\lim a_n = \lim x_n y_n = 0\) e \((a_n)\) é convergente.
+            \item [(b)] \(\displaystyle b_n = \frac{\sqrt{n}(1+8\sqrt{n})}{4n-1} = \frac{\sqrt{n}+8n}{4n-1} \leq \frac{9n}{4n-1} = \frac{9}{4-1/n} \to \frac{9}{4}\) ao \(n \to \infty\).
+            \item [(c)] \(\displaystyle c_n = \frac{n^3-1}{2n^3-n} = \frac{1-1/n^3}{2-1/n^2} \to \frac{1}{2}\) ao \(n \to \infty\).
+        \end{enumerate}
+    \item [\textbf{E5}] Se \(b_n \to 0\) existe \(n_0 \in \mathbb{N}\) tal que \(n \geq n_0 \implies |b_n| < C\varepsilon\) para \(\varepsilon > 0\) arbitrário. Logo para todo \(n \geq n_0\), tem-se \(\vert a_n - a \vert < C\vert b_n \vert < \varepsilon \implies \vert a_n - a \vert < \varepsilon\). \qed
+    \item [\textbf{E6}] Supondo \(h \geq 0\), escreve \(\displaystyle a_n = \frac{(\sqrt{n+h}-\sqrt{n})(\sqrt{n+h}-\sqrt{n})}{\sqrt{n+h}-\sqrt{n}} = \frac{h}{\sqrt{n+h}-\sqrt{n}} \leq \frac{h}{2\sqrt{n}} \to 0\) ao \(n \to \infty\).\qed 
+    \item [\textbf{E7}] Toma \(\varepsilon = x > 0\) e então existe \(n_0 \in \mathbb{N}\) tal que \(n \geq n_0 \implies |a_n - x| < x \implies a_n < 0\). \qed
+    \item [\textbf{E8}] Escreve \(\sqrt[n]{\sqrt[n]{n}} = (n^{1/n})^{1/n} = n^{1/n^2}\) para todo \(n \in \mathbb{N}\) e nota que \(1 \leq n^{1/n^2} \leq n^{1/n}\). De fato, a primeira desigualdade segue de \(n \geq 1^{n^2} \iff n^{1/n^2} \geq 1\), enquanto que a segunda vem de \(n \leq n^n \implies n^{1/n^2} \leq n^{1/n}\) para todo \(n \in \mathbb{N}\). Do teorema do confronto, tem-se \(\lim 1 = \lim n^{1/n} = 1\) e então \(\lim \sqrt[n]{\sqrt[n]{n}} = 1\).\qed
+    \item [\textbf{E9}]
+        \begin{enumerate}
+            \item [(a)] Dado \(A>0\), existe \(n_0 \in \mathbb{N}\) tal que \(n \geq n_0 \implies a_n > A\). Multiplica ambos os lados da desigualdade por \(-1\) e fica \(-a_n < -A\). Reciprocamente, se para qualquer \(B>0\) existe \(n_1 \in \mathbb{N}\) tal que \(n \geq n_1 \implies -a_n < -B\), então \(a_n > B\).\qed
+            \item [(b)] Basta ver que a sequência constante \(b_n = 1\) é limitada. Dado \(A>0\), faz \(A = 1/\varepsilon\) e então existe \(n_0 \in \mathbb{N}\) tal que \(n \geq n_0 \implies a_n > 1/\varepsilon\). Logo, para todo \(n \geq n_0\) tem-se \(\left\vert\frac{1}{a_n} - 0\right\vert = \frac{1}{a_n} < \frac{1}{1/\varepsilon} = \varepsilon\).\qed
+            \item [(c)] Para \(A>0\), existe \(n_0 \in \mathbb{N}\) tal que \(n \geq n_0 \implies a_n > A/c\). Então para todo \(n \geq n_0\), vem \(a_n b_n > (A/c)c = A\), donde \(\lim a_n b_n = +\infty\).\qed
+            \item [(d)] Dado \(A>0\), existe \(n_0 \in \mathbb{N}\) tal que \(n \geq n_0 \implies a_n > A\). Mas \(b_n \geq a_n > A\) para todo \(n \in \mathbb{N}\), logo \(\lim b_n = +\infty\).\qed
+        \end{enumerate}
+    \item [\textbf{E10}] Seja \((a_{n_k})\) subsequência de \((a_n)\) crescente convergindo para \(l \in \mathbb{R}\). Primeiro, nota que \((a_{n_k})\) é limitada superiormente por \(l\), pois é crescente e converge para \(l\). Então segue que para todo \(n_k \geq n\) tem-se \(a_n \leq a_{n_k} \leq l\).
+        Como \(a_{n_k} \to l\), existe \(n_0 \in \mathbb{N}\) tal que \(n_k \geq n_0 \implies |a_{n_k} - l| < \varepsilon\). Logo para todo \(n \geq n_k \geq n_0\), vem \(l - \varepsilon < a_{n_k} \leq a_n \leq l \leq l + \varepsilon\).
+
+        Outra solução é mostrar que se \((a_n)\) é limitada então \(\lim a_n = \lim a_{n_k} = l\). Com efeito, seja \(X = \{a_{n_1}, \ldots, a_{n_k}, \ldots\}\). Como \((a_{n_k})\) é crescente e limitada, vem \(a_{n_k} \leq \sup X = l\) para todo \(n_k \in \mathbb{N}\). Mas sabe-se que \(a_n \leq a_{n_k}\) para todo \(n_k \geq n\), então \(a_n \leq l\).
+        Seja \(\lim a_n = l'\). Como toda subsequência de \((a_n)\) deve convergir para \(l'\), tem-se \(l'=l\).\qed
+    \item [\textbf{E11}]
+        \begin{enumerate}
+            \item [(a)] De fato, com \(a_n > 0\) e \(c < 1\) para todo \(n \in \mathbb{N}\) tem-se \(\frac{a_{n+1}}{a_n} \leq c \iff \frac{a_{n+1}}{c^{n+1}} \leq \frac{a_n}{c^n}\), donde \(x_n = \frac{a_n}{c^n}\) é o termo geral de uma sequência decrescente de termos positivos limitada inferiormente por \emph{zero}, e logo é convergente. Seja 
+            \item [(b)]
+        \end{enumerate}
+    \item [\textbf{E12}] Primeiro nota que \(\lim x_n = 0 \iff \lim |x_n| = 0\). Como \(0 \leq y_n \leq |x_n|\) para qualquer \(n \in \mathbb{N}\), do teorema do confronto vem \(\lim y_n = 0\).\qed
+    \item [\textbf{E13}]
+    \item [\textbf{E14}]
+    \item [\textbf{E15}]
+    \item [\textbf{E16}] Provamos que \((a_n)\) é monótona e limitada. Com efeito, \(a_1 = \sqrt{2} < \sqrt{2+\sqrt{2}} = a_2\) e \(a_n < a_{n+1} \implies a_{n+1} = \sqrt{2+\sqrt{a_n}} < \sqrt{2+\sqrt{a_{n+1}}} = a_{n+2}\), logo \((a_n)\) é estritamente crescente. Ademais, tem-se \(a_n < 2\) para todo \(n \in \mathbb{N}\), pois \(a_1 = \sqrt{2} < 2\) e \(a_n < 2 \implies a_{n+1} = \sqrt{2+\sqrt{a_n}} < \sqrt{2+\sqrt{2}} < 2\) (vê que \(2+\sqrt{2} < 4\)). Portanto, \((a_n)\) é convergente e \(a_n < 2\) para qualquer \(n\) natural.\qed
+    \item [\textbf{E17}] Escreve \(y_n = x_n - (x_n - y_n)\) e então \(\lim y_n = \lim [x_n - (x_n - y_n)] = \lim x_n - \lim (x_n - y_n) = a - 0 = a\).\qed
+    \item [\textbf{E18}] Faz \(\displaystyle y_n = \frac{x_n}{x_n/y_n}\) e vem \(\lim y_n = \lim \frac{x_n}{x_n/y_n} = \lim x_n \cdot \frac{1}{\lim x_n/y_n} = a/b\).\qed
+    \item [\textbf{E19}] Toma \(\displaystyle y_n = \frac{x_n y_n}{x_n}\) e daí \(\lim y_n = \lim \frac{x_n y_n}{x_n} = b/a\).\qed
+    \item [\textbf{E20}] Sem perda de generalidade, seja \(b \leq a\). Logo \(\sqrt[n]{a^n + b^n} = a\sqrt[n]{1 + (b/a)^n} \to a\) ao \(n \to \infty\). De fato, se \(b < a\), a razão \((b/a)^n \to 0\); se \(b = a\), \((b/a)^n = 1\). Assim \(a\sqrt[n]{1} \leq \sqrt[n]{a^n + b^n} \leq a\sqrt[n]{2}\) e é claro que \(\lim \sqrt[n]{1} = \lim \sqrt[n]{2} = 1\). Portanto, o resultado segue do teorema do confronto.
+\end{enumerate}
+
+\end{document}

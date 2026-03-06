@@ -1,6 +1,5 @@
 \documentclass{article}
-\usepackage{fontspec}
-\usepackage{multicol}
+\usepackage{fontspec, multicol, xcolor}
 \setlength{\columnsep}{1cm}
 \setmainfont{Libertinus Serif}
 \usepackage[a4paper, margin=1in]{geometry}
@@ -352,7 +351,7 @@
     \[
         v = a_1 u_1 + \cdots + a_n u_n + b_1 v_1 + \cdots + b_m v_m
     \]
-    \noindent para qualquer \(v \in V\) e com \(\{a_i\}_{i=1}^n, \{b_j\}_{j=1}^m \in \mathbb{F}\). Aplica \(T\) e fica 
+    \noindent para qualquer \(v \in V\) e com \(a_1, \ldots, a_n, b_1, \ldots, b_m \in \mathbb{F}\). Aplica \(T\) e fica 
     \[
         Tv = b_1 Tv_1 + \cdots + b_m Tv_m ,
     \]
@@ -361,7 +360,7 @@
         c_1 Tv_1 + \cdots + c_m Tv_m = 0 \\
         T(c_1 v_1 + \cdots + c_m v_m) = 0,
     \end{gather}
-    \noindent com \(\{c_j\}_{j=1}^m \in \mathbb{F}\), e nota que \(c_1 v_1 + \cdots + c_m v_m \in \ker T\). Então escreve 
+    \noindent com \(c_1, \ldots, c_m \in \mathbb{F}\), e nota que \(c_1 v_1 + \cdots + c_m v_m \in \ker T\). Então escreve 
     \begin{gather}
         c_1 v_1 + \cdots + c_m v_m = d_1 u_1 + \cdots + d_n u_n \\
         c_1 v_1 + \cdots + c_m v_m - d_1 u_1 - \cdots - d_n u_n = 0.
@@ -608,7 +607,7 @@
 \end{prop}
 
 \begin{defn}
-    Se \(v_1, \ldots, v_n\) é uma base de \(V\), então a \emph{base dual} de \(V'\) com respeito a essa base é a lista \(\varphi_1, \ldots, \varphi_n\) de funcionais lineares em \(V\) definida por
+    Se \(v_1, \ldots, v_n\) é uma base de \(V\), então a \emph{base dual} de \(v_1, \ldots, v_n\) é a lista \(\varphi_1, \ldots, \varphi_n\) de elementos em \(V'\), onde cada \(\varphi_j\) é o funcional linear em \(V\) definido por
     \[
         \varphi_i(v_j) = \begin{cases}
             1 & \text{se } i = j \\
@@ -616,6 +615,35 @@
         \end{cases}, \quad \forall i,j = 1,\ldots,n.
     \]
 \end{defn}
+
+\begin{prop} (base dual fornece os coeficientes para combinação linear).
+    Suponha que \(v_1, \ldots, v_n\) é base de \(V\) e que \(\varphi_1, \ldots, \varphi_n\) é a base dual. Então 
+    \begin{equation}
+        v = \varphi_1(v)v_1 + \cdots + \varphi_n(v)v_n,    
+    \end{equation}
+    \noindent para todo \(v \in V\).
+\end{prop}
+
+\begin{prop}
+    Suponha que \(V\) seja um espaço vetorial de dimensão finita. Então a base dual de qualquer base de \(V\) é uma base de \(V'\).
+\end{prop}
+
+\begin{defn} (transformação dual).
+    Suponha que \(T \in \mathcal{L}(V, W)\). A \emph{transformação dual} de \(T\) é a transformação linear \(T' \in \mathcal{L}(W', V')\) definida por
+    \[
+        T'(\varphi) = \varphi \circ T,
+    \]
+    \noindent para todo \(\varphi \in W'\).
+\end{defn}
+
+\begin{prop} (propriedades algébricas da transformação dual).
+    Sejam \(T \in \mathcal{L}(V, W)\) e \(\lambda \in \mathbb{F}\). Então
+    \begin{enumerate}
+        \item[\textup{(a)}] \((S + T)' = S' + T'\) para todo \(S \in \mathcal{L}(V, W)\).
+        \item[\textup{(b)}] \((\lambda T)' = \lambda T'\).
+        \item[\textup{(c)}] \((ST)' = T'S'\) para todo \(S \in \mathcal{L}(W, U)\).
+    \end{enumerate}
+\end{prop}
 
 \section{Autovalores e Autovetores}
 \subsection{Subespaços Invariantes}
@@ -651,15 +679,15 @@
 \end{thm}
 
 \begin{proof}
-    Seja \(\{\lambda_i\}_{i=1}^p\) uma lista de autovalores distintos de \(T\). Suponha, por absurdo, que a lista de autovetores \(\{v_i\}_{i=1}^p\) seja LD. Tome a menor lista LD \(\{v_i\}_{i=1}^n\), \(1 \leq n \leq p\) tal que todos os coeficientes da equação 
+    Seja \(v_1, \ldots, v_p\) uma lista de autovetores de \(T\) correspondentes a autovalores distintos \(\lambda_1, \ldots, \lambda_p\). Suponha, por absurdo, que \(v_1, \ldots, v_p\) seja LD. Então toma o menor inteiro \(n\) tal que os coeficientes da equação
     \[
         a_1 v_1 + \cdots + a_n v_n = 0
     \]
-    \noindent sejam não nulos. Aplica \(T - \lambda_n I\) e fica 
+    sejam todos não nulos (pela minimalidade de \(n\)). Aplica \(T - \lambda_n I\) e fica 
     \[
-        a_1 (\lambda_1 - \lambda_n) + \cdots + a_{n-1} (\lambda_{n-1} - \lambda_n)v_{n-1} = 0.
+        a_1 (\lambda_1 - \lambda_n) v_1 + \cdots + a_{n-1} (\lambda_{n-1} - \lambda_n)v_{n-1} = 0.
     \]
-    Como os autovalores são distintos, todos os coeficientes são não nulos. Então, encontramos uma lista de autovetores LD de tamanho \(n-1\), o que contradiz a minimalidade de \(\{v_i\}_{i=1}^n\).
+    Como os autovalores são distintos, todos os coeficientes são não nulos. Então, encontramos uma lista de autovetores LD de tamanho \(n-1\), o que contradiz a minimalidade de \(v_1, \ldots, v_n\).
 \end{proof}
 
 \begin{defn}
@@ -901,9 +929,10 @@ Para os resultados a seguir, seja \(V\) e \(W\) espaços com produto interno sob
 
 \begin{prop} (norma de uma combinação linear de vetores ortonormais).
     Se \(e_1, \ldots, e_m\) é uma lista ortonormal de vetores em \(V\), então
-    \begin{equation}
-        \|a_1 e_1 + a_2 e_2 + \cdots + a_m e_m\|^2 = |a_1|^2 + |a_2|^2 + \cdots + |a_m|^2,
-    \end{equation}
+    \begin{multline}
+        \|a_1 e_1 + a_2 e_2 + \cdots + a_m e_m\|^2 = \\
+            |a_1|^2 + |a_2|^2 + \cdots + |a_m|^2,
+    \end{multline}
     \noindent para todos os escalares \(a_1, a_2, \ldots, a_m \in \mathbb{F}\).
 \end{prop}
 
@@ -1107,10 +1136,10 @@ Suponha que \(\mathbb{F}\) seja \(\mathbb{R}\) ou \(\mathbb{C}\) e que \(V\) e \
 
 \begin{prop} (matriz da adjunta é igual à conjugada transposta da matriz).
     Seja \(T \in \mathcal{L}(V, W)\). Se \(e_1, \ldots, e_n\) é uma base ortonormal de \(V\) e \(f_1, \ldots, f_m\) é uma base ortonormal de \(W\), então
-    \begin{gather}
+    \begin{multline}
         \mathcal{M}(T^*, (f_1, \ldots, f_m), (e_1, \ldots, e_n)) =\\
         (\mathcal{M}(T, (e_1, \ldots, e_n), (f_1, \ldots, f_m)))^*.
-    \end{gather}
+    \end{multline}
 \end{prop}
 
 \begin{defn} (operador autoadjunto).
@@ -1190,7 +1219,6 @@ Suponha que \(\mathbb{F}\) seja \(\mathbb{R}\) ou \(\mathbb{C}\) e que \(V\) e \
         \item[\textup{(b)}] \(V\) tem uma base ortonormal de autovetores de \(T\).
         \item[\textup{(c)}] \(T\) tem uma matriz diagonal com respeito a alguma base ortonormal de \(V\).
     \end{enumerate}
-    
 \end{thm}
 
 \subsection{Operadores Positivos}

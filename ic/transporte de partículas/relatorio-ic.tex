@@ -1,0 +1,584 @@
+\documentclass{article}
+\usepackage{fontspec}
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+\setmainfont{Libertinus Serif}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
+\usepackage[portuguese]{babel}
+\usepackage{csquotes}
+\usepackage[backend=biber, style=numeric, sorting=nty]{biblatex}\addbibresource{referencias.bib}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{prop}[thm]{Proposição}
+\newtheorem{lem}[thm]{Lema}
+\newtheorem{cor}[thm]{Corolário}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definição}[section]
+\newtheorem{exmp}[defn]{Exemplo}
+\newtheorem{prblm}[defn]{Problema}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Nota}
+
+\begin{document}
+\begin{center}
+    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
+    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
+    \vspace{3cm}
+    \textbf{\Large RELATÓRIO DE PROJETO DE INICIAÇÃO CIENTÍFICA} \\
+    \vspace{1cm}
+    \textbf{\large MÉTODOS ESPECTRAIS NA SOLUÇÃO DE PROBLEMAS DIRETOS E INVERSOS DO TRANSPORTE DE PARTÍCULAS NEUTRAS} \\
+    \vspace{3cm}
+
+    \begin{tabular}{rl}
+        \textbf{Acadêmico:} & LEONARDO KAWAI SUAREZ \\
+        \textbf{Orientadora:} & Profa. Dra. LILIANE BASSO BARICHELLO \\
+    \end{tabular}
+
+    \vspace{12cm}
+    \textbf{\large Porto Alegre, RS} \\
+    \textbf{\large \today}
+\end{center}
+
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Introdução}
+
+Este relatório documenta os estudos iniciais do projeto de iniciação científica intitulado \emph{Métodos Espectrais na Solução de Problemas Diretos e Inversos do Transporte de Partículas Neutras}, utilizando como referência base o livro \emph{Numerical Linear Algebra with Applications} de William Ford \cite{ford}. A pesquisa começou pela análise de condicionamento numérico e estabilidade de algoritmos, com foco em matrizes mal-condicionadas como as de Hilbert e Toeplitz.
+
+Em seguida, investigamos métodos diretos para a resolução de sistemas lineares, incluindo a tradicional eliminação gaussiana (sem e com pivotamento parcial) e a fatoração LU, comparando seu desempenho. Posteriormente, estudamos métodos iterativos básicos (Jacobi, Gauss-Seidel e SOR), aplicados à equação de Poisson unidimensional discretizada, juntamente com a análise de convergência desses métodos.
+
+Estes resultados fornecem a base necessária para o desenvolvimento posterior de métodos espectrais mais sofisticados para problemas envolvendo a equação de transporte de Boltzmann.
+
+\newpage
+
+\section{Condicionamento de Matrizes}
+
+Para além dos conhecimentos elementares adquiridos em um primeiro curso de Álgebra Linear, como a resolução de sistemas lineares via eliminação gaussiana, a determinação dos autovalores e autovetores de uma matriz, e a diagonalização de matrizes simétricas, é crucial compreender as limitações da computação numérica. A precisão dos resultados computacionais é frequentemente afetada por erros de arredondamento, que podem ser exacerbados por algoritmos instáveis ou problemas mal-condicionados.
+
+\begin{defn}
+  Um problema é dito \textit{mal-condicionado} se pequenas perturbações nos dados de entrada podem levar a grandes variações na solução. Em contraste, um problema é \textit{bem-condicionado} se pequenas perturbações nos dados de entrada resultam em pequenas variações na solução.
+\end{defn}
+
+\begin{thm}
+  Suponha que \(A\) é uma matriz não-singular, \(\mathbf{b} \neq 0\) é um vetor, \(\mathbf{x}\) é a solução do sistema \(A\mathbf{x} = \mathbf{b}  \), e \(\Vert\cdot\Vert\) é uma norma subordinada.
+  \begin{enumerate}
+    \item [1.] Se \( \mathbf{x + \delta x} \) é a solução do sistema perturbado \(A( \mathbf{x + \delta x} ) = \mathbf{b + \delta b}\), então
+    \begin{equation}\label{eq:cond1}
+      \frac{\Vert \mathbf{\delta x} \Vert}{\Vert \mathbf{x}  \Vert} \leq \Vert A \Vert \left\Vert A^{-1} \right\Vert \frac{\Vert \delta \mathbf{b} \Vert}{\Vert \mathbf{b} \Vert}.
+    \end{equation}
+    \item [2.] Se \( \mathbf{x + \delta x} \) é a solução do sistema perturbado \((A+\delta A)( \mathbf{x + \delta x} ) = \mathbf{b}\), então
+    \begin{equation}\label{eq:cond2}
+      \frac{\Vert \mathbf{\delta x} \Vert}{\Vert  \mathbf{x + \delta x}  \Vert} \leq \Vert A \Vert \left\Vert A^{-1} \right\Vert \frac{\Vert \delta A \Vert}{\Vert A \Vert}.
+    \end{equation}
+    \item [3.] Se \( \mathbf{x + \delta x} \) é a solução do sistema perturbado \((A+\delta A)( \mathbf{x + \delta x} ) = \mathbf{b + \delta b}\), então
+    \begin{equation}
+      \frac{\Vert \mathbf{\delta x} \Vert}{\Vert \mathbf{x}  \Vert} \leq \Vert A \Vert \left\Vert A^{-1} \right\Vert \left(\frac{\Vert \delta A \Vert}{\Vert A \Vert} + \frac{\Vert \mathbf{\delta b} \Vert}{\Vert A \Vert\, \Vert  \mathbf{x + \delta x}  \Vert}\right).
+    \end{equation}
+  \end{enumerate}
+\end{thm}
+
+\begin{defn}
+  O número de condicionamento de uma matriz \(A\) é definido como \(\kappa(A) = \Vert A \Vert \cdot \Vert A^{-1} \Vert\). Este número fornece uma medida da sensibilidade da solução de um sistema linear \(A\mathbf{x} = \mathbf{b}\) a perturbações na matriz \(A\) e no vetor \(\mathbf{b}\).
+\end{defn}
+
+\begin{exmp}
+  Considere o seguinte sistema linear \cite{meyer}:
+
+\[\begin{cases}
+  0.835x_1 + 0.667x_2 = 0.168 \\
+  0.333x_1 + 0.266x_2 = 0.067
+\end{cases}\]
+
+\noindent que possui solução \(\mathbf{x} = \begin{bmatrix} 1 & -1 \end{bmatrix}^T\). Perturbamos o vetor \(\mathbf{b} = \begin{bmatrix} 0.168 & 0.067 \end{bmatrix}^T\) para \(\mathbf{b + \delta b}=\begin{bmatrix} 0.168 & 0.066 \end{bmatrix}^T\). Nota que a perturbação relativa \(\Vert \mathbf{\delta b} \Vert / \Vert \mathbf{b} \Vert = 0.0055289\) é pequena, então seria razoável esperar que a solução perturbada \( \mathbf{x + \delta x} \) também fosse próxima de \(\mathbf{x}\). No entanto, a solução do sistema perturbado é \( \mathbf{x + \delta x} =\begin{bmatrix} 666 & -834 \end{bmatrix}^T\).
+
+A perturbação relativa na solução \(\Vert \mathbf{\delta x} \Vert / \Vert \mathbf{x}  \Vert\) é aproximadamente \(753.7\), indicando que o sistema é mal-condicionado, conforme \eqref{eq:cond1}. De fato, o número de condicionamento da matriz \(A\) é \(\kappa(A)=1323759\). Isso mostra que apesar de o resíduo relativo \(\Vert \mathbf{\delta b} \Vert / \Vert \mathbf{b} \Vert\) ser pequeno, a solução computada \( \mathbf{x + \delta x} \) pode ser drasticamente diferente de \(\mathbf{x}\) devido ao alto número de condicionamento da matriz \(A\).
+\end{exmp}
+
+\begin{prblm}
+  As matrizes de Hilbert são matrizes \(n \times n\) com elementos \(h_{ij} = 1/(i+j-1)\) e são notoriamente mal-condicionadas.
+
+  \begin{enumerate}
+  \item [(a)] Construímos a matriz de Hilbert \(A\) de ordem \(n=8\) através do comando \texttt{hilbm(8)}. Perturbamos \(A(1,8)\) por \(10^{-5}\) e definimos a matriz perturbada \(B\). Seja \texttt{b = rand(8,1)}. Computamos as soluções \texttt{x = A\textbackslash b}, \texttt{y = B\textbackslash b} e seguimos calculando \(\Vert \mathbf{x - y} \Vert\) e \(\Vert \mathbf{x - y} \Vert / \Vert \mathbf{x} \Vert\).
+
+    \begin{verbatim}
+      A = hilbm(8);
+      B = A;
+      B(1,8) = B(1,8) + 1e-5;
+      b = rand(8,1);
+      x = A\b;
+      y = B\b;
+
+      norm(x-y);
+      norm(x-y)/norm(x);
+
+    --> norm(x-y)
+    ans =
+
+      1.650D+09
+
+    --> norm(x-y)/norm(x)
+    ans =
+
+      1.2164185
+    \end{verbatim}
+
+    Os valores da perturbação \(\Vert \mathbf{x - y} \Vert\) e da perturbação relativa \(\Vert \mathbf{x - y} \Vert / \Vert \mathbf{x}  \Vert\) da solução são altos, indicando mal-condicionamento da matriz \(A\), de acordo com \eqref{eq:cond1}
+
+  \item [(b)] Podemos agora verificar a cota superior na desigualdade de condicionamento de \eqref{eq:cond2}.
+
+    \begin{verbatim}
+      --> norm(x-y)/norm(y) <= cond(A)*norm(A-B)/norm(A)
+    ans =
+
+      T
+    \end{verbatim}
+
+  \end{enumerate}
+
+\end{prblm}
+
+\begin{prblm}
+  Uma matriz de Toeplitz é uma matriz \(n \times n\) cujas entradas são constantes ao longo de cada diagonal. O comando Scilab \texttt{toeplitz(c,r)} constrói uma matriz de Toeplitz com o vetor \(\mathbf{c}\) como a primeira coluna e o vetor \(\mathbf{r}\) como a primeira linha. Se os primeiros elementos de \(\mathbf{c}\) e \(\mathbf{r}\) forem diferentes, uma mensagem é exibida e o elemento da coluna é usado como o primeiro elemento da primeira linha.
+
+\begin{enumerate}
+  \item[(a)] Construímos a matriz \(100\times100\) pentadiagonal abaixo
+
+  \[T = \begin{bmatrix}
+    6 & -4 & 1 & 0 & \ldots & 0 \\
+    -4 & 6 & -4 & 1 & \ldots & 0 \\
+    1 & -4 & 6 & -4 & \ldots & 0 \\
+    0 & 1 & -4 & 6 & \ldots & 0 \\
+    \vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
+    0 & 0 & 0 & 0 & \ldots & 6
+  \end{bmatrix}\]
+
+    \begin{verbatim}
+      c = [6, -4, 1, zeros(1, 97)];
+      T = toeplitz(c');
+
+        --> cond(T)
+
+      ans =
+
+        3457869.2
+    \end{verbatim}
+
+  \item[(b)] Nota que \(\text{cond}(A)\) é da ordem de \(10^6\), sugerindo mal-condicionamento da matriz.
+
+  \item[(c)] Fazemos um experimento para observar o comportamento dos autovalores da matriz \(T\) ao perturbar suas entradas. O seguinte programa computa os autovalores de uma matriz \(T\) aleatoriamente perturbada. Nesse caso, as perturbações estão no intervalo \(0 < a_{ij} < 10^{-8}\).
+    \begin{verbatim}
+      E1 = spec(T);
+      E1 = gsort(E1);
+      for i = 1:3
+        deltaT = 1e-8 * rand(100, 100);
+        B = T + deltaT;
+        E2 = spec(B);
+        E2 = gsort(E2);
+        norm(E1 - E2)
+      end
+
+      0.0000004
+      0.0000004
+      0.0000004
+    \end{verbatim}  
+      Todas as três iterações produziram o mesmo resultado (\(4\times10^{-7}\)), que é relativamente proporcional ao grau de perturbação (\(\approx10^{-8}\)) indicando que os autovalores da matriz \(T\) são bem-condicionados. Isso sugere que, apesar de a matriz \(T\) ser mal-condicionada, os autovalores não são sensíveis a pequenas perturbações.
+\end{enumerate}
+\end{prblm}
+
+\newpage
+
+\section{Eliminação Gaussiana e Fatoração \(LU\)}
+
+Em diversas aplicações onde aparecem sistemas lineares, é necessário resolver \(A\mathbf{x}=\mathbf{b}\) para muitos vetores \(\mathbf{b}\), como no exemplo de uma viga que está sujeita a suportar diferentes cargas. A eliminação gaussiana é um método prático para resolver esses sistemas, mas pode ser computacionalmente caro se for necessário resolver muitos sistemas com a mesma matriz \(A\). A decomposição \(LU\) é uma técnica que permite fatorar a matriz \(A\) em duas matrizes triangulares, \(L\) e \(U\), de forma que \(A = LU\). Isso possibilita resolver múltiplos sistemas lineares com a mesma matriz \(A\) de maneira mais eficiente.
+
+Em resumo, o método consiste em realizar a eliminação gaussiana para transformar a matriz \(A\) em uma matriz triangular superior \(U\), enquanto armazena os multiplicadores das operações de eliminação em uma matriz triangular inferior \(L\), que possui elementos da diagonal principal iguais a \(1\). Assim, a solução do sistema \(A\mathbf{x} = (LU)\mathbf{x} = \mathbf{b}\) pode ser obtida resolvendo primeiro \(L\mathbf{y} = \mathbf{b}\) (\textit{forward substitution}) e, em seguida, \(U\mathbf{x} = \mathbf{y}\) (\textit{backward substitution}).
+
+\subsection{Eliminação Gaussiana com Pivotamento Parcial}
+
+A eliminação gaussiana pode produzir resultados imprecisos, conforme mostra o exemplo a seguir.
+
+\begin{exmp}\label{ex:piv_parcial}
+  Considere a matriz abaixo
+
+\begin{equation*}
+  A = \begin{bmatrix}
+    0.00001 & 3 \\
+    2 & 1 \\
+    \end{bmatrix}
+\end{equation*}
+
+\noindent e use precisão aritmética de três dígitos significativos. Prosseguindo com a decomposição \(LU\), temos:
+
+\begin{equation*}
+  L = \begin{bmatrix}
+    1 & 0 \\
+    200000 & 1 \\
+    \end{bmatrix}, \quad
+  U = \begin{bmatrix}
+    0.00001 & 3 \\
+    0 & -599999 \\
+    \end{bmatrix}.
+\end{equation*}
+
+Na aritmética de três dígitos significativos, \(U\) torna-se:
+
+\begin{equation*}
+  U = \begin{bmatrix}
+    0.00001 & 3 \\
+    0 & -600000 \\
+    \end{bmatrix}.
+\end{equation*}
+
+Computamos \(LU\) para obter 
+
+\begin{equation*}
+  LU = \begin{bmatrix}
+    0.00001 & 3 \\
+    2 & 0 \\
+    \end{bmatrix},
+\end{equation*}
+
+\noindent que é muito diferente de \(A\).
+\end{exmp}
+
+Do exemplo acima, observa-se que a eliminação gaussiana pode produzir péssimos resultados em certas situações, especialmente quando algum elemento pivô é pequeno, levando a erros de arredondamento significativos em aritmética de ponto flutuante. Para evitar isso, é comum utilizar a estratégia de pivotamento parcial (GEPP), que consiste em trocar linhas para garantir que o maior elemento possível seja escolhido como pivô. Isso melhora a estabilidade numérica do método.
+
+Na eliminação gaussiana com pivotamento parcial, o algoritmo é modificado para incluir uma etapa de busca do maior elemento na coluna atual antes de realizar a eliminação. A decomposição \(LU\) com pivotamento parcial consiste então em três matrizes \(P\), \(L\) e \(U\). A relação entre essas matrizes é dada por:
+
+\begin{equation}
+  PA = LU
+\end{equation}
+
+\noindent onde \(P\) é a matriz de permutação, ou matriz de pivotamento. Comece com \(P = I\) e troque as linhas \(i\) e \(j\) da matriz de permutação sempre que as linhas \(i\) e \(j\) são trocadas na eliminação gaussiana.
+
+\subsection{Fatoração \(LU\) para resolver \(A\mathbf{x_i} = \mathbf{b_i}\)}
+
+Para resolver um sistema \(A\mathbf{x_i} = \mathbf{b_i}\), \(1 \leq i \leq k\), multiplique ambos os lados pela esquerda por \(P\):
+
+\begin{equation}
+  PA\mathbf{x_i} = P\mathbf{b_i}.  
+\end{equation}
+
+Seja \(\overline{\mathbf{b}} = P\mathbf{b_i}\) e substitua \(PA\) por \(LU\):
+
+\begin{equation}
+  LU\mathbf{x} = \overline{\mathbf{b}}.
+\end{equation}
+
+E resolva por substituição:
+
+\begin{align}
+  L\mathbf{y} = \overline{\mathbf{b}} \quad \text{(forward substitution)},\\
+  U\mathbf{x} = \mathbf{y} \quad \text{(backward substitution)}.
+\end{align}
+
+O custo da decomposição \(LU\) é \(O(n^3)\), e o custo de resolver \(k\) sistemas lineares é \(O(kn^2)\). Se tivéssemos que resolver \(k\) sistemas lineares com eliminação gaussiana, o custo seria \(O(kn^3)\). Portanto, a decomposição \(LU\) é vantajosa quando \(k\) é grande, pois reduz o custo computacional total.
+
+\subsection{Estabilidade da Eliminação Gaussiana}
+
+A eliminação gaussiana sem pivotamento parcial não é estável em geral, como mostrado anteriormente. Ainda é possível, em teoria, que o algoritmo GEPP seja instável em certas matrizes. Entretanto, essas matrizes nunca foram encontradas em aplicações, então consideramos o método estável na prática.
+
+\begin{defn}
+  Aplique a fatoração \(LU\) para a matriz \(A\). Durante a eliminação, temos as matrizes \(A = A^{(0)}, A^{(1)}, A^{(2)}, \ldots, A^{(n-1)} = U\). O fator de crescimento é definido como
+
+  \begin{equation}
+    \rho = \frac{\max_{i, j, k}\vert a_{ij}^{(k)} \vert}{\max_{i, j}\vert a_{ij} \vert};
+  \end{equation}
+
+  \noindent isto é, é a razão entre o maior elemento em magnitude durante a eliminação gaussiana e o maior elemento da matriz \(A\).
+\end{defn}
+
+\begin{exmp}
+  Calculamos o fator de crescimento da matriz do exemplo \ref{ex:piv_parcial} nos dois casos. Sem pivotamento parcial:
+
+  \begin{equation*}
+    \begin{bmatrix}
+      0.00001 & 3 \\
+      2 & 1 \\
+    \end{bmatrix}
+    \sim
+    \begin{bmatrix}
+      0.00001 & 3 \\
+      0 & -599999 \\
+    \end{bmatrix}.
+  \end{equation*}
+
+  \noindent e o fator de crescimento é \(\rho = \frac{599999}{3} = 199999.67\). 
+  
+  Com pivotamento parcial:
+
+  \begin{equation*}
+    \begin{bmatrix}
+      0.00001 & 3 \\
+      2 & 1 \\
+    \end{bmatrix}
+    \sim
+    \begin{bmatrix}
+      2 & 1 \\
+      0.00001 & 3
+    \end{bmatrix}
+    \sim
+    \begin{bmatrix}
+      2 & 1 \\
+      0 & 2.999995  
+    \end{bmatrix}
+  \end{equation*}
+
+  \noindent e \(\rho = \frac{3}{3} = 1\).
+
+\end{exmp}
+
+\begin{thm}\label{thm:fator_crescimento}
+  Seja \(PA = LU\) a fatoração da matriz \(A\) via eliminação gaussiana. Então, as matrizes computadas \(\tilde{L}\), \(\tilde{U}\), e \(\tilde{P}\) satisfazem
+
+  \begin{equation}\label{eq:fator_crescimento}
+    \tilde{L}\tilde{U} = \tilde{P}A + \delta A\ \qquad \frac{\Vert \delta A \Vert_2}{\Vert A \Vert} = O(\rho \ \text{eps})
+  \end{equation}
+
+  \noindent para uma matriz \(\delta A\) \(n \times n\), onde \(\rho\) é o fator de crescimento de \(A\). Se \(\vert l_{ij} \vert < 1\) para todo \(i > j\), implicando que não há empates na seleção de pivôs em aritmética exata, então \(\tilde{P} = P\) para todo \(\text{eps}\) suficientemente pequeno.
+\end{thm}
+
+\newpage
+\section{Métodos Iterativos}
+
+Problemas que envolvem matrizes grandes surgem na discretização de equações diferenciais parciais e em aplicações como design e análise de circuitos elétricos e processos de engenharia química. Frequentemente, esses sistemas lineares são esparsos, ou seja, muitas das entradas da matriz correspondente são zero. Conforme visto na seção anterior, a eliminação gaussiana em aritmética de ponto flutuante pode transformar zeros em números não-nulos e, assim, destruir a esparsidade da matriz. Então, para matrizes grandes e esparsas, costuma-se utilizar métodos iterativos. Um método iterativo é um algoritmo que gera uma sequência de aproximações para a solução de um sistema linear \(A\mathbf{x} = \mathbf{b}\). A ideia é começar com uma aproximação inicial \(\mathbf{x}^{(0)}\) e, em cada iteração, melhorar essa aproximação até que a solução computada convirja para a solução exata \(\mathbf{x}\), fornecidos uma tolerância e um número máximo de iterações. Na seção seguinte, apresentamos três métodos iterativos populares: Jacobi, Gauss-Seidel e SOR (Successive Over-Relaxation).
+
+\subsection{Método de Jacobi}
+
+O método de Jacobi é um dos métodos iterativos mais simples. Reescrevemos o sistema \(A\mathbf{x} = \mathbf{b}\) de forma que cada variável \(x_i\) seja isolada em termos das outras variáveis. O sistema pode ser escrito como:
+
+\begin{align*}
+  a_{11}x_1 + a_{12}x_2 + \ldots + a_{1n}x_n &= b_1, \\
+  a_{21}x_1 + a_{22}x_2 + \ldots + a_{2n}x_n &= b_2, \\
+  &\vdots \\
+  a_{n1}x_1 + a_{n2}x_2 + \ldots + a_{nn}x_n &= b_n.
+\end{align*}
+
+A iteração é então definida como:
+
+\begin{equation}
+  x_i = \frac{1}{a_{ii}} \left[ b_i - \left(\sum_{j=1, j \neq i}^{n} a_{ij} x_j \right)\right], \quad 1 \leq i \leq n.
+\end{equation}
+
+As iterações de Jacobi podem ser escritas na forma matricial:
+
+\begin{equation}
+  \mathbf{x}^{(k)} = B_{J}\mathbf{x}^{(k-1)} + \mathbf{c}_{J},
+\end{equation}
+
+\noindent onde 
+
+\begin{equation}
+  B_{J} = -D^{-1}(L + U), \quad \mathbf{c}_{J} = D^{-1}\mathbf{b}.
+\end{equation}
+
+\subsection{Método de Gauss-Seidel}
+
+A iteração de Gauss-Seidel é uma modificação do método de Jacobi. A ideia é usar a solução mais recente disponível para atualizar as variáveis imediatamente, em vez de esperar até a próxima iteração. A iteração de Gauss-Seidel é definida como:
+
+\begin{equation}
+  x_i^{(k)} = \frac{1}{a_{ii}} \left[ b_i - \left(\sum_{j=1}^{i-1} a_{ij} x_j^{(k)} + \sum_{j=i+1}^{n} a_{ij} x_j^{(k-1)}\right)\right], \quad i = 2, 3, \ldots, n-1.
+\end{equation}
+
+As iterações de Gauss-Seidel podem ser escritas na forma matricial:
+
+\begin{equation}
+  \mathbf{x}^{(k)} = B_{GS}\mathbf{x}^{(k-1)} + \mathbf{c}_{GS},
+\end{equation}
+
+\noindent onde
+
+\begin{equation}
+  B_{GS} = -(D + L)^{-1}U, \quad \mathbf{c}_{GS} = (D + L)^{-1}\mathbf{b}.
+\end{equation}
+
+\subsection{Iteração SOR}
+
+A iteração SOR (Successive Over-Relaxation) é uma generalização do método de Gauss-Seidel que introduz um fator de relaxação \(\omega\) para acelerar a convergência. Tem como princípio ajustar a atualização de cada variável \(x_i\) com um fator \(\omega\):
+
+\begin{equation}
+  x_i^{(k)} = (1 - \omega)x_i^{(k-1)} + \frac{\omega}{a_{ii}} \left[ b_i - \left(\sum_{j=1}^{i-1} a_{ij} x_j^{(k)} + \sum_{j=i+1}^{n} a_{ij} x_j^{(k-1)}\right)\right], \quad i = 2, 3, \ldots, n-1.
+\end{equation}
+
+\noindent A iteração SOR pode ser escrita na forma matricial:
+
+\begin{equation}
+  \mathbf{x}^{(k)} = B_{SOR}\mathbf{x}^{(k-1)} + \mathbf{c}_{SOR},
+\end{equation}
+
+\noindent onde
+
+\begin{equation}
+  B_{SOR} = (D + \omega L)^{-1}((1 - \omega)D - \omega U), \quad \mathbf{c}_{SOR} = (D + \omega L)^{-1}\mathbf{b}.
+\end{equation}
+
+\subsection{Convergência dos Métodos Iterativos}
+
+Listamos abaixo alguns teoremas que garantem a convergência dos métodos iterativos discutidos anteriormente.
+
+\begin{thm}
+  Se a matriz \(B\) na iteração \(\mathbf{x}^{(k)} = B\mathbf{x}^{(k-1)} + \mathbf{c}\) tem a propriedade de que \(\Vert B \Vert < 1\) para alguma norma subordinada, então a iteração converge para qualquer escolha de aproximação inicial \(\mathbf{x}^{(0)}\).
+\end{thm}
+
+\begin{thm}
+  A iteração \(\mathbf{x}^{(k+1)} = B\mathbf{x}^{(k)} + \mathbf{c}\) converge se e somente se \(\rho(B) < 1\), onde \(\rho(B)\) é o raio espectral de \(B\).
+\end{thm}
+
+\begin{thm}
+  Se \(A\) é uma matriz estritamente diagonal dominante, então o método de Jacobi converge para qualquer escolha de aproximação inicial \(\mathbf{x}^{(0)}\).
+\end{thm}
+
+\begin{thm}\label{thm:gs_convergence}
+  Seja \(A\) uma matriz simétrica positiva definida. Para qualquer escolha de aproximação inicial \(\mathbf{x}^{(0)}\), o método de Gauss-Seidel converge.
+\end{thm}
+
+\begin{thm}
+  Se a iteração SOR converge para qualquer aproximação inicial \(\mathbf{x}^{(0)}\), então \(0 < \omega < 2\).
+\end{thm}
+
+\begin{thm}
+  Se \(A\) é uma matriz simétrica positiva definida e \(0 < \omega < 2\), então as iterações SOR e Gauss-Seidel convergem para qualquer escolha de aproximação inicial \(\mathbf{x}^{(0)}\).
+\end{thm}
+
+\begin{prblm}
+  \begin{enumerate}
+  \item [(a)]
+    Dada a equação de Poisson unidimensional
+
+    \begin{equation}
+      -\frac{d^2u}{dx^2} = f(x), \quad 0 \leq x \leq 1,
+    \end{equation}
+
+    \noindent com condições de contorno \(u_1 = 0\) e \(u_{n+1} = 0\), e a aproximação por diferenças finitas para a segunda derivada:
+
+    \begin{equation}
+      \frac{d^2u}{dx^2}(x_i) \approx \frac{u_{i-1} - 2u_i + u_{i+1}}{h^2},
+    \end{equation}
+
+    \noindent o sistema de equações pode ser escrito na forma matricial \(A\mathbf{x} = \mathbf{b}\), onde:
+
+    \[
+    A = \frac{1}{h^2}
+    \begin{bmatrix}
+      2 & -1 & 0 & \cdots & 0 \\
+      -1 & 2 & -1 & \ddots & \vdots \\
+      0 & \ddots & \ddots & \ddots & 0 \\
+      \vdots & \ddots & -1 & 2 & -1 \\
+      0 & \cdots & 0 & -1 & 2
+      \end{bmatrix}, \quad
+      \mathbf{b} =
+    \begin{bmatrix}
+      f(x_2) \\
+      f(x_3) \\
+      \vdots \\
+      f(x_{n-1}) \\
+      f(x_n)
+    \end{bmatrix}, \quad
+    \mathbf{x} =
+    \begin{bmatrix}
+      u_2 \\
+      u_3 \\
+      \vdots \\
+      u_{n-1} \\
+      u_n
+    \end{bmatrix}.
+    \]
+
+    \item [(b)]
+    Para mostrar que \(A\) é positiva definida, demonstramos que \(\mathbf{x}^T A \mathbf{x} > 0\) para todo \(\mathbf{x} \neq \mathbf{0}\).
+
+    \begin{align*}
+    \mathbf{x}^T A \mathbf{x} &= \frac{1}{h^2} \sum_{i=1}^n \left(2x_i^2 - 2x_i x_{i+1}\right) \quad \text{(com \(x_0 = x_{n+1} = 0\))} \\
+    &= \frac{1}{h^2} \left( \sum_{i=1}^n x_i^2 + \sum_{i=1}^n (x_i^2 - 2x_i x_{i+1} + x_{i+1}^2) \right) \\
+    &= \frac{1}{h^2} \left( \sum_{i=1}^n x_i^2 + \sum_{i=1}^n (x_i - x_{i+1})^2 \right) > 0 \quad \text{para \(\mathbf{x} \neq \mathbf{0}\)}.
+    \end{align*}
+
+    A soma é estritamente positiva pois \(\sum x_i^2 \geq 0\) e \(\sum (x_i - x_{i+1})^2 \geq 0\).
+
+    Portanto, \(A\) é positiva definida e, pelo Teorema \ref{thm:gs_convergence}, a iteração Gauss-Seidel converge para a solução do sistema \(A\mathbf{x} = \mathbf{b}\).
+  \end{enumerate}
+\end{prblm}
+
+\subsection{Análise dos Métodos Iterativos}
+
+A partir do problema anterior, realizamos uma análise dos métodos iterativos Jacobi, Gauss-Seidel e SOR (Successive Over-Relaxation) no software Scilab.
+
+Para \(n = 50\) e \(f(x) = 1\), construímos a matriz \(A\) e o vetor \(\mathbf{b}\) conforme o item (a). Os resultados dos métodos iterativos Jacobi, Gauss-Seidel e SOR (com \(\omega = 1.3\)) são apresentados a seguir.
+
+\begin{verbatim}
+              +------------------------------------------+
+              |          ANÁLISE MÉTODO DE JACOBI        |
+              +------------------------------------------+
+              | Norma      | Valor      | Convergência   |
+              +------------------------------------------+
+              | Norma-1    | 1.000000   | Não            |
+              | Norma-2    | 0.998103   | Sim            |
+              | Norma-Inf  | 1.000000   | Não            |
+              +------------------------------------------+
+Convergência: ao menos uma norma é < 1, sugerindo convergência.
+
+Raio espectral: 0.998103 (< 1 garante convergência)
+
+
+              +------------------------------------------+
+              |      ANÁLISE MÉTODO DE GAUSS-SEIDEL      |
+              +------------------------------------------+
+              | Norma     | Valor      | Convergência    |
+              +------------------------------------------+
+              | Norma-1    | 1.000000   | Sim            |
+              | Norma-2    | 0.996324   | Sim            |
+              | Norma-Inf  | 1.000000   | Sim            |
+              +------------------------------------------+
+Convergência: ao menos uma norma é < 1, sugerindo convergência.
+
+Raio espectral: 0.996210 (< 1 garante convergência)
+
+              +------------------------------------------+
+              |            ANÁLISE MÉTODO SOR            |
+              |            (omega = 1.3000)              |
+              +------------------------------------------+
+              | Norma      | Valor      | Convergência   |
+              +------------------------------------------+
+              | Norma-1    | 1.000000   | Sim            |
+              | Norma-2    | 0.995344   | Sim            |
+              | Norma-Inf  | 1.000000   | Sim            |
+              +------------------------------------------+
+Convergência: ao menos uma norma é < 1, sugerindo convergência.
+
+Raio espectral: 0.992957 (< 1 garante convergência)
+
+              +----------------------------------------------+
+              |           COMPARAÇÃO DOS RESULTADOS          |
+              +----------------------------------------------+
+              | Método       | Raio espectral  | Melhor opção|
+              +----------------------------------------------+
+              | Jacobi       | 0.998103        | Não         |
+              | Gauss-Seidel | 0.996210        | Não         |
+              | SOR (w=1.30) | 0.992957        | Sim         |
+              +----------------------------------------------+
+
+=======================================================================
+                    RESULTADOS DOS MÉTODOS ITERATIVOS
+=======================================================================
+Matriz: 50x50  | Tolerância: 1.0e-06      | SOR omega: 1.30
+
+Método         | Iterações  | Resíduo     | Tempo(s)   | Raio espectral
+-----------------------------------------------------------------------
+Jacobi         |        5000 |     6.86e-05 |   71.5857 |     0.9981
+Gauss-Seidel   |        3615 |     9.98e-07 |   38.9605 |     0.9962
+SOR            |        1944 |     9.95e-07 |   21.3000 |          -
+=======================================================================
+\end{verbatim}
+
+\newpage
+
+\printbibliography[title={Referências}]
+
+\end{document}

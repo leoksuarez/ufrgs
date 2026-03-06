@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage{fontspec}
+\setmainfont{Libertinus Serif}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
+\usepackage[portuguese]{babel}
+
+\begin{document}
+
+\noindent
+Curso de Verão \hfill Prof. Arthur Miranda \\
+\noindent
+Introdução à Análise Real \hfill \textbf{\Large Soluções Lista 3} \hfill \today
+\vspace{0.5mm}
+\hrule
+
+\section*{Teorema de Bolzano-Weierstrass e Sequências de Cauchy}
+
+\begin{enumerate}
+    \item [\textbf{E1}] Define \[
+        a_n = \begin{cases}
+            3 - \displaystyle\frac{1}{n}, \quad \text{n = 2k}\\
+            7 + \displaystyle\frac{1}{n}, \quad \text{n = 2k+1}
+        \end{cases}
+    \] para \(k = 0, 1, 2, \ldots\).
+    \item [\textbf{E2}]
+        \begin{enumerate}
+            \item [(a)] Toma \(n_0 = 2/\varepsilon\). Então para todo \(\varepsilon>0\), \(\displaystyle m,n > n_0 \implies |a_m-a_n| = \left|\left(1+\frac{1}{m}\right) - \left(1+\frac{1}{n}\right)\right| = \left|\frac{1}{m}-\frac{1}{n}\right| \leq \frac{1}{m} + \frac{1}{n} < \frac{\varepsilon}{2}+\frac{\varepsilon}{2} = \epsilon\).
+            \item [(b)]
+        \end{enumerate}
+    \item [\textbf{E3}]
+    \item [\textbf{E4}]
+    \item [\textbf{E5}]
+    \item [\textbf{E6}]
+        \begin{enumerate}
+            \item [(a)] Faz indução em \(n\). Para \(n=2\), tem-se \(2 \leq a_2 = ({a_1}^2+6)/5 = 49/20 \leq 3\). Supondo que o resultado vale para \(n\), escreve \(a_{n+1} = ({a_n}^2+6)/5 \geq (2^2 + 6)/5 = 2\) e também \(a_{n+1} = ({a_n}^2+6)/5 \leq (3^2+6)/5 = 3\).\qed
+            \item [(b)] Usa indução em \(n\). Para \(n=2\), vale \(a_2 = ({a_1}^2+6)/5 = 49/20 < a_1\). Supondo \(a_n < a_{n-1}\), escreve \(a_{n+1} = ({a_n}^2+6)/5 < ({a_{n-1}}^2+6)/5 = a_n\) (pois \(0 < a_n < a_{n-1} \iff 0 < {a_n}^2 < {a_{n-1}}^2\)).\qed
+            \item [(c)] Seja \(L = \lim a_n\). Então \(\lim a_n = \lim [({a_{n-1}}^2+6)/5] = (L^2+6)/5 \iff L = (L^2+6)/5 \iff L^2 - 5L + 6 = 0 \iff L = 2 \lor L = 3\). Como \((a_n)\) é decrescente para todo \(n \in \mathbb{N}\), tem-se \(2 \leq a_n \leq a_1 = 5/2\). Logo \(L = 2\).
+        \end{enumerate}
+    \item [\textbf{E7}]
+        \begin{enumerate}
+            \item [(a)] 
+            \item [(b)]
+            \item [(c)]
+        \end{enumerate}
+\end{enumerate}
+
+\section*{Séries numéricas}
+
+\begin{enumerate}
+    \item [\textbf{E1}] A série \(a^2\sum (1/1+a^2)^k\) converge para \(0\) se \(a=0\) ou para \(1/(1-(1/1+a^2)) = 1/a^2 + 1\) para todo \(a \neq 0\).
+    \item [\textbf{E2}]
+    \item [\textbf{E3}]
+        \begin{enumerate}
+            \item [(a)] \(\sum_{n=1}^{\infty} \left(-3/4\right)^n = 1/(1-(-3/4)) = 4/7\).
+            \item [(b)] \(\sum_{n=1}^{\infty} \pi^{-n} = \sum_{n=1}^{\infty} (1/\pi)^n = 1/(1-(1/\pi)) = \pi/(\pi-1)\).
+            \item [(c)] \(\sum_{n=1}^{\infty} 1/3^n + 1/\pi^n = \sum_{n=1}^{\infty} (1/3)^n + \sum_{n=1}^{\infty} (1/\pi)^n = 1/(1-(1/3)) + 1/(1-(1/\pi)) = 3/2 + \pi/(\pi-1)\). 
+            \item [(d)] \(\sum_{n=1}^{\infty} (3^n + 4^n)/5^n = \sum_{n=1}^{\infty} (3/5)^n + \sum_{n=1}^{\infty} (4/5)^n = 1/(1-(3/5)) + 1/(1-(4/5)) = 15/2\).
+        \end{enumerate}
+    \item [\textbf{E4}]
+        \begin{enumerate}
+            \item [(a)] A série \(\sum (5x)^n\) converge sse \(|5x| < 1 \iff -1/5<x<1/5\).
+            \item [(b)] A série \(\sum (x-1)^n\) converge sse \(|x-1| < 1 \iff 0<x<2\).
+            \item [(c)] A série \(\sum (x/4)^n\) converge sse \(|x/4| < 1 \iff -4<x<4\).
+            \item [(d)] A série \(\sum ((x-2)/3)^n\) converge sse \(|(x-2)/3 < 1 \iff -1<x<5\).
+        \end{enumerate}
+    \item [\textbf{E5}]
+        \begin{enumerate}
+            \item [(a)] Reescreve a série \(1/2 + 3/4 + 7/8 + 15/16 + \cdots = \sum_{n=1}^{\infty} (2^n-1)/2^n = \sum_{n=1}^{\infty} 1-1/2^n\). Como \(a_n = 1-1/2^n \not\to 0\) ao \(n \to \infty\), a série diverge.
+            \item [(b)] Nota que \(1/2 - 2/20 + 3/38 - 4/56 + 5/74 + \cdots = \sum_{n=0}^{\infty} (-1)^n \left(\frac{1+n}{2+18n}\right)\) tem \(a_n = (1+n)/(2+18n) \to 1/18 \neq 0\), logo a série diverge.
+            \item [(c)] Tem-se \(1/3 + (1\cdot 2)/(3\cdot 5) + (1\cdot 2 \cdot 3)/(3 \cdot 5 \cdot 7) +\cdots = \sum_{n=1}^{\infty}\).
+            \item [(d)] Escreve \(1/(1\cdot 3) + 1/(3 \cdot 5) + 1/(5\cdot 7) + \cdots = \sum_{n=1}^{\infty} 1/[(2n-1)(2n+1)] = \sum_{n=1}^{\infty} 1/(4n^2-1)\). Como \(1/(4n^2-1) \leq 1\cdot 1/n^2\) para todo \(n \in \mathbb{N}\), a série converge.
+            \item [(e)] Vê-se que \(4-1+1/4-1/16+\cdots = 4\sum_{k=0}^{\infty} (-1)^k(1/4)^k\) converge pois é uma série alternada com \((1/4)^k \to 0\).
+            \item [(f)] A série \(1+3/2+9/4+27/8+\cdots = \sum_{i=0}^{\infty} (3/2)^i\) diverge pois a razão \(|3/2| > 1\).
+        \end{enumerate}
+    \item [\textbf{E6}]
+        \begin{enumerate}
+            \item [(a)] Comparando a série \(\sum 1/[n(n+3)] = \sum 1/(n^2+3n)\) com a série convergente \(\sum 1/n^2\), vê-se que \(1/(n^2+3n) \leq 1/n^2\) para todo \(n \in \mathbb{N}\), logo a série converge.
+            \item [(b)] Do teste de d'Alembert, vem \(\lim \vert (n+1)/(n+2)! \cdot (n+1)!/n = 0 < 1\), então a série é convergente.
+            \item [(c)] Perceba que \(1/(3^n+1) < (1/3)^n\) para todo \(n \in \mathbb{N}\). Como \(10\sum (1/3)^n\) converge, especificamente para \(15\), a série original também converge, pelo teste da comparação.
+            \item [(d)] Racionalizando o denominador, obtém-se \(\sum 1/(\sqrt{n}+\sqrt{n+1}) = \sum 1/(\sqrt{n}+\sqrt{n+1}) \cdot (\sqrt{n}-\sqrt{n-1})/(\sqrt{n}-\sqrt{n-1}) = \sum \sqrt{n}-\sqrt{n-1}\). Perceba que \(\lim s_k \to \infty\) pois \(s_k = \sum_{n=1}^{k} \sqrt{k}-\sqrt{k-1} = \sqrt{k}\), logo a série diverge.
+            \item [(e)] A série diverge, pois \(a_n = \cos(n) \not\to 0\) ao \(n\to \infty\).
+            \item [(f)] Pelo critério de comparação, a série converge absolutamente, pois \(\vert cos(n)/n^2 \vert \leq 1/n^2\) e \(\sum 1/n^2\) converge.
+            \item [(g)] A série diverge, pois \(\lim (n^2+1)/(n^2+n+1) = 1 \neq 0\).
+            \item [(h)] Do teste de Cauchy, vem \(\lim \sqrt[\vert n/3^n]{n} = \lim n/9 > 1\), logo a série diverge.
+        \end{enumerate}
+    \item [\textbf{E7}] 
+    \item [\textbf{E8}]
+        \begin{enumerate}
+            \item [(a)] A série converge condicionalmente. De fato, tem-se \(\lim 1/(3+\sqrt{n}) = 0\), mas \(1/(3+\sqrt{n}) > 1/(2\sqrt{n})\) para todo \(n > 9\), e \(\sum 1/(2\sqrt{n})\) diverge.
+            \item [(b)] Do teste de d'Alembert, vem \(\lim \vert (n+1)!/[(n+1)^4+2] \cdot (n^4+2)/n! \vert = \lim \vert (n+1)(n^4+2)/[(n+1)^4+2] \vert = \lim \vert (n^5+2n+n^4+2)/[(n+1)^4+2] \vert = \infty\). Então a série diverge.
+            \item [(c)] Faz a comparação com a série geométrica \(\sum (2/3)^n\). Como \(1/n (2/3)^n \leq (2/3)^n\) para todo \(n > 1\), a série \(\sum 2^n/(n3^{n+1}) = 1/3 \sum 1/n(2/3)^n\) converge.
+        \end{enumerate}
+    \item [\textbf{E9}]
+    \item [\textbf{E10}]
+    \item [\textbf{E11}]
+        \begin{enumerate}
+            \item [(a)]
+            \item [(b)]
+            \item [(c)]
+            \item [(d)]
+        \end{enumerate}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,1109 @@
+\documentclass{article}
+\usepackage{fontspec}
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+\setmainfont{Libertinus Serif}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
+\usepackage[portuguese]{babel}
+
+\setlist[description]{leftmargin=1cm,labelindent=1cm}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{prop}[thm]{Proposição}
+\newtheorem{lem}[thm]{Lema}
+\newtheorem{cor}[thm]{Corolário}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definição}[section]
+\newtheorem{exmp}[defn]{Exemplo}
+\newtheorem{prblm}[defn]{Problema}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Nota}
+
+\begin{document}
+\begin{center}
+    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
+    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
+    \vspace{3cm}
+    \textbf{\Large ANÁLISE I} \\
+    \vspace{1cm}
+    \textbf{\large LISTA DE DEFINIÇÕES E RESULTADOS} \\
+    \vspace{3cm}
+
+    \textbf{LEONARDO SUAREZ}
+
+    \vfill
+    \textbf{\large Porto Alegre, RS} \\
+    \textbf{\large \today}
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+\begin{multicols}{2}
+
+\section{Conjuntos Finitos e Infinitos}
+
+\subsection{Números naturais}
+
+Caracteriza-se o conjunto \(\mathbb{N}\) dos números naturais da seguinte forma:
+
+\begin{enumerate}
+    \item[\textbf{AI}] Existe uma função injetiva \(s : \mathbb{N} \to \mathbb{N}\) chamada \emph{função sucessor}, tal que \(s(n)\) é o sucessor de \(n\).
+    \item[\textbf{AII}] Existe um único número natural \(1 \in \mathbb{N}\) tal que \(1 \neq s(n)\) para todo \(n \in \mathbb{N}\).
+    \item[\textbf{AIII}] Se um conjunto \(X \subset \mathbb{N}\) é tal que \(1 \in X\) e \(s(X) \subset X\) (ie, \(n \in X \implies s(n) \in X\)), então \(X = \mathbb{N}\). (\emph{princípio da indução}.)
+\end{enumerate}
+
+\begin{defn} (soma, produto em \(\mathbb{N}\)). 
+    No conjunto \(\mathbb{N}\), definimos duas operações fundamentais: a \emph{adição} que associa a cada par de números \((m,n)\) sua \emph{soma} \(m+n\), e a \emph{multiplicação}, faz corresponder ao par \((m,n)\) seu \emph{produto} \(m\cdot n\). Definimos então:
+    \begin{align}
+        m + 1 &\coloneq s(m), \\
+        m + s(n) &\coloneq s(m + n) \\
+        m \cdot 1 &\coloneq m, \\
+        m \cdot s(n) &\coloneq m \cdot n + m.
+    \end{align}
+\end{defn}
+
+\begin{prop} (propriedades da adição e da multiplicação em \(\mathbb{N}\)).
+    Sejam \(m, n, p \in \mathbb{N}\). Então:
+    \begin{itemize}
+        \item[(i)] \((m+n)+p = m+(n+p), \quad m \cdot (n \cdot p) = (m \cdot n) \cdot p\) (associatividade);
+        \item[(ii)] \(m + n = n + m, \quad m \cdot n = n \cdot m\) (comutatividade);
+        \item[(iii)] \(m \cdot (n + p) = m \cdot n + m \cdot p\) (distributividade);
+        \item[(iv)] \(n + m = p + m \implies n = p, \quad n \cdot m = p \cdot m \implies n = p\) (lei do corte).
+    \end{itemize} 
+\end{prop}
+
+\begin{defn} (ordem em \(\mathbb{N}\)).
+    Dados \(m, n \in \mathbb{N}\), escreve-se \(m < n\) quando existe \(p \in \mathbb{N}\) tal que \(n = m + p\). Se \(m < n\) ou \(m = n\), escreve-se \(m \leq n\).
+\end{defn}
+
+\begin{thm} (princípio da boa-ordenação).
+    Todo subconjunto não vazio \(A \subseteq \mathbb{N}\) possui um menor elemento, isto é, um elemento \(n_0 \in A\) tal que \(n_0 \leq n\) para todo \(n \in A\).
+\end{thm}
+
+\begin{proof}
+    Sejam \(A \subseteq \mathbb{N}\) não vazio e \(I_n = \{p \in \mathbb{N}: p \neq n\}\). Se \(1 \in A\), é claro que \(1\) é o menor elemento de \(A\). Se \(1 \notin A\), considere o conjunto \(X = \{n \in \mathbb{N}: I_n \subseteq \mathbb{N} - A\}\).
+    Nota que \(I_1 = \{1\} \subseteq \mathbb{N} - A\), logo \(1 \in X\). Como \(A\) é não vazio, tem-se que \(X \neq \mathbb{N}\), o que implica que existe \(n \in X\) tal que \(n_0 = n+1 \notin X\). Então \(n_0 \in A\), que é o menor elemento de \(A\), pois não existe número natural entre \(n\) e \(n+1\).
+\end{proof}
+
+\subsection{Conjuntos finitos}
+
+\begin{defn}
+    Um conjunto \(X\) diz-se \emph{finito} quando é vazio ou existem \(n \in \mathbb{N}\) e uma bijeção \(f: I_n \to X\). A bijeção \(f\) chama-se uma \emph{contagem} dos elementos de \(X\) e o número \(n\) chama-se o \emph{número cardinal} do conjunto finito \(X\).
+\end{defn}
+
+\begin{lem} \label{lema:bijecao}
+    Se existe uma bijeção \(f: X \to Y\), então, dados \(a \in X\) e \(b \in Y\), existe também uma bijeção \(g: X \to Y\) tal que \(g(a) = b\).
+\end{lem}
+
+\begin{thm}
+    Se \(A \subsetneq I_n\), não existe bijeção \(f: A \to I_n\).
+\end{thm}
+
+\begin{proof}
+    Supõe, por absurdo, que o resultado é falso. Tome o menor natural \(n_0 \in \mathbb{N}\) tal que exista \(f: A \to I_{n_0}\) bijetiva. Se \(n_0 \in A\), pelo lema \eqref{lema:bijecao}, existe \(g: A \to I_{n_0}\) bijetiva tal que \(g(n_0)=n_0\).
+    Então, a restrição de \(g\) a \(A - \{n_0\}\) é uma bijeção sobre \(I_{n_0 -1}\), o que contradiz a minimalidade de \(n_0\). Se \(n_0 \notin A\), pela sobrejetivdade de \(f\), existe \(a \in A\) tal que \(f(a)=n_0\), e a restrição de \(f\) ao subconjunto próprio \(A - \{a\}\) é uma bijeção sobre \(I_{n_0 -1}\), o que também leva a uma contradição.
+\end{proof}
+
+\begin{cor}
+    Se \(f: I_m \to X\) e \(g: I_n \to X\) são bijeções, então \(m = n\).
+\end{cor}
+
+\begin{cor}
+    Seja \(X\) um conjunto finito. Uma aplicação \(f: X \to X\) é injetiva sse é sobrejetiva.
+\end{cor}
+
+\begin{cor}
+    Não existe uma bijeção entre um conjunto finito e um de seus subconjuntos próprios.
+\end{cor}
+
+\begin{thm}
+    Todo subconjunto de um conjunto finito é finito.
+\end{thm}
+
+\begin{cor}
+    Dada \(f: X \to Y\), se \(Y\) é finito e \(f\) é injetiva, então \(X\) é finito; se \(X\) é finito e \(f\) é sobrejetiva, então \(Y\) é finito.
+\end{cor}
+
+\begin{defn}
+    Um subconjunto \(X \subseteq \mathbb{N}\) diz-se \emph{limitado} quando existe \(p \in \mathbb{N}\) tal que \(x \leq p\) para todo \(x \in X\).
+\end{defn}
+
+\begin{cor}
+    Um subconjunto \(X \subseteq \mathbb{N}\) é finito sse é limitado.
+\end{cor}
+
+\subsection{Conjuntos infinitos}
+
+\begin{defn}
+    Diz-se que um conjunto \(X\) é \emph{infinito} quando não é finito, isto é, quando não é vazio nem existe bijeção \(f: I_n \to X\) para qualquer \(n \in \mathbb{N}\).
+\end{defn}
+
+\begin{thm}
+    Se \(X\) é infinito, então existe uma aplicação injetiva \(f: \mathbb{N} \to X\).
+\end{thm}
+
+\begin{cor}
+    Um conjunto \(X\) é infinito sse existe uma bijeção \(\phi: X \to Y\) sobre um subconjunto próprio \(Y \subseteq X\).
+\end{cor}
+
+\subsection{Conjuntos enumeráveis}
+
+\begin{defn}
+    Um conjunto \(X\) diz-se \emph{enumerável} quando é finito ou quando existe bijeção \(f: \mathbb{N} \to X\). Neste caso, \(f\) chama-se uma \emph{enumeração} dos elementos de \(X\).
+\end{defn}
+
+\begin{thm}
+    Todo subconjunto \(X \subseteq \mathbb{N}\) é enumerável.
+\end{thm}
+
+\begin{cor}
+    Seja \(f: X \to Y\) injetiva. Se \(Y\) é enumerável, então \(X\) também é. Em particular, todo subconjunto de um conjunto enumerável é enumerável.
+\end{cor}
+
+\begin{cor}
+    Seja \(f: X \to Y\) sobrejetiva. Se \(X\) é enumerável, então \(Y\) também é.
+\end{cor}
+
+\begin{cor}
+    O produto cartesiano de dois conjuntos enumeráveis é enumerável.
+\end{cor}
+
+\begin{cor}
+    A reunião de uma família de conjuntos enumeráveis é enumerável.
+\end{cor}
+
+\section{Números Reais}
+
+\subsection{R é um corpo}
+
+\begin{defn} (soma, produto em \(\mathbb{R}\)).
+    Definimos duas operações binárias no conjunto \(\mathbb{R}\): a \emph{adição} que associa a cada par de números reais \((x,y)\) sua \emph{soma} \(x+y\), e a \emph{multiplicação}, que faz corresponder ao par \((x,y)\) seu \emph{produto} \(x \cdot y\).
+\end{defn}
+
+Essas operações satisfazem os seguintes axiomas.
+\begin{enumerate}
+    \item [\textbf{AI}]: para quaisquer \(x, y, z \in \mathbb{R}\), tem-se \((x + y) + z = x + (y + z)\) e \((x \cdot y) \cdot z = x \cdot (y \cdot z)\). \hfill (associatividade)
+    \item [\textbf{AII}]: para quaisquer \(x, y \in \mathbb{R}\), tem-se \(x + y = y + x\) e \(x \cdot y = y \cdot x\). \hfill (comutatividade)
+    \item [\textbf{AIII}]: existem \(0, 1 \in \mathbb{R}\) distintos tais que, para todo \(x \in \mathbb{R}\), tem-se \(x + 0 = x\) e \(x \cdot 1 = x\). \hfill (elemento neutro)
+    \item [\textbf{AIV}]: para todo \(x \in \mathbb{R}\), existe \(-x \in \mathbb{R}\) tal que \(x + (-x) = 0\). Se \(x \neq 0\), então existe \(x^{-1} \in \mathbb{R}\) tal que \(x \cdot x^{-1} = 1\). \hfill (inverso)
+    \item [\textbf{AV}]: para quaisquer \(x, y, z \in \mathbb{R}\), tem-se \(x \cdot (y + z) = x \cdot y + x \cdot z\). \hfill (distributividade)
+\end{enumerate}
+
+\subsection{R é um corpo ordenado}
+
+Existe um subconjunto \(\mathcal{P} \subset \mathbb{R}\), chamado de \emph{conjunto dos números positivos}, que satisfaz os seguintes axiomas.
+\begin{enumerate}
+    \item [\textbf{P1}] Se \(x, y \in \mathcal{P}\), então \(x + y \in \mathcal{P}\) e \(x \cdot y \in \mathcal{P}\).
+    \item [\textbf{P2}] Para todo \(x \in \mathbb{R}\), exatamente uma das seguintes alternativas é verdadeira: \(x \in \mathcal{P}\), \(x = 0\) ou \(-x \in \mathcal{P}\).
+\end{enumerate}
+
+\begin{rem}
+    Todo número real \(x \neq 0\) tem quadrado positivo. De fato, se \(x \in \mathcal{P}\) então \(x \cdot x = x^2 \in \mathcal{P}\) por P1. Se \(x \notin \mathcal{P}\) tem-se por P2 que \(-x \in \mathcal{P}\), logo \((-x) \cdot (-x) = x^2 \in \mathcal{P}\). Em particular, \(1\) é um número positivo, pois \(1 = 1^2\).
+\end{rem}
+
+\begin{defn}
+    Escreve-se \(x<y\) e diz-se que \(x\) é \emph{menor do que} \(y\) quando \(y - x \in \mathcal{P}\), isto é, \(y = x+z\) para algum \(z \in \mathcal{P}\). Neste caso, escreve-se também \(y > x\) e diz-se que \(y\) é \emph{maior do que} \(x\). Em particular, \(x>0\) significa que \(x \in \mathcal{P}\) e \(x<0\) significa que \(-x \in \mathcal{P}\).
+\end{defn}
+
+\begin{prop} (propriedades da relação de ordem \(x<y\) em \(\mathbb{R}\)).
+    \begin{enumerate}
+        \item [\textbf{O1}] Se \(x<y\) e \(y<z\), então \(x<z\). \hfill (transitividade)
+        \item [\textbf{O2}] Para quaisquer \(x, y \in \mathbb{R}\), tem-se \(x<y\) ou \(x=y\) ou \(x>y\). \hfill (tricotomia)
+        \item [\textbf{O3}] Se \(x<y\), então \(x + z < y + z\) para todo \(z \in \mathbb{R}\). \hfill (monotonicidade da adição)
+        \item [\textbf{O4}] Se \(x<y\) e \(z>0\), então \(x \cdot z < y \cdot z\). Se, porém, \(z<0\), então \(x \cdot z > y \cdot z\). \hfill (monotonicidade da multiplicação)
+    \end{enumerate}
+\end{prop}
+
+\begin{exmp} (desigualdade de Bernoulli).
+    Para todo \(x \geq -1\) e todo \(n \in \mathbb{N}\), tem-se \((1 + x)^n \geq 1 + nx\). A prova é por indução em \(n\).
+\end{exmp}
+
+\begin{defn} (valor absoluto).
+    A relação de ordem em \(\mathbb{R}\) permite definir o \emph{valor absoluto} de um número real \(x\) como sendo \[|x| = \begin{cases}
+        x, & \text{se } x \geq 0; \\
+        -x, & \text{se } x < 0.
+    \end{cases}\]
+
+    Em outras palavras, \(|x| = \max\{x, -x\}\) é o maior dos números reais \(x\) e \(-x\).
+\end{defn}
+
+\begin{prop}
+    Se \(x, y \in \mathbb{R}\) então \(|x+y| \leq |x| + |y|\) (desigualdade triangular) e \(|x \cdot y| = |x| \cdot |y|\).
+\end{prop}
+
+\begin{prop}
+    Sejam \(a, x, \delta \in \mathbb{R}\). Tem-se \(|x - a| < \delta\) sse \(a - \delta < x < a + \delta\).
+\end{prop}
+
+\subsection{R é um corpo ordenado completo}
+
+\begin{defn} (limitado superiormente, cota superior, limitado).
+    Um conjunto \(X \subseteq \mathbb{R}\) diz-se \emph{limitado superiormente} quando existe \(b \in \mathbb{R}\) tal que \(x \leq b\) para todo \(x \in X\). Tal número \(b\) chama-se uma \emph{cota superior} de \(X\). Analogamente, \(X \subseteq \mathbb{R}\) diz-se \emph{limitado inferiormente} quando existe \(a \in \mathbb{R}\) tal que \(x \geq a\) para todo \(x \in X\). O número \(a\) chama-se então uma \emph{cota inferior} de \(X\).
+    Se \(X\) é limitado superiormente e inferiormente, diz-se que \(X\) é \emph{limitado}, ou seja, \(X\) está contido em um intervalo \([a,b]\), ou que existe \(k > 0\) tal que \(|x| \leq k\).
+\end{defn}
+
+\begin{defn} (supremo).
+    Seja \(X \subseteq \mathbb{R}\) um conjunto não vazio e limitado superiormente. Um número \(\sigma \in \mathbb{R}\) chama-se \emph{supremo} de \(X\) quando é a menor das cotas superiores de \(X\), isto é:
+    \begin{enumerate}
+        \item [\textbf{S1}] Para todo \(x \in X\), tem-se \(x \leq \sigma\).
+        \item [\textbf{S2}] Se \(b\) é uma cota superior de \(X\), então \(\sigma \leq b\).
+        \item [\textbf{S2'}] Se \(b < \sigma\), então existe \(x \in X\) com \(b < x\). Equivalentemente, para todo \(\varepsilon > 0\), existe \(x \in X\) tal que \(\sigma - \varepsilon < x \leq \sigma\).
+    \end{enumerate}
+
+    Denotamos \(\sigma = \sup X\) para indicar que \(\sigma\) é o supremo de \(X\).
+    Analogamente, se \(X \subseteq \mathbb{R}\) é não vazio e limitado inferiormente, um número \(\iota \in \mathbb{R}\) chama-se \emph{ínfimo} de \(X\) quando é a maior das cotas inferiores de \(X\). Escrevemos \(\iota = \inf X\) para indicar que \(\iota\) é o ínfimo de \(X\). Isto equivale a:
+    \begin{enumerate}
+        \item [\textbf{I1}] Para todo \(x \in X\), tem-se \(x \geq \iota\).
+        \item [\textbf{I2}] Se \(a\) é uma cota inferior de \(X\), então \(\iota \geq a\).
+        \item [\textbf{I2'}] Se \(a > \iota\), então existe \(x \in X\) com \(x < a\). Equivalentemente, para todo \(\varepsilon > 0\), existe \(x \in X\) tal que \(\iota \leq x < \iota + \varepsilon\).
+    \end{enumerate}
+\end{defn}
+
+\begin{defn} (maior elemento).
+    Diz-se que um número \(b \in X\) é o \emph{maior elemento} (ou \emph{elemento máximo}) de \(X\) quando \(x \leq b\) para todo \(x \in X\), isto é, \(b\) é uma cota superior de \(X\), \emph{pertencente} a \(X\). Analogamente, diz-se que \(a \in X\) é o \emph{menor elemento} (ou \emph{elemento mínimo}) de \(X\) quando \(x \geq a\) para todo \(x \in X\).
+\end{defn}
+
+A afirmação de que o corpo ordenado \(\mathbb{R}\) é \emph{completo} significa que todo subconjunto não vazio \(X \subseteq \mathbb{R}\) limitado superiormente possui supremo \(\sigma = \sup X \in \mathbb{R}\).
+
+\begin{thm} (consequências da completude de \(\mathbb{R}\)).
+    \begin{enumerate}
+        \item [(i)] O conjunto \(\mathbb{N} \subseteq \mathbb{R}\) não é limitado superiormente;
+        \item [(ii)] O ínfimo do conjunto \(X = \{1/n : n \in \mathbb{N}\}\) é \(0\);
+        \item [(iii)] Dados \(a, b \in \mathcal{P}\), existe \(n \in \mathbb{N}\) tal que \(na > b\). \hfill (\emph{princípio arquimediano})
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{thm} (intervalos encaixados).
+    Dada uma sequência decrescente \(I_1 \supseteq I_2 \supseteq \ldots I_n \supseteq \ldots\) de intervalos limitados e fechados \(I_n = [a_n, b_n]\), existe pelo menos um ponto \(c \in \mathbb{R}\) tal que \(c \in I_n\) para todo \(n \in \mathbb{N}\).
+\end{thm}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{thm}
+    O conjunto dos números reais não é enumerável.
+\end{thm}
+
+\begin{cor}
+    Todo intervalo não-degenerado\footnote{Quando \(a=b\), o intervalo fechado \([a,b]\) reduz-se a um único elemento e chama-se um \emph{intervalo degenerado}.} é não-enumerável.
+\end{cor}
+
+\begin{prop}
+    Todo intervalo não-generado \(I\) contém números racionais e irracionais.
+\end{prop}
+
+\section{Sequências de Números Reais}
+
+\subsection{Limite de uma sequência}
+
+\begin{defn} (sequência).
+    Uma \emph{sequência} de números reais é uma função \(x: \mathbb{N} \to \mathbb{R}\), que associa a cada número natural \(n\) um número real \(x_n\), chamado o \(n\)-ésimo termo da sequência. Assim, uma sequência pode ser representada como \((x_n) = (x_1, x_2, \ldots, x_n, \ldots)\) ou \(\{x_n\}_{n\in\mathbb{N}}\), ou ainda \(x_n\), para indicar a sequência cujo \(n\)-ésimo termo é \(x_n\).
+\end{defn}
+
+\begin{defn} (limitada superiormente, limitada inferiormente, limitada).
+    Uma sequência \((x_n)\) diz-se \emph{limitada superiormente} (respectivamente \emph{inferiormente}) quando existe \(c \in \mathbb{R}\) tal que \(x_n \leq c\) (respectivamente \(x_n \geq c\)) para todo \(n \in \mathbb{N}\). Diz-se que \((x_n)\) é \emph{limitada} quando é limitada superiormente e inferiormente, isto é, existe \(k>0\) tal que \(|x_n| \leq k\) para todo \(n \in \mathbb{N}\).
+\end{defn}
+
+\begin{defn} (subsequência).
+    Dada uma sequência \(x = (x_n)\), uma \emph{subsequência} de \(x\) é a restrição da função \(x\) a um subconjunto infinito \(\mathbb{N}' = \{n_1 < n_2 < \ldots < n_k < \ldots\}\) de \(\mathbb{N}\). Escreve-se \(x' = (x_n)_{n \in \mathbb{N}'}\) ou \((x_{n_1}, x_{n_2}, \ldots, x_{n_k}, \ldots)\), ou \((x_{n_k})_{k \in \mathbb{N}}\) para indicar a subsequência \(x' = x|_{\mathbb{N}'}\).
+\end{defn}
+
+\begin{defn} (limite de uma sequência).
+    Diz-se que \(a \in \mathbb{R}\) é o \emph{limite} da sequência \((x_n)\) quando, para todo \(\varepsilon > 0\), existe \(n_0 \in \mathbb{N}\) tal que \(n \geq n_0 \implies |x_n - a| < \varepsilon\). Neste caso, escreve-se \(\lim x_n = a\) ou \(x_n \to a\) quando \(n \to \infty\). Uma sequência que possui limite diz-se \emph{convergente}; caso contrário, diz-se \emph{divergente}.
+\end{defn}
+
+\begin{prop} (unicidade do limite).
+    Uma sequência não pode convergir para dois limites distintos.
+\end{prop}
+
+\begin{prop}
+    Se \(\lim x_n = a\), então toda subsequência de \((x_n)\) também converge para \(a\).
+\end{prop}
+
+\begin{prop}
+    Toda sequência convergente é limitada.
+\end{prop}
+
+\begin{defn} (sequência monótona).
+    Uma sequência \((x_n)\) chama-se \emph{monótona} quando se tem \(x_n \leq x_{n+1}\) para todo \(n \in \mathbb{N}\) ou então \(x_n \geq x_{n+1}\) para todo \(n \in \mathbb{N}\). No primeiro caso, diz-se que \((x_n)\) é \emph{monótona crescente}; no segundo, diz-se que é \emph{monótona decrescente}.
+\end{defn}
+
+\begin{prop}
+    Toda sequência monótona limitada é convergente.
+\end{prop}
+
+\begin{cor} (Bolzano-Weierstrass).
+    Toda sequência limitada de números reais possui uma subsequência convergente.
+\end{cor}
+
+\subsection{Limites e desigualdades}
+
+\begin{prop}
+    Seja \(a = \lim x_n\). Se \(b < a\) então, para todo \(n\) suficientemente grande, tem-se \(b < x_n\). Analogamente, se \(a < b\) então \(x_n < b\) para todo \(n\) suficientemente grande.
+\end{prop}
+
+\begin{cor}
+    Seja \(a = \lim x_n\). Se \(a > 0\) então, para todo \(n\) suficientemente grande, tem-se \(x_n > 0\). Analogamente, se \(a < 0\) então \(x_n < 0\) para todo \(n\) suficientemente grande.
+\end{cor}
+
+\begin{cor}
+    Sejam \(a = \lim x_n\) e \(b = \lim y_n\). Se \(x_n \leq y_n\) para todo \(n\) suficientemente grande, então \(a \leq b\). Em particular, se \(x_n \leq b\) para todo \(n\) suficientemente grande, então \(\lim x_n \leq b\).
+\end{cor}
+
+\begin{rem}
+    Se fosse \(x_n < y_n\) para todo \(n\) suficientemente grande, não poderíamos concluir que \(a < b\). Basta tomar \(x_n = 0\) e \(y_n = 1/n\).
+\end{rem}
+
+\begin{thm} (teorema do sanduíche).
+    Se \(\lim x_n = \lim y_n = a\) e \(x_n \leq z_n \leq y_n\) para todo \(n\) suficientemente grande, então \(\lim z_n = a\).
+\end{thm}
+
+\begin{defn} (sequência de Cauchy).
+    Diz-se que \((x_n)\) é uma \emph{sequência de Cauchy} quando para todo \(\varepsilon > 0\), existe \(n_0 \in \mathbb{N}\) tal que \(m, n \geq n_0 \implies |x_m - x_n| < \varepsilon\).
+\end{defn}
+
+\begin{prop} (sequência converge sse é de Cauchy).
+    \begin{enumerate}
+        \item [(a)] Toda sequência de Cauchy é limitada.
+        \item [(b)] Uma sequência de Cauchy não pode ter dois valores de aderência distintos.\footnote{Um número \(a\) chama-se \emph{valor de aderência da sequência \((x_n)\) quando é limite de uma subsequência de \((x_n)\).}}
+        \item [(c)] Uma sequência \((x_n)\) é convergente sse é de Cauchy.
+    \end{enumerate}
+\end{prop}
+
+\begin{proof}
+    
+\end{proof}
+
+\subsection{Operações com limites}
+
+\begin{prop}
+    Se \(\lim x_n = 0\) e \((y_n)\) é uma sequência limitada, então \(\lim x_n y_n = 0\).
+\end{prop}
+
+\begin{thm}
+    Se \(\lim x_n = a\) e \(\lim y_n = b\), então
+    \begin{enumerate}
+        \item [(i)] \(\lim (x_n \pm y_n) = a \pm b\);
+        \item [(ii)] \(\lim (x_n \cdot y_n) = a \cdot b\);
+        \item [(iii)] Se \(b \neq 0\), então \(\lim (x_n / y_n) = a / b\).
+    \end{enumerate}
+\end{thm}
+
+\subsection{Limites infinitos}
+
+\begin{defn} (limite infinito).
+    Dada uma sequência \((x_n)\), escreve-se \(\lim x_n = +\infty\) para significar que, dado \(A > 0\), existe \(n_0 \in \mathbb{N}\) tal que \(n \geq n_0 \implies x_n > A\).
+    Analogamente, \(\lim x_n = -\infty\) significa que, dado \(A < 0\), existe \(n_0 \in \mathbb{N}\) tal que \(n \geq n_0 \implies x_n < A\).
+\end{defn}
+
+\begin{thm} (propriedades básicas).
+    \begin{enumerate}
+        \item [(i)] Se \(\lim x_n = +\infty\) e \((y_n)\) é uma sequência limitada inferiormente, então \(\lim (x_n + y_n) = +\infty\).
+        \item [(ii)] Se \(\lim x_n = +\infty\) e existe \(c > 0\) tal que \(y_n > c\) para todo \(n\), então \(\lim (x_n \cdot y_n) = +\infty\).
+        \item [(iii)] Se \(x_n > c > 0\), \(y_n > 0\) para todo \(n \in \mathbb{N}\) e \(\lim y_n = 0\), então \(\lim (x_n / y_n) = +\infty\).
+        \item [(iv)] Se \((x_n)\) é limitada e \(\lim y_n = +\infty\), então \(\lim (x_n / y_n) = 0\).
+    \end{enumerate}
+\end{thm}
+
+\section{Séries Numéricas}
+
+\subsection{Séries convergentes}
+
+\begin{defn} (série).
+    Uma \emph{série} é uma soma \(s = a_1 + a_2 + \cdots + a_n + \cdots\) com um número infinito de parcelas, isto é, \(s = \lim_{n \to \infty} (a_1 + \cdots + a_n)\).
+\end{defn}
+
+\begin{defn} (somas parciais, termo geral)
+    Dada uma sequência \((a_n)\) de números reais, define-se a \(n\)-ésima \emph{soma parcial} da série \(\sum a_n\) como sendo o número real \(s_n = a_1 + a_2 + \cdots + a_n\). A sequência \((s_n)\) chama-se a \emph{sequência das somas parciais} da série \(\sum_{n=1}^{\infty} a_n\) e o número \(a_n\) chama-se o \(n\)-ésimo \emph{termo geral} da série.
+    Se existir o limite \(s = \lim s_n\), diz-se que a série \(\sum a_n\) é \emph{convergente} e que \(s\) é a \emph{soma} da série. Caso contrário, diz-se que a série é \emph{divergente}.
+\end{defn}
+
+\begin{thm} (critério de comparação).
+    Sejam \(\sum a_n\) e \(\sum b_n\) séries de termos não negativos. Se existem \(c>0\) e \(n_0 \in \mathbb{N}\) tais que \(a_n \leq c b_n\) para todo \(n>n_0\), então a convergência de \(\sum b_n\) implica a de \(\sum a_n\) enquanto a divergência de \(\sum a_n\) implica a de \(\sum b_n\).
+\end{thm}
+
+\begin{exmp} (p-série).
+    Se \(r>1\) a série \(\sum 1/n^r\) converge. De fato, seja \(c = \sum_{n=0}^{\infty} (2/2^r)^n\). Mostramos que toda soma parcial \(s_m\) de \(\sum 1/n^r\) é menor que \(c\). Toma \(n \in \mathbb{N}\) tal que \(m \leq 2^n-1\) e escreva
+    \begin{multline*}
+        s_m \leq 1 + \left(\frac{1}{2^r} + \frac{1}{3^r}\right) + \left(\frac{1}{4^r}+\frac{1}{5^r}+\frac{1}{6^r}+\frac{1}{7^r}\right) \\
+        +\cdots + \left(\frac{1}{(2^{n-1})^r} + \cdots + \frac{1}{(2^n-1)^r}\right)\\
+        < 1 + \left(\frac{2}{2^r}\right) + \left(\frac{4}{4^r}\right) + \cdots + \left(\frac{2^{n-1}}{(2^{n-1})^r}\right) \\
+        = \sum_{i=0}^{n-1} \left(\frac{2}{2^r}\right)^i < c.
+    \end{multline*}
+    No caso em que \(r<1\), a série \(\sum 1/n^r\) diverge pela comparação com a série harmônica \(\sum 1/n\), pois \(1/n^r > 1/n\).
+\end{exmp}
+
+\begin{prop}
+    O termo geral de uma série convergente tem limite zero.
+\end{prop}
+
+\subsection{Séries absolutamente convergentes}
+
+\begin{defn} (série absolutamente convergente).
+    Uma série \(\sum a_n\) diz-se \emph{absolutamente convergente} quando a série \(\sum |a_n|\) é convergente.
+    Uma série convergente \(\sum a_n\) tal que \(\sum |a_n| = +\infty\) chama-se \emph{condicionalmente convergente}.
+\end{defn}
+
+\begin{thm} (Leibniz).
+    Se \((a_n)\) é uma sequência monótona decrescente que tende para zero então a série alternada \(\sum (-1)^{n+1} a_n\) é convergente.
+\end{thm}
+
+\begin{prop}
+    Toda série absolutamente convergente é convergente.
+\end{prop}
+
+\subsection{Testes de convergência}
+
+\begin{prop}
+    Seja \(\sum b_n\) uma série absolutamente convergente, com \(b_n \neq 0\) para todo \(n \in \mathbb{N}\). Se a sequência \((a_n/b_n)\) for limitada (em particular, se for convergente) então a série \(\sum a_n\) será absolutamente convergente.
+\end{prop}
+
+\begin{cor} (teste de d'Alembert).
+    Seja \(a_n \neq 0\) para todo \(n \in \mathbb{N}\). Se existir uma constante \(c\) tal que \(|a_{n+1}/a_n| \leq c < 1\) para todo \(n\) suficientemente grande (em particular, se \(\lim |a_{n+1}/a_n| < 1\)) então a série \(\sum a_n\) é absolutamente convergente.
+\end{cor}
+
+\begin{rem}
+    Se \(\lim |a_{n+1}/a_n| = L > 1\), o teste de d'Alembert diz que \(\sum a_n\) diverge, pois o termo geral não tende para zero. Se \(L = 1\), o teste é inconclusivo; a série pode convergir (como \(\sum 1/n^2\)) ou divergir (como \(\sum 1/n\)).
+\end{rem}
+
+\begin{thm} (teste de Cauchy).
+    Quando existe um número real \(c\) tal que \(\sqrt[n]{|a_n|} \leq c < 1\) para todo \(n\) suficientemente grande (em particular, se \(\lim \sqrt[n]{|a_n|} < 1\)), então a série \(\sum a_n\) é absolutamente convergente.
+\end{thm}
+
+\subsection{Comutatividade}
+
+\begin{defn} (comutativamente convergente).
+    Uma série \(\sum a_n\) diz-se \emph{comutativamente convergente} quando, para qualquer bijeção \(\varphi: \mathbb{N} \to \mathbb{N}\), pondo \(b_n = a_{\varphi(n)}\), a série \(\sum b_n\) é convergente.
+\end{defn}
+
+\begin{prop}
+    Se \(\sum a_n\) é absolutamente convergente então para toda bijeção \(\varphi: \mathbb{N} \to \mathbb{N}\), pondo \(b_n = a_{\varphi(n)}\), tem-se \(\sum b_n = \sum a_n\).
+\end{prop}
+
+\begin{thm} (Riemann).
+    Se uma série \(\sum a_n\) é condicionalmente convergente, então pode-se fazer uma reordenação dos seus termos de modo que a nova série convirja para qualquer número real dado.
+\end{thm}
+
+\section{Topologia da Reta}
+\subsection{Conjuntos abertos}
+
+\begin{defn} (ponto interior, vizinhança, conjunto aberto).
+    Diz-se que o ponto \(a\) é \emph{interior} ao conjunto \(X \subseteq \mathbb{R}\) quando existe \(\varepsilon > 0\) tal que o intervalo aberto \((a - \varepsilon, a + \varepsilon)\) está contido em \(X\). O conjunto dos pontos interiores de \(X\) chama-se o \emph{interior} de \(X\) e é denotado por \(\operatorname{int}(X)\).
+    Quando \(a\) é um ponto interior de \(X\) diz-se que o conjunto \(X\) é uma \emph{vizinhança} de \(a\). Um conjunto \(A \subseteq \mathbb{R}\) chama-se \emph{aberto} quando \(A = \operatorname{int}(A)\), isto é, quando todo ponto de \(A\) é um ponto interior de \(A\).
+\end{defn}
+
+\begin{prop}
+    Tem-se \(a = \lim x_n\) sse para aberto \(A\) contendo \(a\), existe \(n_0 \in \mathbb{N}\) tal que \(n \geq n_0 \implies x_n \in A\).
+\end{prop}
+
+\begin{thm} (união e interseção de abertos).
+    \begin{enumerate}
+        \item [(a)] Se \(A_1\) e \(A_2\) são abertos, então \(A_1 \cap A_2\) é aberto.
+        \item [(b)] Se \((A_\lambda)_{\lambda \in L}\) é uma família de conjuntos abertos, então \(\bigcup_{\lambda \in L} A_\lambda\) é aberto.
+    \end{enumerate}
+\end{thm}
+
+\subsection{Conjuntos fechados}
+
+\begin{defn} (ponto aderente, fecho, conjunto fechado, denso).
+    Diz-se que o ponto \(a \in \mathbb{R}\) é \emph{aderente} ao conjunto \(X \subseteq \mathbb{R}\) quando \(a\) é limite de alguma sequência de pontos \(x_n \in X\). O conjunto dos pontos aderentes de \(X\) chama-se o \emph{fecho} de \(X\) e é denotado por \(\overline{X}\).
+    Um conjunto \(X\) chama-se \emph{fechado} quando \(X = \overline{X}\), isto é, quando todo ponto aderente de \(X\) pertence a \(X\). Seja \(X \subseteq Y\). Diz-se que \(X\) é \emph{denso} em \(Y\) quando \(Y \subseteq \overline{X}\), ou seja, quando todo \(b \in Y\) é aderente a \(X\).
+\end{defn}
+
+\begin{prop}
+    Um ponto \(a\) é aderente a \(X\) sse toda vizinhança de \(a\) contém algum ponto de \(X\).
+\end{prop}
+
+\begin{proof}
+    Se \(a\) é ponto aderente a \(X\), então existe uma sequência de pontos \(x_n \in X\) tal que \(a = \lim x_n\). Logo, para todo \(\varepsilon > 0\) existe \(n_0 \in \mathbb{N}\) tal que \(n > n_0 \implies x_n \in (a-\varepsilon, a+\varepsilon)\), isto é, \((a-\varepsilon, a+\varepsilon) \cap X \neq \emptyset\).
+    Por outro lado, seja \(V\) uma vizinhança de \(a\) tal que \(V \cap X \neq \emptyset\). Em particular, tem-se \(I_n = (a-1/n, a+1/n) \cap X \neq \emptyset\) para todo \(n \in \mathbb{N}\), donde \(|x_n - a| < 1/n\) e assim \(\lim x_n = a\).
+\end{proof}
+
+\begin{rem}
+    Do resultado acima, tem-se que \(a \notin \overline{X}\) sse existe uma vizinhança \(V \ni a\) tal que \(V \cap X = \emptyset\).
+\end{rem}
+
+\begin{cor}
+    O fecho de qualquer conjunto é um conjunto fechado (\(\overline{\overline{X}} = \overline{X}\) para todo \(X \subseteq \mathbb{R}\)).
+\end{cor}
+
+\begin{prop}
+    Um conjunto \(F \subseteq \mathbb{R}\) é fechado sse o seu complementar \(A = \mathbb{R} \setminus F\) é aberto.
+\end{prop}
+
+\begin{proof}
+    Se \(b \notin F\), então existe alguma vizinhança \(V \ni b\) tal que \(V \cap F = \emptyset\). Logo \(V \subseteq A\) e \(A\) é aberto.
+    Reciprocamente, tome \(c\) ponto aderente a \(F\). Então existe uma sequência de pontos \(x_n \in F\) que convergem a \(c\). Se \(c \notin F\), então existe vizinhança de \(c\) contida em \(A\). Mas daí existe \(n_0 \in \mathbb{N}\) tal que \(n > n_0 \implies x_n \in A\), o que é absurdo.
+\end{proof}
+
+\begin{thm} (união e interseção de fechados).
+    \begin{enumerate}
+        \item [(a)] Se \(F_1\) e \(F_2\) são fechados, então \(F_1 \cup F_2\) é fechado.
+        \item [(b)] Se \((F_\lambda)_{\lambda \in L}\) é uma família de conjuntos fechados, então \(\bigcap_{\lambda \in L} F_\lambda\) é fechado.
+    \end{enumerate}
+\end{thm}
+
+\begin{defn}
+    Uma \emph{cisão} de um conjunto \(X \subseteq \mathbb{R}\) é uma decomposição \(X = A \cup B\) tal que \(A \cap \overline{B} = \emptyset\) e \(\overline{A} \cap B = \emptyset\), isto é, nenhum ponto de \(A\) é aderente a \(B\) e nenhum ponto de \(B\) é aderente a \(A\).
+    A decomposição \(X = X \cup \emptyset\) é chamada de \emph{cisão trivial}.
+\end{defn}
+
+\begin{prop}
+    Um intervalo da reta só admite a cisão trivial.
+\end{prop}
+
+\begin{cor}
+    Os únicos subconjuntos de \(\mathbb{R}\) que são ao mesmo tempo abertos e fechados são \(\emptyset\) e \(\mathbb{R}\).
+\end{cor}
+
+\subsection{Pontos de acumulação}
+
+\begin{defn} (ponto de acumulação, ponto isolado, conjunto discreto).
+    Diz-se que \(a \in \mathbb{R}\) é \emph{ponto de acumulação} do conjunto \(X \subseteq \mathbb{R}\) quando toda vizinhança \(V\) de \(a\) contém algum ponto de \(X\) diferente do próprio \(a\), ou seja, para todo \(\varepsilon > 0\) tem-se \((a-\varepsilon, a+\varepsilon) \cap (X \setminus \{a\}) \neq \emptyset\). Indica-se com \(X'\) o conjunto dos pontos de acumulação de \(X\). Portanto, \(a \in X' \iff a \in \overline{X \setminus \{a\}}\).
+    Um ponto \(a \in X\) que não é ponto de acumulação de \(X\) chama-se \emph{ponto isolado} de \(X\). Um conjunto \(X\) diz-se \emph{discreto} quando não possui pontos de acumulação, isto é, quando \(X' = \emptyset\).
+\end{defn}
+
+\begin{thm} (descrição de pontos de acumulação).
+    Dados \(X \subseteq \mathbb{R}\) e \(a \in \mathbb{R}\), as seguintes afirmações são equivalentes:
+    \begin{enumerate}
+        \item [(i)] \(a\) é ponto de acumulação de \(X\);
+        \item [(ii)] existe uma sequência \((x_n)\) de pontos de \(X\), todos diferentes de \(a\), tal que \(\lim x_n = a\);
+        \item [(iii)] toda vizinhança \(V\) de \(a\) contém infinitos pontos de \(X\). 
+    \end{enumerate}
+\end{thm}
+
+\begin{prop}
+    Todo conjunto infinito limitado de números reais admite pelo menos um ponto de acumulação.
+\end{prop}
+
+\subsection{Conjuntos compactos}
+
+\begin{defn} (conjunto compacto).
+    Um conjunto \(X \subseteq \mathbb{R}\) chama-se \emph{compacto} quando é fechado e limitado.
+\end{defn}
+
+\begin{prop}
+    Um conjunto \(X \subseteq \mathbb{R}\) é compacto sse toda sequência de pontos de \(X\) possui uma subsequência que converge para um ponto de \(X\).
+\end{prop}
+
+\begin{rem}
+    Se \(X \subseteq \mathbb{R}\) é compacto, então \(\inf X\) e \(\sup X\) pertencem a \(X\). Logo, todo conjunto compacto contém elementos mínimo e máximo.
+\end{rem}
+
+\begin{prop}
+    Dada uma sequência decrescente \(K_1 \supseteq K_2 \supseteq \ldots K_n \supseteq \ldots\) de conjuntos compactos não-vazios \(K_n \subseteq \mathbb{R}\), tem-se \(\bigcap_{n=1}^{\infty} K_n \neq \emptyset\).
+\end{prop}
+
+\begin{defn} (cobertura, cobertura aberta, cobertura finita, subcobertura).
+    Chama-se \emph{cobertura} de um conjunto \(X \subseteq \mathbb{R}\) a qualquer coleção de conjuntos \((C_\lambda)_{\lambda \in L}\) tais que \(X \subseteq \bigcup_{\lambda \in L} C_\lambda\).
+    Quando todos os conjuntos \(C_\lambda\) são abertos, diz-se que \((C_\lambda)_{\lambda \in L}\) é uma \emph{cobertura aberta} de \(X\). Quando \(L = \{\lambda_1, \ldots, \lambda_n\}\) é finito, diz-se que \((C_\lambda)_{\lambda \in L}\) é uma \emph{cobertura finita} de \(X\). Uma \emph{subcobertura} de uma cobertura \((C_\lambda)_{\lambda \in L}\) de \(X\) é qualquer subconjunto \((C') = (C_{\lambda'})_{\lambda' \in L'}\) com \(L' \subseteq L\) que também seja uma cobertura de \(X\).
+\end{defn}
+
+\begin{thm} (Borel-Lebesgue).
+    Toda cobertura aberta de um conjunto compacto \(K \subseteq \mathbb{R}\) possui uma subcobertura finita.
+\end{thm}
+
+\subsection{O conjunto de Cantor}
+
+\section{Limites de Funções}
+\subsection{Definição e primeiras propriedades}
+
+\begin{defn} (limite de função).
+    Sejam \(X \subseteq \mathbb{R}\), \(f: X \to \mathbb{R}\) e \(a \in X'\). Diz-se que \(L \in \mathbb{R}\) é o \emph{limite} de \(f(x)\) quando \(x \to a\) se, para todo \(\varepsilon > 0\), existe \(\delta > 0\) tal que \(x \in X\) e \(0 < |x - a| < \delta \implies |f(x) - L| < \varepsilon\). Neste caso, escreve-se \(\lim_{x \to a} f(x) = L\) ou \(f(x) \to L\) quando \(x \to a\).
+\end{defn}
+
+\begin{prop}
+    Sejam \(f, g: X \to \mathbb{R}\), \(a \in X'\) e \(\lim_{x \to a} f(x) = L\), \(\lim_{x \to a} g(x) = M\). Se \(L < M\) então existe \(\delta > 0\) tal que \(x \in X\) e \(0 < |x - a| < \delta \implies f(x) < g(x)\).
+\end{prop}
+
+\begin{cor}
+    Se \(\lim_{x \to a} f(x) = L < M\) então existe \(\delta > 0\) tal que \(x \in X\) e \(0 < |x - a| < \delta \implies f(x) < M\).
+\end{cor}
+
+\begin{cor}
+    Sejam \(\lim_{x \to a} f(x) = L\) e \(\lim_{x \to a} g(x) = M\). Se \(f(x) \leq g(x)\) para todo \(x \in X \setminus \{a\}\), então \(L \leq M\).
+\end{cor}
+
+\begin{thm} (teorema do sanduíche).
+    Sejam \(f, g, h: X \to \mathbb{R}\), \(a \in X'\) e \(\lim_{x \to a} f(x) = \lim_{x \to a} g(x) = L\). Se \(f(x) \leq h(x) \leq g(x)\) para todo \(x \in X \setminus \{a\}\), então \(\lim_{x \to a} h(x) = L\).
+\end{thm}
+
+\begin{prop}
+    Sejam \(f: X \to \mathbb{R}\) e \(a \in X'\). Para se ter \(\lim_{x \to a} f(x) = L\) é necessário e suficiente que para toda sequência \((x_n)\) de pontos de \(X \setminus \{a\}\) com \(\lim x_n = a\) tenha-se \(\lim f(x_n) = L\).
+\end{prop}
+
+\begin{cor} (unicidade do limite).
+    Sejam \(f: X \to \mathbb{R}\) e \(a \in X'\). Se \(\lim_{x \to a} f(x) = L\) e \(\lim_{x \to a} f(x) = M\) então \(L = M\).
+\end{cor}
+
+\begin{cor} (operações com limites).
+    Sejam \(f, g: X \to \mathbb{R}\), \(a \in X'\) e \(\lim_{x \to a} f(x) = L\), \(\lim_{x \to a} g(x) = M\). Então
+    \begin{enumerate}
+        \item [(i)] \(\lim_{x \to a} (f(x) \pm g(x)) = L \pm M\);
+        \item [(ii)] \(\lim_{x \to a} (f(x) \cdot g(x)) = L \cdot M\);
+        \item [(iii)] Se \(M \neq 0\), então \(\lim_{x \to a} (f(x) / g(x)) = L / M\).
+    \end{enumerate}
+\end{cor}
+
+\begin{prop}
+    Sejam \(f: X \to \mathbb{R}\), \(a \in X'\). Se existe \(\lim_{x \to a} f(x)\) então \(f\) é limitada em alguma vizinhança de \(a\), isto é, existem \(\delta > 0\) e \(M > 0\) tais que \(x \in X\) e \(0 < |x - a| < \delta \implies |f(x)| \leq M\).
+\end{prop}
+
+\subsection{Limites laterais}
+
+\begin{defn} (ponto de acumulação à direita e à esquerda).
+    Diz-se que \(a\) é um \emph{ponto de acumulação à direita} de \(X \subseteq \mathbb{R}\), e escreve-se \(a \in X_{+}^{'}\), quando toda vizinhança \(V\) de \(a\) contém algum ponto de \(X\) maior que \(a\), isto é, para todo \(\varepsilon > 0\) tem-se \((a, a + \varepsilon) \cap X \neq \emptyset\).
+    Analogamente, diz-se que \(a\) é um \emph{ponto de acumulação à esquerda} de \(X\) (\(a \in X_{-}^{'}\)) quando toda vizinhança \(V\) de \(a\) contém algum ponto de \(X\) menor que \(a\), isto é, para todo \(\varepsilon > 0\) tem-se \((a - \varepsilon, a) \cap X \neq \emptyset\).
+    Quando \(a \in X_{+}^{'} \cap X_{-}^{'}\), diz-se que \(a\) é um ponto de acumulação bilateral de \(X\).
+\end{defn}
+
+\begin{defn} (limite à direita, limite à esquerda).
+    Sejam \(f: X \to \mathbb{R}\) e \(a \in X_{+}^{'}\). Diz-se que \(L \in \mathbb{R}\) é o \emph{limite à direita} de \(f(x)\) quando \(x \to a^{+}\) se, para todo \(\varepsilon > 0\), existe \(\delta > 0\) tal que \(x \in X\) e \(a < x < a + \delta \implies |f(x) - L| < \varepsilon\). Neste caso, escreve-se \(\lim_{x \to a^{+}} f(x) = L\).
+    Analogamente se define o \emph{limite à esquerda} \(L = \lim_{x \to a^{-}} f(x)\) quando \(a \in X_{-}^{'}\), ou seja, para todo \(\varepsilon > 0\), existe \(\delta > 0\) tal que \(x \in X\) e \(a - \delta < x < a \implies |f(x) - L| < \varepsilon\).
+\end{defn}
+
+\begin{defn} (função monótona crescente e decrescente).
+    Uma função \(f: X \to \mathbb{R}\) diz-se \emph{monótona crescente} quando, para quaisquer \(x_1, x_2 \in X\) com \(x_1 < x_2\), tem-se \(f(x_1) \leq f(x_2)\). Diz-se \emph{monótona decrescente} quando, para quaisquer \(x_1, x_2 \in X\) com \(x_1 < x_2\), tem-se \(f(x_1) \geq f(x_2)\). Se vale a implicação estrita, diz-se que \(f\) é \emph{estritamente monótona crescente} ou \emph{estritamente monótona decrescente}, respectivamente.
+\end{defn}
+
+\begin{prop}
+    Seja \(f: X \to \mathbb{R}\) uma função monótona limitada. Para todo \(a \in X_{+}^{'}\) e todo \(b \in X_{-}^{'}\), existem os limites \(\lim_{x \to a^{+}} f(x)\) e \(\lim_{x \to b^{-}} f(x)\).
+\end{prop}
+
+\subsection{Limites no infinito, limites infinitos, expressões indeterminadas}
+
+\begin{defn} (limite no infinito).
+    Seja \(X \subseteq \mathbb{R}\) ilimitado superiormente. Dada \(f: X \to \mathbb{R}\), escreve-se
+    \[
+        \lim_{x \to +\infty} f(x) = L
+    \]
+    \noindent quando, para todo \(\varepsilon > 0\), existe \(M > 0\) tal que \(x \in X\) e \(x > M \implies |f(x) - L| < \varepsilon\). De maneira análoga, define-se \(\lim_{x \to -\infty} f(x) = L\) quando \(X\) é ilimitado inferiormente: para todo \(\varepsilon > 0\), existe \(M > 0\) tal que \(x \in X\) e \(x < -M \implies |f(x) - L| < \varepsilon\).
+\end{defn}
+
+\begin{defn} (limite infinito).
+    Sejam \(X \subseteq \mathbb{R}\), \(a \in X'\) e \(f: X \to \mathbb{R}\). Escreve-se \(\lim_{x \to a} f(x) = +\infty\) quando, para todo \(M > 0\), existe \(\delta > 0\) tal que \(x \in X\) e \(0 < |x - a| < \delta \implies f(x) > M\). De modo semelhante, define-se \(\lim_{x \to a} f(x) = -\infty\) quando, para todo \(M > 0\), existe \(\delta > 0\) tal que \(x \in X\) e \(0 < |x - a| < \delta \implies f(x) < -M\).
+\end{defn}
+
+\section{Funções Contínuas}
+\subsection{Definição e primeiras propriedades}
+
+\begin{defn} (continuidade).
+    Uma função \(f: X \to \mathbb{R}\), definida no conjunto \(X \subseteq \mathbb{R}\), é dita \emph{contínua} em \(a \in X\) se, para todo \(\varepsilon > 0\), existe \(\delta > 0\) tal que \(x \in X\) e \(|x - a| < \delta \implies |f(x) - f(a)| < \varepsilon\). Chama-se \emph{descontínua no ponto} \(a\) uma função \(f: X \to \mathbb{R}\) que não é contínua nesse ponto. Isto quer dizer que para todo \(\delta > 0\) existe \(x_\delta \in X\) tal que \(|x_\delta - a| < \delta\) e \(|f(x_\delta) - f(a)| \geq \varepsilon\) para algum \(\varepsilon > 0\).
+    Dize-se que \(f\) é \emph{contínua} quando \(f\) é contínua em todo ponto de \(X\).
+\end{defn}
+
+\begin{prop}
+    Sejam \(f, g: X \to \mathbb{R}\) contínuas no ponto \(a \in X\), com \(f(a) < g(a)\). Existe \(\delta > 0\) tal que \(f(x) < g(x)\) para todo \(x \in X \cap (a-\delta, a+\delta)\).
+\end{prop}
+
+\begin{cor}
+    Seja \(f: X \to \mathbb{R}\) contínua no ponto \(a \in X\). Se \(f(a) \neq 0\), existe \(\delta > 0\) tal que para todo \(x \in X \cap (a-\delta, a+\delta)\), \(f(x)\) não muda de sinal.
+\end{cor}
+
+\begin{cor}
+    Dadas \(f, g: X \to \mathbb{R}\) contínuas, sejam \(Y = \{x \in X : f(x) < g(x)\}\) e \(Z = \{x \in X : f(x) > g(x)\}\). Existem \(A \subseteq \mathbb{R}\) aberto e \(F \subseteq \mathbb{R}\) fechado tais que \(Y = X \cap A\) e \(Z = X \cap F\). Em particular, se \(X\) é aberto, então \(Y\) é aberto e se \(X\) é fechado então \(Z\) é fechado.
+\end{cor}
+
+\begin{prop}
+    A fim de que a função \(f: X \to \mathbb{R}\) seja contínua em \(a \in X\) é necessário e suficiente que para toda sequência \((x_n)\) de pontos de \(X\) com \(\lim x_n = a\) tenha-se \(\lim f(x_n) = f(a)\).
+\end{prop}
+
+\begin{cor}
+    Se \(f, g: X \to \mathbb{R}\) são funções contínuas em \(a \in X\) então são contínuas nesse mesmo ponto as funções \(f \pm g\), \(f \cdot g\) e \(f / g\) (desde que \(g(a) \neq 0\)).
+\end{cor}
+
+\begin{prop} (a composta de duas funções contínuas é contínua).
+    Sejam \(f: X \to \mathbb{R}\) e \(g: Y \to \mathbb{R}\) funções tais que \(f(X) \subseteq Y\), de modo que a composta \(g \circ f: X \to \mathbb{R}\) está bem definida. Se \(f\) é contínua em \(a \in X\) e \(g\) é contínua em \(f(a) \in Y\), então \(g \circ f: X \to \mathbb{R}\) é contínua em \(a\).
+    
+\end{prop}
+
+\subsection{Funções contínuas num intervalo}
+
+\begin{thm} (teorema do valor intermediário).
+    Seja \(f: [a, b] \to \mathbb{R}\) contínua. Se \(f(a) < d < f(b)\) então existe \(c \in (a, b)\) tal que \(f(c) = d\).
+\end{thm}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{cor}
+    Se \(I \subseteq \mathbb{R}\) é um intervalo e \(f: I \to \mathbb{R}\) é contínua, então \(f(I)\) é um intervalo.
+\end{cor}
+
+\begin{prop}
+    Seja \(I \subseteq \mathbb{R}\) um intervalo. Toda função contínua injetiva \(f: I \to \mathbb{R}\) é monótona e sua inversa \(g: J \to I\), definida no intervalo \(J = f(I)\), é contínua.
+\end{prop}
+
+\begin{cor}
+    Para todo \(n \in \mathbb{N}\), a função \(g: [0, +\infty) \to [0, +\infty)\) dada por \(g(x) = \sqrt[n]{x}\) é contínua.
+\end{cor}
+
+\subsection{Funções contínuas em conjuntos compactos}
+
+\begin{thm} (Weierstrass).
+    Seja \(f: K \to \mathbb{R}\) contínua no compacto \(K \subseteq \mathbb{R}\). Existem \(x_0, x_1 \in K\) tais que \(f(x_0) \leq f(x) \leq f(x_1)\) para todo \(x \in K\).
+\end{thm}
+
+\begin{prop}
+    A imagem \(f(K)\) de um conjunto compacto \(K \subseteq \mathbb{R}\) por uma função contínua \(f: K \to \mathbb{R}\) é um conjunto compacto.
+\end{prop}
+
+\begin{cor}
+    Se \(K \subseteq \mathbb{R}\) é compacto então toda função contínua \(f: K \to \mathbb{R}\) é limitada, ou seja, existe \(M > 0\) tal que \(|f(x)| \leq M\) para todo \(x \in K\).
+\end{cor}
+
+\begin{prop}
+    Se \(K \subseteq \mathbb{R}\) é compacto então toda bijeção contínua \(f: K \to Y\) é um homeomorfismo, isto é, a inversa \(g: Y \to K\) é contínua.
+\end{prop}
+
+\subsection{Continuidade uniforme}
+
+\begin{defn} (continuidade uniforme).
+    Uma função \(f: X \to \mathbb{R}\) é dita \emph{uniformemente contínua} em \(X\) se, para todo \(\varepsilon > 0\), existe \(\delta > 0\) tal que \(x, y \in X\) e \(|x - y| < \delta \implies |f(x) - f(y)| < \varepsilon\).
+\end{defn}
+
+\begin{rem}
+    Uma função uniformemente contínua \(f: X \to \mathbb{R}\) é contínua em todos de \(X\), mas a recíproca é falsa.
+    Se todo ponto \(x \in X\) possui vizinhança \(V\) tal que \(f|_{X \cap V}\) é contínua, então a função \(f: X \to \mathbb{R}\) é contínua. Mas se cada ponto \(x \in X\) possui vizinhança \(V\) tal que \(f|_{X \cap V}\) é uniformemente contínua, isso não garante que \(f\) seja uniformemente contínua.
+    Por isso, diz-se que a continuidade é uma noção \emph{local} enquanto a continuidade uniforme é um conceito \emph{global}.
+\end{rem}
+
+\begin{prop}
+    A fim de que \(f: X \to \mathbb{R}\) seja uniformemente contínua é necessário e suficiente que para toda sequência \((x_n)\) e \((y_n)\) de pontos de \(X\) com \(\lim (x_n - y_n) = 0\) tenha-se \(\lim (f(x_n) - f(y_n)) = 0\).
+\end{prop}
+
+\begin{prop}
+    Toda função contínua \(f: K \to \mathbb{R}\) definida em um conjunto compacto \(K\) é uniformemente contínua.
+\end{prop}
+
+\begin{prop}
+    Toda função \(f: X \to \mathbb{R}\), uniformemente contínua num conjunto limitado \(X\), é limitada.
+\end{prop}
+
+\begin{prop}
+    Se \(f: X \to \mathbb{R}\) é uniformemente contínua então, para cada \(a \in X'\), existe \(\lim_{x \to a} f(x)\).
+\end{prop}
+
+\section{Derivadas}
+\subsection{A noção de derivada}
+
+\begin{defn} (derivada, função derivada).
+    Sejam \(f: X \to \mathbb{R}\) e \(a \in X \cap X'\). A \emph{derivada} da função \(f\) no ponto \(a\) é o limite
+    \begin{equation}
+        f'(a) \coloneq \lim_{x \to a} \frac{f(x) - f(a)}{x - a} = \lim_{h \to 0} \frac{f(a + h) - f(a)}{h}
+    \end{equation}
+    \noindent quando esse limite existe, então diz-se que \(f\) é \emph{derivável} em \(a\). Quando existe a derivada \(f'(x)\) em todos os pontos \(x \in X \cap X'\) diz-se que \(f\) é \emph{derivável} no conjunto \(X\) e a função \(f': X \cap X' \to \mathbb{R}\) é chamada de \emph{função derivada} de \(f\). Se \(f'\) é contínua, diz-se que \(f\) é \emph{de classe \(C^1\)}.
+\end{defn}
+
+\begin{prop}
+    A fim de que \(f: X \to \mathbb{R}\) seja derivável em \(a \in X \cap X'\) é necessário e suficiente que exista \(c \in \mathbb{R}\) tal que \(a+h \in X \implies f(a+h) = f(a) + c \cdot h + r(h)\), onde \(\lim_{h \to 0} r(h)/h = 0\). Neste caso, \(c = f'(a)\).
+\end{prop}
+
+\begin{cor}
+    Uma função é contínua nos pontos em que é derivável.
+\end{cor}
+
+\begin{defn} (derivadas laterais).
+    Quando \(a \in X \cap X_{+}^{'}\), pode-se tomar o limite \(f_{+}'(a) = \lim_{x \to a+} q(x)\). Quando existe, este limite é chamado de \emph{derivada à direita} de \(f\) em \(a\). De maneira análoga, quando \(a \in X \cap X_{-}^{'}\), pode-se tomar o limite \(f_{-}'(a) = \lim_{x \to a-} q(x)\). Quando existe, este limite é chamado de \emph{derivada à esquerda} de \(f\) em \(a\).
+
+    Caso seja \(a \in X \cap X_{+}^{'} \cap X_{-}^{'}\), a função \(f\) é derivável em \(a\) sse as derivadas laterais \(f_{+}'(a)\) e \(f_{-}'(a)\) existem e são iguais. Neste caso, \(f'(a) = f_{+}'(a) = f_{-}'(a)\).
+\end{defn}
+
+\subsection{Regras operacionais}
+
+\begin{thm}
+    Sejam \(f, g: X \to \mathbb{R}\) deriváveis no ponto \(a \in X \cap X'\). Então as funções \(f \pm g\), \(f \cdot g\) e \(f / g\) (desde que \(g(a) \neq 0\)) são deriváveis em \(a\), com
+    \begin{itemize}
+        \item [(i)] \((f \pm g)'(a) = f'(a) \pm g'(a)\);
+        \item [(ii)] \((f \cdot g)'(a) = f'(a)\ g(a) + f(a)\ g'(a)\);
+        \item [(iii)] \(\displaystyle\left(\frac{f}{g}\right)'(a) = \frac{f'(a)\ g(a) - f(a)\ g'(a)}{(g(a))^2}\).
+    \end{itemize}
+\end{thm}
+
+\begin{thm} (regra da cadeia).
+    Sejam \(f: X \to \mathbb{R}\), \(g: Y \to \mathbb{R}\), \(a \in X \cap X'\), \(b \in Y \cap Y'\), \(f(X) \subseteq Y\) e \(f(a) = b\). Se \(f\) é derivável em \(a\) e \(g\) é derivável em \(b\), então a função composta \(g \circ f: X \to \mathbb{R}\) é derivável em \(a\), com \((g \circ f)'(a) = g'(f(a)) \cdot f'(a)\).
+\end{thm}
+
+\begin{cor}
+    Seja \(f: X \to Y\) uma bijeção entre \(X, Y \subseteq \mathbb{R}\), com inversa \(g = f^{-1}: Y \to X\). Se \(f\) é derivável em \(a \in X \cap X'\) e \(g\) é contínua no ponto \(b = f(a)\), então \(g\) é derivável em \(b\) sse \(f'(a) \neq 0\). Neste caso, \(g'(b) = 1 / f'(a)\).
+\end{cor}
+
+\subsection{Derivada e crescimento local}
+
+
+
+\subsection{Funções deriváveis num intervalo}
+
+\begin{thm} (definição de máximo e mínimo locais).
+    Seja \(f : A \to \mathbb{R}\). Dizemos que \(f\) tem um \emph{máximo local} em \(c \in A\) se existe um \(\delta > 0\) tal que para todo \(x \in A\) com \(|x - c| < \delta\), temos \(f(x) \leq f(c)\). Dizemos que \(f\) tem um \emph{mínimo local} em \(c \in A\) se existe um \(\delta > 0\) tal que para todo \(x \in A\) com \(|x - c| < \delta\), temos \(f(x) \geq f(c)\).
+\end{thm}
+
+\begin{prop} (máximos e mínimos locais ocorrem em pontos críticos)
+    Seja \(I\) um intervalo aberto, \(f : I \to \mathbb{R}\) diferenciável em \(c \in I\). Se \(f\) tem um máximo ou mínimo local em \(c\), então \(f'(c) = 0\).
+\end{prop}
+
+\begin{thm} (Darboux).
+    Suponha \(f : [a, b] \to \mathbb{R}\) diferenciável. Se \(\alpha\) está entre \(f'(a)\) e \(f'(b)\), então existe \(c \in (a, b)\) tal que \(f'(c) = \alpha\).
+\end{thm}
+
+\begin{thm} (Rolle)
+    Seja \(f : [a, b] \to \mathbb{R}\) contínua em \([a, b]\), diferenciável em \((a, b)\) e tal que \(f(a) = f(b)\). Então existe \(c \in (a, b)\) onde \(f'(c) = 0\).
+\end{thm}
+
+\begin{thm} (teorema do valor médio para derivadas).
+    Seja \(f : [a, b] \to \mathbb{R}\) contínua em \([a, b]\) e diferenciável em \((a, b)\). Então existe \(c \in (a, b)\) tal que
+    \begin{equation}
+        f'(c) = \frac{f(b) - f(a)}{b - a}.
+    \end{equation}
+\end{thm}
+
+\begin{thm} (teorema do valor médio de Cauchy).
+    Se \(f\) e \(g\) são funções contínuas em \([a, b]\) e diferenciáveis em \((a, b)\), então existe \(c \in (a, b)\) tal que
+    \begin{equation}
+        (f(b) - f(a)) g'(c) = (g(b) - g(a)) f'(c).
+    \end{equation}
+\end{thm}
+
+\begin{thm} (regra de L'Hôpital).
+    Suponha que \(I\) seja um intervalo aberto contendo o ponto \(a\), e que \(f : I \to \mathbb{R}\) e \(g : I \to \mathbb{R}\) sejam funções diferenciáveis em \(I\) (talvez exceto em \(a\)) com \(g'(x) \neq 0\) para todo \(x \in I\). Então, se
+
+    \begin{multline*}
+        \lim_{x \to a} f(x) = \lim_{x \to a} g(x) = 0 \quad \text{ou} \\ 
+        \lim_{x \to a} f(x) = \lim_{x \to a} g(x) = \pm \infty
+    \end{multline*}
+
+    \noindent então 
+
+    \begin{equation}
+        \lim_{x \to a} \frac{f(x)}{g(x)} = \lim_{x \to a} \frac{f'(x)}{g'(x)}.
+    \end{equation}
+
+    \noindent dado que o limite do lado direito existe.
+
+\end{thm}
+
+\section{Fórmula de Taylor e Aplicações da Derivada}
+\subsection{Fórmula de Taylor}
+\subsection{Funções convexas e côncavas}
+\subsection{Aproximações sucessivas e método de Newton}
+
+
+\section{A Integral de Riemann}
+\subsection{Revisão sobre sup e inf}
+\subsection{Integral de Riemann}
+\subsection{Propriedades da integral}
+\subsection{Condições de integrabilidade}
+
+\begin{defn}
+    Uma partição de \([a,b]\) é um conjunto finito \(P = \{x_0, x_1, \ldots, x_n\}\) tal que \(a = x_0 < x_1 < \cdots < x_n = b\).
+\end{defn}
+
+\begin{defn}
+    Considere a função \(f : [a,b] \to \mathbb{R}\) e uma partição \(P = \{x_0, x_1, \ldots, x_n\}\) de \([a,b]\). Para cada \(i = 1, 2, \ldots, n\), definimos
+
+    \begin{itemize}
+        \item a \emph{soma superior} como \[U(f, P) \coloneq \sum_{i=1}^{n} M_i (x_i - x_{i-1}),\] onde \(M_i = \sup\{f(x) : x \in [x_{i-1}, x_i]\}\);
+        \item a \emph{soma inferior} como \[L(f, P) \coloneq \sum_{i=1}^{n} m_i (x_i - x_{i-1}),\] onde \(m_i = \inf\{f(x) : x \in [x_{i-1}, x_i]\}\).
+    \end{itemize}
+\end{defn}
+
+\begin{defn}
+    Considere a partição \(P = \{x_0, x_1, \ldots, x_n\}\) de \([a,b]\). Uma partição \(Q\) de \([a,b]\) é uma refinamento de \(P\) se \(P \subseteq Q\).
+\end{defn}
+
+\begin{prop} (refinamentos refinam)
+    Considere a função \(f : [a,b] \to \mathbb{R}\) e uma partição \(P = \{x_0, x_1, \ldots, x_n\}\) de \([a,b]\). Se \(Q\) é um refinamento de \(P\), então
+
+    \begin{equation}
+        U(f, P) \leq U(f, Q) \quad \text{e} \quad L(f, P) \leq L(f, Q).
+    \end{equation}
+\end{prop}
+
+\begin{prop} (somas inferiores \(\leq\) somas superiores)
+    Seja \(f : [a,b] \to \mathbb{R}\).
+
+    \begin{itemize}
+        \item[(a)] Se \(P\) é uma partição de \([a,b]\), então \(L(f, P) \leq U(f, P)\).
+        \item[(b)] Se \(P_1\) e \(P_2\) são quaisquer partições de \([a,b]\), então \(L(f, P_1) \leq U(f, P_2)\). 
+    \end{itemize}
+\end{prop}
+
+\begin{defn}
+    Seja \(f : [a,b] \to \mathbb{R}\) uma função limitade e seja \(\mathcal{P}\) a coleção de \emph{todas} as partições de \([a,b]\). A \emph{integral superior} de \(f\) é definida como
+
+    \begin{equation}
+        U(f) \coloneq \inf\{U(f, P) : P \in \mathcal{P}\}.
+    \end{equation}
+
+    \noindent A \emph{integral inferior} de \(f\) é definida como
+
+    \begin{equation}
+        L(f) \coloneq \sup\{L(f, P) : P \in \mathcal{P}\}.
+    \end{equation}
+\end{defn}
+
+\begin{lem}
+    Seja \(f : [a,b] \to \mathbb{R}\) uma função limitada e \(m \leq f(x) \leq M\) para todo \(x \in [a,b]\). Então
+
+    \begin{equation}
+        m(b-a) \leq L(f) \leq U(f) \leq M(b-a).
+     \end{equation}
+\end{lem}
+
+\begin{defn}
+    Uma função limitada \(f : [a,b] \to \mathbb{R}\) é dita \emph{integrável à Darboux} (equivalente à integrabilidade de Riemann) em \([a,b]\) se \(U(f) = L(f)\). Nesse caso, denotamos o valor comum \(U(f) = L(f)\) por
+    \begin{equation}
+        \int_a^b f(x) \, dx \coloneq L(f) = U(f).
+    \end{equation}
+\end{defn}
+
+\begin{prop}
+    Assuma que uma função limitada \(f : [a,b] \to \mathbb{R}\) é integrável à Darboux em \([a,b]\). Se \(f(x) \geq 0\) para todo \(x \in [a,b]\), então
+    \begin{equation}
+        0 \leq \int_a^b f(x) \, dx.
+    \end{equation}
+\end{prop}
+
+\begin{thm} (integrais analiticamente).
+    Seja \(f: [a,b] \to \mathbb{R}\) uma função limitada. Então \(f\) é integrável à Darboux em \([a,b]\) se e somente se, dado \(\varepsilon > 0\), existe uma partição \(P_\varepsilon\) de \([a,b]\) tal que
+
+    \begin{equation}
+        U(f, P_\varepsilon) - L(f, P_\varepsilon) < \varepsilon.
+    \end{equation}
+\end{thm}
+
+\begin{cor}
+    Se \(f : [a,b] \to \mathbb{R}\) é integrável, então existe uma sequência \(P_n\) de partições de \([a,b]\) onde
+
+    \begin{equation}
+        \lim_{n \to \infty} \left[ U(f, P_n) - L(f, P_n) \right] = 0.
+    \end{equation}
+\end{cor}
+
+\begin{thm} (continuidade \(\implies\) integrabilidade).
+    Se \(f : [a,b] \to \mathbb{R}\) é contínua, então \(f\) é integrável à Darboux em \([a,b]\).
+\end{thm}
+
+\begin{lem}
+    Assuma \(f : [a,b] \to \mathbb{R}\) e \(a<c<b\). Então \(f\) é integrável à Darboux em \([a,b]\) se e somente se \(f\) é integrável à Darboux em \([a,c]\) e \([c,b]\).
+\end{lem}
+
+\begin{defn}
+    O \emph{comprimento} do intervalo \([a,b]\) é igual a \(b-a\) e é denotado \(\mathcal{L}([a,b])\). Isso também é o comprimento de \((a,b)\), \((a,]b\) e \([a,b)\). Intervalos que envolvem \(\pm\infty\) são ditos ter comprimento \(\infty\).
+\end{defn}
+
+\begin{defn}
+    Um conjunto \(A\) tem \emph{medida zero} se para todo \(\varepsilon > 0\), existe uma coleção contável de intervalos \(\{I_1\}, I_2, \ldots\) tal que \(A \subseteq \bigcup_{n=1}^{\infty} I_n\) e \(\sum_{n=1}^{\infty} \mathcal{L}(I_n) < \varepsilon\).
+\end{defn}
+
+\begin{thm} (\(f\) integrável \(\iff\) descontinuidades têm medida zero).
+    Assuma que \(f : [a,b] \to \mathbb{R}\) é limitada e seja \(\mathcal{D}\) o conjunto de pontos de descontinuidade de \(f\). Então \(f\) é integrável à Lebesgue sse \(\mathcal{D}\) tem medida zero.
+\end{thm}
+
+\begin{prop}
+    Assuma que \(f: [a,b] \to \mathbb{R}\) é integrável. Se \(a<c<b\), então
+
+    \begin{equation}
+        \int_a^b f(x) \, dx = \int_a^c f(x) \, dx + \int_c^b f(x) \, dx.
+    \end{equation}
+\end{prop}
+
+\begin{prop} (linearidade da integral).
+    Assuma que \(f: [a,b] \to \mathbb{R}\) e \(g: [a,b] \to \mathbb{R}\) são integráveis. Então
+
+    \begin{itemize}
+        \item[(i)] Para todo \(k \in \mathbb{R}\), \(k \cdot f\) é integrável e \(\int_a^b k \cdot f(x) \, dx = k \int_a^b f(x) \, dx\);
+        \item[(ii)] A soma \(f + g\) é integrável e \(\int_a^b (f(x) + g(x)) \, dx = \int_a^b f(x) \, dx + \int_a^b g(x) \, dx\).
+    \end{itemize}
+\end{prop}
+
+\begin{cor} (\(f\leq g \implies \int f \leq \int g\)).
+    Assuma que \(f: [a,b] \to \mathbb{R}\) e \(g: [a,b] \to \mathbb{R}\) são integráveis e \(f(x) \leq g(x)\) para todo \(x \in [a,b]\). Então
+
+    \begin{equation}
+        \int_a^b f(x) \, dx \leq \int_a^b g(x) \, dx.
+    \end{equation}
+\end{cor}
+
+\begin{cor} (desigualdade triangular da integral).
+    Se \(f: [a,b] \to \mathbb{R}\) é integrável, então \(\vert f \vert\) também é integrável, e
+    \begin{multline}
+        \int_a^b \vert f(x) \vert \, dx \leq \int_a^b f(x) \, dx + \int_a^b (-f(x)) \, dx = \\
+            \int_a^b f(x) \, dx - \int_a^b f(x) \, dx = 0.
+    \end{multline}
+\end{cor}
+
+\begin{defn}
+    Para toda função \(f\), definimos \[\int_{a}^{a}f(x) \, dx \coloneq 0\]
+
+    \noindent se \(a > b\), definimos \[\int_{a}^{b}f(x) \, dx \coloneq -\int_{b}^{a}f(x) \, dx\]
+\end{defn}
+
+\begin{prop} (teorema do valor médio para integrais)
+    Se \(f : [a,b] \to \mathbb{R}\) é contínua, então existe \(c \in [a,b]\) tal que
+
+    \begin{equation}
+        f(c) = \frac{1}{b-a} \int_a^b f(x) \, dx.
+    \end{equation}
+\end{prop}
+
+\begin{defn}
+    Assuma que \(F\) e \(f\) são funções em \([a,b]\). Dizemos que \(F\) é uma \emph{antiderivada} de \(f\) em \([a,b]\) se \(F'(x) = f(x)\) para todo \(x \in [a,b]\).
+\end{defn}
+
+\begin{thm} (teorema fundamental do cálculo)
+    \begin{itemize}
+        \item[(i)] Se \(f : [a,b] \to \mathbb{R}\) é integrável, e \(F : [a,b] \to \mathbb{R}\) é uma primitiva de \(f\), ie \(F'(x) = f(x)\) para todo \(x \in [a,b]\), então
+
+        \begin{equation}
+            \int_a^b f(x) \, dx = F(b) - F(a).
+        \end{equation}
+
+        \item[(ii)] Seja \(g : [a,b] \to \mathbb{R}\) integrável e defina \(G : [a,b] \to \mathbb{R}\) por \[G(x) := \int_{a}^{x} g(t) \, dt.\] Então \(G\) é contínua. Ainda, se \(g\) é contínua, então \(G\) é diferenciável e \(G'(x) = g(x)\), ie \(\displaystyle\frac{d}{dx} \int_{a}^{x} g(t) \, dt = g(x)\) para todo \(x \in [a,b]\).
+
+    \end{itemize}
+\end{thm}
+
+\begin{cor} (integração por partes)
+    Se \(f\) e \(g\) são funções diferenciáveis em \([a,b]\) com derivadas contínuas, então \(fg'\) e \(f'g\) são integráveis e
+
+    \begin{equation}
+        \int_{a}^{b} fg' = f(b)g(b) - f(a)g(a) - \int_{a}^{b} f'g.
+    \end{equation}
+\end{cor}
+
+\begin{cor} (substituição-w)
+    Suponha que \(g\) seja uma função cuja derivada \(g'\) é contínua em \([a,b]\) e que \(f\) seja contínua em \(g([a,b])\). Então
+
+    \begin{equation}
+        \int_{a}^{b} f(g(x)) g'(x) \, dx = \int_{g(a)}^{g(b)} f(w) \, dw.
+    \end{equation}
+\end{cor}
+
+\section{Cálculo com Integrais}
+\subsection{Os teoremas clássicos do Cálculo Integral}
+\subsection{A integral como limite de somas de Riemann}
+\subsection{Logaritmos e exponenciais}
+\subsection{Integrais impróprias}
+
+\section{Sequências e Séries de Funções}
+\subsection{Convergência simples e convergência uniforme}
+\subsection{Séries de potências}
+\subsection{Funções trigonométricas}
+\subsection{Séries de Taylor}
+
+\end{multicols}
+
+\end{document}
