@@ -286,7 +286,7 @@ O custo da decomposição \(LU\) é \(O(n^3)\), e o custo de resolver \(k\) sist
 A eliminação gaussiana sem pivotamento parcial não é estável em geral, como mostrado anteriormente. Ainda é possível, em teoria, que o algoritmo GEPP seja instável em certas matrizes. Entretanto, essas matrizes nunca foram encontradas em aplicações, então consideramos o método estável na prática.
 
 \begin{defn}
-  Aplique a fatoração \(LU\) para a matriz \(A\). Durante a eliminação, temos as matrizes \(A = A^{(0)}, A^{(1)}, A^{(2)}, \ldots, A^{(n-1)} = U\). O fator de crescimento é definido como
+  Aplique a fatoração \(LU\) para a matriz \(A\). Durante a eliminação, temos as matrizes \(A = A^{(0)}, A^{(1)},\\ A^{(2)}, \ldots, A^{(n-1)} = U\). O fator de crescimento é definido como
 
   \begin{equation}
     \rho = \frac{\max_{i, j, k}\vert a_{ij}^{(k)} \vert}{\max_{i, j}\vert a_{ij} \vert};
