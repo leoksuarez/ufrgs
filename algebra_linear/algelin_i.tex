@@ -20,6 +20,11 @@
 \newtheorem*{rem}{Remark}
 
 \DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\Col}{Col}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\proj}{proj}
+
+\newcommand{\defeq}{\stackrel{\text{def}}{=}}
 
 \geometry{
  a4paper,
@@ -34,9 +39,9 @@
     \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
     \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
     \vspace{3cm}
-    \textbf{\Large ÁLGEBRA LINEAR I} \\
+    \textbf{\Large LINEAR ALGEBRA I} \\
     \vspace{1cm}
-    \textbf{\large LISTA DE DEFINIÇÕES E RESULTADOS} \\
+    \textbf{\large LIST OF DEFINITIONS AND RESULTS} \\
     \vspace{3cm}
 
     \textbf{LEONARDO SUAREZ}
@@ -54,13 +59,17 @@
 
 \section{Linear Equations in Linear Algebra}
 
-\begin{thm} (Uniqueness of the Reduced Echelon Form). 
+\subsection{Row reduction and echelon forms}
+
+\begin{thm} [uniqueness of the reduced echelon form]
     Each matrix is row equivalent to one and only one reduced echelon matrix.
 \end{thm}
 
-\begin{thm} (Uniqueness and Existence Theorem).
+\begin{thm} [existence and uniqueness theorem]
     A linear system is consistent iff the rightmost column of the augmented matrix is \textit{not} a pivot column---that is, iff an echelon form of the augmented matrix has \textit{no} row of the form \[[0\hspace{.25cm}\cdots\hspace{.25cm}0\hspace{.25cm} b],\hspace{.5cm}b\neq0\] If a linear system is consistent, then the solution set contains either (i) a unique solution, when there are no free variables, or (ii) infinitely many solutions, when there is at least one free variable.
 \end{thm}
+
+\subsection{The matrix equation $Ax=b$}
 
 \begin{thm}
     If $A$ is an \(m\times n\) matrix, with columns $\textbf{a}_1,\ldots,\textbf{a}_n$, and if $\textbf{b}$ is in $\mathbb{R}^m$, the matrix equation $$A\textbf{x}=\textbf{b}$$ has the same solution set as the vector equation $$x_1\textbf{a}_1+x_2\textbf{a}_2+\cdots+x_n\textbf{a}_n$$ which, in turn, has the same solution set as the system of linear equations whose augmented matrix is
@@ -81,7 +90,7 @@
     \end{enumerate}
 \end{thm}
 
-\begin{thm}
+\begin{thm} [properties of matrix-vector product]
     If $A$ is an $m\times n$ matrix, $\textbf{u}$ and $\textbf{v}$ are vectors in $\mathbb{R}^m$, and $c$ is a scalar, then:
     \begin{enumerate}
         \item[a.] $A(\textbf{u}+\textbf{v})=A\textbf{u}+A\textbf{v}$;
@@ -89,11 +98,15 @@
     \end{enumerate}
 \end{thm}
 
+\subsection{Solution sets of linear systems}
+
 \begin{thm}
     Suppose the equation $A\textbf{x}=\textbf{b}$ is consistent for some given $\textbf{b}$, and let $\textbf{p}$ be a solution. Then the solution set of $A\textbf{x}=\textbf{b}$ is the set of all vectors of the form $\textbf{w}=\textbf{p}+\textbf{v}_{h}$, where $\textbf{v}_{h}$ is any solution to the homogeneous equation $A\textbf{x}=\textbf{0}$.
 \end{thm}
 
-\begin{thm} (Characterization of Linearly Dependent Sets).
+\subsection{Linear independence}
+
+\begin{thm} [characterization of linearly dependent sets]
     An indexed set $S=\{\textbf{v}_1,\ldots,\textbf{v}_p\}$ of two or more vectors is linearly dependent iff at least one of the vectors in $S$ is a linear combination of the others. In fact, if $S$ is linearly dependent and $\textbf{v}_1\neq=\textbf{0}$, then some $\textbf{v}_j$ (with $j>1$) is a linear combination of the preceding vectors, $\textbf{v}_1,\ldots,\textbf{v}_{j-1}$.
 \end{thm}
 
@@ -104,6 +117,8 @@
 \begin{thm}
     If a set $S=\{\textbf{v}_1,\ldots,\textbf{v}_p\}$ in $\mathbb{R}^n$ contains the zero vector, then the set is linearly dependent.
 \end{thm}
+
+\subsection{The matrix of a linear transformation}
 
 \begin{thm}
     Let $T:\mathbb{R}^n\to\mathbb{R}^m$ be a linear transformation. Then there exists a unique matrix $A$ such that $$T(\textbf{x})=A\textbf{x},\hspace{.5cm}\forall\textbf{x}\in\mathbb{R}^n$$ In fact, $$A=[T(\textbf{e}_1)\hspace{.5cm}\cdots\hspace{.5cm}T(\textbf{e}_n)]$$    
@@ -123,6 +138,8 @@
     
 \section{Matrix Algebra}
 
+\subsection{Matrix operations}
+
 \begin{thm}
     Let $A$, $B$, and $C$ be matrices of the same size, and let $r$ and $s$ be scalars.
     \begin{enumerate}
@@ -135,7 +152,7 @@
     \end{enumerate}
 \end{thm}
 
-\begin{thm} (Properties of Matrix Multiplication).
+\begin{thm} [properties of matrix multiplication]
     Let $A$ be an $m\times n$ matrix, and let $B$ and $C$ have sizes for which the indicated sums and products are defined.
     \begin{enumerate}
         \item[a.] $A(BC)=(AB)C$ \hfill(associative law of multiplication)
@@ -146,7 +163,7 @@
     \end{enumerate}
 \end{thm}
 
-\begin{thm} (Properties of Matrix Transposes).
+\begin{thm} [properties of matrix transposes]
     Let $A$ and $B$ denote matrices whose sizes are appropriate for the following sums and products.
     \begin{enumerate}
         \item[a.] $(A^T)^T=A$
@@ -156,7 +173,14 @@
     \end{enumerate}
 \end{thm}
 
-\begin{thm}
+\subsection{The inverse of a matrix}
+
+\begin{defn}
+    An \(n \times n\) matrix \(A\) is said to be \emph{invertible} if there exists an \(n \times n\) matrix \(C\) such that \(CA = I_n\) and \(AC = I_n\). In this case, there is only one such matrix \(C\), and we call it the \emph{inverse} of \(A\) and denote it by \(A^{-1}\).
+    A matrix that is not invertible is sometimes called a \emph{singular} matrix, and an invertible matrix is called a \emph{nonsingular} matrix.
+\end{defn}
+
+\begin{thm} 
     Let $A=\begin{bmatrix}
         a & b\\
         c & d
@@ -182,41 +206,53 @@
     An $n\times n$ matrix $A$ is invertible iff $A$ is row equivalent to $I_n$, and in this case, any sequence of elementary row ops that reduce $A$ to $I_n$ also transforms $I_n$ into $A^{-1}$.
 \end{thm}
 
-\begin{thm} (the invertible matrix theorem).
+\subsection{Characterizations of invertible matrices}
+
+\begin{thm} [the invertible matrix theorem]
     Let $A$ be a square $n\times n$ matrix. Then the following statements are equivalent.
     \begin{enumerate}
         \item[a.] $A$ is an invertible matrix.
         \item[b.] $A$ is row equivalent to the $n\times n$ identity matrix.
         \item[c.] $A$ has $n$ pivot positions.
-        \item[d.] The equation $A\textbf{x}=\textbf{0}$ has only the trivial solution.
+        \item[d.] The equation $Ax=0$ has only the trivial solution.
         \item[e.] The columns of $A$ form a linearly independent set.
-        \item[f.] The transformation $\textbf{x}\mapsto A\textbf{x}$ is one-to-one.
-        \item[g.] The equation $A\textbf{x}=\textbf{b}$ has a unique solution for each $\textbf{b}$ in $\mathbb{R}^n$
+        \item[f.] The transformation $x \mapsto Ax$ is one-to-one.
+        \item[g.] The equation $Ax=b$ has a unique solution for each $b$ in $\mathbb{R}^n$
         \item[h.] The columns of $A$ span $\mathbb{R}^n$.
-        \item[i.] The linear transformation $\textbf{x}\mapsto A\textbf{x}$ maps $\mathbb{R}^n$ onto $\mathbb{R}^n$.
+        \item[i.] The linear transformation $x\mapsto Ax$ maps $\mathbb{R}^n$ onto $\mathbb{R}^n$.
         \item[j.] There is an $n\times n$ matrix $C$ such that $CA=I$.
         \item[k.] There is an $n\times n$ matrix $D$ such that $AD=I$.
         \item[l.] $A^T$ is an invertible matrix.
         \item[m.] The columns of \(A\) form a basis for \(\mathbb{R}^n\).
-        \item[n.] \(\text{Col }A=\mathbb{R}^n\).
-        \item[o.] \(\text{rank }A=n\).
-        \item[p.] \(\text{nullity }A=0\).
-        \item[q.] \(\text{Nul }A=\{\textbf{0}\}\).
+        \item[n.] \(\Col A=\mathbb{R}^n\).
+        \item[o.] \(\rank A=n\).
+        \item[p.] \(\dim \ker A=0\).
+        \item[q.] \(\ker A=0\).
         \item[r.] The number \(0\) is \textit{not} an eigenvalue of \(A\).
     \end{enumerate}
 \end{thm}
 
 \begin{thm}
-    Let $T:\mathbb{R}^n\to\mathbb{R}^n$ be a linear transformation and let $A$ be the standard matrix for $T$. Then $T$ is invertible iff $A$ is an invertible matrix. In that case, the linear transformation $S$ given by $S(\textbf{x})=A^{-1}\textbf{x}$ is the unique function satisfying equations
+    Let $T:\mathbb{R}^n\to\mathbb{R}^n$ be a linear transformation and let $A$ be the standard matrix for $T$. Then $T$ is invertible iff $A$ is an invertible matrix. In that case, the linear transformation $S$ given by $S(x)=A^{-1}x$ is the unique function satisfying equations
     \begin{align}
-        S(T(\textbf{x}))=\textbf{x}\hspace{1cm}\text{for all $x$ in $\mathbb{R}^n$}\\
-        T(S(\textbf{x}))=\textbf{x}\hspace{1cm}\text{for all $x$ in $\mathbb{R}^n$}
+        S(T(x))=x\quad\text{for all $x$ in $\mathbb{R}^n$}\\
+        T(S(x))=x\quad\text{for all $x$ in $\mathbb{R}^n$}
     \end{align}
 \end{thm}
     
 \section{Determinants}
 
-\begin{thm}
+\subsection{Introduction to determinants}
+
+\begin{defn}
+    For \(n \geq 2\), the \emph{determinant} of an \(n \times n\) matrix \(A\) is defined recursively by the formula
+\[
+    \det A = \sum_{j=1}^n (-1)^{1+j} a_{1j} \det A_{1j}
+\]
+where \(A_{1j}\) is the \((n-1) \times (n-1)\) matrix that results from deleting the first row and the \(j\)-th column of \(A\). The determinant of a \(1 \times 1\) matrix \([a]\) is defined to be \(a\).
+\end{defn}
+
+\begin{thm} [determinant by cofactor expansion]
     The determinant of an \(n\times n\) matrix \(A\) can be computed by a cofactor expansion across any row or down any column. The expansion across the \(i\)-th row is 
     \[
         \det A=a_{i1}C_{i1}+a_{i2}C_{i2}+\cdots+a_{in}C_{in}.
@@ -234,7 +270,9 @@
     If \(A\) is a triangular matrix, then \(\det A\) is the product of the entries on the main diagonal.
 \end{thm}
 
-\begin{thm} (row operations).
+\subsection{Properties of determinants}
+
+\begin{thm} [row operations]
     Let \(A\) be a square matrix.
     \begin{enumerate}
         \item[a.] If a multiple of one row of \(A\) is added to another row to produce matrix \(B\), then \(\det B=\det A\).
@@ -251,32 +289,87 @@
     If \(A\) is an \(n\times n\) matrix, then \(\det A^T=\det A\).
 \end{thm}
 
-\begin{thm} (multiplicative property).
+\begin{thm} [multiplicative property of determinants]
     If \(A\) and \(B\) are \(n\times n\) matrices, then \(\det AB=\left(\det A\right)\left(\det B\right)\).
 \end{thm}
 
 \section{Vector Spaces}
 
+\subsection{Vector spaces and subspaces}
+
+\begin{defn}
+    A \emph{vector space} is a nonempty set \(V\) of objects, called \emph{vectors}, on which are defined two operations, called \emph{vector addition} and \emph{scalar multiplication}, that satisfy the following ten axioms below for all \(u, v, w\) in \(V\) and all scalars \(c\) and \(d\).
+\begin{enumerate}
+    \item \(u+v\) is in \(V\)
+    \item \(u+v=v+u\)
+    \item \((u+v)+w=u+(v+w)\)
+    \item There is a zero vector \(0\) in \(V\) such that \(u+0=u\)
+    \item For each \(u\) in \(V\), there is a vector \(-u\) in \(V\) such that \(u+(-u)=0\)
+    \item \(cu\) is in \(V\)
+    \item \(c(u+v)=cu+cv\)
+    \item \((c+d)u=cu+du\)
+    \item \(c(du)=(cd)u\)
+    \item \(1u=u\)
+\end{enumerate}
+\end{defn}
+
+\begin{defn}
+    A \emph{subspace} of a vector space \(V\) is a subset \(H\) of \(V\) that has three properties:
+    \begin{enumerate}
+        \item[a.] The zero vector of \(V\) is in \(H\).
+        \item[b.] \(H\) is closed under vector addition. That is, for each \(u\) and \(v\) in \(H\), the sum \(u+v\) is in \(H\).
+        \item[c.] \(H\) is closed under scalar multiplication. That is, for each \(u\) in \(H\) and each scalar \(c\), the product \(cu\) is in \(H\).
+    \end{enumerate}
+\end{defn}
+
 \begin{thm}
-    If $\textbf{v}_1,\ldots,\textbf{v}_p$ are in a vector space $V$, then Span\{$\textbf{v}_1,\ldots,\textbf{v}_p$\} is a subspace of $V$.
+    If $v_1,\ldots,v_p$ are in a vector space $V$, then Span\{$v_1,\ldots,v_p$\} is a subspace of $V$.
 \end{thm}
+
+\subsection{Null space, column space, row space, and linear transformations}
+
+\begin{defn}
+    The \emph{null space} of a matrix $A$ is the set of all vectors $\mathbf{x}$ such that $A\mathbf{x} = \mathbf{0}$.
+\end{defn}
 
 \begin{thm}
     The null space of an $m\times n$ matrix $A$ is a subspace of $\mathbb{R}^n$.
 \end{thm}
 
+\begin{defn}
+    The \emph{column space} of an $m\times n$ matrix $A$ is the set of all linear combinations of the columns of $A$.
+\end{defn}
+
 \begin{thm}
     The column space of an $m\times n$ matrix $A$ is a subspace of $\mathbb{R}^m$.
 \end{thm}
 
+\begin{defn}
+    A \emph{linear transformation} \(T\) from a vector space \(V\) to a vector space \(W\) is a function from \(V\) to \(W\) that assigns to each vector \(x \in V\) a unique vector \(T(x) \in W\) such that for all vectors \(u, v \in V\) and all scalars \(c\), the following two properties hold:
+\begin{enumerate}
+    \item \(T(u+v) = T(u) + T(v)\)
+    \item \(T(cu) = cT(u)\)
+\end{enumerate}
+\end{defn}
+
+\subsection{Linearly independent sets; bases}
+
+\begin{defn}
+    An indexed set of vectors \(\{v_1,\ldots,v_p\}\) in a vector space \(V\) is said to be \emph{linearly independent} if the vector equation \[x_1v_1+x_2v_2+\cdots+x_pv_p=0\] has only the trivial solution \(x_1=x_2=\cdots=x_p=0\). The set is said to be \emph{linearly dependent} if there exist weights \(c_1,\ldots,c_p\), not all zero, such that \[c_1v_1+c_2v_2+\cdots+c_pv_p=0\]
+\end{defn}
+
 \begin{thm}
-    An indexed set \(\textbf{v}_1,\ldots,\textbf{v}_p\) of two or more vectors, with \(\textbf{v}_1\neq0\), is linearly dependent iff some \(\textbf{v}_j\) (with \(j>1\)) is a linear combination of the preceding vectors \(\textbf{v}_1,\ldots,\textbf{v}_{j-1}\).
+    An indexed set \(v_1,\ldots,v_p\) of two or more vectors, with \(v_1\neq0\), is linearly dependent iff some \(v_j\) (with \(j>1\)) is a linear combination of the preceding vectors \(v_1,\ldots,v_{j-1}\).
 \end{thm}
 
-\begin{thm} (the spanning set theorem).
-    Let \(S=\{\textbf{v}_1,\ldots,\textbf{v}_p\}\) be a set in a vector space \(V\), and let \(H=\spn\{\textbf{v}_1,\ldots,\textbf{v}_p\}\).
+\begin{defn}
+    Let \(H\) be a subspace of a vector space \(V\). A \emph{basis} for \(H\) is a linearly independent set in \(H\) that spans \(H\).
+\end{defn}
+
+\begin{thm} [spanning set theorem]
+    Let \(S=\{v_1,\ldots,v_p\}\) be a set in a vector space \(V\), and let \(H=\spn\{v_1,\ldots,v_p\}\).
     \begin{enumerate}
-        \item[a.] If \(\textbf{v}_k\) is a linear combination of the remaining vectors in \(S\), then the set formed by \(S-\{\textbf{v}_k\}\) still spans \(H\).
+        \item[a.] If \(v_k\) is a linear combination of the remaining vectors in \(S\), then the set formed by \(S-\{v_k\}\) still spans \(H\).
         \item[b.] If \(H\neq0\), some subset of \(S\) is a basis for \(H\).
     \end{enumerate}
 \end{thm}
@@ -289,49 +382,92 @@
     If two matrices \(A\) and \(B\) are row equivalent, then their row spaces are the same. If \(B\) is in echelon form, the nonzero rows of \(B\) form a basis for the row space of \(A\) as well as for that of \(B\).
 \end{thm}
 
-\begin{thm} (the unique representation theorem).
+\subsection{Coordinate systems}
+
+\begin{thm} [the unique representation theorem]
     Let \(\mathcal{B}=\{\textbf{b}_1,\ldots,\textbf{b}_n\}\) be a basis for a vector space \(V\). Then for each \(\textbf{x}\) in \(V\), there exists a unique set of scalars \(c_1,\ldots,c_n\) such that \[\textbf{x}=c_1\textbf{b}_1+\cdots+c_n\textbf{b}_n\]
 \end{thm}
 
 \begin{thm}
-    Let \(\mathcal{B}=\{\textbf{b}_1,\ldots,\textbf{b}_n\}\) be a basis for a vector space \(V\). Then the coordinate mapping \(\textbf{x}\mapsto\left[\textbf{x}\right]_{\mathcal{B}}\) is a one-to-one linear transformation from \(V\) onto \(\mathbb{R}^n\).
+    Let \(\mathcal{B}=\{b_1,\ldots,b_n\}\) be a basis for a vector space \(V\). Then the coordinate mapping \(x\mapsto\left[x\right]_{\mathcal{B}}\) is a one-to-one linear transformation from \(V\) onto \(\mathbb{R}^n\).
 \end{thm}
 
+\begin{defn}
+    Suppose \(\mathcal{B} = \{b_1, \ldots, b_n\}\) is a basis for a vector space \(V\). Then the \emph{coordinates} of a vector \(x\) in \(V\) relative to the basis \(\mathcal{B}\) are the weights \(c_1, \ldots, c_n\) such that \(x = c_1b_1 + \cdots + c_nb_n\).
+\end{defn}
+
+\begin{defn}
+    A one-to-one linear transformation from a vector space \(V\) onto a vector space \(W\) is called an \emph{isomorphism} from \(V\) to \(W\). If there exists an isomorphism from \(V\) to \(W\), we say that \(V\) and \(W\) are \emph{isomorphic}.
+\end{defn}
+
+\subsection{The dimension of a vector space}
+
 \begin{thm}
-    If a vector space \(V\) has a basis \(\mathcal{B}=\{\textbf{b}_1,\ldots,\textbf{b}_n\}\), then any set in \(V\) containing more than \(n\) vectors must be linearly dependent.
+    If a vector space \(V\) has a basis \(\mathcal{B}=\{b_1,\ldots,b_n\}\), then any set in \(V\) containing more than \(n\) vectors must be linearly dependent.
 \end{thm}
 
 \begin{thm}
     If a vector space \(V\) has a basis of \(n\) vectors, then every basis of \(V\) must consist of exactly \(n\) vectors.
 \end{thm}
 
-\begin{thm}
+\begin{defn}
+    If a vector space \(V\) is spanned by a finite set, then \(V\) is said to be \emph{finite-dimensional}, and the dimension of \(V\) is the number of vectors in a basis for \(V\). We denote the dimension of \(V\) by \(\dim V\). The dimension of the zero vector space is defined to be zero. If \(V\) is not spanned by a finite set, then \(V\) is said to be \emph{infinite-dimensional}.\footnote{Infinite-dimensional vector spaces are studied in Functional Analysis courses (phD level).}
+\end{defn}
+
+\begin{thm} [linearly independent sets can be expanded to bases]
     Let \(H\) be a subspace of a finite-dimensional vector space \(V\). Any linearly independent set in \(H\) can be expanded, if necessary, to a basis for \(H\). Also, \(H\) if finite-dimensional and \[\text{dim } H\leq\text{dim }V\]
 \end{thm}
 
-\begin{thm} (the basis theorem).
+\begin{thm} [basis theorem]
     Let \(V\) be a \(p\)-dimensional vector space, \(p\geq1\). Any linearly independent set of exactly \(p\) elements in \(V\) is automatically a basis for \(V\). Any set of exactly \(p\) elements that spans \(V\) is automatically a basis for \(V\).
 \end{thm}
 
-\begin{thm} (the rank theorem).
+\begin{defn}
+    The \emph{rank} of an \(m\times n\) matrix \(A\) is the dimension of the column space of \(A\). The \emph{nullity} of \(A\) is the dimension of the null space of \(A\).
+\end{defn}
+
+\begin{thm} [rank theorem]
     The dimensions of the column space and the null space of an \(m\times n\) matrix \(A\) satisfy the equation \[\text{rank }A+\text{nullity }A=\text{number of columns in }A\] 
 \end{thm}
 
 \begin{thm}
-    Let \(\mathcal{B}=\{\textbf{b}_1,\ldots,\textbf{b}_n\}\) and \(\mathcal{C}=\{\textbf{c}_1,\ldots,\textbf{c}_n\}\) be bases of a vector space \(V\). Then there is a unique \(n\times n\) matrix \(\underset{C\leftarrow B}{P}\) such that \[\left[\textbf{x}_\mathcal{C}\right]=\underset{C\leftarrow B}{P}\left[\textbf{x}_\mathcal{B}\right]\] The columns of \(\underset{C \leftarrow B}{P}\) are the \(\mathcal{C}\)-coordinate vectors of the vectors in the basis \(\mathcal{B}\). That is, \[\underset{C\leftarrow B}{P}=\left[\left[\textbf{b}_1\right]_\mathcal{C}\ \left[\textbf{b}_2\right]_\mathcal{C}\ \cdots \left[\textbf{b}_n\right]_\mathcal{C}\right]\]
+    Let \(\mathcal{B}=\{b_1,\ldots,b_n\}\) and \(\mathcal{C}=\{c_1,\ldots,c_n\}\) be bases of a vector space \(V\). Then there is a unique \(n\times n\) matrix \(\underset{C\leftarrow B}{P}\) such that \[\left[\textbf{x}_\mathcal{C}\right]=\underset{C\leftarrow B}{P}\left[\textbf{x}_\mathcal{B}\right]\] The columns of \(\underset{C \leftarrow B}{P}\) are the \(\mathcal{C}\)-coordinate vectors of the vectors in the basis \(\mathcal{B}\). That is, \[\underset{C\leftarrow B}{P}=\left[\left[\textbf{b}_1\right]_\mathcal{C}\ \left[\textbf{b}_2\right]_\mathcal{C}\ \cdots \left[\textbf{b}_n\right]_\mathcal{C}\right]\]
+\end{thm}
+
+\subsection{Change of basis}
+
+\begin{thm}
+    Let \(\mathcal{B}=\{b_1,\ldots,b_n\}\) and \(\mathcal{C}=\{c_1,\ldots,c_n\}\) be bases of a vector space \(V\). Then there is a unique \(n\times n\) matrix \(\underset{C\leftarrow B}{P}\) such that \[\left[x\right]_\mathcal{C}=\underset{C\leftarrow B}{P}\left[x\right]_\mathcal{B}\] The columns of \(\underset{C\leftarrow B}{P}\) are the \(\mathcal{C}\)-coordinate vectors of the vectors in the basis \(\mathcal{B}\). That is, \[\underset{C\leftarrow B}{P}=\left[\left[b\right]_\mathcal{C} \left[b_2\right]_\mathcal{C}\ \cdots \left[b_n\right]_\mathcal{C}\right]\]
+    The columns of \(\underset{C\leftarrow B}{P}\) are linearly independent because they are the coordinate vectors of a basis. Hence, \(\underset{C\leftarrow B}{P}\) is an invertible matrix, and \[\underset{B\leftarrow C}{P}=\underset{C\leftarrow B}{P}^{-1}\]
 \end{thm}
 
 \section{Eigenvalues and Eigenvectors}
+
+\subsection{Eigenvectors and eigenvalues}
+
+\begin{defn}
+    An \emph{eigenvector} of an \(n\times n\) matrix \(A\) is a nonzero vector \(x\) such that \(Ax=\lambda x\) for some scalar \(\lambda\). A scalar \(\lambda\) is called an \emph{eigenvalue} of \(A\) if there is a nontrivial solution \(x\) of the equation \(Ax=\lambda x\). In this case, we say that \(x\) is an eigenvector of \(A\) that corresponds to the eigenvalue \(\lambda\).
+\end{defn}
+
+\begin{defn}
+    The \emph{eigenspace} of an \(n\times n\) matrix \(A\) corresponding to an eigenvalue \(\lambda\), denoted by \(E(A, \lambda)\), is the set of all eigenvectors corresponding to \(\lambda\), together with the zero vector. That is, \[E(A, \lambda) = \{x \in \mathbb{R}^n : (A - \lambda I)x = 0\} = \ker (A - \lambda I)\]
+\end{defn}
 
 \begin{thm}
     The eigenvalues of a triangular matrix are the entries on its main diagonal.
 \end{thm}
 
-\begin{thm}
-    If \(\textbf{v}_1,\ldots,\textbf{v}_r\) are eigenvectors that correspond to distinct eigenvalues \(\lambda_1,\ldots,\lambda_r\) of an \(n\times n\) matrix \(A\), then the set \(\{\textbf{v}_1,\ldots,\textbf{v}_r\}\) is linearly independent.
+\begin{thm} [eigenvectors corresponding to distinct eigenvalues are linearly independent]
+    If \(v_1,\ldots,v_r\) are eigenvectors that correspond to distinct eigenvalues \(\lambda_1,\ldots,\lambda_r\) of an \(n\times n\) matrix \(A\), then the set \(\{v_1,\ldots,v_r\}\) is linearly independent.
 \end{thm}
 
-\begin{thm} (properties of determinants).
+\begin{proof}
+    
+\end{proof}
+
+\subsection{The characteristic equation}
+
+\begin{thm} [properties of determinants]
     Let \(A\) and \(B\) be \(n\times n\) matrices.
     \begin{enumerate}
         \item[a.] \(A\) is invertible iff \(\det{A}\neq0\)
@@ -342,15 +478,25 @@
     \end{enumerate}
 \end{thm}
 
+\begin{defn}
+    The \emph{characteristic polynomial} of an \(n\times n\) matrix \(A\) is the polynomial defined by the formula \[p(\lambda) \defeq \det(A-\lambda I).\] The \emph{characteristic equation} of \(A\) is the equation \(p(\lambda)=0\).
+\end{defn}
+
+\begin{rem}
+    A scalar \(\lambda\) is an eigenvalue of \(A\) iff \(\lambda\) is a root of the characteristic polynomial \(p(\lambda)\). The (algebraic) multiplicity of an eigenvalue \(\lambda\) is the multiplicity of \(\lambda\) as a root of \(p(\lambda)\).
+\end{rem}
+
+\begin{defn}
+    If \(A\) and \(B\) are \(n\times n\) matrices, then \(A\) and \(B\) are \emph{similar} if there is an invertible matrix \(P\) such that \(A=PBP^{-1}\).
+\end{defn}
+
 \begin{thm}
     If \(n\times n\) matrices \(A\) and \(B\) are similar, then they have the same characteristic polynomial and hence the same eigenvalues (with the same multiplicities).
 \end{thm}
 
-\begin{rem}
-    Two matrices \(A\) and \(B\) are \textit{similar} if there exists an invertible matrix \(P\) such that \(A=PBP^{-1}\).
-\end{rem}
+\subsection{Diagonalization}
 
-\begin{thm} (the diagonalization theorem).
+\begin{thm} [diagonalization theorem]
     An \(n\times n\) matrix \(A\) is diagonalizable iff \(A\) has \(n\) linearly independent eigenvectors. In fact, \(A=PDP^{-1}\), with \(D\) a diagonal matrix, iff the columns of \(P\) are the \(n\) linearly independent eigenvectors of \(A\). In this case, the diagonal entries of \(D\) are the eigenvalues of \(A\) that correspond, respectively, to the eigenvectors in \(P\).
 \end{thm}
 
@@ -377,119 +523,204 @@
 
 \section{Orthogonality and Least Squares}
 
-\begin{thm} Let \(\textbf{u}\), \(\textbf{v}\), and \(\textbf{w}\) be vectors in \(\mathbb{R}^n\), and let \(c\) be a scalar. Then
+\subsection{Inner product, length, and orthogonality}
+
+\begin{thm} Let \(u\), \(v\), and \(w\) be vectors in \(\mathbb{R}^n\), and let \(c\) be a scalar. Then
     \begin{enumerate}
-        \item[a.] \(\textbf{u}\cdot\textbf{v}=\textbf{v}\cdot\textbf{u}\)
-        \item[b.] \((\textbf{u}+\textbf{v})\cdot\textbf{w}=\textbf{u}\cdot\textbf{w}+\textbf{v}\cdot\textbf{w}\)
-        \item[c.] \((c\textbf{u})\cdot\textbf{v}=c(\textbf{u}\cdot\textbf{v})=\textbf{u}\cdot(c\textbf{v})\)
-        \item[d.] \(\textbf{u}\cdot\textbf{u}\geq0\), \hspace{.5cm} and \(\textbf{u}\cdot\textbf{u}=0\iff\textbf{u}=\textbf{0}\)
+        \item[a.] \(u \cdot v=v\cdot u\)
+        \item[b.] \((u+v)\cdot w=u\cdot w+v\cdot w\)
+        \item[c.] \((cu)\cdot v=c(u\cdot v)=u\cdot(cv)\)
+        \item[d.] \(u\cdot u\geq0\), \hspace{.5cm} and \(u\cdot u=0\iff u=0\)
     \end{enumerate}
 \end{thm}
 
-\begin{thm} (The Pythagorean Theorem). 
-    Two vectors \(\textbf{u}\) and \(\textbf{v}\) are orthogonal iff \(||\textbf{u}+\textbf{v}||^2=||\textbf{u}||^2+||\textbf{v}||^2\).
+\begin{defn}
+    The \emph{length} (or \emph{norm}) of \(v\) is the nonnegative scalar defined by \[\Vert v \Vert \defeq \sqrt{v\cdot v}\]
+\end{defn}
+
+\begin{defn}
+    For \(u\) and \(v\) in \(\mathbb{R}^n\), the \emph{distance} between \(u\) and \(v\) is the nonnegative scalar defined by \[d(u,v) \defeq \Vert u-v \Vert\]
+\end{defn}
+
+\begin{defn}
+    Two vectors \(u\) and \(v\) in \(\mathbb{R}^n\) are \emph{orthogonal} if \(u\cdot v=0\).
+\end{defn}
+
+\begin{thm} [pythagorean theorem]
+    Two vectors \(u\) and \(v\) are orthogonal iff \(\Vert u+v \Vert^2=\Vert u \Vert^2 + \Vert v \Vert^2\).
 \end{thm}
+
+\begin{defn}
+    If a vector \(z\) is orthogonal to every vector in a subspace \(W\) of \(\mathbb{R}^n\), then \(z\) is said to be \emph{orthogonal} to \(W\). The set of all vectors that are orthogonal to \(W\) is called the \emph{orthogonal complement} of \(W\) and is denoted by \(W^{\perp}\).
+\end{defn}
 
 \begin{thm} 
     Let \(A\) be an \(m\times n\) matrix. The orthogonal complement of the row space of \(A\) is the null space of \(A\), and the orthogonal complement of the column space of \(A\) is the null space of \(A^T\): \[(\text{Row }A)^{\perp}=\text{Nul }A\hspace{.5cm}\text{and}\hspace{.5cm}(\text{Col }A)^{\perp}=\text{Nul }A^T\]
 \end{thm}
 
-\begin{thm} 
-    If \(S=\{\textbf{u}_1,\ldots,\textbf{u}_p\}\) is an orthogonal set of nonzero vectors in \(\mathbb{R}^n\), then \(S\) is linearly independent and hence is a basis for the subspace spanned by \(S\).
-\end{thm}
+\subsection{Orthogonal sets}
+
+\begin{defn}
+    A set of vectors \(u_1, \ldots, u_p\) in \(\mathbb{R}^n\) is an \emph{orthogonal set} if each pair of distinct vectors in the set is orthogonal. That is, \(u_i \cdot u_j = 0\) whenever \(i \neq j\).
+\end{defn}
 
 \begin{thm} 
-    Let \(\{\textbf{u}_1,\ldots,\textbf{u}_p\}\) be an orthogonal basis for a subspace \(W\) of \(\mathbb{R}^n\). For each \(\textbf{y}\) in \(W\), the weights in the linear combination \[\textbf{y}=c_1\textbf{u}_1+\cdots+c_p\textbf{u}_p\] are given by \[c_j=\frac{\textbf{y}\cdot\textbf{u}_1}{\textbf{u}_1\cdot\textbf{u}_1}\hspace{1cm}(j=1,\ldots,p)\]
+    If \(S=\{u_1,\ldots,u_p\}\) is an orthogonal set of nonzero vectors in \(\mathbb{R}^n\), then \(S\) is linearly independent and hence is a basis for the subspace spanned by \(S\).
 \end{thm}
+
+\begin{defn}
+    An \emph{orthogonal basis} for a subspace \(W\) of \(\mathbb{R}^n\) is a basis for \(W\) that is also an orthogonal set.
+\end{defn}
 
 \begin{thm}
+    Let \(\{u_1,\ldots,u_p\}\) be an orthogonal basis for a subspace \(W\) of \(\mathbb{R}^n\). For each \(y\) in \(W\), the weights in the linear combination \[y=c_1u_1+\cdots+c_pu_p\] are given by \[c_j=\frac{y\cdot u_1}{u_1\cdot u_1}\hspace{1cm}(j=1,\ldots,p)\]
+\end{thm}
+
+\begin{defn} [orthogonal projection]
+    For a vector \(y\) in \(\mathbb{R}^n\) and a subspace \(W\) of \(\mathbb{R}^n\), the \emph{orthogonal projection} of \(y\) onto \(W\), denoted by \(\hat{y} = \proj _W y\), is the vector in \(W\) given by \[\proj_W y = \frac{y\cdot u_1}{u_1\cdot u_1}u_1 + \cdots + \frac{y\cdot u_p}{u_p\cdot u_p}u_p\] where \(\{u_1,\ldots,u_p\}\) is any orthogonal basis of \(W\).
+\end{defn}
+
+\begin{defn}
+    A set \(\{u_1, \ldots, u_p\}\) of vectors in \(\mathbb{R}^n\) is an \emph{orthonormal set} if it is an orthogonal set of unit vectors. An \emph{orthonormal basis} for a subspace \(W\) of \(\mathbb{R}^n\) is a basis for \(W\) that is also an orthonormal set.
+\end{defn}
+
+\begin{thm} \label{thm:orthonormal_columns}
     An \(m\times n\) matrix \(U\) has orthonormal columns iff \(U^T U=I\).
 \end{thm} 
 
 \begin{thm}
-    Let \(U\) be an \(m\times n\) matrix with orthonormal columns, and let \(\textbf{x}\) and \(\textbf{y}\) be in \(\mathbb{R}^n\). Then
+    Let \(U\) be an \(m\times n\) matrix with orthonormal columns, and let \(x\) and \(y\) be in \(\mathbb{R}^n\). Then
     \begin{enumerate}
-        \item[a.] \(||U\textbf{x}||=||\textbf{x}||\)
-        \item[b.] \((U\textbf{x})\cdot(U\textbf{y})=\textbf{x}\cdot\textbf{y}\)
-        \item[c.] \((U\textbf{x})\cdot(U\textbf{y})=0\iff\textbf{x}\cdot\textbf{y}=0\)
+        \item[a.] \(\Vert Ux \Vert = \Vert x \Vert\)
+        \item[b.] \((Ux)\cdot(Uy) = x\cdot y\)
+        \item[c.] \((Ux)\cdot(Uy) = 0 \iff x\cdot y = 0\)
     \end{enumerate}
 \end{thm}
 
-\begin{thm} (the orthogonal decomposition theorem).
-    Let \(W\) be a subspace of \(\mathbb{R}^n\). Then each \(\textbf{y}\) in \(\mathbb{R}^n\) can be written uniquely in the form \[\textbf{y}=\hat{\textbf{y}}+\textbf{z}\] where \(\hat{\textbf{y}}\) is in \(W\) and \(\textbf{z}\) is in \(W^{\perp}\). In fact, if \(\{\textbf{u}_1,\ldots,\textbf{u}_p\}\) is any orthogonal basis of \(W\), then \[\hat{\textbf{y}}=\frac{\textbf{y}\cdot\textbf{u}_1}{\textbf{u}_1\cdot\textbf{u}_1}\textbf{u}_1+\cdots+\frac{\textbf{y}\cdot\textbf{u}_p}{\textbf{u}_p\cdot\textbf{u}_p}\textbf{u}_p\] and \(\textbf{z}=\textbf{y}-\hat{\textbf{y}}\).
+\begin{defn}
+    An \emph{orthogonal matrix} is a square invertible matrix \(U\) such that \(U^{-1} = U^T\).
+\end{defn}
+
+\begin{cor}
+    By \eqref{thm:orthonormal_columns}, an \(n\times n\) matrix \(U\) is orthogonal iff it has orthonormal columns.
+\end{cor}
+
+\subsection{Orthogonal projections}
+
+\begin{thm} [orthogonal decomposition theorem]
+    Let \(W\) be a subspace of \(\mathbb{R}^n\). Then each \(y\) in \(\mathbb{R}^n\) can be written uniquely in the form \[y=\hat{y}+z\] where \(\hat{y}\) is in \(W\) and \(z\) is in \(W^{\perp}\). In fact, if \(\{u_1,\ldots,u_p\}\) is any orthogonal basis of \(W\), then \[\hat{y}=\frac{y\cdot u_1}{u_1\cdot u_1}u_1+\cdots+\frac{y\cdot u_p}{u_p\cdot u_p}u_p\] and \[z=y-\hat{y}\].
 \end{thm}
 
-\begin{thm} (the best approximation theorem).
-    Let \(W\) be a subspace of \(\mathbb{R}^n\), let \(\textbf{y}\) be any vector in \(\mathbb{R}^n\), and let \(\hat{\textbf{y}}\) be the orthogonal projection of \(\textbf{y}\) onto \(W\). Then \(\hat{\textbf{y}}\) is the closest point in \(W\) to \(\textbf{y}\), in the sense that \[||\textbf{y}-\hat{\textbf{y}}||<||\textbf{y}-\textbf{v}||\] for all \(\textbf{v}\) in \(W\) distinct from \(\hat{\textbf{y}}\).
+\begin{thm} [best approximation theorem]
+    Let \(W\) be a subspace of \(\mathbb{R}^n\), let \(y\) be any vector in \(\mathbb{R}^n\), and let \(\hat{y}\) be the orthogonal projection of \(y\) onto \(W\). Then \(\hat{y}\) is the closest point in \(W\) to \(y\), in the sense that \[\Vert y-\hat{y} \Vert < \Vert y-v \Vert\] for all \(v\) in \(W\) distinct from \(\hat{y}\).
 \end{thm}
 
-\begin{thm}
+\begin{thm} [orthogonal projection theorem]
     If \(\{\textbf{u}_1,\ldots,\textbf{u}_p\}\) is an orthonormal basis for a subspace \(W\) of \(\mathbb{R}^n\), then \[\text{proj}_{W}\textbf{y}=(\textbf{y}\cdot\textbf{u}_1)\textbf{u}_1+(\textbf{y}\cdot\textbf{u}_2)\textbf{u}_2+\cdots+(\textbf{y}\cdot\textbf{u}_p)\textbf{u}_p\] If \(U=\left[\textbf{u}_1\hspace{.25cm}\textbf{u}_2\hspace{.25cm}\cdots\hspace{.25cm}\textbf{u}_p\right]\), then \[\text{proj}_{W}\textbf{y}=U U^T\textbf{y}\] for all \(y\) in \(\mathbb{R}^n\).
 \end{thm}
 
-\begin{thm} (Gram-Schmidt).
-    Given a basis \(\{\textbf{x}_1,\ldots,\textbf{x}_p\}\) for a nonzero subspace \(W\) of \(\mathbb{R}^n\), define \begin{align*}
-    \textbf{v}_1&=\textbf{x}_1\\
-    \textbf{v}_2&=\textbf{x}_2-\frac{\textbf{x}_2\cdot\textbf{v}_1}{\textbf{v}_1\cdot\textbf{v}_1}\textbf{v}_1\\
-    \textbf{v}_3&=\textbf{x}_3-\frac{\textbf{x}_3\cdot\textbf{v}_1}{\textbf{v}_1\cdot\textbf{v}_1}\textbf{v}_1-\frac{\textbf{x}_3\cdot\textbf{v}_2}{\textbf{v}_2\cdot\textbf{v}_2}\textbf{v}_2\\
+\subsection{The Gram-Schmidt process}
+
+\begin{thm} [Gram-Schmidt process]
+    Given a basis \(\{x_1,\ldots,x_p\}\) for a nonzero subspace \(W\) of \(\mathbb{R}^n\), define \begin{align*}
+    v_1&=x_1\\
+    v_2&=x_2-\frac{x_2\cdot v_1}{v_1\cdot v_1}v_1\\
+    v_3&=x_3-\frac{x_3\cdot v_1}{v_1\cdot v_1}v_1-\frac{x_3\cdot v_2}{v_2\cdot v_2}v_2\\
     &\vdots\\
-    \textbf{v}_p&=\textbf{x}_p-\frac{\textbf{x}_p\cdot\textbf{v}_1}{\textbf{v}_1\cdot\textbf{v}_1}\textbf{v}_1-\frac{\textbf{x}_p\cdot\textbf{v}_2}{\textbf{v}_2\cdot\textbf{v}_2}\textbf{v}_2-\cdots-\frac{\textbf{x}_p\cdot\textbf{v}_{p-1}}{\textbf{v}_{p-1}\cdot\textbf{v}_{p-1}}\textbf{v}_{p-1}
+    v_p&=x_p-\frac{x_p\cdot v_1}{v_1\cdot v_1}v_1-\frac{x_p\cdot v_2}{v_2\cdot v_2}v_2-\cdots-\frac{x_p\cdot v_{p-1}}{v_{p-1}\cdot v_{p-1}}v_{p-1}
 \end{align*}
 
-    Then \(\{\textbf{v}_1,\ldots,\textbf{v}_p\}\) is an orthogonal basis for \(W\). In addition \[\spn\{\textbf{v}_1,\ldots,\textbf{v}_k\}=\spn\{\textbf{x}_1,\ldots,\textbf{x}_k\}\]\hspace{.5cm} for \(1\leq k\leq p\).
+    Then \(\{v_1,\ldots,v_p\}\) is an orthogonal basis for \(W\). In addition \[\spn\{v_1,\ldots,v_k\}=\spn\{x_1,\ldots,x_k\}\]\hspace{.5cm} for \(1\leq k\leq p\).
 \end{thm}
 
-\begin{thm} (QR factorization).
-    If \(A\) is an \(m\times n\) matrix with linearly independent columns, then \(A\) can be factored as \(A=QR\), where \(Q\) is an \(m\times n\) matrix whose columns form an orthonormal basis for \(\text{Col}A\) and \(R\) is an \(n\times n\) upper triangular invertible matrix with positive entries on its diagonal.
+\begin{thm} [QR factorization]
+    If \(A\) is an \(m\times n\) matrix with linearly independent columns, then \(A\) can be factored as \(A=QR\), where \(Q\) is an \(m\times n\) matrix whose columns form an orthonormal basis for \(\Col A\) and \(R\) is an \(n\times n\) upper triangular invertible matrix with positive entries on its diagonal.
 \end{thm}
+
+\subsection{Least-squares problems}
+
+\begin{defn}
+    If \(A\) is an \(m\times n\) matrix and \(b\) is a vector in \(\mathbb{R}^m\), then a \emph{least-squares solution} of the equation \(Ax=b\) is a vector \(\hat{x}\) in \(\mathbb{R}^n\) such that \[\Vert A\hat{x}-b \Vert \leq \Vert Ax-b \Vert\] for all \(x\) in \(\mathbb{R}^n\).
+\end{defn}
 
 \begin{thm}
-    The set of least-squares solutions of \(A\textbf{x}=\textbf{b}\) coincides with the nonempty set of solutions of the normal equations \(A^TA\textbf{x}=A^T\textbf{b}\).
+    The set of least-squares solutions of \(Ax=b\) coincides with the nonempty set of solutions of the normal equations \(A^TAx=A^Tb\).
 \end{thm}
 
 \begin{thm}
     Let \(A\) be an \(m\times n\) matrix. The following statements are logically equivalent:
     \begin{enumerate}
-        \item[a.] The equation \(A\textbf{x}=\textbf{b}\) has a unique least-squares solution for each \(\textbf{b}\) in \(\mathbb{R}^m\).
+        \item[a.] The equation \(Ax=b\) has a unique least-squares solution for each \(b\) in \(\mathbb{R}^m\).
         \item[b.] The columns of \(A\) are linearly independent.
         \item[c.] The matrix \(A^TA\) is invertible.
     \end{enumerate}
-When these statements are true, the least-squares solution \(\hat{\textbf{x}}\) is given by \[\hat{\textbf{x}}=(A^TA)^{-1}A^T\textbf{b}\]
+When these statements are true, the least-squares solution \(\hat{x}\) is given by \[\hat{x}=(A^TA)^{-1}A^Tb\]
 \end{thm}
 
 \begin{thm}
-    Given an \(m\times n\) matrix \(A\) with linearly independent columns, let \(A=QR\) be a \(QR\) factorization of \(A\). Then, for each \(\textbf{b}\) in \(\mathbb{R}^m\), the equation \(A\textbf{x}=\textbf{b}\) has a unique least-squares solution, given by \[\hat{\textbf{x}}=R^{-1}Q^T\textbf{b}\]
+    Given an \(m\times n\) matrix \(A\) with linearly independent columns, let \(A=QR\) be a \(QR\) factorization of \(A\). Then, for each \(b\) in \(\mathbb{R}^m\), the equation \(Ax=b\) has a unique least-squares solution, given by \[\hat{x}=R^{-1}Q^Tb\]
 \end{thm}
 
 \section{Symmetric Matrices and Quadratic Forms}
+
+\begin{defn}
+    A \emph{symmetric} matrix is a square matrix \(A\) such that \(A^T=A\).
+\end{defn}
 
 \begin{thm}
     If \(A\) is symmetric, then any two eigenvectors from different eigenspaces are orthogonal.
 \end{thm}
 
+\begin{defn}
+    An \(n \times n\) matrix \(A\) is \emph{orthogonally diagonalizable} if there are an orthogonal matrix \(P\) and a diagonal matrix \(D\) such that \(A=PDP^T=PDP^{-1}\).
+\end{defn}
+
 \begin{thm}
     An \(n\times n\) matrix \(A\) is orthogonally diagonalizable iff \(A\) is a symmetric matrix.
 \end{thm}
 
-\begin{thm} (the spectral theorem).
+\begin{defn}
+    The \emph{spectrum} of an \(n\times n\) matrix \(A\) is the set of eigenvalues of \(A\).
+\end{defn}
+
+\begin{thm} [spectral theorem for symmetric matrices]
     An \(n \times n\) symmetric matrix \(A\) has the following properties:
     \begin{enumerate}
         \item[a.] \(A\) has \(n\) real eigenvalues, counting multiplicities.
         \item[b.] For each eigenvalue, the dimension of the eigenspace equals the multiplicity of the eigenvalue.
         \item[c.] The eigenspaces are mutually orthogonal, in the sense that eigenvectors corresponding to different eigenvalues are orthogonal.
-        \item[d.] \(A\) is orthogonally diagonalizable; that is, there is an orthogonal matrix \(P\) such that \(P^TAP\) is a diagonal matrix.
+        \item[d.] \(A\) is orthogonally diagonalizable; that is, there are an orthogonal matrix \(P\) and a diagonal matrix \(D\) such that \(A=PDP^T=PDP^T=PDP^{-1}\).
     \end{enumerate}
 \end{thm}
 
-\begin{rem}
-    A matrix \(P\) is orthogonal iff its columns form an orthonormal basis of \(\mathbb{R}^n\). This is equivalent to the condition that \(P^{-1}=P^T\).
-\end{rem}
+\subsection{Quadratic forms}
 
-\begin{thm} (the pricipal axes theorem).
+\begin{defn}
+    A \emph{quadratic form} on \(\mathbb{R}^n\) is a function \(Q:\mathbb{R}^n\to\mathbb{R}\) such that there is an \(n\times n\) symmetric matrix \(A\) such that \(Q(x) = x^TAx\) for all \(x\) in \(\mathbb{R}^n\).
+\end{defn}
+
+\begin{defn}
+    If \(x\) is a variable vector in \(\mathbb{R}^n\), then a \emph{change of variable} is an equation of the form \(x = Py\), where \(P\) is an invertible \(n\times n\) matrix and \(y\) is a new variable vector in \(\mathbb{R}^n\).
+\end{defn}
+
+\begin{thm} [principal axes theorem]
     Let \(A\) be an \(n\times n\) symmetric matrix. Then there is an orthogonal change of variable, \(\textbf{x}=P\textbf{y}\), that transforms the quadratic form \(\textbf{x}^TA\textbf{x}\) into a quadratic form \(\textbf{y}^TD\textbf{y}\) with no cross-product term.
 \end{thm}
 
-\begin{thm} (quadratic forms and eigenvalues).
+\begin{defn}
+    A quadratic form \(Q\) is
+    \begin{enumerate}
+        \item[a.] \emph{positive definite} if \(Q(x) > 0\) for all \(x \neq 0\).
+        \item[b.] \emph{negative definite} if \(Q(x) < 0\) for all \(x \neq 0\).
+        \item[c.] \emph{indefinite} if \(Q(x)\) assumes both positive and negative values.
+    \end{enumerate}
+\end{defn}
+
+\begin{rem}
+    If \(Q(x) \geq 0\) for all \(x\) in \(\mathbb{R}^n\), then \(Q\) is said to be \emph{positive semidefinite}. If \(Q(x) \leq 0\) for all \(x\) in \(\mathbb{R}^n\), then \(Q\) is said to be \emph{negative semidefinite}.
+\end{rem}
+
+\begin{thm} [quadratic forms and eigenvalues]
     Let \(A\) be an \(n\times n\) symmetric matrix. Then a quadratic form \(Q(\textbf{x})=\textbf{x}^TA\textbf{x}\) is
     \begin{enumerate}
         \item[a.] positive definite (\(Q(\textbf{x})>0\) for all \(\textbf{x}\neq0\)) iff the eigenvalues of \(A\) are all positive.
@@ -498,20 +729,22 @@ When these statements are true, the least-squares solution \(\hat{\textbf{x}}\) 
     \end{enumerate}
 \end{thm}
 
-\begin{thm}
-    Let \(A\) be a symmetric matrix, and define \(m\) and \(M\) as \(m=\min\{\textbf{x}^TA\textbf{x}:|\textbf{x}|=1\}\) and \(M=\max\{\textbf{x}^TA\textbf{x}:|\textbf{x}|=1\}\). Then \(M\) is the greatest eigenvalue \(\lambda_1\) of \(A\) and \(m\) is the least eigenvalue of \(A\). The value of \(\textbf{x}^TA\textbf{x}\) is \(M\) when \(\textbf{x}\) is a unit vector \(\textbf{u}_1\) corresponding to \(M\). The value of \(\textbf{x}^TA\textbf{x}\) is \(m\) when \(\textbf{x}\) is a unit vector \(\textbf{u}_2\) corresponding to \(m\).
+\subsection{Constrained optimization}
+
+\begin{thm}\label{thm:optimization_eigenvalues}
+    Let \(A\) be a symmetric matrix, and define \(m\) and \(M\) as \(m=\min\{x^TAx:|x|=1\}\) and \(M=\max\{x^TAx:|x|=1\}\). Then \(M\) is the greatest eigenvalue \(\lambda_1\) of \(A\) and \(m\) is the least eigenvalue of \(A\). The value of \(x^TAx\) is \(M\) when \(x\) is a unit vector \(u_1\) corresponding to \(M\). The value of \(x^TAx\) is \(m\) when \(x\) is a unit vector \(u_2\) corresponding to \(m\).
 \end{thm}
 
 \begin{thm}
-    Let \(A\), \(\lambda_1\), and \(\textbf{u}_1\) be as in Theorem 6. Then the maximum value of \(\textbf{x}^TA\textbf{x}\) subject to the constraints \[\textbf{x}^T\textbf{x}=1,\quad\textbf{x}^T\textbf{u}_1=0\] is the second greatest eigenvalue, \(\lambda_2\), and this maximum value is attained when \(\textbf{x}\) is an eigenvector \(\textbf{u}_2\) corresponding to \(\lambda_2\).
+    Let \(A\), \(\lambda_1\), and \(u_1\) be as in \eqref{thm:optimization_eigenvalues}. Then the maximum value of \(x^TAx\) subject to the constraints \[x^Tx=1,\quad x^Tu_1=0\] is the second greatest eigenvalue, \(\lambda_2\), and this maximum value is attained when \(x\) is an eigenvector \(u_2\) corresponding to \(\lambda_2\).
 \end{thm}
 
 \begin{thm}
-    Let \(A\) be a symmetric \(n \times n\) matrix with orthogonal diagonalization \(A = PDP^{-1}\), where the entries on the diagonal of \(D\) are \(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n\) and where the columns of \(P\) are the corresponding orthonormal eigenvectors \(\textbf{u}_1, \textbf{u}_2, \ldots, \textbf{u}_n\). Then, for \(k = 2, \ldots, n\), the maximum value of \(\textbf{x}^T A \textbf{x}\) subject to the constraints
+    Let \(A\) be a symmetric \(n \times n\) matrix with orthogonal diagonalization \(A = PDP^{-1}\), where the entries on the diagonal of \(D\) are \(\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_n\) and where the columns of \(P\) are the corresponding orthonormal eigenvectors \(u_1, u_2, \ldots, u_n\). Then, for \(k = 2, \ldots, n\), the maximum value of \(x^T Ax\) subject to the constraints
     \[
-    \textbf{x}^T \textbf{x} = 1, \quad \textbf{x}^T \textbf{u}_1 = 0, \quad \ldots, \quad \textbf{x}^T \textbf{u}_{k-1} = 0
+    x^T x = 1, \quad x^T u_1 = 0, \quad \ldots, \quad x^T u_{k-1} = 0
     \]
-    is the eigenvalue \(\lambda_k\), and this maximum value is attained at \(\textbf{x} = \textbf{u}_k\).
+    is the eigenvalue \(\lambda_k\), and this maximum value is attained at \(x = u_k\).
 \end{thm}
 
 \end{document}

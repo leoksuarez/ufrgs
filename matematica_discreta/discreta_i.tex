@@ -343,11 +343,11 @@ A função geradora exponencial é útil quando estamos interessados em contar o
 
 \subsection{Conceitos Fundamentais}
 
-\begin{defn} (grafo).
+\begin{defn}
     Um \emph{grafo} G é um tripla que consiste em um \emph{conjunto de vértices} \(V(G)\), um \emph{conjunto de arcos} \(E(G)\), e uma relação que associa a cada arco dois vértices (não necessariamente distintos), chamados de \emph{extremidades} do arco.
 \end{defn}
 
-\begin{defn} (laço, arcos múltiplos, grafo simples, adjacência).
+\begin{defn}
     Um \emph{laço} é um arco cujas extremidades são iguais. \emph{Arcos múltiplos} são arcos que possuem o mesmo par de extremidades. 
     
     Um \emph{grafo simples} é um grafo que não possui laços nem arcos múltiplos. Especificamos um grafo simples pelo seus conjunto de vértices e conjunto de arcos, sendo o conjunto de arcos uma coleção de pares não ordenados de vértices. 
@@ -355,7 +355,7 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     Quando \(u\) e \(v\) são as extremidades de um arco, eles são \emph{adjacentes} e \emph{vizinhos}, escrevemos, então, \(u \leftrightarrow v\).
 \end{defn}
 
-\begin{defn} (complemento, clique, conjunto independente).
+\begin{defn}
     O \emph{complemento} \(\overline{G}\) de um grafo simples \(G\) é o grafo simples com conjunto de vértices \(V(G)\) definido por \(uv \in E(\overline{G})\) sse \(uv \notin E(G)\).
     Uma \emph{clique} ou \emph{conjunto completo} em um grafo é um conjunto de vértices adjacentes dois a dois. Em outras palavras, \(X\) é uma clique se o grafo induzido \(G[X]\) é completo.
     Um \emph{conjunto independente} (ou \emph{conjunto estável}) num grafo é o conjunto de vértices não adjacentes.
@@ -367,7 +367,7 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     Um conjunto \(X\) de vértices é uma clique em \(G\) sse \(X\) é estável em \(\overline{G}\). Segue que \(\omega(G) = \alpha(\overline{G})\).
 \end{rem}
 
-\begin{defn} (cobertura).
+\begin{defn}
     Uma \emph{cobertura} de um grafo é qualquer conjunto de vértices que contenha pelo menos uma das pontas de cada arco. Em outras palavras, um conjunto \(X\) de vértices é uma cobertura se toda aresta do grafo tem pelo menos uma de suas pontas em \(X\). A cardinalidade de uma cobertura mínima de um grafo \(G\) é denotada por \(\beta(G)\).
 \end{defn}
 
@@ -375,15 +375,15 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     Em qualquer grafo \(G\), um conjunto \(X\) de vértices é uma cobertura sse \(V(G) \setminus X\) é um conjunto estável. Segue imediatamente que \(\beta(G) = n(G) - \alpha(G)\).
 \end{rem}
 
-\begin{defn} (bipartido).
+\begin{defn}
     Um grafo \(G\) é \emph{bipartido} se \(V(G)\) é a união de dois conjuntos independentes disjuntos (possivelmente vazios) chamados de \emph{conjuntos partidos} de \(G\).
 \end{defn}
 
-\begin{defn} (grafo completo, grafo bipartido completo).
+\begin{defn}
     Os caminhos e ciclos (não rotulados) com \(n\) vértices são denotados por \(P_n\) e \(C_n\), respectivamente. O \emph{grafo completo} com \(n\) vértices, denotado por \(K_n\), é o grafo simples em que cada par de vértices é adjacente. O \emph{grafo bipartido completo} ou \emph{biclique} \(K_{m,n}\) é o grafo bipartido simples cujos conjuntos partidos têm cardinalidades \(m\) e \(n\), respectivamente, e em que cada vértice de um conjunto partido é adjacente a todos os vértices do outro conjunto partido.
 \end{defn}
 
-\begin{defn} (caminho e ciclo).
+\begin{defn}
     Um \emph{caminho} é um grafo simples cujos vértices podem ser ordenados tal que dois vértices são adjacentes sse eles são consecutivos na lista.
     Um \emph{ciclo} é um grafo com o mesmo número de vértices e de arcos cujos vértices podem ser postos em volta dum círculo tal que dois vértices são adjacentes sse eles aparecem consecutivamente em torno do círculo.
 \end{defn}
@@ -392,14 +392,14 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     Um grafo \(G\) é bipartido sse não contém ciclos de comprimento ímpar.
 \end{thm}
 
-\begin{defn} (subgrafo, conexidade).
+\begin{defn}
     Um \emph{subgrafo} de um grafo \(G\) é um grafo \(H\) tal que \(V(H) \subset V(G)\) e \(E(H) \subset E(G)\) e a atribuição de arcos a vértices em \(H\) é a mesma que em \(G\).
     Então escrevemos \(H \subset G\) e dizemos que ``\(G\) contém \(H\)''.
     
     Um grafo \(G\) é \emph{conexo} se cada par de vértices em \(G\) pertence a um caminho; caso contrário, \(G\) é \emph{desconexo}.
 \end{defn}
 
-\begin{defn} (matrizes de adjacência e de incidência, grau).
+\begin{defn}
     Seja \(G\) um grafo sem laços com \(V(G) = \{v_1, \ldots, v_n\}\) e \(E(G) = \{e_1, \ldots, e_m\}\). A \emph{matriz de adjacência} de \(G\), denotada por \(A(G)\), é a matriz \(n\) por \(n\) em que a entrada \(a_{i,j}\)
     é o número de arcos em \(G\) com extremidades \(\{v_i, v_j\}\). A \emph{matriz de incidência} \(M(G)\) é a matriz \(n\) por \(m\) na qual a entrada \(m_{i,j}\) é \(1\) se \(v_i\) é uma extremidade de \(e_j\) e 0 caso contrário.
 
@@ -410,7 +410,7 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     Uma matriz de adjacência é determinada por um ordenamento dos vértices. Toda matriz de adjacência é \emph{simétrica} (\(a_{i,j}=a_{j,i}\)). Uma matriz de adjacência de um grafo simples \(G\) tem entradas \(0\) ou \(1\), com zeros na diagonal. O grau de um vértice \(v\) é a soma das entradas na linha para \(v\) tanto em \(A(G)\) quanto em \(M(G)\).
 \end{rem}
 
-\begin{defn} (isomorfismo de grafos).
+\begin{defn}
     Um \emph{isomorfismo} de um grafo simples \(G\) em um grafo simples \(H\) é uma bijeção \(f: V(G) \to V(H)\) tal que \(uv \in E(G)\) sse \(f(u)f(v) \in E(H)\). Se existe um isomorfismo de \(G\) em \(H\), então dizemos que \(G\) e \(H\) são \emph{isomorfos} e escrevemos \(G \cong H\).
 \end{defn}
 
@@ -418,16 +418,16 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     A relação de isomorfismo é uma relação de equivalência entre grafos simples.
 \end{prop}
 
-\begin{defn} (classe de isomorfismo).
+\begin{defn}
     Uma \emph{classe de isomorfismo} de grafos é uma classe de equivalência de grafos sob a relação de isomorfismo.
 \end{defn}
 
-\begin{defn} (grau, grau máximo, grau mínimo, regularidade, vizinhança).
+\begin{defn}
     O \emph{grau} de um vértice \(v\) em um grafo \(G\), escrito \(d_G(v)\) ou \(d(v)\), é o número de arcos incidentes a \(v\), exceto que cada laço é contado duas vezes. O grau máximo é \(\Delta(G)\), o grau mínimo é \(\delta(G)\), e \(G\) é regular se \(\Delta(G) = \delta(G)\).
     O grafo é \(k\)-regular se o grau comum de seus vértices é \(k\). A \emph{vizinhança} de \(v\), denotada \(N_G(v)\) ou \(N(v)\), é o conjunto de vértices adjacentes a \(v\).
 \end{defn}
 
-\begin{lem} (lema dos apertos de mão).
+\begin{lem} [lema dos apertos de mãos]
     Dado um grafo \(G\), temos 
     \begin{equation}
         \sum_{v \in V(G)} d(v) = 2 m(G),
@@ -447,7 +447,7 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     Um grafo \(k\)-regular com \(n\) vértices possui \(\displaystyle \frac{kn}{2}\) arcos.
 \end{cor}
 
-\begin{defn} (sequência de graus).
+\begin{defn}
     A \emph{sequência de graus} de um grafo \(G\) é a lista dos graus de seus vértices em ordem não crescente, como \(d_1 \leq \cdots \leq d_n\).
 \end{defn}
 
@@ -457,7 +457,7 @@ A função geradora exponencial é útil quando estamos interessados em contar o
 
 \subsection{Grafos Eulerianos}
 
-\begin{defn} (euleriano, semieuleriano).
+\begin{defn}
     Um grafo com \(m\) arcos é dito \emph{euleriano} se existe uma trilha fechada de comprimento \(m\) em \(G\), isto é, se podemos percorrer cada arco uma e só uma vez partindo de um vértice e a ele retornando.
     Se o grafo não é euleriano mas tem uma trilha aberta de comprimento \(m\), ele é dito \emph{semieuleriano}.
 \end{defn}
@@ -466,7 +466,7 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     Se todo vértice de um grafo (não necessariamente simples) \(G\) tem grau maior ou igual a dois, então \(G\) contém um ciclo.
 \end{lem}
 
-\begin{thm} (Euler).
+\begin{thm} [Euler]
     Um grafo conexo (não necessariamente simples) é euleriano sse todos os seus vértices têm grau par.
 \end{thm}
 

@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{macros}
+\title{Tarefa 1 - MAT01050}
+\author{Leonardo Suarez}
+\date{\today}
+
+\setcounter{prblm}{5}
+
+\begin{document}
+\maketitle
+
+\begin{prblm}
+    Dada \(\displaystyle A = \begin{bmatrix} 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \\ 2 & 3 & 4 & 5 \end{bmatrix}\), encontre uma matriz de permutação \(P\), uma matriz triangular inferior \(L\) e uma matriz triangular superior \(U\) tais que \(PA = LU\).
+\end{prblm}
+
+\begin{proof}[Solução]
+    Faz a eliminação gaussiana na matriz \(A\). Troca a primeira e a quarta linha, depois a segunda com a quarta, e a terceira com a quarta. Expressamos essas operações por meio de matrizes elementares \(E_{14}\), \(E_{24}\) e \(E_{34}\), ou seja, temos
+    \begin{align}
+        P = E_{34}E_{24}E_{14} &= \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \end{bmatrix} \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \\ 0 & 1 & 0 & 0 \end{bmatrix} \begin{bmatrix} 0 & 0 & 0 & 1 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 1 & 0 & 0 & 0 \end{bmatrix} \\
+        &= \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 0 & 1 \\ 0 & 0 & 1 & 0 \end{bmatrix} \begin{bmatrix} 0 & 0 & 0 & 1 \\ 1 & 0 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 1 & 0 & 0 \end{bmatrix} \\ 
+        &= \begin{bmatrix} 0 & 0 & 0 & 1 \\ 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{bmatrix}.
+    \end{align}
+    Obtemos então a matriz triangular superior \(U\)
+    \begin{equation}
+        U = \begin{bmatrix} 2 & 3 & 4 & 5 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix},
+    \end{equation}
+    e a matriz triangular inferior \(L\), que não possui elementos abaixo da diagonal principal, pois as únicas operações elementares realizadas foram trocas de linha, ou seja,
+    \begin{equation}
+        L = I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}.
+    \end{equation}
+\end{proof}
+
+A solução foi verificada no \texttt{Scilab} usando a função \texttt{lu} que retorna as matrizes \(L\), \(U\) e \(P\) a partir da matriz \(A\):
+    \begin{verbatim}
+        --> A = [[ 0 1 0 0]; [0 0 1 0]; [0 0 0 1]; [2 3 4 5]]
+
+    A = [4x4 double]
+
+    0.   1.   0.   0.
+    0.   0.   1.   0.
+    0.   0.   0.   1.
+    2.   3.   4.   5.
+
+        --> [L,U,P]=lu(A)
+
+    L = [4x4 double]
+
+    1.   0.   0.   0.
+    0.   1.   0.   0.
+    0.   0.   1.   0.
+    0.   0.   0.   1.
+
+    U = [4x4 double]
+
+    2.   3.   4.   5.
+    0.   1.   0.   0.
+    0.   0.   1.   0.
+    0.   0.   0.   1.
+
+    P = [4x4 double]
+
+    0.   0.   0.   1.
+    1.   0.   0.   0.
+    0.   1.   0.   0.
+    0.   0.   1.   0.
+    \end{verbatim}
+
+\end{document}

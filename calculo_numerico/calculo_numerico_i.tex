@@ -1,47 +1,19 @@
 \documentclass{article}
-\usepackage{fontspec}
-\usepackage{multicol}
-\setlength{\columnsep}{1cm}
-\setmainfont{Libertinus Serif}
-\usepackage[a4paper, margin=1in]{geometry}
-\usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
-\usepackage[portuguese]{babel}
-
-\setlist[description]{leftmargin=1cm,labelindent=1cm}
-\theoremstyle{plain}
-\newtheorem{thm}{Teorema}[section]
-\newtheorem{prop}[thm]{Proposição}
-\newtheorem{lem}[thm]{Lema}
-\newtheorem{cor}[thm]{Corolário}
-
-\theoremstyle{definition}
-\newtheorem{defn}{Definição}[section]
-\newtheorem{exmp}[defn]{Exemplo}
-\newtheorem{prblm}[defn]{Problema}
-
-\theoremstyle{remark}
-\newtheorem*{rem}{Nota}
+\usepackage{macros}
+\title{Notas de aula - MAT01124}
+\author{Leonardo Suarez}
+\date{\today}
 
 \begin{document}
-\begin{center}
-    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
-    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
-    \vspace{3cm}
-    \textbf{\Large CÁLCULO NUMÉRICO} \\
-    \vspace{1cm}
-    \textbf{\large LISTA DE DEFINIÇÕES E RESULTADOS} \\
-    \vspace{3cm}
+\maketitle
 
-    \textbf{LEONARDO SUAREZ}
+Notas de aula da disciplina MAT01124 - Cálculo Numérico I, ministrada pelo prof. Paulo Zingano no semestre letivo 25/2. Aulas ocorrem às terças e quintas-feiras, das 13:30 às 15:10, no laboratório F105. A bibliografia usada pelo prof. é um \emph{mistério}, mas estas notas de aula seguem os primeiro sete capítulos do livro \emph{Cálculo Numérico - Um Livro Colaborativo (Python)}, elaborado pelo REAMAT/UFRGS.
 
-    \vfill
-    \textbf{\large Porto Alegre, RS} \\
-    \textbf{\large \today}
-\end{center}
+Este curso serve como introdução ao cálculo numérico. Tem como objetivo discutir e aplicar técnicas para resolver problemas matemáticos no computador, com foco na implementação de algoritmos e análise de erros. Nas primeiras três semanas, estudamos aritmética de ponto flutuante, tipos de erros e condicionamento de problemas. Nas semanas 4 a 6, começamos a resolver numericamente equações não lineares com métodos de enquadramento e de ponto fixo. Nas quatro semanas seguintes, vemos problemas de álgebra linear numérica, com foco na solução de sistemas lineares através de métodos diretos e iterativos. Também discutimos métodos para resolução de sistemas não lineares. Por fim, nas semanas 14 a 17, abordamos interpolação e ajuste de curvas.
 
-\newpage
+A avaliação se dará por meio da entrega de dois trabalhos e pela presença. A nota final será dada pela média aritmética das duas maiores notas.
+
 \tableofcontents
-\newpage
 
 \section{Representação de números e aritmética de máquina}
 
@@ -52,8 +24,8 @@
     \begin{equation}
         (d_n d_{n-1} \ldots d_1 d_0 . d_{-1} d_{-2} \ldots)_b
     \end{equation}
-
     representa o número positivo
+
     \begin{equation}
         d_n b^n + d_{n-1} b^{n-1} + \ldots + d_1 b^1 + d_0 b^0 + d_{-1} b^{-1} + d_{-2} b^{-2} + \ldots
     \end{equation}
@@ -69,6 +41,7 @@
 
 \begin{defn}
     Um número \(x\) na base \(b\) é dito estar representado em \emph{notação científica normalizada} quando está escrito na forma
+
     \begin{equation}
         x = (-1)^s (M)_b \times b^E
     \end{equation}
@@ -88,7 +61,7 @@
 \end{defn}
 
 \begin{rem}
-    Note que \(p = \vert M \vert + 1\) em binário e \(p =\vert M \vert\) para outras bases, onde \(\vert M \vert\) é o número de dígitos na mantissa.
+    Note que \(p = \vert M \vert + 1\) em binário (pois o \(1\) é implícito, logo não é armazenado) e \(p =\vert M \vert\) para outras bases, onde \(\vert M \vert\) é o número de dígitos na mantissa.
 \end{rem}
 
 \begin{defn}
@@ -166,9 +139,52 @@
 
 \section{Interpolação}
 
+Dada uma sequência de números reais \(x_1 < \cdots < x_n\), um conjunto de pontos \(\{(x_i, y_i) \in I \times \mathbb{R}\}_{i=1}^{n}\), onde \(I = [x_1, x_n]\) e uma família de funções \(\mathcal{F}_I = \{\varphi : I \to \mathbb{R}\}\), o problema de interpolação consiste em encontrar uma função \(f \in \mathcal{F}_I\) tal que \[f(x_i) = y_i, \quad i = 1, 2, \ldots, n.\]
+
+Chamamos uma tal \(f\) de \emph{função interpoladora} dos pontos dados, ou que \(f\) interpola os pontos dados. Um problema de interpolação cuja família de funções \(\mathcal{F}_I\) é o conjunto dos polinômios de grau no máximo \(n-1\) é chamado de \emph{problema de interpolação polinomial}.
+
 \subsection{Interpolação polinomial}
+
+\begin{thm} (Weierstrass).
+    Seja \(f : [a, b] \to \mathbb{R}\) uma função contínua. Para todo \(\delta > 0\), existe um polinômio \(p\) tal que
+    \begin{equation}
+        \vert f(x) - p(x) \vert < \delta, \quad \forall x \in [a, b].
+    \end{equation}
+\end{thm}
+
+Para um problema de interpolação polinomial ser bem posto, é necessário restringir o grau dos polinômios. De fato, dado um conjunto de \(n\) pontos \(\{(x_i, y_i)\}_{i=1}^{n}\) com \(x_i \neq x_j\) para \(i \neq j\), escolhemos a família de polinômios \(\mathcal{F} = \mathbb{P}_{n-1}\)\footnote{Isso porque, para garantir a passagem por \(n\), precisamos ajustar exatamente \(n\) coeficientes, dados por um polinômio de grau \(n-1\).}, onde \[\mathbb{P}_{n-1} \defeq \left\{p: x \mapsto \sum_{k=0}^{n-1} a_k x^k : a_0, a_1, \ldots, a_{n-1} \in \mathbb{R}\right\}\] é o conjunto dos polinômios de grau no máximo \(n-1\). 
+Assim, o problema de interpolação polinomial consiste em encontrar um \emph{polinômio interpolador} \(p \in \mathbb{P}_{n-1}\) tal que \(p(x_i) = y_i\) para \(i = 1, 2, \ldots, n\).
+
+\begin{thm}
+    Seja \(\{(x_i, y_i)\}_{i=1}^{n}\) um conjunto de \(n\) pontos com \(x_i \neq x_j\) para \(i \neq j\). Então, existe um único polinômio \(p \in \mathbb{P}_{n-1}\) tal que \(p(x_i) = y_i\) para \(i = 1, 2, \ldots, n\).
+\end{thm}
+
+\begin{proof}[Ideia da demonstração]
+    Nota que encontrar os coeficientes \(a_0, \ldots, a_{n-1}\) do polinômio \(p\) é equivalente a resolver um sistema linear com \(n\) equações e \(n\) incógnitas, onde a matriz dos coeficientes é uma \emph{matriz de Vandermonde}, que é invertível quando os \(x_i\) são distintos\footnote{Lembra que o determinante da matriz de Vandermonde é dado pelo produtório duplo \(\prod_{1 \leq i < j \leq n} (x_j - x_i)\)}. Logo, existe um único polinômio interpolador.
+\end{proof}
+
+\begin{rem}
+    Dado um conjunto de pontos \(\{(x_i,y_i)\}_{i=1}^n\), a existência e unicidade de um polinômio interpolador para esses pontos não são garantidas se \(\deg p \neq n-1\). Uma reta interpola três pontos sse eles são colineares. Por dois pontos passam infinitas parábolas.
+\end{rem}
+
 \subsection{Diferenças divididas de Newton}
+
+
+
 \subsection{Polinômios de Lagrange}
+
+Dado um conjunto de \(n+1\) pontos \(\{(x_i, y_i)\}_{i=0}^{n}\) com \(x_i \neq x_j\) para \(i \neq j\), a \emph{base de Lagrange} para polinômios de grau no máximo \(n\) é o conjunto \(\{l_0, l_1, \ldots, l_n\}\) dos \emph{polinômios de Lagrange} definidos por \(l_i(x_j) \defeq \delta_{ij}\).
+Assim, o polinômio interpolador \(p\) para os pontos dados pode ser escrito como
+\begin{equation}
+    p(x) = \sum_{i=0}^{n} y_i l_i(x).
+\end{equation}
+
+Usando a forma fatorada dos polinômios de Lagrange, podemos obter uma expressão explícita para cada \(l_i\) como
+\begin{equation}
+    l_i(x) = \prod_{\substack{j=0 \\ j \neq i}}^{n} \frac{x - x_j}{x_i - x_j}.
+\end{equation}
+
+
 \subsection{Aproximação de funções reais por polinômios interpoladores}
 \subsection{Interpolação linear segmentada}
 \subsection{Interpolação cúbica segmentada - spline}
@@ -178,27 +194,5 @@
 \subsection{Ajuste de uma reta}
 \subsection{Ajuste linear geral}
 \subsection{Aproximando problemas não lineares por problemas lineares}
-
-\section{Derivação numérica}
-
-\subsection{Diferenças finitas}
-\subsection{Diferença finita para derivada segunda}
-\subsection{Obtenção de fórmulas por polinômios}
-\subsection{Fórmulas de diferenças finitas}
-\subsection{Derivada via ajuste ou interpolação}
-
-\section{Integração numérica}
-
-\subsection{Somas de Riemann}
-\subsection{Regras de Newton-Cotes}
-\subsection{Obtenção das regras de quadratura}
-\subsection{Regras compostas}
-\subsection{Método de Romberg}
-\subsection{Ordem de precisão}
-\subsection{Quadratura de Gauss-Legendre}
-\subsection{Integrais impróprias}
-
-\section{Problemas de valor inicial}
-\section{Problemas de valores de contorno}
 
 \end{document}

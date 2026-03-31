@@ -1,0 +1,312 @@
+\documentclass{article}
+\usepackage{macros}
+\title{Notas de aula - MAT01125}
+\author{Leonardo Suarez}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+Notas de aula da disciplina MAT01125 - Cálculo Numérico II, ministrada pela profa. Cibele Aparecida Ladeia no semestre letivo 26/1. Aulas às terças e quintas-feiras, das 15:30 às 17:10, no laboratório A114. Nas semanas 1 a 9 (área 1), será utilizado como material base os capítulos 8 a 11 do livro \emph{Cálculo Numérico - Um Livro Colaborativo (Python)}, elaborado pelo REAMAT/UFRGS, para abordar derivação e integração numérica e equações diferenciais ordinários. Nas semanas 10 a 18 (área 2), utilizaremos o material elaborado pelo prof. Dagoberto Justo, com foco em equações diferenciais parciais, diferenças finitas e análise de estabilidade.
+
+Como observado anteriormente, o conteúdo programático será dividido em duas áreas. Na primeira, iniciaremos os estudos de derivação numérica, sua forma geral, fórmulas a partir de pontos uniformemente espaçados e erros de arredondamento. Em seguida, veremos integração numérica, incluindo quadratura por interpolação, regras compostas, método de Romberg, métodos adaptativos, quadratura gaussiana e integrais impróprias. Por fim, estudaremos equações diferenciais ordinárias (EDOs), primeiro com foco em problemas de valor inicial, método de Euler, métodos de Runge-Kutta, métodos de múltiplos passos e estabilidade; e depois problemas de valor de contorno, método \emph{shooting}, métodos de diferenças finitas em problemas lineares e não lineares, análise de estabilidade, consistência e convergência. Na segunda área, abordaremos métodos para resolução de equações diferenciais parciais (EDPs) juntamente com análise de estabilidade.
+
+A avaliação será composta por dois trabalhos. A primeira entrega está prevista para o dia 07/05/2026 e a segunda para o dia 02/07/2026. Há ainda uma recuperação no dia 07/07/2026.
+
+\tableofcontents
+
+\section{Derivação numérica}
+
+\subsection{Diferenças finitas}
+
+\subsubsection{Diferença finita progressiva de ordem 1}
+
+Seja \(f\) uma função diferenciável. A \emph{diferença finita progressiva} (ou \emph{avançada}) de ordem \(1\)
+
+\begin{equation}
+    D^+_h f(x_0) := \frac{f(x_0+h) - f(x_0)}{h} \approx f'(x_0)
+\end{equation}
+é uma aproximação para \(f'(x_0)\) com erro de ordem \(\mathcal{O}(h)\)\footnote{Se \(f\) é a função a ser estimada, definida sobre um domínio \(X\), e \(g\) a função de comparação, escreve-se \(f(x) = \mathcal{O}(g(x))\) quando existe uma constante \(M>0\) tal que \(\vert f(x) \vert \leq M g(x)\) para todo \(x \in X\).}. De fato, a partir da série de Taylor de \(f\) em torno de \(x_0+h\), temos
+
+\begin{equation}
+    f(x_0+h) = f(x_0) + f'(x_0)h + \frac{f''(\xi)}{2}h^2, \quad h>0, \xi \in (x_0, x_0+h).
+\end{equation}
+Isolando \(f'(x_0)\), obtemos
+
+\begin{equation}
+    f'(x_0) = \frac{f(x_0+h) - f(x_0)}{h} - \frac{f''(\xi)}{2}h = D^+_h f(x_0) - \mathcal{O}(h).
+\end{equation}
+
+\subsubsection{Diferença finita regressiva de ordem 1}
+
+De forma análoga, podemos realizar a expansão de Taylor de \(f\) em torno de \(x_0-h\)
+
+\begin{equation}
+    f'(x_0) = \frac{f(x_0)-f(x_0-h)}{h} + h\frac{f''(\xi)}{2} = D^-_h f(x_0) + \mathcal{O}(h),
+\end{equation}
+onde \begin{equation}
+    D^-_h f(x_0) := \frac{f(x_0) - f(x_0-h)}{h}
+\end{equation}
+
+é a \emph{diferença finita regressiva} (ou \emph{atrasada}) de ordem \(1\) para \(f'(x_0)\), que também possui erro de truncamento de ordem \(h\).
+
+\subsubsection{Diferença finita central de ordem 2}
+
+Fazendo as expansões de Taylor de \(f\) em torno de \(x_0+h\) e \(x_0-h\) até o termo cúbico e somando as expressões, obtemos
+
+\begin{equation}
+    f(x_0+h) - f(x_0-h) = 2f'(x_0)h + h^3\left(\frac{f'''(\xi_{+})-f'''(\xi_{-})}{3!}\right), \quad \xi_{+} \in (x_0, x_0+h), \xi_{-} \in (x_0-h, x_0).
+\end{equation}
+Isolando \(f'(x_0)\), temos
+
+\begin{equation}
+    f'(x_0) = \frac{f(x_0+h) - f(x_0-h)}{2h} - h^2\left(\frac{f'''(\xi_{+})-f'''(\xi_{-})}{3!}\right),
+\end{equation}
+
+onde \begin{equation}
+    D^0_h f(x_0) := \frac{f(x_0+h) - f(x_0-h)}{2h}
+\end{equation}
+é a \emph{diferença finita central} de ordem \(2\) para \(f'(x_0)\), que possui erro de truncamento de ordem \(h^2\), ou ordem 2.
+
+\subsection{Diferença finita para derivada segunda}
+\subsection{Obtenção de fórmulas por polinômios}
+\subsection{Fórmulas de diferenças finitas}
+\subsection{Derivada via ajuste ou interpolação}
+
+\section{Integração numérica}
+
+Uma aproximação de uma integral definida
+
+\begin{equation}
+    \int_{a}^{b} f(x) dx \approx \sum_{i=0}^{n} w_i f(x_i)
+\end{equation}
+é chamada de \emph{regra de quadratura}, onde \(x_i\) são os pontos de avaliação e \(w_i\) são os pesos associados a cada ponto. O objetivo é escolher os pontos \(x_i\) e os pesos \(w_i\) de forma a minimizar o erro da aproximação.
+
+\subsection{Somas de Riemann}
+
+A maneira mais simples de aproximar a integral \[I = \int_{a}^{b} f(x) dx\] é utilizando \emph{somas de Riemann}. Para isso, dividimos o intervalo \([a, b]\) em \(n\) subintervalos de largura \(h = (b-a)/n\) e escolhemos um ponto \(x_i\) em cada subintervalo para avaliar a função \(f\). As somas de Riemann podem ser classificadas em três tipos principais, dependendo da escolha dos pontos \(x_i\):
+
+\begin{align}
+    S & = \sum_{i=1}^{n-1} f(x_i)h \qquad\text{(soma de Riemann à esquerda)} \\
+    S & = \sum_{i=1}^{n-1} f(x_{i+1})h \qquad \text{(soma de Riemann à direita)} \\
+    S & = \sum_{i=1}^{n-1} f\left(\frac{x_i + x_{i+1}}{2}\right)h \qquad \text{(soma de Riemann central)}
+\end{align}
+
+\subsection{Regras de Newton-Cotes}
+
+Dado um conjunto de \(n+1\) pontos \(a \leq x_0 < x_1 < \cdots < x_n \leq b\) igualmente espaçados em que o valor de \(f: [a,b] \to \R\) é conhecido, definimos \emph{regras de Newton-Cotes} como
+
+\begin{equation}
+    \int_{a}^{b} f(x) dx \approx \sum_{i=0}^{n} w_i f(x_i)
+\end{equation}
+onde para uma fórmula fechada, tem-se \(x_i = a + ih\), com \(h = (b-a)/n\) e, para uma fórmula aberta, tem-se \(x_i = a + (i+1)h\), com \(h = (b-a)/(n+2)\). O número \(h\) é a \emph{largura do passo}, \(w_i\) são os \emph{pesos}, que podem ser computados como a integral dos polinômios da base de Lagrange. Com efeito, seja \(p_{n-1}\) o polinômio interpolador de Lagrange para os pontos \(\{(x_i, f(x_i))\}_{i=0}^{n}\). Então temos
+
+\begin{align}
+    f(x) &= p_{n-1}(x) + R_n(x) \\
+    & = \sum_{i=0}^{n} f(x_i) l_i(x) + R_n(x)
+\end{align}
+onde \(R_n(x)\) é o termo de erro da interpolação, dado por
+\begin{equation}
+    R_n(x) = \frac{f^{(n)}(\xi)}{n!} \prod_{i=0}^{n} (x - x_i), \quad \xi \in [a, b].
+\end{equation}
+
+Substituindo a expressão de \(f(x)\) na integral, obtemos a fórmula de quadratura
+\begin{equation}
+    \int_{a}^{b} f(x) dx = \sum_{i=0}^{n} f(x_i) \int_{a}^{b} l_i(x) dx + \int_{a}^{b} R_n(x) dx
+\end{equation}
+que pode ser escrita como
+
+\begin{equation}
+    \int_{a}^{b} f(x) dx = \sum_{i=0}^{n} w_i f(x_i) + \int_{a}^{b} R_n(x) dx
+\end{equation}
+com \(w_i = \int_{a}^{b} l_i(x) dx\) para \(i = 0, 1, \ldots, n\).
+
+A \emph{regra do trapézio} é um caso particular de regra de Newton-Cotes, onde \(n = 1\) e os pontos são \(x_0 = a\) e \(x_1 = b\), com \(h = b-a\). O polinômio interpolador, uma reta, é dado por \(p_1(x) = f(a)l_0(x) + f(b)l_1(x)\), onde \(l_0(x) = (x-b)/(a-b)\) e \(l_1(x) = (x-a)/(b-a)\). Assim, os pesos são \(w_0 = \int_{a}^{b} l_0(x) dx = h/2\) e \(w_1 = \int_{a}^{b} l_1(x) dx = h/2\), resultando na fórmula de quadratura
+\begin{equation}
+    \int_{a}^{b} f(x) dx \approx \frac{h}{2} [f(a) + f(b)].
+\end{equation}
+
+Integrando o erro da interpolação, obtemos a estimativa de erro da regra do trapézio
+\begin{equation}
+    \int_{a}^{b} R_1(x) dx = -\frac{h^3}{12} f''(\xi), \quad \xi \in (a, b),
+\end{equation}
+ou seja, a regra do trapézio possui erro de ordem \(\mathcal{O}(h^3)\).
+
+Na \emph{regra de Simpson}, aproximamos \(f\) por uma parábola que interpola os pontos \((a, f(a))\), \((m, f(m))\) e \((b, f(b))\), onde \(m = (a+b)/2\). O polinômio interpolador é dado por
+\begin{equation}
+    p_2(x) = f(a)l_0(x) + f(m)l_1(x) + f(b)l_2(x),
+\end{equation}
+onde \(l_0(x) = (x-m)(x-b)/((a-m)(a-b))\), \(l_1(x) = (x-a)(x-b)/((m-a)(m-b))\) e \(l_2(x) = (x-a)(x-m)/((b-a)(b-m))\). Os pesos podem ser calculados fazendo uma translação para a origem (subtraindo \(x_1\) de \(x_2\) e \(x_3\)), donde vem \(w_0 = \int_{a}^{b} l_0(x) dx = h/6\), \(w_1 = \int_{a}^{b} l_1(x) dx = 4h/6\) e \(w_2 = \int_{a}^{b} l_2(x) dx = h/6\). A fórmula de quadratura fica
+\begin{equation}
+    \int_{a}^{b} f(x) dx \approx \frac{h}{6} [f(a) + 4f(m) + f(b)].
+\end{equation}
+
+De forma análoga ao caso do trapézio, encontramos que a regra de Simpson possui erro de ordem \(\mathcal{O}(h^5)\).
+
+\subsection{Obtenção das regras de quadratura}
+
+Dados \(n\) pontos \([t_1, t_2, \ldots, t_n]\), queremos aproximar
+\begin{equation}
+    \int_{a}^{b} f(x) dx \approx \sum_{i=1}^{n} w_i f(t_i)
+\end{equation}
+de modo que a regra de quadratura seja exata para polinômios de grau no máximo \(n-1\). Para isso, aproximamos \(f(t)\) pelo polinômio \(p(t) = \sum_{i=1}^{n} w_i \phi_i(t)\) de ordem \(n-1\). Tomando uma base qualquer, como \(\phi_k(t) = t^{k-1}\), temos
+\begin{equation}
+    \int_{a}^{b} \phi_1(t) dt = t|_{a}^{b} = \sum_{i=1}^{n} w_i \phi_1(t_i) = \sum_{i=1}^{n} w_i
+\end{equation}
+
+Da mesma forma, para \(k = 2, 3, \ldots, n\), temos
+\begin{align}
+    \int_{a}^{b} \phi_k(t) dt & = \int_{a}^{b} t^{k-1} dt = \frac{b^k - a^k}{k} \\
+    & = \sum_{i=1}^{n} w_i \phi_k(t_i) = \sum_{i=1}^{n} w_i t_i^{k-1}
+\end{align}
+que pode ser escrito na forma matricial como
+\begin{equation}
+    \begin{bmatrix}
+        1 & 1 & \cdots & 1 \\
+        t_1 & t_2 & \cdots & t_n \\
+        t_1^2 & t_2^2 & \cdots & t_n^2 \\
+        \vdots & \vdots & \ddots & \vdots \\
+        t_1^{n-1} & t_2^{n-1} & \cdots & t_n^{n-1}
+    \end{bmatrix}
+    \begin{bmatrix}
+        w_1 \\ w_2 \\ w_3 \\ \vdots \\ w_n
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        b - a \\ (b^2 - a^2)/2 \\ (b^3 - a^3)/3 \\ \vdots \\ (b^n - a^n)/n
+    \end{bmatrix}
+\end{equation}
+
+A matriz à esquerda é uma \emph{matriz de Vandermonde}, que é notoriamente mal-condicionada, isto é, conforme o número de pontos \(n\) aumenta, pequenas variações ou erros de arredondamento nos dados de entrada podem causar erros significativos na solução dos pesos \(w_i\).
+
+\subsection{Regras compostas}
+
+Em toda estimativa de erro, o erro depende do tamanho do intervalo de integração. Uma maneira de reduzir o erro é então aumentar o número de subintervalo do intervalo de integração de modo que
+
+\begin{equation}
+    \int_{a}^{b} f(x) dx = \sum_{i=1}^{n} \int_{x_i}^{x_{i+1}} f(x) dx
+\end{equation}
+onde \(a = x_1 < x_2 < \cdots < x_{n+1} = b\) é uma partição do intervalo \([a, b]\) em \(n\) subintervalos. No caso uniforme, tem-se \(x_i = a + (i-1)h\) para \(i = 1, 2, \ldots, n+1\), onde \(h = (b-a)/n\) é a largura de cada subintervalo. Assim, podemos aplicar uma regra de quadratura em cada subintervalo e somar os resultados para obter uma aproximação mais precisa da integral.
+
+\begin{equation}
+    \int_{x_i}^{x_{i+1}} f(x) dx \approx \Delta S_i
+\end{equation}
+e a integral será aproximada por
+
+\begin{equation}
+    \int_{a}^{b} f(x) dx \approx \sum_{i=1}^{n} \Delta S_i
+\end{equation}
+
+Podemos agora aplicar as regras de quadratura já vistas em cada subintervalo. A \emph{regra composta dos trapézios} toma a forma
+
+\begin{align}
+    \int_{a}^{b} f(x) dx &= \sum_{i=1}^{n} \int_{x_i}^{x_{i+1}} f(x) dx \\
+    &\approx \sum_{i=1}^{n} \frac{h}{2} [f(x_i) + f(x_{i+1})] \\
+    &= \frac{h}{2} \left[f(x_1) + 2\sum_{i=2}^{n} f(x_i) + f(x_{n+1})\right] \\
+    &= \frac{h}{2} \left[f(x_1) + f(x_{n+1})\right] + h \sum_{i=2}^{n} f(x_i)
+\end{align}
+
+Implementamos o método do trapézio composto em \texttt{Python} para calcular
+
+\begin{equation}
+    \int_{a}^{b} f(x) dx = \frac{h}{2} \left[f(x_1) + f(x_{n+1})\right] + h \sum_{i=2}^{n} f(x_i) + \mathcal{O}(h^3).
+\end{equation}
+
+\begin{lstlisting}[language=Python, caption={Método do trapézio composto}]
+    # escrever codigo
+\end{lstlisting}
+
+A \emph{regra composta de Simpson} é dada por
+
+\begin{align}
+    \int_{a}^{b} f(x) dx &= \sum_{i=1}^{n} \int_{x_i}^{x_{i+1}} f(x) dx \\
+    &\approx \sum_{i=1}^{n} \frac{h}{6} [f(x_i) + 4f\left(\frac{x_i + x_{i+1}}{2}\right) + f(x_{i+1})] \\
+    &\approx \frac{h}{3} \left[f(x_1) + 2\sum_{i=1}^{n-1} f(x_{2i+1}) + 4\sum_{i=1}^{n} f(x_{2i}) + f(x_{2n+1})\right] + \mathcal{O}(h^5)
+\end{align}
+onde \(h = (b-a)/(2n)\), \(x_i = a + (i-1)h\) para \(i = 1, 2, \ldots, 2n+1\) e \(n\) é o número de subintervalos pares.
+
+O código \texttt{Python} a seguir calcula a integral de \(f\) utilizando a regra composta de Simpson.
+
+\begin{lstlisting}[language=Python, caption={Método de Simpson composto}]
+    # escrever codigo
+\end{lstlisting}
+
+\subsection{Método de Romberg}
+
+O método de Romberg é uma técnica de extrapolação que utiliza as aproximações obtidas por regras de quadratura compostas para melhorar a precisão da estimativa da integral. A ideia é calcular as aproximações \(I(h)\) para diferentes valores de \(h\) e, em seguida, usar essas aproximações para extrapolar o valor da integral quando \(h\) tende a zero.
+
+\begin{thm}
+    Se \(f\) é analítica\footnote{Uma função analítica é aquela que pode ser representada por uma série de potências convergente em torno de cada ponto de seu domínio.} em \([a, b]\), então a função \(I(h)\) admite uma representação da forma
+    \begin{equation}
+        I(h) = I_0 + I_2 h^2 + I_4 h^4 + I_6 h^6 + \cdots
+    \end{equation}
+\end{thm}
+
+Tomando \(h = (b-a)/2^k\) para \(k = 0, 1, 2, \ldots\), obtemos uma sequência de aproximações \(I_k = I(h)\) que pode ser organizada em uma tabela triangular, onde a primeira coluna contém as aproximações \(I_k\) e as colunas subsequentes contêm as extrapolações obtidas por meio da fórmula de Romberg. A fórmula de extrapolação é dada por
+\begin{equation}
+    R_{k, j} = \frac{4^j R_{k+1, j-1} - R_{k, j-1}}{4^j - 1}
+\end{equation}
+onde \(R_{k, 0} = I_k\) para \(k = 0, 1, 2, \ldots\) e \(j = 1, 2, \ldots\).
+
+\subsection{Ordem de precisão}
+\subsection{Quadratura de Gauss-Legendre}
+
+Dado um conjunto de \(n\) pontos \(t_1, t_2, \ldots, t_n\) e pesos \(w_1, w_2, \ldots, w_n\), a \emph{quadratura de Gauss-Legendre} é uma regra de quadratura gaussiana que aproxima a integral de uma função \(f\) no intervalo \([-1, 1]\) da seguinte forma:
+
+\begin{equation}
+    \int_{-1}^{1} f(x) dx \approx \sum_{i=1}^{n} w_i f(t_i)
+\end{equation}
+onde os pontos \(t_i\) são as raízes do \emph{polinômio de Legendre de grau \(n\)} e os pesos \(w_i\) são calculados a partir dos pontos \(t_i\) usando a fórmula
+
+\begin{equation}
+    w_i = \frac{2}{(1 - t_i^2)[P_n'(t_i)]^2}
+\end{equation}
+onde \(P_n'(t)\) é a derivada do polinômio de Legendre de grau \(n\). Essa escolha de pontos e pesos garante que a quadratura de Gauss-Legendre seja exata para polinômios de grau até \(2n-1\). Com efeito, considere um polinômio \(p(x)\) de grau \(m \leq 2n-1\). Podemos escrever \(p(x)\) como
+
+\begin{equation}
+    p(x) = q(x) P_n(x) + r(x)
+\end{equation}
+onde \(q(x)\) é um polinômio de grau \(m-n\) e \(r(x)\) é um polinômio de grau menor que \(n\). Ao integrar \(p(x)\) de \(-1\) a \(1\), temos
+
+\begin{equation}
+    \int_{-1}^{1} p(x) dx = \int_{-1}^{1} q(x) P_n(x) dx + \int_{-1}^{1} r(x) dx
+\end{equation}
+
+A primeira integral é zero, pois \(P_n(x)\) é ortogonal\footnote{Os polinômios de Legendre formam uma base ortogonal para o espaço de funções contínuas no intervalo \([-1, 1]\).} a todos os polinômios de grau menor que \(n\). A segunda integral pode ser calculada exatamente usando as raízes de \(P_n(x)\) como pontos de quadratura.
+
+Para aproximar a integral de uma função \(f\) em um intervalo arbitrário \([a, b]\), podemos realizar uma mudança de variável
+
+\begin{equation}
+    x = \frac{b-a}{2} t + \frac{a+b}{2}, \quad t \in [-1, 1]
+\end{equation}
+tal que
+
+\begin{equation}
+    \int_{a}^{b} f(x) dx = \frac{b-a}{2} \int_{-1}^{1} f\left(\frac{b-a}{2} t + \frac{a+b}{2}\right) dt \approx \frac{b-a}{2} \sum_{i=1}^{n} w_i f\left(\frac{b-a}{2} t_i + \frac{a+b}{2}\right).
+\end{equation}
+
+
+\subsection{Integrais impróprias}
+
+\section{Problemas de valor inicial}
+
+\subsection{Rudimentos da teoria de problema de valor inicial}
+\subsection{Método de Euler}
+\subsection{Método de Euler melhorado}
+\subsection{Solução de sistemas de equações diferenciais}
+\subsection{Solução de equações e sistemas de ordem superior}
+\subsection{Erro de truncamento}
+\subsection{Métodos de Runge-Kutta explícitos}
+\subsection{Métodos de Runge-Kutta implícitos}
+\subsection{O método de Taylor}
+\subsection{Método de Adams-Bashforth}
+\subsection{Método de Adams-Moulton}
+\subsection{Método de Adams-Moulton para sistemas lineares}
+\subsection{Estratéagia preditor-corretor}
+\subsection{Problemas rígidos}
+\subsection{Validação e benchmarking}
+\subsection{Convergência, consistência e estabilidade}
+
+\section{Problemas de valores de contorno}
+
+\end{document}

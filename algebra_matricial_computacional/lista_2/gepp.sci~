@@ -1,0 +1,25 @@
+function [x] = gepp(A,b)
+    // performs gaussian elimination with partial pivoting
+    // Input: n x n matrix A and vector b
+    // Output: solution vector x
+    n = size(b, 1);
+    
+    for i = 1:n-1
+        [m, k] = max(abs(A(i:n,i))); // get the largest element in absolute value in column i for pivot position
+        pivot_index = k+i-1;
+        
+        if pivot_index ~= i then        
+            A([i,pivot_index],:) = A([pivot_index,i],:); // exchange rows
+            b([i,pivot_index]) = b([pivot_index,i]);
+        end
+        multipliers = A(i+1:n,i) / A(i,i);
+        A(i+1:n,i+1:n) = A(i+1:n,i+1:n) - multipliers*A(i,i+1:n); // update submatrix
+        b(i+1:n) = b(i+1:n) - multipliers*b(i);
+    end
+    
+    x = zeros(n,1); // initialize solution vector
+    x(n) = b(n) / A(n,n);
+    for j = n-1:-1:1
+        x(j) = (b(j) - A(j,j+1:n)*x(j+1:n)) / A(j,j);
+    end
+endfunction

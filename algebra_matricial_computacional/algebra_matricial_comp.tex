@@ -1,0 +1,647 @@
+\documentclass{article}
+\usepackage{macros}
+\title{Notas de aula - MAT01050}
+\author{Leonardo Suarez}
+\date{\today}
+
+\DeclareMathOperator{\cond}{cond}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\proj}{proj}
+
+\begin{document}
+\maketitle
+
+Notas de aula da disciplina MAT01050 - Álgebra Matricial Computacional A, oferecida no semestre letivo 26/1. A bibliografia básica é composta por \emph{Numerical Linear Algebra with Application Using MATLAB} de W. Ford, \emph{Numerical Linear Algebra and Applications} de B. N. Datta, \emph{Matrix Analysis and Applied Linear Algebra} de C. D. Meyer e \emph{Algoritmos numéricos} de Campos Filho e Frederico Ferreira. O curso será ministrado pela profa. Liliane Basso Barichello e as aulas serão às terças e quintas-feiras, das 13:30 às 15:10. 
+
+O conteúdo programático é dividido em duas áreas. Primeiro, serão introduzidos os conceitos de normas matriciais, condicionamento de problemas e estabilidade de algoritmos. Em seguida, estudaremos métodos de solução de sistemas de equações lineares: eliminação gaussiana, fatoração \(LU\) e fatoração de Cholesky. Por fim, aboraremos transformações ortogonais, em especial a decomposição QR, as rotações de Givens e as reflexões de Householder.
+Na segunda área, usaremos as transformações ortogonais para resolver problemas de mínimos quadrados. Seguimos com o estudo de autovalores e autovetores. A disciplina se encerra com a introdução aos métodos iterativos: métodos estacionários de primeira ordem (Jacobi, Gauss-Seidel, SOR) e métodos de projeção (gradiente, gradientes-conjugados).
+
+Teremos uma avaliação para cada área, com atividade presencial e entrega de tarefas ao decorrer do semestre letivo. A primeira avaliação será no dia 28 de abril/26 e a segunda no dia 30 de junho/26. Uma recuperação está prevista para o dia 07 de junho/26.
+
+\tableofcontents
+
+\section{Aritmética de Ponto Flutuante}
+
+\subsection{Representação de inteiros}
+\subsection{Representação de ponto flutuante}
+\subsection{Aritmética de ponto flutuante}
+\subsection{Minimizando erros}
+
+\section{Normas Vetoriais e Matriciais}
+
+\subsection{Normas vetoriais}
+
+\begin{defn}
+    Uma função \(\Vert \cdot \Vert : \R^n \to \R\) é uma \emph{norma vetorial} dado que:
+    \begin{enumerate}
+        \item \(\Vert x \Vert \geq 0\) para todo \(x \in \R^n\) e \(\Vert x \Vert = 0\) se e somente se \(x = 0\) (\emph{positividade});
+        \item \(\Vert \alpha x \Vert = |\alpha| \Vert x \Vert\) para todo \(\alpha \in \R\) (\emph{homogeneidade});
+        \item \(\Vert x + y \Vert \leq \Vert x \Vert + \Vert y \Vert\) para todo \(x, y \in \R^n\) (\emph{desigualdade triangular}).
+    \end{enumerate}
+\end{defn}
+
+Define-se a \emph{norma-p} como
+\[
+    \Vert x \Vert_p = \left( \sum_{i=1}^n |x_i|^p \right)^{1/p},
+\]
+para \(p \geq 1\). Os valores \(p = 1, 2, \infty\)\footnote{As normas \(p=2\) e \(p=\infty\) são chamadas de \emph{norma euclidiana} e \emph{norma do máximo}, respectivamente.} são as normas mais utilizadas, onde
+\begin{align*}
+    \Vert x \Vert_1 &= \sum_{i=1}^n |x_i|, \\
+    \Vert x \Vert_2 &= \left( \sum_{i=1}^n |x_i|^2 \right)^{1/2}, \\
+    \Vert x \Vert_\infty &= \max_{1 \leq i \leq n} |x_i|.
+\end{align*}
+
+\begin{lem} [normas são equivalentes]
+    \begin{align*}
+        \Vert x \Vert_\infty &\leq \Vert x \Vert_2 \leq \sqrt{n} \Vert x \Vert_\infty, \\
+        \Vert x \Vert_2 &\leq \Vert x \Vert_1 \leq \sqrt{n} \Vert x \Vert_2, \\
+        \Vert x \Vert_\infty &\leq \Vert x \Vert_1 \leq n \Vert x \Vert_\infty.
+    \end{align*}
+\end{lem}
+
+A norma-2 é a mais usada em aplicações, pois goza diversas propriedades algébricas e geométricas como a \emph{desigualdade de Cauchy-Schwarz}:
+\[
+    |\langle x, y \rangle| \leq \Vert x \Vert_2 \Vert y \Vert_2,
+\]
+com a igualdade ocorrendo quando \(x\) e \(y\) são colineares. Outra relação que envolve a norma euclidiana é o \emph{Teorema de Pitágoras} para \(x\) e \(y\) ortogonais:
+\[
+    \Vert x + y \Vert_2^2 = \Vert x \Vert_2^2 + \Vert y \Vert_2^2.
+\]
+
+Por fim, a norma-2 é \emph{ortogonalmente invariante}, isto é, para qualquer matriz \(P\) de ordem \(n\) ortogonal\footnote{Uma matriz ortogonal (ou ortonormal) \(Q\) é uma matriz real simétrica cujas linhas e colunas são vetores ortonormais, ou seja, \(Q^T Q = Q Q^T = I\).} vale
+\[
+    \Vert Px \Vert_2 = \Vert x \Vert_2,
+\]
+para todo \(x \in \R^n\). Sabendo que as colunas \(p_1, \ldots p_n\) de \(P\) ortogonal formam base ortonormal\footnote{Prova-se que \(P\) é ortogonal sse suas colunas são ortonormais. Daí se \(p_1, \ldots, p_k \in \R^n\) são ortogonais então formam base dum subespaço de dimensão \(k\) de \(\R^n\)} de \(\R^n\), a propriedade acima indica que o comprimento de \(x\) não se altera na mudança de base da base canônica (que é ortonormal) para a base ortonormal \(p_1, \ldots p_n\).
+
+\subsection{Normas matriciais}
+
+Usamos normas vetoriais para mensurar o comprimento de um vetor. Similarmente, definimos normas matriciais para medir o tamanho de matrizes. O tamanho de uma matriz é usado para avaliar se a solução \(x\) de um sistema linear \(Ax = b\) pode ser confiável, para analisar a taxa de convergência de uma sequência de vetores etc. A definição de norma matricial é análoga à definição de norma vetorial, mas agora a função \(\Vert \cdot \Vert\) é definida sobre o espaço de matrizes \(\R^{m \times n}\).
+
+\begin{defn}
+    Uma função \(\Vert \cdot \Vert : \R^{m \times n} \to \R\) é uma \emph{norma matricial} se satisfaz as seguintes propriedades:
+    \begin{enumerate}
+        \item \(\Vert A \Vert \geq 0\) para toda \(A \in \R^{m \times n}\) e \(\Vert A \Vert = 0\) se e somente se \(A = 0\) (\emph{positividade});
+        \item \(\Vert \alpha A \Vert = |\alpha| \Vert A \Vert\) para todo \(\alpha \in \R\) (\emph{homogeneidade});
+        \item \(\Vert A + B \Vert \leq \Vert A \Vert + \Vert B \Vert\) para todo \(A, B \in \R^{m \times n}\) (\emph{desigualdade triangular}).
+    \end{enumerate}
+\end{defn}
+
+Uma das normas matriciais mais simples é a \emph{norma de Frobenius}, ou também \emph{norma de Hilbert-Schmidt}. Ela é definida como a raiz quadrada da soma dos quadrados de todas as entradas da matriz, isto é,
+
+\[
+    \Vert A \Vert_F = \sqrt{\sum_{i=1}^m \sum_{j=1}^n |a_{ij}|^2}.
+\]
+
+A classe de normas matriciais mais usadas são as \emph{normas matriciais induzidas}, que são definidas em termos de uma norma vetorial.
+
+\begin{defn}
+    Seja \(\Vert \cdot \Vert\) uma norma vetorial, \(A\) uma matriz \(m \times n\) e \(x\) um vetor \(n \times 1\). Então a \emph{norma matricial induzida} por \(\Vert \cdot \Vert\) é dada por
+    \begin{equation}
+        \Vert A \Vert = \max_{x \neq 0} \frac{\Vert Ax \Vert}{\Vert x \Vert} = \max_{\Vert x \Vert = 1} \Vert Ax \Vert.
+    \end{equation}
+\end{defn}
+
+\subsection{Normas matriciais submultiplicativas}
+
+\section{Condicionamento de Problemas e Estabilidade de Algoritmos}
+
+\subsection{Erros computacionais}
+\subsection{Condicionamento de um problema}
+
+\begin{defn}
+    Um problema é \emph{mal-condicionado} se uma pequena perturbação nos dados de entrada pode\footnote{Um problema mal-condicionado ainda assim pode ter solução satisfatória.} causar uma grande perturbação na solução, independentemente do algoritmo usado para resolver o problema. Se pequenas perturbações nos dados de entrada causam pequenas perturbações na solução, dizemos que o problema é \emph{bem-condicionado}.
+\end{defn}
+
+\begin{defn}
+    Sejam \(x\) e \(\overline{x}\) as soluções exata e aproximada, e \(f(x)\) e \(f(\overline{x})\) as respectivas soluções. Então,
+    \begin{itemize}
+        \item O problema é \emph{bem-condicionado} com respeito a \(x\) se sempre que \(\vert x - \overline{x}\vert\) é pequeno, \(\vert f(x) - f(\overline{x}) \vert\) é pequeno;
+        \item O problema é \emph{mal-condicionado} com respeito a \(x\) se existe uma perturbação arbitrariamente pequena \(\vert x - \overline{x}\vert\) tal que \(\vert f(x) - f(\overline{x}) \vert\) é grande.
+    \end{itemize}
+\end{defn}
+
+\begin{defn}
+    O \emph{número de condicionamento} de um problema \(f\) com entrada \(x\) é
+    \begin{equation}
+        C_f(x) \defeq \lim{\eps \to ^{+}} \sup_{\delta x \leq \eps} \frac{\frac{\Vert f(x+\delta x)-f(x)\Vert}{\Vert f(x) \Vert}}{\frac{\Vert \delta x \Vert}{\Vert x \Vert}}
+    \end{equation}
+\end{defn}
+
+\begin{rem}
+    O \emph{supremo} (\(\sup\)) de um subconjunto \(S\) de um conjunto ordenado \(X\) é o menor elemento de \(X\) que é maior ou igual a todos os elementos de \(S\). O supremo difere do máximo (\(\max\)) de um conjunto \(S\) porque o supremo pode não pertencer a \(S\).
+\end{rem}
+
+Se \(f\) é diferenciável, podemos descrever \(C_f(x)\) em termos de \(f'\) usando o teorema do valor médio.
+
+\begin{thm} [teorema do valor médio] \label{thm:tvm}
+    Se uma função \(f: [a,b] \to \R\) é contínua em \([a,b]\) e diferenciável em \((a,b)\), então existe um ponto \(\xi \in (a,b)\) tal que
+    \[
+        f'(\xi) = \frac{f(b) - f(a)}{b - a}.
+    \]
+\end{thm}
+
+Fixa \(x\) e faz \(\overline{x}=x+\delta x\). Aplica \eqref{thm:tvm} e obtém \(C_f(x) = \vert x \vert \vert f'(x) \vert / \vert f(x) \vert\).
+
+\subsection{Análise de perturbação para sistemas lineares}
+
+\begin{thm}
+    Sejam \(A\) uma matriz não singular, \(b \neq 0\) um vetor, \(x\) a solução para \(Ax=b\) e \(\Vert \cdot \Vert\) uma norma subordinada.
+    \begin{enumerate}
+        \item Se \(x+\delta x\) é solução para o sistema perturbado \(A(x+\delta x)=b+\delta b\), então
+            \begin{equation}
+                \frac{\Vert \delta x \Vert}{\Vert x \Vert} \leq \Vert A \Vert \Vert A^{-1} \Vert \frac{\Vert \delta b \Vert}{\Vert b \Vert}.
+            \end{equation}
+        \item Se \(x+\delta x\) é solução para o sistema perturbado \((A+\delta A)(x+\delta x)=b\), então
+            \begin{equation}
+                \frac{\Vert \delta x \Vert}{\Vert x+\delta x \Vert} \leq \Vert A \Vert \Vert A^{-1} \Vert \frac{\Vert \delta A \Vert}{\Vert A \Vert}.
+            \end{equation}
+        \item Se \(x+\delta x\) é solução para o sistema perturbado \((A+\delta A)(x+\delta x)=b+\delta b\), então
+            \begin{equation}
+                \frac{\Vert \delta x \Vert}{\Vert x \Vert} \leq \Vert A \Vert \Vert A^{-1} \Vert \left( \frac{\Vert \delta A \Vert}{\Vert A \Vert} + \frac{\Vert \delta b \Vert}{\Vert A \Vert \Vert x+\delta x \Vert} \right)
+            \end{equation}
+    \end{enumerate}
+\end{thm}
+
+\begin{defn}
+    O número \(\Vert A \Vert \Vert A^{-1} \Vert\) é chamado de \emph{número de condicionamento} de \(A\) e é denotado por \(\kappa(A)\).
+\end{defn}
+
+\begin{rem}
+    Qualquer norma matricial pode ser usada para computar o número de condicionamento. As notações \(\kappa_\infty(A)\), \(\kappa_1(A)\) e \(\kappa_F(A)\) se referem às normas \(\infty-\), \(1-\) e \(F-\), respectivamente.
+\end{rem}
+
+\begin{defn}
+    Se o número de condicionamento da matriz \(A\) é grande\footnote{Imediatamente se deve perguntar o que é um número de condicionamento grande. A resposta depende do problema analisado.}, dizemos que \(A\) é \emph{mal-condicionada}; caso contrário, \(A\) é \emph{bem-condicionada}.
+\end{defn}
+
+\subsection{Propriedades do número de condicionamento de uma matriz}
+
+\section{Sistemas de Equações Lineares}
+
+\subsection{Decomposição \(LU\)}
+
+Por ora, sem considerar trocas de linhas, podemos fatorar uma matriz \(A\) de ordem \(n\) no produto de uma matriz triangular-inferior \(L\) e uma matriz triangular-superior \(U\). Faz \(L=I\). Aplica a eliminação gaussiana em \(A\) para obter a matriz triangular-superior \(U\). Sendo \(a_{ii}\) o elemento pivô, coloca os multiplicadores \(a_{i+1,i}/a_{ii},a_{i+2}/a_{ii},\ldots,a_{ni}/a_{ii}\), com \(1\leq i \leq n-1\), nas posições \((i+1,i),(i+2,i),\ldots,(n,i)\) da matriz \(L\). Ao final da eliminação, tem-se \(A=LU\).
+
+Dada a decomposição \(A=LU\), podemos resolver o sistema \(Ax=b\). Substitui \(A\) por \(LU\) e fica
+\begin{align}
+    LUx&=b\\
+    L(Ux)&=b.
+\end{align}
+Faz \(y=Ux\) e resolve \(Ly=b\) usando substituição para frente (ou \emph{forward substitution}). Depois resolve \(Ux=y\) com substituição para trás (ou\emph{back substitution}).
+
+\subsection{Matrizes elementares}
+
+\begin{defn}
+    Para cada uma das três operações elementares de linha, existe uma \emph{matriz elementar} \(E_{ij}\), \(E_{i}(t)\) e \(E_{ij}(t)\):
+    \begin{enumerate}
+        \item \(E_{ij}\) é a matriz que troca as linhas \(i\) e \(j\) da matriz identidade \(I\);
+        \item \(E_i(t)\) é a matriz que multiplica a linha \(i\) da matriz identidade \(I\) por um escalar \(t \neq 0\);
+        \item \(E_{ij}(t)\) é a matriz que subtrai \(t\) vezes a linha \(j\) da linha \(i\) da matriz identidade \(I\).
+    \end{enumerate}
+\end{defn}
+
+\begin{prop}
+    Se uma matriz \(A\) \(n \times n\) é multiplicada à esquerda por uma matriz elementar \(E\), então o resultado é a matriz obtida pela aplicação da operação elementar correspondente à \(E\) nas linhas da matriz \(A\).
+\end{prop}
+
+\begin{prop}
+    Matrizes elementares são não singulares; de fato
+    \begin{enumerate}
+        \item \(E_{ij}^{-1} = E_{ij}\);
+        \item \(E_i(t)^{-1} = E_i(1/t)\);
+        \item \(E_{ij}(t)^{-1} = E_{ij}(-t)\).
+    \end{enumerate}
+\end{prop}
+
+\begin{prop}
+    Se \(B\) é linha-equivalente a \(A\), então \(A\) é linha-equivalente a \(B\).
+\end{prop}
+
+\begin{prop}
+    Seja \(A\) uma matriz não singular \(n \times n\). Então 
+    \begin{enumerate}
+        \item \(A\) é linha-equivalente à matriz identidade \(I\);
+        \item \(A\) é produto de matrizes elementares.
+    \end{enumerate}
+\end{prop}
+
+\begin{prop}
+    Seja \(A\) uma matriz \(n \times n\) e suponha que \(A\) é linha-equivalente a \(I\). Então \(A\) é não singular e \(A^{-1}\) pode ser obtida por meio da aplicação das mesmas operações elementares usadas para transformar \(A\) em \(I\).
+\end{prop}
+
+\begin{prop}
+    A decomposição \(LU\) de uma matriz \(A\) não singular é única.
+\end{prop}
+
+\subsection{Eliminação gaussiana com pivotamento parcial}
+
+O algoritmo da eliminação gaussiana pode gerar problemas se os elementos pivôs são pequenos. Os erros ocorrem quando dividimos por elementos pivôs pequenos e obtemos multiplicadores \(a_{ji}/a_{ii}\) grandes. Esses multiplicadores, quando somados a elementos pequenos, resultam numa perda de contribuição dos números menores. 
+A solução para esse problema é escolher o elemento com maior magnitude em cada coluna como pivô, de modo que \(\vert a_{ji}/a_{ii} \leq 1\) para \(i+1\leq j\leq n\). Chamamos essa estratégia de \emph{eliminação gaussiana com pivotamento parcial} (EGPP).
+
+Se usarmos EGPP, a decomposição \(LU\) de \(A\) consiste em três matrizes \(P\), \(L\) e \(U\) tal que
+
+\begin{equation}
+    PA = LU,
+\end{equation}
+onde \(P\) é uma \emph{matriz de permutação}, ou \emph{matriz pivô}, que representa as trocas de linha feitas durante o processo de eliminação.
+
+\subsection{Custo computacional da decomposição \(LU\)}
+
+Se o sistema linear \(Ax_i=b_i\), \(1\leq i \leq k\), precisa ser resolvido para múltiplos vetores \(b_i\), podemos realizar a decomposição \(PA=LU\), de custo computacional \(O(n^3)\), apenas uma vez. Depois resolvemos \(L(Ux_i)=Pb_i\) usando substituição para frente e substituição para trás, que têm custo \(O(kn^2)\). Caso fôssemos realizar a eliminação gaussiana para cada sistema \(Ax_i=b_i\), o custo seria \(O(kn^3)\).
+
+\subsection{Estabilidade e eficiência da eliminação gaussiana}
+
+\begin{defn}
+    Aplica a fatoração \(LU\) na matriz \(A\). Durante os passos da eliminação, temos as matrzes \(A = A^{(0)}, A^{(1)}, \ldots, A^{(n-1)} = U\). O \emph{fator de crescimento} é a razão
+    \[
+        \rho \defeq \frac{\max_{i,j,k} |a_{ij}^{(k)}|}{\max_{i,j} |a_{ij}|},
+    \]
+em outras palavras, é a razão entre o maior elemento que aparece durante a eliminação gaussiana e o maior elemento da matriz \(A\).
+\end{defn}
+
+\subsection{Fatoração de Cholesky}
+
+
+\section{Transformações Ortogonais}
+
+\subsection{Ortonormalização de Gram-Schmidt}
+\subsection{Estabilidade numérica de Gram-Schmidt}
+\subsection{A decomposição QR}
+
+\begin{thm}
+    Se \(A\) é uma matriz \(m \times n\), \(m \geq n\), com colunas linearmente independentes, então existe uma matriz \(Q\) \(m \times n\) com colunas ortonormais e uma matriz \(R\) \(n \times n\) triangular superior tal que \(A=QR\).
+\end{thm}
+
+\subsection{Rotações de Givens}
+
+Na decomposição \(LU\), multiplicamos uma matriz \(A\) à esquerda por uma sequência de matrizes elementares para obter \(A=LU\), onde \(L\) é um produto de matrizes elementares e \(U\) é triangular-superior. Similarmente, a ideia aqui é realizar a fatoração \(A=QR\) através da multiplicação à esquerda de \(A\) por uma sequência de \emph{matrizes de Givens} e obter uma matriz ortogonal \(Q\) e uma matriz triangular-superior \(R\). Cada multiplicação por uma matriz de Givens zera uma entrada da matriz original para construir \(R\). O seguinte esquema ilustra o algoritmo a ser estudado: 
+
+\begin{tcolorbox}[title=Algoritmo da decomposição QR de Givens]
+    Aplica \(n-1\) matrizes de Givens, \(J_{i1}\), \(2 \leq i \leq n\), à esquerda de \(A\) para zerar as entradas \(a_{21}, a_{31}, \ldots, a_{n1}\)
+    \[
+        (J_{n1}J_{n-1,1}\ldots J_{21})A \to \begin{bmatrix}
+            X & X & \ldots & X \\
+            0 & X & \ldots & X \\
+            0 & X & \ldots & X \\
+            \vdots & \vdots & \vdots & \vdots \\
+            0 & X & \ldots & X
+        \end{bmatrix}
+    \]
+    Agora usa \(n-2\) matrizes de Givens para zerar os elementos nos índices \((3,2), (4,2), \ldots, (n,2)\) para obter
+    \[
+        (J_{n2}J_{n-1,2}\ldots J_{42}J_{32})(J_{n1}J_{n-1,1}\ldots J_{21})A \to \begin{bmatrix}
+            X & X & \ldots & X \\
+            0 & X & \ldots & X \\
+            0 & 0 & \ldots & X \\
+            \vdots & \vdots & \vdots & \vdots \\
+            0 & 0 & \ldots & X
+        \end{bmatrix}
+    \]
+    Seja \(J_i\) o produto de matrizes Givens usado para zerar os elementos abaixo da entrada \(a_{ii}\). Continua o processo até obter \(R\) triangular superior
+    \[
+        (J_{n-1}J_{n-2}\ldots J_2 J_1)A \to \begin{bmatrix}
+            X & X & \ldots & X & X \\
+            0 & X & \ldots & X & X \\
+            0 & 0 & X & \ldots & X \\
+            \vdots & \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & 0 & \ldots & X
+        \end{bmatrix} = R,
+    \]
+    e 
+    \[
+        A = (J_{n-1}J_{n-2}\ldots J_2 J_1)^{T}R = Q R.
+    \]
+    onde \(Q\) é o produto de matrizes ortogonais, logo ortogonal\footnote{Se \(P=P_k P_{k-1}\ldots P_2 P_1\), onde \(P_i\) é ortogonal para \(1 \leq i \leq k\), então \(P\) é ortogonal, pois \(P^T P = P_1^T P_2^T \ldots P_k^T P_k P_{k-1} \ldots P_2 P_1 = I\).}.
+\end{tcolorbox}
+
+\begin{defn}
+    Uma matriz da forma
+\[
+    J(i,j,c,s) = \begin{bmatrix} 1 & 0 & 0 \ldots & \ldots & \ldots & \ldots & 0 \\ 0 & 1 & 0 & \ldots & \ldots & \ldots & \ldots & 0 \\ \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & c & s & \ldots & 0 \\ \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & -s & c & \ldots & 0 \\ \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & 0 & \ldots & 1 \end{bmatrix},
+\]
+é uma \emph{matriz de Givens}. O valor \(c\) está na diagonal nos índices \((i,i)\) e \((j,j)\), \(i<j\). O valor \(s\) está na posição \((i,j)\) e o valor \(-s\) na posição \((j,i)\). Os elementos restantes da diagonal são \(1\) e os elementos fora da diagonal são \(0\).
+\end{defn}
+
+Queremos que uma matriz de Givens seja ortogonal (\(J(i,j,c,s)^T J(i,j,c,s) = I\)), e claramente suas colunas são ortogonais. Basta então que tenham comprimento unitário, ou seja, que se tenha \(c^2+s^2=1\). Para visualizar isso, considera a matriz de Givens
+\[
+    J(1,3,c,s) = \begin{bmatrix} c & 0 & s \\ 0 & 1 & 0 \\ -s & 0 & c \end{bmatrix}.
+\]
+Computa o produto \(J(1,3,c,s)^T J(1,3,c,s)\) e verifica que \(c^2+s^2=1\) é necessário para que \(J(1,3,c,s)\) seja ortogonal: 
+\[
+    J(1,3,c,s)^T J(1,3,c,s) = \begin{bmatrix} c & 0 & -s \\ 0 & 1 & 0 \\ s & 0 & c \end{bmatrix} \begin{bmatrix} c & 0 & s \\ 0 & 1 & 0 \\ -s & 0 & c \end{bmatrix} = \begin{bmatrix} c^2+s^2 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & c^2+s^2 \end{bmatrix}.
+\]
+
+Usando a identidade trigonométrica \(\cos^2 \theta + \sin^2 \theta = 1\), podemos tomar \(c=\cos \theta\) e \(s=\sin \theta\) e obter uma \emph{matriz de rotação de Givens}, denotada por \(J(i,j,\theta)\). No \(\R^2\), a matriz de Givens \(J(1,2,\theta)\) é \(\begin{bmatrix} \cos \theta & \sin \theta \\ -\sin \theta & \cos \theta \end{bmatrix}\).
+
+O algoritmo da decomposição QR de Givens depende de zerar elementos em posições específicas de uma matriz. Seja \(x = [x_1 x_2 \cdots x_{n-1} x_n]^T\) e calcula o produto \(J(i,j,c,s)x\).
+
+\begin{equation} \label{eq:produto_givens_vetor}
+    J(i,j,c,s)x = \begin{bmatrix} 1 & 0 & 0 \ldots & \ldots & \ldots & \ldots & 0 \\ 0 & 1 & 0 & \ldots & \ldots & \ldots & \ldots & 0 \\ \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & c & s & \ldots & 0 \\ \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & -s & c & \ldots & 0 \\ \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & 0 & \ldots & 1 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_{i} \\ \vdots \\ x_{j} \\ \vdots \\ x_n \end{bmatrix} = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ cx_i + sx_j \\ \vdots \\ -sx_i + cx_j \\ \vdots \\ x_n \end{bmatrix}.
+\end{equation}
+Nota que o produto \(J(i,j,c,s)x\) altera somente as componentes \(i\) e \(j\) do vetor \(x\). Então, se quisermos zerar a componente \(x_j\), \(i<j\), podemos reduzir o problema de encontrar \(c\) e \(s\) para o caso bidimensional. Toma a matriz de Givens \(\begin{bmatrix} \cos \theta & \sin \theta \\ -\sin \theta & \cos \theta\end{bmatrix}\) que rotaciona o vetor \(\begin{bmatrix} x \\ y\end{bmatrix} \in \R^2\) sobre o eixo \(x\), zerando a coordenada \(y\).
+Do plano cartesiano, é fácil ver que \(\cos \theta = x/\sqrt{x^2+y^2}\) e \(\sin \theta = y/\sqrt{x^2+y^2}\), então 
+\[
+    \begin{bmatrix}
+        \cos \theta & \sin \theta \\
+        -\sin \theta & \cos \theta
+    \end{bmatrix}
+    \begin{bmatrix}
+        x \\
+        y
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \frac{x}{\sqrt{x^2+y^2}} & \frac{y}{\sqrt{x^2+y^2}} \\
+        -\frac{y}{\sqrt{x^2+y^2}} & \frac{x}{\sqrt{x^2+y^2}}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        \sqrt{x^2+y^2} \\
+        0
+    \end{bmatrix}.
+\]
+Generalizando o argumento, para zerar \(x_j\), escolha \(i<j\) e calcula os valores 
+\[
+    c=\frac{x_i}{\sqrt{x_i^2+x_j^2}}, \quad s=\frac{x_j}{\sqrt{x_i^2+x_j^2}}.
+\] 
+Faz \(J(i,j,c,s)=I\) seguido de
+\begin{align*}
+    J(i,i,c,s) &= J(j,j,c,s) = c \\
+    J(i,j,c,s) &= s \\
+    J(j,i,c,s) &= -s
+\end{align*}
+e computa \(J(i,j,c,s)x\). 
+
+Segue-se que dado um vetor \(x=[x_1 x_2 \ldots x_n]^T\), podemos usar um produto de matrizes Givens para zerar os \(n-i\) elementos de \(x\) abaixo da entrada \(x_i\). Para zerar \(x_{i+1}\), computa \(J(i,i+1,c_{i+1},s_{i+1})x=\overline{x_{i+1}}\). Para zerar \(x_{i+2}\), computa \(J(i,i+2,c_{i+2},s_{i+2})\overline{x_{i+1}}=\overline{x}_{i+2}\) e continua o processo até \(J(i,n,c_n,s_n)\overline{x_{n-1}}=\overline{x_n}\). Em suma, o produto
+\[
+    J(i,n,c_n,s_n) \ldots J(i,i+2,c_{i+2},s_{i+2}) J(i,i+1,c_{i+1},s_{i+1})x
+\]
+transforma \(x\) num vetor da forma \([x_1 x_2 \ldots x_{i-1} \star 0 \ldots 0]^T\).
+
+\begin{rem}
+    As operações com matrizes de Givens podem ser feitas implicitamente, isto é, não é necessário construí-las.
+\end{rem}
+
+Se \(J(i,j,c,s)\) é uma matriz \(m \times m\) e \(A\) é uma matriz \(m \times n\), o produto \(J(i,j,c,s)A\) altera somente as linhas \(i\) e \(j\). De \eqref{eq:produto_givens_vetor}, vemos que as linhas \(i\) e \(j\), \(i<j\), têm forma 
+
+\begin{itemize}
+    \item [\(i\):] \(ca_{i1} + sa_{j1}, ca_{i2} + sa_{j2}, \ldots, ca_{in} + sa_{jn}\)
+    \item [\(j\):] \(ca_{j1} - sa_{i1}, ca_{j2} - sa_{i2}, \ldots, ca_{jn} - sa_{in}\)
+\end{itemize}
+Isso faz com que o produto \(J(i,j,c,s)A\) seja computado em apenas \(6n\) operações. O algoritmo abaixo faz a multiplicação de \(A\) por uma matriz de Givens, dados os parâmetros \(c\) e \(s\).
+
+\begin{lstlisting}[language=Scilab, caption=Multiplicação de uma matriz por uma matriz de Givens]
+    function A = givensmul(A,i,j,c,s)
+    // multiplication of m x n matrix A by Givens matrix
+    // input: matrix A, indices i and j, Givens parameters c and s
+    // output: m x n matrix J(i,j,c,s)A
+    
+    a = A(i,:);
+    b = A(j,:);
+    
+    A(i,:) = c*a + s*b;
+    A(j,:) = -s*a + c*b;
+    endfunction
+\end{lstlisting}
+
+O cálculo dos parâmetros \(c\) e \(s\) pode ter problemas de \emph{overflow} ou \emph{underflow}. Uma maneira de minimizar esses erros é normalizar as entradas \(x_i\) e \(x_j\), conforme o seguinte algoritmo.
+
+\begin{lstlisting}[language=Scilab, caption=Cálculo dos parâmetros de Givens]
+    function [c,s] = givensparms(x_i,x_j)
+    // normalize the entries x_i or x_j to minimize overflow/underflow errors
+    // input: x_i and x_j, j>i, of vector x
+    // output: Givens parameters c and s for x
+    
+    if x_j == 0 then
+        c=1;
+        s=0;
+    elseif abs(x_j) > abs(x_i) then
+        t=x_i/x_j; // make t such that 0<t<1
+        s=1/sqrt(1+t^2);
+        c=s*t;
+    else
+        t=x_j/x_i;
+        c=1/sqrt(1+t^2);
+        s=c*t;
+    end
+    endfunction
+\end{lstlisting}
+
+\begin{defn}
+    Uma matriz \(A = [a_{ij}]\) \(m \times n\) é \emph{triangular-superior} se \(a_{ij} = 0\) para \(i > j\). Em outras palavras, \(A\) é triangular-superior se os elementos abaixo da diagonal principal são nulos.
+\end{defn}
+
+O algoritmo abaixo realiza a decomposição QR de Givens.
+
+\begin{lstlisting}[language=Scilab, caption=Decomposição QR de Givens]
+    function [Q,R] = givensqr(A)
+    // compute the QR decomposition of A
+    // input: m x n matrix A
+    // output: m x n orthogonal matrix Q
+    // and m x n upper-triangular matrix R
+    [m,n] = size(A);
+    Q = eye(m,m); // initialize Q = I
+    
+    for i = 1:min(m-1,n)
+        for j = i+1:m // run through column i
+            [c,s] = givensparms(A(i,i),A(j,i));
+            A = givensmul(A,i,j,c,s);
+            Q = givensmul(Q,i,j,c,s);
+        end
+    end
+    R = A;
+    Q = Q';
+    endfunction
+\end{lstlisting}
+
+\subsection{Reflexões de Householder}
+
+As reflexões de Householder são uma alternatiiva às rotações de Givens para computar a decomposição \(QR\) de uma matriz. Uma rotação de Givens zera um elemento de cada vez, e é preciso de uma sequência de rotações para transformar uma matriz em forma triangular-superior. A reflexão de Householder, por outro lado, consegue zerar todos os elementos abaixo de um elemento da diagonal \(a_{ii}\) com uma única multiplicação, e por isso seu algoritmo para a decomposição \(QR\) requer cerca de dois-terços do número de \emph{flops} do algoritmo de Givens. 
+Entretanto, é importante notar que rotações de Givens são paralelizáveis (ao contrário das reflexões de Householder); além disso, em alguns casos, pode ser mais eficiente eliminar uma entrada por vez, situação que é mais adequada ao algoritmo de Givens.
+
+\begin{defn}
+    Uma \emph{reflexão de Householder} (ou \emph{transformação de Householder}) \(H_u\) é uma transformação que reflete um vetor \(u\) num hiperplano no \(\R^n\). A transformação tem a forma
+\begin{equation}
+    H_u = I - 2\frac{uu^T}{u^Tu},
+\end{equation}
+onde \(u\) é um vetor não nulo. Evidentemente, \(H_u\) é uma matriz quadrada de ordem \(n\), pois \(uu^T\) é uma matriz \(n \times n\) e \(u^Tu\) é um escalar.
+\end{defn}
+
+Aplicar uma transformação de Householder a um vetor \(u \in \R^n\) resulta em \(-u\). Consequentemente, \(H_u(cu) = -cu\) para todo escalar \(c\). De fato,
+\[
+    H_u(u) = \left(I - 2\frac{uu^T}{u^Tu}\right)u = u - 2\frac{uu^Tu}{u^Tu} = u - 2u = -u.
+\]
+
+Sendo \(w\) um vetor no \(\R^n\), seja \(v = w - \proj_u(w)\). Sabemos que \(v\) é ortogonal a \(u\), o que implica que \(w = c_1 u + c_2 v\), donde \(c_1 = \langle w, u \rangle / \langle u, u \rangle\) e \(c_2 = \langle w, v \rangle / \langle v, v \rangle\). Afirmamos que \(H_u(w)\) é uma reflexão de \(w\) em relação ao hiperplano ortogonal a \(u\). Com efeito,
+\begin{align*}
+    H_u(c_1 u + c_2 v) &= \left(I - 2\frac{uu^T}{u^Tu}\right)(c_1 u + c_2 v) \\
+    &= c_1 u + c_2 v - 2\frac{uu^T}{u^Tu}(c_1 u + c_2 v) \\
+    &= -c_1 u + c_2 v - 2c_2 \frac{uu^T}{u^Tu}v \\
+    &= -c_1 u + c_2 v - 2c_2 \frac{u \langle u, v \rangle}{\langle u, u \rangle} \\
+    &= -c_1 u + c_2 v
+\end{align*}
+
+\begin{prop}
+    Seja \(H_u\) uma reflexão de Householder com \(u \in \R^n\). Então
+    \begin{enumerate}
+        \item \(H_u\) é simétrica.
+        \item \(H_u\) é ortogonal.
+        \item \(H_u^2 = I\).
+        \item \(H_u v = v\) se \(\langle v, u \rangle = 0\).
+    \end{enumerate}
+\end{prop}
+
+\begin{proof}
+    \begin{enumerate}
+        \item \(\displaystyle H_u^T = \left(I - 2\frac{uu^T}{u^Tu}\right)^T = I - 2\frac{uu^T}{u^Tu} = H_u\).
+        \item Seja \(\beta \defeq 2/(u^Tu)\). Então \(\displaystyle H_u^T H_u = (I - \beta uu^T)(I - \beta uu^T) = I - 2\beta uu^T + \beta^2 u(u^Tu)u^T = I - 2\left(\frac{2}{u^Tu}\right) uu^T + \left(\frac{4}{(u^Tu)^2}\right) u(u^Tu)u^T = I\).
+        \item \(H_u^2 = H_u H_u = I\).
+        \item Se \(\langle v, u \rangle = 0\), então \(\displaystyle H_u v = \left(I - 2\frac{uu^T}{u^Tu}\right)v = v - 2\frac{u \langle u, v \rangle}{\langle u, u \rangle} = v\).
+    \end{enumerate}
+\end{proof}
+
+Uma única reflexão de Householder pode zerar todos os elementos \(a_{i+1,i}, a_{i+2,i}, \ldots, a_{mi}\) abaixo da entrada \(a_ii\) de uma matriz \(A\). Aplicando uma sequência de reflexões de Householder, podemos transformar \(A\) numa matriz triangular-superior, ou seja, queremos transformar
+\[
+    A = \begin{bmatrix}
+        X & X & X & X & X & X & & \ldots & X \\
+        X & X & X & X & X & X & & \ldots & X \\
+        \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & & \ldots & \vdots \\
+        X & X & X & X & X & X & & \ldots & X \\
+        X & X & X & X & X & X & & \ldots & X
+    \end{bmatrix}
+\]
+na forma
+\[
+    H_uA = \begin{bmatrix}
+        X & X & X & X & X & X & & \ldots & X \\
+        0 & X & X & X & X & X & & \ldots & X \\
+        0 & 0 & X & X & X & X & & \ldots & X \\
+        0 & 0 & 0 & X & X & X & & \ldots & X \\
+        0 & 0 & 0 & 0 & X & X & & \ldots & X
+    \end{bmatrix}.
+\]
+
+Começamos zerando as entradas abaixo de \(a_{11}\). Seja \(x\) a primeira coluna de \(A\). Então \(H_ux\) será a primeira coluna de \(H_uA\). Se \(x \neq ke_1 = [k 0 \ldots 0]^T\), buscamos um vetor \(u\) tal que \(H_ux\) tenha zeros por toda parte exceto no índice \((1,1)\). Os elementos nas colunas restantes serão alterados, mas não nos preocupamos com isso.
+
+A escolha do vetor \(u\) é melhor entendida geometricamente. Sabemos que \(H_ux\) reflete \(x\) através do plano perpendicular a \(u\), e que \(\Vert H_ux \Vert_2 = \Vert x \Vert_2\) porque \(H_u\) é ortogonal. Então buscamos \(u\) tal que \(H_ux = \pm \Vert x \Vert_2 e_1\). Em outras palavras, queremos refletir \(x\) através dum hiperplano que bisecta o ângulo entre \(x\) e \(e_1\). Isso pode ser feito tomando \(u = x \pm \Vert x \Vert_2 e_1\)\footnote{O resultado pode ser verificado algebricamente, basta verificar a igualdade \(H_ux = \mp \Vert x \Vert_2 e_1\)}. O sinal em \(u = \pm \Vert x \Vert_2 e_1\) é escolhido para evitar cancelamento catastrófico. Como
+\[
+    [x_1 x_2 \ldots x_{m-1} x_m]^T \pm \Vert x \Vert_2 e_1 = [x_1 \pm \Vert x \Vert_2 x_2 \ldots x_{m-1} x_m]^T,
+\]
+apenas a primeira componente de \(u\) é afetada pelo sinal escolhido. Escolhemos o sinal de modo que uma adição seja feita.
+\[
+    u = \begin{cases}
+        x + \Vert x \Vert_2 e_1, \quad x > 0 \\
+        x - \Vert x \Vert_2 e_1, \quad x < 0 \\
+        x + \Vert x \Vert_2 e_1, \quad x = 0
+    \end{cases}
+\]
+
+Outro possível problema é o overflow ou underflow no cálculo de \(\Vert x \Vert_2\). Para minimizar esse risco, podemos normalizar \(x\) antes de calcular \(u\) e depois multiplicar \(u\) por \(\Vert x \Vert_2\).
+
+\begin{enumerate}
+    \item \(\text{colmax} = \max(|x_1|, |x_2|, \ldots, |x_m|)\)
+    \item \(\overline{x} = x/\text{colmax}\)
+    \item \(\Vert x \Vert_2 = \text{colmax} \Vert \overline{x} \Vert_2\)
+\end{enumerate}
+
+\begin{lem}
+    Se \(H_u\) é uma reflexão de Householder e \(k\) é uma constante, então \(H_{ku} = H_u\).
+\end{lem}
+
+\begin{proof}
+    \(\displaystyle H_{ku} = I - 2\frac{(ku)(ku)^T}{(ku)^T(ku)} = I - 2\frac{k^2 uu^T}{k^2 u^Tu} = I - 2\frac{uu^T}{u^Tu} = H_u\).
+\end{proof}
+
+Assim como no caso das rotações de Givens, a multiplicação por uma reflexão de Householder \(H_u\) não exige construir a matriz. Se \(H_u\) é uma matriz de Householder \(m\times m\), \(x\) é um vetor no \(\R^m\), e \(A\) é uma matriz \(m \times n\), então os produtos \(H_ux\) e \(H_uA\) podem ser computador por uma simples fórmula. Se \(H_u\) é \(n\times n\), o mesmo se aplica para \(AH_u\) (usado para zerar linhas de \(A\)). Sendo \(\beta = 2/(u^Tu)\), temos
+
+\begin{align}
+    H_ux &= \left(I - 2\frac{uu^T}{u^Tu}\right)x = x - \beta u(u^Tx) \\
+    H_uA &= \left(I - 2\frac{uu^T}{u^Tu}\right)A = A - \beta u(u^TA) \\
+    AH_u &= A\left(I - 2\frac{uu^T}{u^Tu}\right) = A - \beta (Au)u^T
+\end{align}
+
+O seguinte algoritmo zera todos os elementos abaixo da entrada \(a_{11}\) usando uma reflexão de Householder.
+
+\begin{lstlisting}[language=Scilab, caption=Zerando entradas na primeira coluna de uma matriz usando uma reflexão de Householder, label=lst:hzero1]
+    function [A,u] = hzero1(A)
+    // zero out all elements below a_11 in matrix A by a Householder reflection H_u
+    // input: m x n matrix A
+    // output: m x n matrix A implicitly premultiplied by H_u and Householder vector u that defines the hyperplane about which x is reflected
+    
+    x = A(:,1);
+    colmax = max(abs(x));
+    x = x/colmax; // normalize x to minimize cancellation errors
+    colnorm = norm(x,2);
+    u = x;
+    
+    // construct Householder vector u
+    if u(1) >= 0 then
+        u(1) = u(1) + colnorm;
+    else
+        u(1) = u(1) - colnorm; 
+    end
+    
+    // implicitly form H_uA
+    unorm = norm(u,2);
+    if unorm ~= 0 then
+        beta = 2/(unorm^2);
+    else
+        beta = 0;
+    end
+    A = A - (beta*u)*(u'*A);
+    endfunction
+\end{lstlisting}
+
+Para zerar os elementos abaixo das diagonais restantes com \ref{alg:hzero1}, criamos implicitamente uma sequência de matrizes de Householder que atuem em blocos de submatrizes. Suponha que tenhamos zerado todas as entradas abaixo da diagonal do índice \((1,1)\) ao \((i-1,i-1)\), obtendo uma sequência de matrizes \(A_1, A_2, \ldots, A_{i-1}\).
+Precisamos de uma reflexão de Householder que zere os elementos \(\overline{a_{i+1,i}},\ldots,\overline{a_{mi}}\) e altere apenas elementos da submatriz correspondente de tamanho \((m-i+1,m-i+1)\). Então construímos \(\tilde{H_u}\) (a reflexão de Householder para a submatriz no passo \(i\)) com o vetor \(x=[\overline{a_{ii}} \overline{a_{i+1,j}} \ldots \overline{a_{mi}}]^T\). Essa operação é realizada com o comando
+
+\begin{verbatim}
+    [A(i:m,i:n), u] = hzero1(A(i:m,i:n)).
+\end{verbatim}
+e repetida \(k=\min(m-1,n)\) vezes para obter a matriz triangular-superior \(R\). O processo assim resulta na fatoração \(QR\) da matriz \(A\)
+
+\begin{gather}
+    \tilde{H}_k \tilde{H}_{k-1} \ldots \tilde{H}_1 A = R \\
+    A = (\tilde{H}_1 \tilde{H}_2 \ldots \tilde{H}_k)^T R \\
+    = (\tilde{H}_k^T \tilde{H}_{k-1}^T \ldots \tilde{H}_1^T) R = QR,
+\end{gather}
+onde \(Q = \tilde{H}_1 \tilde{H}_2 \ldots \tilde{H}_k\) é o produto de matrizes ortogonais, logo ortogonal. Inicializa \(Q=I\) como matriz identidade \(m\times m\) e computa \(Q(1:m,1:m)H_{u1}\), alterando as entradas em toda a matriz \(Q\). Depois computa \(Q(1:m,2:m)H_{u2}\), alterando as entradas em toda a matriz \(Q\) exceto as da primeira coluna, e assim por diante, até \(Q(1:m,k:m)H_{uk}\). O algoritmo abaixo realiza a decomposição QR de Householder.
+
+\begin{lstlisting}[language=Scilab, caption=Decomposição QR de Householder]
+    function [Q,R] = householderqr(A)
+    // compute the QR decomposition of matrix A using Householder reflections
+    // input: m x n matrix A
+    // output: m x m matrix Q and m x n upper-triangular matrix R such that A=QR
+    R = A;
+    [m,n] = size(A)
+    Q = eye(m,n);
+    k = min(m-1,n);
+    
+    for i = 1:k
+        [R(i:m,i:n),u] = hzero1(R(i:m,i:n));
+        Q(1:m,i:m) = Q(1:m,i:m) - (2/norm(u,2)^2)*(Q(1:m,i:m)*u)*u';
+    end
+    endfunction
+\end{lstlisting}
+
+A contagem de \emph{flops} para o algoritmo de Householder é \(2n^2(m-n/3)\) para \(m \geq n\). O algoritmo de Givens requer \(6n^2(m-n/3)\) \emph{flops}, ou seja, cerca de duas vezes mais do que o algoritmo de Householder.
+
+\section{Problemas de mínimos quadrados}
+
+\subsection{Existência e unicidade de soluções de mínimos quadrados}
+\subsection{Resolvendo problemas de mínimos quadrados sobredeterminados}
+\subsection{Condicionamento de problemas de mínimos quadrados}
+
+\section{Autovalores e Autovetores}
+\subsection{Teoremas de Gerschgorin}
+\subsection{Método da potência para computar autovalor dominante}
+\subsection{Iteração inversa de Hessenberg}
+
+\section{Métodos Iterativos}
+\subsection{Método de Jacobi}
+\subsection{Método de Gauss-Seidel}
+\subsection{Iteração SOR}
+\subsection{Convergência dos métodos iterativos}
+
+\end{document}
