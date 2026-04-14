@@ -1,12 +1,14 @@
 \documentclass{article}
-\title{Notas de Aula - Análise Real I}
+\title{Notas de Aula - MAT01057}
 \author{Leonardo Suarez}
 \date{\today}
-\usepackage{analise_real}
+\usepackage{macros}
 
 \begin{document}
-
 \maketitle
+
+Notas de aula de Análise Matemática A, disciplina ministrada pelo prof. Paulo Zingano no semestre 25/1.
+
 \tableofcontents
 
 \section{Conjuntos Finitos e Infinitos}
@@ -692,7 +694,7 @@ A afirmação de que o corpo ordenado \(\R\) é \emph{completo} significa que to
 
 \subsection{Funções contínuas num intervalo}
 
-\begin{thm} [teorema do valor intermediário] \label{thm:tvi}
+\begin{thm} [Teorema do Valor Intermediário] \label{thm:tvi}
     Seja \(f: [a, b] \to \R\) contínua. Se \(f(a) < d < f(b)\) então existe \(c \in (a, b)\) tal que \(f(c) = d\).
 \end{thm}
 
@@ -732,31 +734,62 @@ A afirmação de que o corpo ordenado \(\R\) é \emph{completo} significa que to
 
 \subsection{Continuidade uniforme}
 
+Seja \(f: X \to \R\) contínua. Dado \(\eps > 0\) e \(a \in X\), existe \(\delta > 0\) (que depende de \(\eps\) e de \(a\)) tal que \(x \in X\) e \(|x - a| < \delta \implies |f(x) - f(a)| < \eps\). Em geral, não é possível escolher, a partir do \(\eps>0\), um único \(\delta >0\) que funcione para todos os pontos \(a \in X\).
+
 \begin{defn}
     Uma função \(f: X \to \R\) é dita \emph{uniformemente contínua} em \(X\) se, para todo \(\eps > 0\), existe \(\delta > 0\) tal que \(x, y \in X\) e \(|x - y| < \delta \implies |f(x) - f(y)| < \eps\).
 \end{defn}
 
 \begin{rem}
-    Uma função uniformemente contínua \(f: X \to \R\) é contínua em todos de \(X\), mas a recíproca é falsa.
-    Se todo ponto \(x \in X\) possui vizinhança \(V\) tal que \(f|_{X \cap V}\) é contínua, então a função \(f: X \to \R\) é contínua. Mas se cada ponto \(x \in X\) possui vizinhança \(V\) tal que \(f|_{X \cap V}\) é uniformemente contínua, isso não garante que \(f\) seja uniformemente contínua.
-    Por isso, diz-se que a continuidade é uma noção \emph{local} enquanto a continuidade uniforme é um conceito \emph{global}.
+    Uma função uniformemente contínua \(f: X \to \R\) é contínua em todos de \(X\), mas a recíproca é falsa. Seja \(f: \R^{+} \to \R\), definida por \(f(x)=1/x\), contínua. Dado \(0<\eps<1\), para todo \(\delta > 0\), tomamos \(n>1/\delta\) e pomos \(x=1/n\) e \(y=1/2n\). Então \(\vert y-x \vert < \delta\) mas \(\vert f(y)-f(x) \vert = 2n-n = n \geq 1 > \eps\).
 \end{rem}
+
+Se todo ponto \(x \in X\) possui vizinhança \(V\) tal que \(f|_{X \cap V}\) é contínua, então a função \(f: X \to \R\) é contínua. Mas se cada ponto \(x \in X\) possui vizinhança \(V\) tal que \(f|_{X \cap V}\) é uniformemente contínua, isso não garante que \(f\) seja uniformemente contínua.
+Por isso, diz-se que a continuidade é uma noção \emph{local} enquanto a continuidade uniforme é um conceito \emph{global}.
+
+\begin{defn}
+    Uma função \(f: X \to \R\) chama-se \emph{lipschitziana} quando existe uma constante \(k>0\) (chamada \emph{constante de Lipschitz} da função \(f\)) tal que \(\vert f(x)-f(y) \vert \leq k\vert x - y \vert\) sejam quais forem \(x,y \in X\).
+\end{defn}
+
+\begin{rem}
+    Toda função lipschitziana é uniformemente contínua. Dado \(\eps>0\), basta tomar \(\delta = \eps/k\).
+\end{rem}
+
+A proposição a seguir caracteriza funções uniformemente contínuas em termos de sequências.
 
 \begin{prop}
     A fim de que \(f: X \to \R\) seja uniformemente contínua é necessário e suficiente que para toda sequência \((x_n)\) e \((y_n)\) de pontos de \(X\) com \(\lim (x_n - y_n) = 0\) tenha-se \(\lim (f(x_n) - f(y_n)) = 0\).
 \end{prop}
 
+\begin{proof}
+    
+\end{proof}
+
 \begin{prop}
     Toda função contínua \(f: K \to \R\) definida em um conjunto compacto \(K\) é uniformemente contínua.
 \end{prop}
 
-\begin{prop}
+\begin{proof}
+    
+\end{proof}
+
+\begin{prop}\label{prop:unif_cont_limitado}
     Toda função \(f: X \to \R\), uniformemente contínua num conjunto limitado \(X\), é limitada.
 \end{prop}
+
+\begin{proof}
+    
+\end{proof}
+
+A contrapositiva do \eqref{prop:unif_cont_limitado} diz que uma função \(f: X \to \R\) que não é limitada num conjunto limitado \(X\) não pode ser uniformemente contínua. É claro então que \(f(x)=1/x\) não é uniformemente contínua em \((0,1]\), pois \(f((0,1])=[1,+\infty)\).
 
 \begin{prop}
     Se \(f: X \to \R\) é uniformemente contínua então, para cada \(a \in X'\), existe \(\lim_{x \to a} f(x)\).
 \end{prop}
+
+\begin{proof}
+    
+\end{proof}
 
 \section{Derivadas}
 \subsection{A noção de derivada}
@@ -798,9 +831,17 @@ A afirmação de que o corpo ordenado \(\R\) é \emph{completo} significa que to
     Sejam \(f: X \to \R\), \(g: Y \to \R\), \(a \in X \cap X'\), \(b \in Y \cap Y'\), \(f(X) \subseteq Y\) e \(f(a) = b\). Se \(f\) é derivável em \(a\) e \(g\) é derivável em \(b\), então a função composta \(g \circ f: X \to \R\) é derivável em \(a\), com \((g \circ f)'(a) = g'(f(a)) \cdot f'(a)\).
 \end{thm}
 
+\begin{proof}
+    
+\end{proof}
+
 \begin{cor}
     Seja \(f: X \to Y\) uma bijeção entre \(X, Y \subseteq \R\), com inversa \(g = f^{-1}: Y \to X\). Se \(f\) é derivável em \(a \in X \cap X'\) e \(g\) é contínua no ponto \(b = f(a)\), então \(g\) é derivável em \(b\) sse \(f'(a) \neq 0\). Neste caso, \(g'(b) = 1 / f'(a)\).
 \end{cor}
+
+\begin{proof}
+    
+\end{proof}
 
 \subsection{Derivada e crescimento local}
 
@@ -809,7 +850,7 @@ A afirmação de que o corpo ordenado \(\R\) é \emph{completo} significa que to
 \end{prop}
 
 \begin{cor} \label{cor:monotonicidade_derivada}
-    Se \(f: X \to \R\) é monótona crescente então suas derivadas laterais, onde existem, são não-negativas.
+    Se \(f: X \to \R\) é monótona não-decrescente então suas derivadas laterais, onde existem, são não-negativas.
 \end{cor}
 
 \begin{cor} \label{cor:crescimento_local}
@@ -856,7 +897,7 @@ A afirmação de que o corpo ordenado \(\R\) é \emph{completo} significa que to
 
 \subsection{Funções deriváveis num intervalo}
 
-\begin{thm} [Darboux, teorema do valor intermediário para derivada]
+\begin{thm} [Darboux]
     Seja \(f: [a,b] \to \R\) derivável\footnote{Se \(f'(x)\) é contínua, o resultado segue de \eqref{thm:tvi}}. Se \(f'(a) < d < f'(b)\) então existe \(c \in (a,b)\) tal que \(f'(c) = d\).
 \end{thm}
 
@@ -872,7 +913,7 @@ A afirmação de que o corpo ordenado \(\R\) é \emph{completo} significa que to
     Pelo Teorema de Weierstrass \eqref{thm:weierstrass}, a função \(f\) contínua no compacto \([a,b]\) atinge seus valores de mínimo e de máximo. Se esses valores ocorrem nas extremidades, de \(f(a)=f(b)\) tem-se que \(f\) é constante, logo \(f'(x)=0\) para todo \(x \in [a,b]\). Caso contrário, um dos pontos de mínimo ou de máximo ocorre num ponto \(c \in (a,b)\), então de \eqref{cor:maximos_minimos_derivada_zero} vem que \(f'(c)=0\).
 \end{proof}
 
-\begin{thm} [teorema do valor médio de Lagrange]
+\begin{thm} [Teorema do Valor Médio de Lagrange] \label{thm:tvm}
     Seja \(f: [a,b] \to \R\) contínua. Se \(f\) é derivável em \((a,b)\), existe \(c \in (a,b)\) tal que \(f'(c) = [f(b)-f(a)]/(b-a)\).
 \end{thm}
 
@@ -925,12 +966,20 @@ A afirmação de que o corpo ordenado \(\R\) é \emph{completo} significa que to
     Se \(p(h)\) é o polinômio de Taylor de ordem \(n\) de \(f\) em torno de \(a\), então a função \(r(h) = f(a+h) - p(h)\), definida no intervalo \(J = \{h \in \R : a+h \in I\}\), chamada de \emph{resto} ou \emph{resíduo} da aproximação de \(f\) por \(p\), é \(n\) vezes derivável no ponto \(0 \in J\), com \(r^{(k)}(0) = 0\) para todo \(k = 0, 1, \ldots, n\).
 \end{defn}
 
+Antes de provar o Teorema de Taylor, precisamos de um resultado que relaciona o comportamento local de uma função e a velocidade com que ela decai ao nos aproximar desse ponto. O lema a seguir mostra que uma função \(r(h)\) é extremamente achatada no zero (com \(n\) derivadas nulas nesse ponto) sse vai para zero mais rápido que \(h^n\) ao \(h \to 0\).
+
 \begin{lem}
     Seja \(r: J \to \R\) \(n\) vezes derivável no ponto \(0 \in J\). A fim de que seja \(r^{(k)}(0) = 0\) para todo \(k = 0, 1, \ldots, n\) é necessário e suficiente que \(\lim_{h \to 0} r(h)/h^n = 0\).
 \end{lem}
 
 \begin{proof}
+    Provamos por indução em \(n\). Para \(n=1\), temos \(r(0)=r'(0)=0\) então \(\lim_{h\to 0} r(h)/h = [r(h)-r(0)]/(h-0) = r'(0) = 0\). Supondo que o resultado vale para \(n\), seja \(r\) uma função \(n+1\) vezes derivável em \(0 \in J\), com \(r(0)=r'(0)=\cdots=r^{(n+1)}(0)=0\). Aplicando a hipótese de indução a \(r'(h)\), vem \(\lim_{h\to 0} r'(h)/h=0\). De \eqref{thm:tvm}, existe \(x \in (0,h)\) tal que \(r'(x)h = r(h)\). Então \(\lim_{h \to 0} r(h)/h^{n+1} = \lim_{h \to 0} r'(x)/h^n = \lim_{h \to 0} (r'(x)/x^n) \cdot (x^n/h^n) = 0\) pois \(x \to 0\) ao \(h \to 0\) e \(\vert x/h \vert <1\).
     
+    Para provar a volta, usamos indução em \(n\) novamente. No caso de \(n=1\), temos \(\lim_{h\to 0} r(h)/h = 0\) e então \(r(0) = \lim_{h\to 0} h \cdot r(h)/h = 0\) (\(r(0) = \lim_{h \to 0} r(h)\) vem da continuidade de \(r\) em \(0\)) e \(r'(0) = \lim_{h\to 0} [r(h)-r(0)]/(h-0) = 0\). Suponha que o resultado vale para \(n\). Seja \(r\) uma função \(n+1\) vezes derivável em \(0 \in J\) com \(\lim_{h\to 0} r(h)/h^{n+1}=0\) e considere a função \(\varphi: J \to \R\) dada por
+    \[
+        \varphi(h) = r(h) - \frac{r^{(n+1)}(0)h^{n+1}}{(n+1)!}.
+    \]
+    Nota que \(\varphi\) é \(n+1\) vezes derivável no ponto \(0\) e \(\lim_{h\to 0} \varphi(h)/h^n = 0\). Pela hipótese de indução, vem que \(\varphi(0) = \varphi'(0) = \cdots = \varphi^{(n)}(0) = 0\), o que implica \(r^{(k)}(0) = 0\) para \(0 \leq k \leq n\). Mas também temos \(\varphi^{(n+1)}(0)= 0\) então (por \(\implies\)) \(\lim_{h\to 0} \varphi(h)/h^{n+1} = 0\). Como \(\lim_{h\to 0} r(h)/h^{n+1} = 0\) por hipótese, concluímos que \(r^{(n+1)}(0)=0\). 
 \end{proof}
 
 \begin{thm} [fórmula de Taylor infinitesimal]
@@ -959,30 +1008,107 @@ A afirmação de que o corpo ordenado \(\R\) é \emph{completo} significa que to
 \begin{defn}
     Seja \(I \subseteq \R\) um intervalo. A função \(f: I \to \R\) chama-se \emph{convexa} quando seu gráfico está sempre abaixo de suas secantes, ou seja, para todo \(a<x<b \in I\) tem-se
     \[
-        f(x) \leq f(a) + \frac{f(b)-f(a)}{b-a} (x-a).
+        f(x) \leq f(a) + \frac{f(b)-f(a)}{b-a} (x-a),
+    \]
+    ou também,
+    \[
+        f(x) \leq f(b) + \frac{f(b)-f(a)}{b-a} (x-b).
+    \]
+    Juntando as duas desigualdades, tem-se
+    \[
+        \frac{f(x)-f(a)}{x-a} \leq \frac{f(b)-f(a)}{b-a} \leq \frac{f(b)-f(x)}{b-x}.
     \]
 \end{defn}
 
+\begin{prop}
+    Se \(f: I \to \R\) é convexa então existem as derivadas laterais \(f_{-}'(c)\) e \(f_{+}'(c)\) para todo \(c \in \operatorname{int} I\).
+\end{prop}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{cor}
+    Uma função convexa \(f: I \to \R\) é contínua em todo ponto interior ao intervalo \(I\).
+\end{cor}
+
+\begin{thm} As seguintes afirmações sobre a função \(f: I \to \R\), derivável no intervalo \(I\), são equivalentes:
+    \begin{enumerate}
+        \item [(1)] \(f\) é convexa;
+        \item [(2)] A derivada \(f' : I \to \R\) é monótona não-decrescente;
+        \item [(3)] Para todo \(a, x \in I\) tem-se \(f(x) \geq f(a) + f'(a)(x-a)\), ou seja, o gráfico de \(f\) está sempre acima de suas tangentes.
+    \end{enumerate}
+\end{thm}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{cor}
+    Todo ponto crítico de uma função convexa é um ponto de mínimo global.
+\end{cor}
+
+\begin{cor}
+    Uma função \(f: I \to \R\), duas vezes derivável no intervalo \(I\), é convexa sse \(f''(x) \geq 0\) para todo \(x \in I\).
+\end{cor}
+
+\begin{defn}
+    Uma função \(f: I \to \R\) é \emph{côncava} quando \(-f\) é convexa, ou seja, quando o gráfico de \(f\) está sempre acima de suas secantes.
+\end{defn}
+
+\begin{defn}
+    Dizemos que uma função \(f: I \to \R\) é \emph{estritamente convexa} (resp. \emph{estritamente côncava}) quando o gráfico de \(f\) está estritamente abaixo (resp. acima) de suas secantes, ou seja, para todo \(a<x<b \in I\) tem-se
+    \[
+        f(x) < f(a) + \frac{f(b)-f(a)}{b-a} (x-a),
+    \]
+    no caso convexo, ou com \(>\) em vez de \(<\) no caso côncavo. Segue que o gráfico de \(f\) não possui trechos retilíneos. Conexidade estrita implica que \(f'\) seja crescente mas não implica \(f''(x)>0\) para todo \(x \in I\) (e.g., \(f: \R \to \R\), dada por \(f(x) = x^4\), é estritamente convexa mas \(f''(0)=0\)).
+\end{defn}
+
+A desigualdade de Jensen generaliza a afirmação de que o gráfico de uma função convexa está abaixo de suas secantes. Com efeito, se \(f: I \to \R\) é convexa então, dados \(x_1, x_2, \ldots, x_n \in I\) e \(t_1, t_2, \ldots, t_n \in [0,1]\) com \(t_1 + t_2 + \cdots + t_n = 1\), vale
+\begin{equation}
+    f(t_1 x_1 + t_2 x_2 + \cdots + t_n x_n) \leq t_1 f(x_1) + t_2 f(x_2) + \cdots + t_n f(x_n).
+\end{equation}
+A prova pode ser feita por indução em \(n\). Usamos este resultado, aplicado à função convexa \(f(x) = e^x\), para mostrar a desigualdade entre a média aritmética e a média geométrica. De fato, com \(t_1 = t_2 = \cdots = t_n = 1/n\) e \(a_1 = \ln x_1, a_2 = \ln x_2, \ldots, a_n = \ln x_n\), vem
+\begin{align*}
+    \sqrt[n]{x_1 x_2 \cdots x_n} = e^{(a_1 + a_2 + \cdots + a_n)/n} & = e^{t_1 a_1 + t_2 a_2 + \cdots + t_n a_n} \\
+    & \leq t_1 e^{a_1} + t_2 e^{a_2} + \cdots + t_n e^{a_n} = \frac{x_1 + x_2 + \cdots + x_n}{n},
+\end{align*}
+ou seja,
+\begin{equation}
+    \sqrt[n]{x_1 x_2 \cdots x_n} \leq \frac{x_1 + x_2 + \cdots + x_n}{n}.
+\end{equation}
+
 \subsection{Aproximações sucessivas e método de Newton}
 
+\begin{defn}
+    Uma função \(f: X \to \R\) chama-se um \emph{contração} quando existe \(k \in [0,1)\) tal que \(\vert f(x)-f(y) \vert \leq k \vert x-y \vert\) para todo \(x, y \in X\).
+\end{defn}
 
-\section{A Integral de Riemann}
-\subsection{Revisão sobre sup e inf}
-\subsection{Integral de Riemann}
-\subsection{Propriedades da integral}
-\subsection{Condições de integrabilidade}
+\begin{thm} [ponto fixo das contrações]
+    Se \(X \subseteq \R\) é fechado então toda contração \(f: X \to X\) tem um único ponto fixo. Mais precisamente, fixando qualquer \(x_0 \in X\), a sequência de aproximações sucessivas \(x_1 = f(x_0)\), \(x_{n+1} = f(x_n)\) converge para o único ponto \(x^* \in X\) tal que \(f(x^*) = x^*\).
+\end{thm}
 
-\section{Cálculo com Integrais}
-\subsection{Os teoremas clássicos do Cálculo Integral}
-\subsection{A integral como limite de somas de Riemann}
-\subsection{Logaritmos e exponenciais}
-\subsection{Integrais impróprias}
+\begin{proof}
+    
+\end{proof}
 
-\section{Sequências e Séries de Funções}
-\subsection{Convergência simples e convergência uniforme}
-\subsection{Séries de potências}
-\subsection{Funções trigonométricas}
-\subsection{Séries de Taylor}
+Uma aplicação das aproximações sucessivas é o \emph{método de Newton} para encontrar valores aproximados de uma raiz da equação \(f(x)=0\). Neste método, tem-se uma função \(f: I \to \R\) de classe \(C^1\) no intervalo \(I\), com \(f'(x)\neq 0\) para todo \(x \in I\), e um chute inicial \(x_0 \in I\). A sequência de aproximações sucessivas é dada por 
+\begin{align}\label{eq:metodo_newton}
+    x_1 & = x_0 - f(x_0)/f'(x_0), \\
+    x_{n+1} &= x_n - f(x_n)/f'(x_n).
+\end{align}
+Se a sequência \((x_n)\) converge para um ponto \(x^* \in I\) então \(f(x^*)=0\) pois, fazendo \(n \to \infty\) em \eqref{eq:metodo_newton}, vem \(x^* = x^* - f(x^*)/f'(x^*)\), donde \(f(x^*)=0\). Observa que as raízes de \(f(x)=0\) são exatamente os pontos fixos da função \(g: I \to \R\) dada por
+\begin{equation}
+    g(x) = x - f(x)/f'(x).
+\end{equation}
+
+\begin{prop}
+    Se \(f: I \to \R\) é de classe \(C^2\) no intervalo \(I\), com \(f'(x)\neq 0\) para todo \(x \in I\), então cada ponto \(x^* \in \operatorname{int} I\) com \(f(x^*)=0\) tem uma vizinhança \(J = [x^*-\delta, x^*+\delta]\) tal que o método de Newton, com chute inicial \(x_0 \in J\), gera uma sequência de aproximações sucessivas que converge para \(x^*\).
+\end{prop}
+
+\begin{proof}
+    
+\end{proof}
 
 \begin{appendix}
 

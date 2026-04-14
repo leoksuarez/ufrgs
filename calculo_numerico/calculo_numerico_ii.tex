@@ -47,7 +47,6 @@ De forma análoga, podemos realizar a expansão de Taylor de \(f\) em torno de \
 onde \begin{equation}
     D^-_h f(x_0) := \frac{f(x_0) - f(x_0-h)}{h}
 \end{equation}
-
 é a \emph{diferença finita regressiva} (ou \emph{atrasada}) de ordem \(1\) para \(f'(x_0)\), que também possui erro de truncamento de ordem \(h\).
 
 \subsubsection{Diferença finita central de ordem 2}
@@ -62,8 +61,9 @@ Isolando \(f'(x_0)\), temos
 \begin{equation}
     f'(x_0) = \frac{f(x_0+h) - f(x_0-h)}{2h} - h^2\left(\frac{f'''(\xi_{+})-f'''(\xi_{-})}{3!}\right),
 \end{equation}
+onde 
 
-onde \begin{equation}
+\begin{equation}
     D^0_h f(x_0) := \frac{f(x_0+h) - f(x_0-h)}{2h}
 \end{equation}
 é a \emph{diferença finita central} de ordem \(2\) para \(f'(x_0)\), que possui erro de truncamento de ordem \(h^2\), ou ordem 2.
@@ -291,10 +291,130 @@ tal que
 \section{Problemas de valor inicial}
 
 \subsection{Rudimentos da teoria de problema de valor inicial}
+
+Uma questão fundamental em matemática aplicada é analisar se uma solução para um problema de valor inicial é útil para predizer o comportamento de um sistema físico ao longo do tempo. Isto é, queremos saber se o problema proposto é \emph{bem posto} (\emph{well-posed}):
+\begin{itemize}
+    \item Existe solução para o PVI?
+    \item A solução é única?
+    \item Quão sensível é a solução a pequenas variações nas condições iniciais?
+\end{itemize}
+
+\begin{defn}
+    Uma função \(f(t,u)\) é \emph{Lipschitz contínua} em um intervalo \(I\) se existe uma constante \(L\) tal que para todo \(t \in I\) e para todo \(u, v \in \R\), tem-se
+    \begin{equation}
+        \vert f(t,u) - f(t,v) \vert \leq L \vert u - v \vert
+    \end{equation}
+\end{defn}
+
+\begin{thm} [Picard-Lindelöf]
+    Seja \(f(t,u)\) contínua em um retângulo \(R = \{(t,u) : t \in [t_0, t_0 + a], u \in [u_0 - b, u_0 + b]\}\) e Lipschitz contínua em \(u\) para cada \(t\). Então, existe um intervalo \([t_0, t_0 + h]\), com \(h \leq a\), tal que o problema de valor inicial
+    \begin{equation}
+        \begin{cases}
+            u' = f(t,u) \\
+            u(t_0) = u_0
+        \end{cases}
+    \end{equation}
+    possui uma única solução \(u(t)\) definida em \([t_0, t_0 + h]\).
+\end{thm}
+
+\begin{thm}
+    Se \(u(t)\) e \(v(t)\) são soluções de \(u' = f(t,u)\) com \(u(t_0) = u_0\) e \(v(t_0) = v_0\), então
+    \begin{equation}
+        \vert u(t) - v(t) \vert \leq \vert u_0 - v_0 \vert e^{L(t-t_0)}
+    \end{equation}
+\end{thm}
+
 \subsection{Método de Euler}
+
+Considere o problema de valor inicial
+\begin{equation}
+    \begin{cases}
+        u' = f(t,u(t)) \\
+        u(t_0) = u_0
+    \end{cases}
+\end{equation}
+
+O \emph{método de Euler} é um método numérico para aproximar a solução \(u(t)\) do problema de valor inicial. A ideia é ver a equação diferencial como uma descrição da taxa de variação de \(u\) em relação a \(t\) e usar essa taxa para construir uma aproximação iterativa da solução, começando a partir do valor inicial \(u_0\) e avançando em pequenos passos de tamanho \(h\). A fórmula de iteração do método de Euler é dada por
+\begin{equation}
+    u_{n+1} = u_n + h f(t_n, u_n)
+\end{equation}
+onde \(t_n = t_0 + nh\) são os pontos de discretização (ou pontos de malha) e \(u_n\) é a aproximação de \(u(t_n)\). O método de Euler é um método explícito, pois a próxima aproximação \(u_{n+1}\) é calculada diretamente a partir da aproximação atual \(u_n\) e da função \(f\).
+
 \subsection{Método de Euler melhorado}
+
+Como visto na subseção anterior, o método de Euler é um método de pouca precisão, o que restringe bastante sua aplicação. Podemos melhorar o método se ao invés de aproximarmos \(f(t,u(t))\) como uma constante igual ao seu valor em \(t=t_n\), aplicarmos a regra do trapézio à integral
+
+\begin{equation}
+    u(t_{n+1}) = u(t_n) + \int_{t_n}^{t_{n+1}} f(t, u(t)) dt = u(t_n) + \frac{h}{2} [f(t_n, u(t_n)) + f(t_{n+1}, u(t_{n+1}))] + \mathcal{O}(h^3),
+\end{equation}
+onde \(h = t_{n+1} - t_n\) é o passo de discretização. Como não conhecemos \(u(t_{n+1})\), podemos usar o método de Euler para obter uma aproximação inicial de \(u(t_{n+1})\) e, em seguida, usar essa aproximação para calcular \(f(t_{n+1}, u_{n+1})\). Então fica
+
+\begin{equation}
+    u_{n+1} \approx u_n + \frac{h}{2} [f(t_n, u_n) + f(t_{n+1}, u_n + h f(t_n, u_n))]
+\end{equation}
+
+Escrevendo \(k_1 = f(t_n, u_n)\) e \(k_2 = f(t_{n+1}, u_n + hk_1)\) como as derivadas de \(u(t)\) nos pontos \(t_n\) e \(t_{n+1}\), o \emph{método de Euler melhorado} (ou \emph{método de Heun}) assume a forma
+
+\begin{equation}
+    \begin{cases}
+        u_{n+1} = u_n + \frac{h}{2} (k_1 + k_2) \\
+        u_0 = u(t_0)
+    \end{cases}
+\end{equation}
+
+O erro de truncamento local \(ETL^{n+1}\) do método de Euler melhorado é dado por
+\begin{equation}
+    ETL^{n+1} = \frac{h^3}{12} u'''(\xi), \quad \xi \in (t_n, t_{n+1}),
+\end{equation}
+o que mostra que o método de Euler melhorado possui erro de ordem \(\mathcal{O}(h^3)\) e, portanto, é um método de ordem \(2\). Pode ser mostrado que o erro de truncamento global é
+\begin{equation}
+    ETG^{n+1} = \mathcal{O}(h^2)
+\end{equation}
+
+\begin{rem}
+    Não se deve concluir que \(ETG = ETL/h\).
+\end{rem}
+
 \subsection{Solução de sistemas de equações diferenciais}
+
+Podemos estender as técnicas estudadas para resolver numericamente sistemas de equações diferenciais ordinárias. Considere o sistema de primeira ordem
+
+\begin{equation}
+    \begin{cases}
+        u_1' = f_1(t, u_1, u_2, \ldots, u_m) \\
+        u_2' = f_2(t, u_1, u_2, \ldots, u_m) \\
+        \vdots \\
+        u_m' = f_m(t, u_1, u_2, \ldots, u_m) \\
+        u_1(t_0) = u_{10} \\
+        u_2(t_0) = u_{20} \\
+        \vdots \\
+        u_m(t_0) = u_{m0}
+    \end{cases}
+\end{equation}
+que pode ser escrito de forma compacta como
+\begin{equation}
+    \begin{cases}
+        u'(t) = F(t, u(t)) \\
+        u(t_0) = u_0
+    \end{cases}
+\end{equation}
+onde \(u(t) = (u_1(t), u_2(t), \ldots, u_m(t))^T\) é o vetor de soluções e \(F(t, u) = (f_1(t, u), f_2(t, u), \ldots, f_m(t, u))^T\) é o vetor de funções que definem o sistema. Então aplicamos as mesmas fórmulas de iteração do método de Euler para cada componente do vetor \(u(t)\). Fazendo
+
+\begin{equation}
+    k_1 = F(t_n, u_n), \quad k_2 = F(t_{n+1}, \tilde{u}_{n+1})
+\end{equation}
+onde \(\tilde{u}_{n+1} = u_n + hk_1\) é a aproximação de \(u(t_{n+1})\) obtida pelo método de Euler. Assim, o método de Euler melhorado para sistemas de equações diferenciais é dado por
+\begin{equation}
+    \begin{cases}
+        u_{n+1} = u_n + \frac{h}{2} (k_1 + k_2) \\
+        u_0 = u(t_0)
+    \end{cases}
+\end{equation}
+
 \subsection{Solução de equações e sistemas de ordem superior}
+
+
+
 \subsection{Erro de truncamento}
 \subsection{Métodos de Runge-Kutta explícitos}
 \subsection{Métodos de Runge-Kutta implícitos}

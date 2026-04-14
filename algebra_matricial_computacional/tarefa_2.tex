@@ -1,0 +1,274 @@
+\documentclass{article}
+\usepackage{macros, booktabs}
+\title{Tarefa 2 - MAT01050}
+\author{Leonardo Suarez}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\begin{prblm}
+    Utilizando a transformação de Householder juntamente com substituição para trás, apresente um programa em \texttt{MATLAB} ou \texttt{Scilab} para resolução do sistema \(Ax=b\) sendo
+    \begin{enumerate}
+        \item [(a)] \(A\): a matriz de Hilbert de ordem \(10\);
+        \item [(b)] \(A\): a matriz de Hilbert de ordem \(20\);
+        \item [(c)] \(A\): uma matriz gerada randomicamente de ordem \(20\).
+    \end{enumerate}
+    Em todos os casos, use o vetor \(b\) tal que a solução exata seja o vetor de uns. Apresente uma tabela comparativa de resultados, mostrando a solução computada, o erro relativo e a norma do resíduo. Comente os resultados obtidos.
+\end{prblm}
+
+\begin{proof}[Solução]
+    Abaixo seguem os códigos em \texttt{Scilab} utilizados. O primeiro zera todos os elementos abaixo do elemento \(a_{11}\) de uma matriz \(A\) por meio de uma reflexão de Householder. O segundo computa a decomposição \(QR\) de uma matriz \(A\) usando reflexões de Householder. O último resolve o sistema linear \(Ax=b\) dada a decomposição \(QR\) de \(A\) e o vetor \(b\).
+
+    \begin{lstlisting}[language=Scilab, caption=Zerando entradas na primeira coluna de uma matriz usando uma reflexão de Householder, label=lst:hzero1]
+        function [A,u] = hzero1(A)
+            // zero out all elements below a_11 in matrix A by a Householder reflection H_u
+            // input: m x n matrix A
+            // output: m x n matrix A implicitly premultiplied by H_u and Householder vector u that defines the hyperplane about which x is reflected
+            
+            x = A(:,1);
+            colmax = max(abs(x));
+            x = x/colmax; // normalize x to minimize cancellation errors
+            colnorm = norm(x,2);
+            u = x;
+            
+            // construct Householder vector u
+            if u(1) >= 0 then
+                u(1) = u(1) + colnorm;
+            else
+                u(1) = u(1) - colnorm; 
+            end
+            
+            // implicitly form H_uA
+            unorm = norm(u,2);
+            if unorm ~= 0 then
+                beta = 2/(unorm^2);
+            else
+                beta = 0;
+            end
+            A = A - (beta*u)*(u'*A);
+        endfunction
+    \end{lstlisting}
+
+    \begin{lstlisting}[language=Scilab, caption=Decomposição QR de Householder]
+        function [Q,R] = householderqr(A)
+            // compute the QR decomposition of matrix A using Householder reflections
+            // input: m x n matrix A
+            // output: m x m matrix Q and m x n upper-triangular matrix R such that A=QR
+            R = A;
+            [m,n] = size(A)
+            Q = eye(m,m);
+            k = min(m-1,n);
+            
+            for i = 1:k
+                [R(i:m,i:n),u] = hzero1(R(i:m,i:n));
+                Q(1:m,i:m) = Q(1:m,i:m) - (2/norm(u,2)^2)*(Q(1:m,i:m)*u)*u';
+            end
+        endfunction
+    \end{lstlisting}
+
+    \begin{lstlisting}[language=Scilab, caption={Resolução de \(Ax=b\) usando decomposição QR de Householder}]
+        function [x] = hhsolve(Q,R,b)
+            // solve Ax=b given QR decomposition by Householder reflections
+            // write Ax=b -> (QR)x=b -> Rx=Q^Tb=y, which is then solved by back-substitution
+            // input: m x m orthogonal matrix Q, m x n upper-triangular matrix R, m x 1 vector b
+            // output: n x 1 solution vector x
+            y = Q'*b;
+            n = size(R,2);
+            x = zeros(n,1); // initialize solution vector
+            x(n) = y(n) / R(n,n);
+            
+            for j = n-1:-1:1
+                x(j) = (y(j) - R(j,j+1:n)*x(j+1:n)) / R(j,j);
+            end
+        endfunction
+    \end{lstlisting}
+
+    \begin{itemize}
+        \item [(a)] Geramos a matriz de Hilbert de ordem \(10\) usando a função \texttt{hilbm}, e obtemos o vetor \(b\) multiplicando \(A\) pelo vetor de uns. A solução computada \(x_{\text{hh}}\), o erro relativo \(\Vert x - x_{\text{hh}} \Vert_2 / \Vert x \Vert_2\) e o resíduo relativo \(\Vert A x_{\text{hh}} - b \Vert_2 / \Vert b \Vert_2\) são apresentados abaixo.
+            \begin{lstlisting}[language=Scilab, caption={Solução de \(Ax=b\) para \(A\) sendo a matriz de Hilbert de ordem 10}]
+                --> A = hilbm(10);
+                --> x = ones(10,1);
+                --> b = A*x;
+                --> [Q,R] = householderqr(A);
+                --> x_hh = hhsolve(Q,R,b)
+
+                x_hh = [10x1 double]
+
+                1.0000000
+                1.0000002
+                0.9999957
+                1.0000374
+                0.9998265
+                1.0004654
+                0.9992521
+                1.0007098
+                0.9996332
+                1.0000796
+
+                --> norm(x-x_hh,2) / norm(x,2)
+
+                ans = 
+
+                3.811D-04
+
+                --> norm(A*x_hh-b,2) / norm(b,2)
+
+                ans = 
+
+                4.956D-16
+            \end{lstlisting}
+        \item [(b)] Procedemos de forma análoga ao item (a), mas agora com a matriz de Hilbert de ordem \(20\).
+            \begin{lstlisting}[language=Scilab, caption={Solução de \(Ax=b\) para \(A\) sendo a matriz de Hilbert de ordem 20}]
+                --> A = hilbm(20);
+                --> x = ones(20,1);
+                --> b = A*x;
+                --> [Q,R] = householderqr(A);
+                --> x_hh = hhsolve(Q,R,b)
+
+                 x_hh = [20x1 double]
+
+                0.9999999
+                1.0000094
+                0.9997613
+                1.0007986
+                1.0336614
+                0.5270355
+                3.7978987
+                -7.4901572
+                11.862756
+                9.8569788
+                -46.938380
+                47.722438
+                31.006309
+                -81.392266
+                8.0181397
+                104.61935
+                -106.59523
+                40.728166
+                0.2934896
+                -1.0507570
+
+                --> norm(x-x_hh,2) / norm(x,2)
+
+                ans = 
+
+                4.266D+01
+
+                --> norm(A*x_hh-b,2) / norm(b,2)
+
+                ans = 
+
+                1.087D-15
+            \end{lstlisting}
+        \item [(c)] Usamos o comando \texttt{rand(20,20)} para gerar uma matriz \(A\) de tamanho \(20 \times 20\) com entradas aleatórias uniformemente distribuídas entre \(0\) e \(1\), e o vetor \(b\) é novamente obtido multiplicando \(A\) pelo vetor de uns. 
+            \begin{lstlisting}[language=Scilab, caption={Solução de \(Ax=b\) para \(A\) sendo uma matriz gerada randomicamente de ordem 20}]
+                --> A = rand(20,20);
+                --> x = ones(20,1);
+                --> b = A*x;
+                --> [Q,R] = householderqr(A);
+                --> x_hh = hhsolve(Q,R,b)
+
+                x_hh = [20x1 double]
+
+                1.0000000
+                1.0000000
+                1.0000000
+                1.0000000
+                1.0000000
+                1.0000000
+                1.0000000
+                1.0000000
+                1.0000000
+                1.0000000
+                1.0000000
+                1.0000000
+                1.0000000
+                1.
+                1.0000000
+                1.0000000
+                1.0000000
+                1.0000000
+                1.0000000
+                1.0000000
+
+                --> norm(x-x_hh,2) / norm(x,2)
+
+                ans = 
+
+                2.461D-14
+
+                --> norm(A*x_hh-b,2) / norm(b,2)
+
+                ans = 
+
+                5.510D-16
+            \end{lstlisting}
+    \end{itemize}
+
+    Apresentamos os resultados obtidos em uma tabela comparativa abaixo (na próxima página).
+    \begin{table}[h]
+        \centering
+        \caption{Resultados obtidos para a solução de \(Ax=b\) usando decomposição QR de Householder}
+        \begin{tabular}{cccc}
+            \toprule
+            Matriz \(A\) & Solução computada \(x_{\text{hh}}\) & Erro relativo & Resíduo relativo \\
+            \midrule
+            Hilbert de ordem 10 & \(x_{\text{hh}} = \begin{bmatrix}
+                1.0000000 \\
+                1.0000002 \\
+                0.9999957 \\
+                1.0000374 \\
+                0.9998265 \\
+                1.0004654 \\
+                0.9992521 \\
+                1.0007098 \\
+                0.9996332 \\
+                1.0000796
+            \end{bmatrix}\) & \(3.811 \times 10^{-4}\) & \(4.956 \times 10^{-16}\) \\
+            \addlinespace
+            Hilbert de ordem 20 & \(x_{\text{hh}} = \begin{bmatrix}
+                0.9999999 \\
+                1.0000094 \\
+                0.9997613 \\
+                1.0007986 \\
+                1.0336614 \\
+                0.5270355 \\
+                3.7978987 \\
+                -7.4901572 \\
+                11.862756 \\
+                9.8569788 \\
+                -46.938380 \\
+                47.722438 \\
+                31.006309 \\
+                -81.392266 \\
+                8.0181397 \\
+                104.61935 \\
+                -106.59523 \\
+                40.728166 \\
+                0.2934896 \\
+                -1.0507570
+            \end{bmatrix}\) & \(4.266 \times 10^{+1}\) & \(1.087 \times 10^{-15}\) \\
+            \addlinespace
+            Matriz randômica de ordem 20 & \(x_{\text{hh}} = \begin{bmatrix}
+                1.0000000 \\
+                \vdots \\
+                1.0000000
+            \end{bmatrix}\) & \(2.461 \times 10^{-14}\) & \(5.510 \times 10^{-16}\) \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+
+    Observa que a solução computada para a matriz de Hilbert \(10 \times 10\) ainda é próxima da solução exata, com um erro relativo \(\mathcal{O}(10^{-4})\) e um resíduo relativo \(\mathcal{O}(10^{-16})\). Apesar de o número de condicionamento \(\kappa(A_{10}) = \mathcal{O}(10^{13})\) ser alto, a precisão dupla permite obter resultados razoáveis, conforme a desigualdade \eqref{des:erro_relativo}. No entanto, para a matriz de Hilbert \(20 \times 20\), a solução computada apresenta um erro relativo muito grande, da ordem de \(10^{1}\), apesar de o resíduo relativo ainda ser próximo do épsilon de máquina. Isso acontece porque o número de condicionamento \(\kappa(A_{20}) = 1.163 \times 10^{18}\) dessa matriz é \(\mathcal{O}(10^{18})\), o que impossibilita obter até mesmo um dígito significativo correto na solução. Além disso, a relação
+
+    \begin{equation}\label{des:erro_relativo}
+        \frac{\Vert x - x_{\text{hh}} \Vert_2}{\Vert x \Vert_2} \leq \kappa(A) \frac{\Vert A x_{\text{hh}} - b \Vert_2}{\Vert b \Vert_2}
+    \end{equation}
+    mostra que o erro relativo é limitado superiormente pelo produto do número de condicionamento da matriz \(A\) e do resíduo relativo, isto é, \[
+    \frac{\Vert x - x_{\text{hh}} \Vert_2}{\Vert x \Vert_2} \leq 1.163 \times 10^{18} \times 1.087 \times 10^{-15} \approx 1.264 \times 10^{3}
+    \] 
+    Assim, embora o \emph{algoritmo} de Householder seja regressivamente estável (backward stable), vide o resíduo relativo estar no limite da precisão dupla em todos os três casos, o \emph{problema} \(Ax=b\) para \(A\) sendo a matriz de Hilbert de ordem \(20\) é extremamente mal condicionado, o que resulta em um erro relativo grande. Por outro lado, para a matriz gerada randomicamente, a solução computada é muito próxima da solução exata, com um erro relativo da ordem de \(10^{-14}\) e um resíduo relativo da ordem de \(10^{-16}\), indicando que a solução obtida é satisfatória e o sistema linear é bem condicionado (de fato, \(\kappa(A_{\text{rand}}) = 2.374 \times 10^{2}\)).
+
+\end{proof}
+
+\end{document}

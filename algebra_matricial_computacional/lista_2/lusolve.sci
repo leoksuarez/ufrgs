@@ -1,7 +1,7 @@
 function [x] = lusolve(L,U,P,b)
     // solve linear system given LU decomposition
-    // Input: lower-triangular matrix L, upper-triangular matrix U, permutation matrix P, and vector b
-    // Output: solution vector x
+    // input: lower-triangular matrix L, upper-triangular matrix U, permutation matrix P, and vector b
+    // output: solution vector x
     n = size(b,1);
     
     b = P*b; // perform same row exchanges from LU factorization in the vector b

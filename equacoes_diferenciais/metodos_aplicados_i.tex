@@ -1,47 +1,50 @@
 \documentclass{article}
-\usepackage{fontspec}
-\setmainfont{Libertinus Serif}
-\usepackage{amsmath, amssymb, amsfonts, hyperref, amsthm, mathtools}
-\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{macros}
 \usepackage{multicol}
-
-\theoremstyle{plain}
-\newtheorem{thm}{Theorem}[section]
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{cor}[thm]{Corollary}
-\newtheorem{res}[thm]{Result}
-
-\theoremstyle{definition}
-\newtheorem{defn}{Definition}[section]
-\newtheorem{exmp}[defn]{Example}
-
-\theoremstyle{remark}
-\newtheorem*{rem}{Remark}
+\title{Notas de aula - MAT01009}
+\author{Leonardo Suarez}
+\date{Julho de 2025}
 
 \begin{document}
+\maketitle
 
-\begin{center}
-    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
-    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
-    \vspace{3cm}
-    \textbf{\Large A FIRST COURSE ON DIFFERENTIAL EQUATIONS WITH MODELING APPLICATION BY DENNIS G. ZILL (10e)} \\
-    \vspace{1cm}
-    \textbf{\large LIST OF DEFINITIONS AND RESULTS} \\
-    \vspace{3cm}
-    
-    \author{Leonardo Suarez}
-    
-    \vfill
-    \textbf{\large Porto Alegre, RS} \\
-    \textbf{\large\today} \\
-\end{center}\newpage
+Notas de aula da disciplina de Métodos Aplicados de Matemática I, ministrada pelo prof. Jean Carlo Pech Moraes no semestre 25/1.
 
-\newpage
 \tableofcontents
-\newpage
 
 \section{Introduction to Differential Equations}
+
+\subsection{Definitions and terminology}
+
+\begin{defn}
+    An equation containing the derivatives of one or more unknown functions (or dependent variables) with respect to one or more independent variables is called a \emph{differential equation} (\emph{DE}).
+\end{defn}
+
+If a differential equations contains only ordinary derivatives of one or more unknown functions with respect to a single independent variable, then the equation is called an \emph{ordinary} differential equation (\emph{ODE}). If a differential equation contains partial derivatives of one or more unknown functions with respect to two or more independent variables, then the equation is called a \emph{partial} differential equation (\emph{PDE}).
+
+The \emph{order} of a differential equation is the order of the highest derivative that appears in the equation. A \emph{first-order} differential equation contains only first derivatives, a \emph{second-order} differential equation contains second derivatives, and so on. We can express an \(n\)th-order ordinary differential equation by the general form
+\begin{equation}
+    F(x, y, y', y'', \ldots, y^{(n)}) = 0
+\end{equation}
+where \(F\) is a real-valued function of \(n+2\) variables: \(x\), \(y\), \(y'\), \(y''\), \ldots, \(y^{(n)}\). We'll assume it's possible to solve for the highest-order derivative, so we can write the equation in the \emph{normal }form
+\begin{equation}
+    \frac{d^n y}{dx^n} = f(x, y, y', y'', \ldots, y^{(n-1)}).
+\end{equation}
+where \(f\) is a real-valued continuous function.
+
+An \(n\)th-order ordinary differential equation is said to be \emph{linear} if \(F\) is linear in \(y\), \(y'\), \(y''\), \ldots, \(y^{(n)}\). That is, if the equation can be written in the form
+\begin{equation}
+    a_n(x) \frac{d^n y}{dx^n} + a_{n-1}(x) \frac{d^{n-1} y}{dx^{n-1}} + \cdots + a_1(x) \frac{dy}{dx} + a_0(x)y = g(x)
+\end{equation}
+where \(a_n(x), a_{n-1}(x), \ldots, a_0(x)\) and \(g(x)\) are functions of \(x\) alone. If the equation is not linear, then it's called \emph{nonlinear}, that is, if nonlinear functions of the dependent variable \(y\) or its derivatives, such as \(\sin(y)\) or \(e^y\), appear in the equation.
+
+\begin{defn}
+    Any function \(\phi\), defined on an interval \(I\) and possessing at least \(n\) derivatives that are continuous on \(I\), which when substituted into the equation reduces it to an identity, is called a \emph{solution} of the differential equation on \(I\).
+
+    The interval \(I\) is called the \emph{interval of definition}, or \emph{interval of existence}, or \emph{interval of validity}, or \emph{domain of the solution} \(\phi\).
+\end{defn}
+
+\subsection{Initial-value problems}
 
 \begin{thm} (existence of a unique solution).
     Let \(R\) be a rectangular region in the \(xy\)-plane defined by \(a \leq x \leq b\), \(c \leq y \leq d\) that contains the point \(\left(x_0, y_0\right)\) in its interior. If \(f(x,y)\) and \(\partial{f}/\partial{y}\) are continuous on \(R\), then there exists some interval \(I_0: (x_0 - h, x_0 + h)\), \(h > 0\), contained in \([a, b]\), and a unique function \(y(x)\) defined on \(I_0\), that is a solution of the initial-value problem. 
@@ -49,29 +52,72 @@
 
 \section{First-Order Differential Equations}
 
-\noindent\textbf{Theorem 2.4.1} (\emph{Criterion for an Exact Differential}) Let \(M(x,y)\) and \(N(x,y)\) be continuous and have continuous partial derivatives on a rectangle \(R\) in the \(xy\)-plane. Then a necessary and sufficient condition that \(M(x,y)dx + N(x,y)dy\) be an exact differential is
+\subsection{Solution curves without a solution}
+\subsection{Separable equations}
 
-\begin{equation}
-    \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}
-\end{equation}
+\begin{defn}
+    A first-order differential equation of the form
+    \begin{equation}
+        \frac{dy}{dx} = g(x)h(y)
+    \end{equation}
+    is called a \emph{separable} first-order equation or to have \emph{separable variables}.
+\end{defn}
+
+\subsection{Linear equations}
+
+\begin{defn}
+    A first-order differential equation of the form
+    \begin{equation}
+        a_1(x) \frac{dy}{dx} + a_0(x)y = g(x)
+    \end{equation}
+    is called a \emph{linear} first-order equation in \(y\).
+\end{defn}
+
+\begin{tcolorbox}[title={Solving a linear first-order equation}]
+    \begin{enumerate}
+        \item [(i)] put a linear first-order equation in standard form \[\frac{dy}{dx} + P(x)y = f(x),\]
+        \item [(ii)] find the integrating factor \(\mu(x) = e^{\int P(x)dx}\). there's no need to use a constant of integration here,
+        \item [(iii)] multiply the equation by \(\mu(x)\) to obtain \(\frac{d}{dx} \left[\mu(x)y\right] = \mu(x)f(x)\),
+        \item [(iv)] integrate both sides to obtain \(\mu(x)y = \int \mu(x)f(x)dx + C\),
+    \end{enumerate}
+\end{tcolorbox}
+
+\subsection{Exact equations}
+
+\begin{defn}
+    A differential expression \(M(x,y)dx + N(x,y)dy\) is said to be an \emph{exact differential} in a region \(R\) if there exists a function \(\psi(x,y)\) such that \(d\psi = M(x,y)dx + N(x,y)dy\) for every point \((x,y)\) in \(R\). A first-order differential equation
+    \[
+        M(x,y)dx + N(x,y)dy = 0
+    \]
+    is called an \emph{exact equation} if the expression \(M(x,y)dx + N(x,y)dy\) is an exact differential.
+\end{defn}
+
+\begin{thm} [criterion for exact differential]
+    Let \(M(x,y)\) and \(N(x,y)\) be continuous and have continuous partial derivatives on a rectangle \(R\) in the \(xy\)-plane. Then a necessary and sufficient condition that \(M(x,y)dx + N(x,y)dy\) be an exact differential is
+        \begin{equation}
+            \frac{\partial M}{\partial y} = \frac{\partial N}{\partial x}
+        \end{equation}
+\end{thm}
+
+\subsection{Solutions by substitutions}
 
 \section{Higher-Order Differential Equations}
 
-\begin{thm} (existence of a unique solution).
+\subsection{Theory of linear equations}
+
+\begin{thm} [existence of a unique solution]
 Let \(a_n(x), a_{n-1}(x), \ldots, a_0(x)\) and \(g(x)\) be continuous on an interval \(I\) and let \(a_n(x)\neq 0\) for every \(x\) in \(I\). If \(x = x_0\) is any point in \(I\), then a solution \(y(x)\) of the initial-value problem exists on \(I\) and is unique.
 \end{thm}
 
-\begin{thm} (superposition principle—homogeneous equations).
+\begin{thm} [superposition principle—homogeneous equations]
     Let \(y_1(x), y_2, \ldots, y_k(x)\) be solutions of a homogeneous \(n\)-th order linear differential equation. Then the linear combination
-
-\begin{equation}
-    y(x) = c_1y_1(x) + c_2y_2(x) + \cdots + c_ky_k(x),
-\end{equation}
-
-\noindent where \(c_i\), \(i = 1, 2, \ldots, k\) are arbitrary constants, is also a solution of the equation.
+    \begin{equation}
+        y(x) = c_1y_1(x) + c_2y_2(x) + \cdots + c_ky_k(x),
+    \end{equation}
+    where \(c_i\), \(i = 1, 2, \ldots, k\) are arbitrary constants, is also a solution of the equation.
 \end{thm}
 
-\begin{thm} (criterion for linearly independent solutions).
+\begin{thm} [criterion for linearly independent solutions]
     Let \(y_1(x), y_2(x), \ldots, y_n(x)\) be \(n\) solutions of a homogeneous \(n\)-th order linear differential equation on an interval \(I\). Then the set of solutions is linearly independent on \(I\) iff the Wronskian \(W(y_1, y_2, \ldots, y_n) \neq 0\) for every \(x\) in \(I\), where
     \begin{equation}
         W(y_1, y_2, \ldots, y_n) = \begin{vmatrix}
@@ -83,12 +129,11 @@ Let \(a_n(x), a_{n-1}(x), \ldots, a_0(x)\) and \(g(x)\) be continuous on an inte
     \end{equation}
 \end{thm}
 
-\begin{thm} (existence of a fundamental set).
+\begin{thm} [existence of a fundamental set]
     There exists a fundamental set of solutions for the homogeneous \(n\)-th order linear differential equation on an interval \(I\).
-    
 \end{thm}
 
-\begin{thm} (general solution—homogeneous equations).
+\begin{thm} [general solution—homogeneous equations]
     Let \(y_1(x), y_2(x), \ldots, y_n(x)\) be a fundamental set of solutions of a homogeneous \(n\)-th order linear differential equation on an interval \(I\). Then the \emph{general solution} of the equation on the interval is given by
     \begin{equation}
         y = c_1y_1(x) + c_2y_2(x) + \cdots + c_ny_n(x),
@@ -96,7 +141,7 @@ Let \(a_n(x), a_{n-1}(x), \ldots, a_0(x)\) and \(g(x)\) be continuous on an inte
     where the \(c_i\), \(i = 1, 2, \ldots, n\) are arbitrary constants.
 \end{thm}
 
-\begin{thm} (general solution--nonhomogeneous equations).
+\begin{thm} [general solution--nonhomogeneous equations]
     Let \(y_p(x)\) be any particular solution of a nonhomogeneous \(n\)-th order linear differential equation on an interval \(I\) and let \(y_1, y_2, \ldots, y_n\) be a fundamental set of solutions of the associated homogeneous equation on the same interval. Then the \emph{general solution} of the nonhomogeneous equation on the interval is given by
     \begin{equation}
         y = c_1y_1(x) + c_2y_2(x) + \cdots + c_ny_n(x) + y_p(x),
@@ -104,48 +149,53 @@ Let \(a_n(x), a_{n-1}(x), \ldots, a_0(x)\) and \(g(x)\) be continuous on an inte
     where the \(c_i\), \(i = 1, 2, \ldots, n\) are arbitrary constants.
 \end{thm}
 
-\begin{thm} (superposition principle—nonhomogeneous equations).
+\begin{thm} [superposition principle—nonhomogeneous equations]
     Let \(y_{p1}, y_{p2}, \ldots, y_{pk}\) be \(k\) particular solutions of a nonhomogeneous \(n\)-th order linear differential equation on an interval \(I\) corresponding, in turn, to \(k\) distinct functions \(g_1(x), g_2(x), \ldots, g_k(x)\). That is, suppose \(y_{pi}\) denotes a particular solution of the corresponding differential equation
     \begin{equation}
         a_n(x)y^{(n)} + a_{n-1}(x)y^{(n-1)} + \cdots + a_0(x)y = g_i(x), \quad i = 1, 2, \ldots, k.
     \end{equation}
-    
-    \noindent then
+    then
     
     \begin{equation}
         y_p(x) = y_{p1}(x) + y_{p2}(x) + \cdots + y_{pk}(x)
     \end{equation}
-    
-    \noindent is a particular solution of
+    is a particular solution of
     
     \begin{equation}
         a_n(x)y^{(n)} + a_{n-1}(x)y^{(n-1)} + \cdots + a_0(x)y = g_1(x) + g_2(x) + \cdots + g_k(x).
     \end{equation}
 \end{thm}
 
-\begin{thm} (reduction of order).
+\subsection{Reduction of order}
+
+\begin{thm} [reduction of order]
     Let \(y_1(x)\) be a solution of the homogeneous \(n\)-th order linear differential equation on an interval \(I\) and that \(y_1(x) \neq 0\) for all \(x\) in \(I\). Then
     \begin{equation}
         y_2(x) = y_1(x) \int \frac{e^{-\int P(x)dx}}{y_1^2(x)}dx
     \end{equation}
+    is a second solution of the equation on the interval.
+\end{thm}
 
-    \noindent is a second solution of the equation on the interval.
-\end{thm} 
+\subsection{Homogeneous linear equations with constant coefficients}
+\subsection{Undetermined coefficients - superposition approach}
+\subsection{Variation of parameters}
+\subsection{Cauchy-Euler equations}
 
 \section{The Laplace Transform}
 
-\begin{defn} (Laplace transform). 
+\subsection{Definition of the Laplace transform}
+
+\begin{defn} [Laplace transform]
     Let \(f\) be a function defined on \([0,\infty)\). Then the function \(F\) defined by
 
     \begin{equation}
         \mathcal{L} \{f(t)\} = F(s) = \int_0^\infty e^{-st} f(t) dt
     \end{equation}
-
-    \noindent is said to be the \emph{Laplace transform} of \(f\). The domain of \(F\) is the set of all \(s\) for which the improper integral converges.
+    is said to be the \emph{Laplace transform} of \(f\). The domain of \(F\) is the set of all \(s\) for which the improper integral converges.
 
 \end{defn}
 
-\begin{thm} (transforms of some basic functions).
+\begin{thm} [transforms of some basic functions]
     \begin{multicols}{2}
     \begin{itemize}
         \item [(a)] \(\displaystyle\mathcal{L} \{1\} = \frac{1}{s}\)
@@ -159,19 +209,21 @@ Let \(a_n(x), a_{n-1}(x), \ldots, a_0(x)\) and \(g(x)\) be continuous on an inte
     \end{multicols}    
 \end{thm}
 
-\begin{defn} (exponential order).
+\begin{defn} [exponential order]
     A function \(f\) defined on \([0, \infty)\) is said to be of \emph{exponential order} as \(t\to\infty\) if there exist constants \(c\), \(M > 0\), and \(T > 0\) such that \(\vert f(t) \vert \leq M e^{ct}\) for all \(t > T\). If \(f\) is of exponential order, then the Laplace transform \(\mathcal{L} \{f(t)\} \leq Me^{ct}\) for all \(t > T\).
 \end{defn}
 
-\begin{thm} (sufficient conditions for existence).
+\begin{thm} [sufficient conditions for existence]
     If \(f\) is piecewise continuous on \([0, \infty)\) and of exponential order as \(t \to \infty\), then the Laplace transform \(\mathcal{L} \{f(t)\}\) exists for all \(s > c\), where \(c\) is a constant such that \(\vert f(t) \vert \leq Me^{ct}\) for all \(t > T\).
 \end{thm}
 
-\begin{thm} (behavior as \(F(s)\) as \(s \to \infty\)).
+\begin{thm} [behavior as \(F(s)\) as \(s \to \infty\)]
     If \(f\) is piecewise continuous on \([0, \infty)\) and of exponential order as \(t \to \infty\) and \(\mathcal{L} \{f(t)\} = F(s)\), then \(\displaystyle\lim_{s \to \infty} F(s) = 0\).
 \end{thm}
 
-\begin{thm} (some inverse transforms).
+\subsection{Inverse transforms and transforms of derivatives}
+
+\begin{thm} [some inverse transforms].
     \begin{multicols}{2}
     \begin{itemize}
         \item [(a)] \(\displaystyle\mathcal{L}^{-1} \left\{ \frac{1}{s} \right\} = 1\)
@@ -185,55 +237,59 @@ Let \(a_n(x), a_{n-1}(x), \ldots, a_0(x)\) and \(g(x)\) be continuous on an inte
     \end{multicols}
 \end{thm}
 
-\begin{thm} (transform of a derivative). 
+\begin{thm} [transform of a derivative] 
     Suppose \(f\), \(f'\), \ldots, \(f^{n-1}\) are continuous on \([0, \infty)\), and \(f\), \(f'\), \ldots, \(f^{n-1}\) are of exponential order as \(t \to \infty\). Then for \(s > c\),
     
     \begin{equation}
         \mathcal{L} \{f^{(n)}(t)\} = s^n F(s) - s^{n-1} f(0) - s^{n-2} f'(0) - \ldots - f^{(n-1)}(0)
     \end{equation}
-
-    \noindent where \(F(s) = \mathcal{L} \{f(t)\}\).
+    where \(F(s) = \mathcal{L} \{f(t)\}\).
 \end{thm}
 
-\begin{thm} (first translation theorem).
+\subsection{Operational properties I}
+
+\begin{thm} [first translation theorem]
     If \(\mathcal{L} \{f(t)\} = F(s)\) exists for \(s > c\) and \(a\) is any real rumber, then
     \begin{equation}
         \mathcal{L} \{e^{at} f(t)\} = F(s-a)
     \end{equation}
-
-    \noindent for \(s > c + a\).
+    for \(s > c + a\).
 \end{thm}
 
-\begin{thm} (second translation theorem).
+\begin{thm} [second translation theorem]
     If \(\mathcal{L} \{f(t)\} = F(s)\) exists for \(s > c \geq 0\), and \(a\) is a positive constant, then
     \begin{equation}
         \mathcal{L} \{f(t-a)\ \mathcal{U}(t-a)\} = e^{-as}F(s)
     \end{equation}
-    \noindent for \(s > c\).
+    for \(s > c\).
 \end{thm}
 
-\begin{thm} (derivatives of transforms).
+\subsection{Operational properties II}
+
+\begin{thm} [derivatives of transforms]
     If the function \(f\) is piecewise continuous on \([0,\infty)\), of exponential order and \(\mathcal{L} \{f(t)\} = F(s)\), then for \(n = 1, 2, 3, \ldots\) and \(s > c\),
     \begin{equation}
         \mathcal{L} \{t^n f(t)\} = (-1)^n\frac{d^n}{ds^n} F(s).
     \end{equation}
 \end{thm}
 
-\begin{thm} (convolution theorem).
+\begin{thm} [convolution theorem]
     If the functions \(f\) and \(g\) are piecewise continuous on \([0,\infty)\), of exponential order and \(\mathcal{L} \{f(t)\} = F(s)\), \(\mathcal{L} \{g(t)\} = G(s)\), then for \(s > c\),
     \begin{equation}
         \mathcal{L} \{f*g\} = \mathcal{L} \{f(t)\} \mathcal{L} \{g(t)\} = F(s)G(s).
     \end{equation}
 \end{thm}
 
-\begin{thm} (transform of a periodic function).
+\begin{thm} [transform of a periodic function]
     If \(f\) is piecewise continuous \([0,\infty)\), of exponential order, and periodic with period \(T\), then
     \begin{equation}
         \mathcal{L} \{f(t)\} = \frac{1}{1-e^{-sT}} \int_0^T e^{-st} f(t) dt.
     \end{equation}
 \end{thm}
 
-\begin{thm} (transform of the dirac delta function).
+\subsection{The Dirac-Delta function}
+
+\begin{thm} [transform of the dirac delta function]
     For \(t_0 > 0\),
     \begin{equation}
         \mathcal{L} \{\delta(t - t_0)\} = e^{-st_0}.
@@ -242,7 +298,9 @@ Let \(a_n(x), a_{n-1}(x), \ldots, a_0(x)\) and \(g(x)\) be continuous on an inte
 
 \section{Systems of Linear Differential Equations}
 
-\begin{defn} (solution vector).
+\subsection{Theory of linear systems}
+
+\begin{defn} [solution vector]
     A \emph{solution vector} on an interval \(I\) is any column matrix
     \begin{equation}
         \mathbf{X} = \begin{pmatrix}
@@ -252,23 +310,23 @@ Let \(a_n(x), a_{n-1}(x), \ldots, a_0(x)\) and \(g(x)\) be continuous on an inte
             x_n(t)
         \end{pmatrix}
     \end{equation}
-    \noindent whose entries are differentiable functions satisfying the system \(\mathbf{X'} = \mathbf{AX} + \mathbf{F}\) on the interval.
+    whose entries are differentiable functions satisfying the system \(\mathbf{X'} = \mathbf{AX} + \mathbf{F}\) on the interval.
 \end{defn}
 
-\begin{thm} (existence of a unique solution).
+\begin{thm} [existence of a unique solution]
     Let the entries of the matrices \(\mathbf{A}(t)\) and \(\mathbf{F}(t)\) be functions continuous on a common interval \(I\) that contains the point \(t_0\). Then there exists a unique solution of the initial-value problem \(\mathbf{X'} = \mathbf{A}(t)\mathbf{X} + \mathbf{F}(t)\), \(\mathbf{X}(t_0) = \mathbf{X_0}\) on the interval.
 \end{thm}
 
-\begin{thm} (superposition principle).
+\begin{thm} [superposition principle]
     Let \(\mathbf{X}_1\), \(\mathbf{X}_2\), \(\ldots\), \(\mathbf{X}_k\) be a set of solution vectors of the nonhomogeneous system \(\mathbf{X'} = \mathbf{A}\mathbf{X} + \mathbf{F}\) on an interval \(I\). Then the linear combination
     \begin{equation}
         \mathbf{X} = c_1\mathbf{X}_1 + c_2\mathbf{X}_2 + \cdots + c_k\mathbf{X}_k,
     \end{equation}
-    \noindent where \(c_i\), \(i = 1, 2, \ldots, k\) are arbitrary constants, is also a solution of the system on the interval.
+    where \(c_i\), \(i = 1, 2, \ldots, k\) are arbitrary constants, is also a solution of the system on the interval.
     
 \end{thm}
 
-\begin{thm} (criterion for linearly independent solutions).
+\begin{thm} [criterion for linearly independent solutions]
     Let \(\mathbf{X}_1\), \(\mathbf{X}_2\), \(\ldots\), \(\mathbf{X}_n\) be \(n\) solution vectors of a homogeneous system on an interval \(I\). Then the set of solution vectors is linearly independent on \(I\) iff the Wronskian
     \begin{equation}
         W(\mathbf{X}_1, \mathbf{X}_2, \ldots, \mathbf{X}_n) = \begin{vmatrix}
@@ -278,37 +336,39 @@ Let \(a_n(x), a_{n-1}(x), \ldots, a_0(x)\) and \(g(x)\) be continuous on an inte
             x_{n1} & x_{n2} & \cdots & x_{nn} 
         \end{vmatrix} \neq 0
     \end{equation}
-    \noindent for every \(t\) in the interval.
+    for every \(t\) in the interval.
 \end{thm}
 
-\begin{thm} (existence of a fundamental set).
+\begin{thm} [existence of a fundamental set]
     There exists a fundamental set of solutions for the homogeneous system \(\mathbf{X'} = \mathbf{AX}\) on an interval \(I\).
 \end{thm}
 
-\begin{thm} (general solution--homogeneous systems).
+\begin{thm} [general solution--homogeneous systems]
     Let \(\mathbf{X}_1\), \(\mathbf{X}_2\), \(\ldots\), \(\mathbf{X}_n\) be a fundamental set of solutions of a homogeneous system on an interval \(I\). Then the \emph{general solution} of the system on the interval is given by
     \begin{equation}
         \mathbf{X} = c_1\mathbf{X}_1 + c_2\mathbf{X}_2 + \cdots + c_n\mathbf{X}_n,
     \end{equation}
-    \noindent where the \(c_i\), \(i = 1, 2, \ldots, n\) are arbitrary constants.
+    where the \(c_i\), \(i = 1, 2, \ldots, n\) are arbitrary constants.
 \end{thm}
 
-\begin{thm} (general solution--nonhomogeneous systems).
+\begin{thm} [general solution--nonhomogeneous systems]
     Let \(\mathbf{X}_p\) be any particular solution of a nonhomogeneous system on an interval \(I\) and let \(\mathbf{X}_1\), \(\mathbf{X}_2\), \(\ldots\), \(\mathbf{X}_n\) be a fundamental set of solutions of the associated homogeneous system on the same interval. Then the \emph{general solution} of the nonhomogeneous system on the interval is given by
     \begin{equation}
         \mathbf{X} = c_1\mathbf{X}_1 + c_2\mathbf{X}_2 + \cdots + c_n\mathbf{X}_n + \mathbf{X}_p,
     \end{equation}
-    \noindent where the \(c_i\), \(i = 1, 2, \ldots, n\) are arbitrary constants.
+    where the \(c_i\), \(i = 1, 2, \ldots, n\) are arbitrary constants.
 \end{thm}
 
-\begin{thm} (distinct real eigenvalues: general solution—homogeneous systems).
+\subsection{Homogeneous linear systems}
+
+\begin{thm} [distinct real eigenvalues: general solution—homogeneous systems]
     Let \(\lambda_1\), \(\lambda_2\), \(\ldots\), \(\lambda_n\) be \(n\) distinct real eigenvalues of the coefficient matrix \(\mathbf{A}\) of the homogeneous system \(\mathbf{X'} = \mathbf{AX}\) and let \(\mathbf{K}_1\), \(\mathbf{K}_2\), \(\ldots\), \(\mathbf{K}_n\) be the corresponding eigenvectors. Then the \textbf{general solution} of the system on the interval \((-\infty, \infty)\) is given by
     \begin{equation}
         \mathbf{X} = c_1\mathbf{K}_1 e^{\lambda_1}t + c_2\mathbf{K}_2 e^{\lambda_2}t + \cdots + c_n\mathbf{K}_n e^{\lambda_n}t.
     \end{equation}
 \end{thm}
 
-\begin{thm} (solutions corresponding to a repeated eigenvalue).
+\begin{thm} [solutions corresponding to a repeated eigenvalue]
     Let \(\lambda_1\) be a real eigenvalue of multiplicity \(k\) of the coefficient matrix \(\mathbf{A}\) of the homogeneous system \(\mathbf{X'} = \mathbf{AX}\) and let \(\mathbf{K}_1\) be an eigenvector corresponding to \(\lambda_1\). Then the \(k\) linearly independent solutions of the system corresponding to the eigenvalue \(\lambda_1\) are given by
     \begin{align}
         \mathbf{X}_1 &= \mathbf{K}_1 e^{\lambda_1 t}\\
@@ -318,13 +378,15 @@ Let \(a_n(x), a_{n-1}(x), \ldots, a_0(x)\) and \(g(x)\) be continuous on an inte
     \end{align}
 \end{thm}
 
-\begin{thm} (real solutions corresponding to complex eigenvalues).
+\begin{thm} [real solutions corresponding to complex eigenvalues]
     Let \(\lambda_1 = \alpha + i\beta\) be a complex eigenvalue of the coefficient matrix \(\mathbf{A}\) of the homogeneous system \(\mathbf{X'} = \mathbf{AX}\) and let \(\mathbf{K}_1\) be a corresponding eigenvector. Then the two linearly independent solutions of the system on the interval \((-\infty, \infty)\) are given by
     \begin{align}
         \mathbf{X}_1 &= \text{Re} \left\{\mathbf{K}_1 e^{\lambda_1 t}\right\} = e^{\alpha t} \left[\text{Re} \{\mathbf{K}_1\} \cos(\beta t) - \text{Im} \{\mathbf{K}_1\} \sin(\beta t)\right]\\
         \mathbf{X}_2 &= \text{Im} \left\{\mathbf{K}_1 e^{\lambda_1 t}\right\} = e^{\alpha t} \left[\text{Re} \{\mathbf{K}_1\} \sin(\beta t) + \text{Im} \{\mathbf{K}_1\} \cos(\beta t)\right]
     \end{align}
 \end{thm}
+
+\subsection{Nonhomogeneous linear systems}
 
 \section{Dynamics of First-Order Difference Equations}
 
@@ -335,17 +397,15 @@ The following is an introduction to difference equations, based on \emph{An Intr
     \begin{equation}
         x(n+1) = a(n)x(n), \quad x(n_0) = x_0, \quad n \geq n_0 \geq 0, \label{eq:difference_homo}
     \end{equation}
-
-    \noindent and the associated \emph{nonhomogeneous} equation is
+    and the associated \emph{nonhomogeneous} equation is
 
     \begin{equation}
         y(n+1) = a(n)y(n) + g(n), \quad y(n_0) = y_0, \quad n \geq n_0 \geq 0, \label{eq:difference_nonhomo}
     \end{equation}
-
-    \noindent where in both cases \(a(n) \neq 0\), and \(a(n)\) and \(g(n)\) are real-valued functions defined for \(n \geq n_0\).
+    where in both cases \(a(n) \neq 0\), and \(a(n)\) and \(g(n)\) are real-valued functions defined for \(n \geq n_0\).
 \end{defn}
 
-\begin{res}
+\begin{prop}
     The solution to \eqref{eq:difference_homo} can be obtained by iteration and mathematical induction and is given by
     \begin{equation}
         x(n) = \left[\prod_{i=n_0}^{n-1}a(i)\right] x_0
@@ -356,19 +416,18 @@ The following is an introduction to difference equations, based on \emph{An Intr
     \begin{equation}
         y(n) = \left[\prod_{i=n_0}^{n-1}a(i)\right]y_0 +  \sum_{r=n_0}^{n-1}\left[\prod_{i=r+1}^{n-1}a(i)\right]g(r).
     \end{equation}
-\end{res}
+\end{prop}
 
-\begin{defn} (equilibrium point).
+\begin{defn} [equilibrium point]
     A point \(x^*\) in the domain of \(f\) is said to be an \emph{equilibrium point} of a difference equation 
 
     \begin{equation}
         x(n+1) = f(x(n))\label{eq:difference_eq}
-    \end{equation} 
-
-    \noindent if it is a fixed point of \(f\), i.e., \(f(x^*) = x^*\).
+    \end{equation}
+    if it is a fixed point of \(f\), i.e., \(f(x^*) = x^*\).
 \end{defn}
 
-\begin{defn} (eventually equilibrium point).
+\begin{defn} [eventually equilibrium point]
     Let \(x\) be a point in the domain of \(f\). If there exists a positive integer \(r\) and an equilibrium point \(x^*\) of \eqref{eq:difference_eq} such that \(f^r(x) = x^*\), \(f^{r-1} \neq x^*\), then \(x\) is an \emph{eventually equilibrium (fixed) point}.
 \end{defn}
 
@@ -378,7 +437,6 @@ The following is an introduction to difference equations, based on \emph{An Intr
         \item [(b)] The point \(x^*\) is said to be \emph{attracting} if there exists \(\eta > 0\) such that \[\vert x(0) - x^* \vert < \eta \implies \lim_{n\to\infty} x(n) = x^*.\] If \(\eta = \infty\), \(x^*\) is called a \emph{global attractor} or \emph{globally attracting}.
         \item [(c)] The point \(x^*\) is an \emph{asymptotically stable equilibrium point} if it is stable and attracting. If \(\eta = \infty\), \(x^*\) is said to be \emph{globally asymptotically stable}.
     \end{itemize}
-
 \end{defn}
 
 \end{document}

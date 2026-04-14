@@ -1,46 +1,15 @@
 \documentclass{article}
-\usepackage{fontspec}
-\setmainfont{Libertinus Serif}
-\usepackage[a4paper, margin=1in]{geometry}
-\usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
-\usepackage[portuguese]{babel}
-
-\setlist[description]{leftmargin=1cm,labelindent=1cm}
-
-\theoremstyle{plain}
-\newtheorem{thm}{Teorema}[section]
-\newtheorem{prop}[thm]{Proposição}
-\newtheorem{lem}[thm]{Lema}
-\newtheorem{cor}[thm]{Corolário}
-\newtheorem{res}[thm]{Resultado}
-
-\theoremstyle{definition}
-\newtheorem{defn}{Definição}[section]
-\newtheorem{exmp}[defn]{Exemplo}
-
-\theoremstyle{remark}
-\newtheorem*{rem}{Nota}
+\usepackage{macros}
+\title{Notas de aula - MAT01012}
+\author{Leonardo Suarez}
+\date{Dezembro de 2025}
 
 \begin{document}
-\begin{center}
-    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
-    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
-    \vspace{3cm}
-    \textbf{\Large MÉTODOS APLICADOS DE MATEMÁTICA II} \\
-    \vspace{1cm}
-    \textbf{\large LISTA DE DEFINIÇÕES E RESULTADOS} \\
-    \vspace{3cm}
+\maketitle
 
-    \textbf{LEONARDO SUAREZ}
+Notas de aula da disciplina de Métodos Aplicados de Matemática II, ministrada pelos profs. Diego Marcon Farias (área I) e Wanderley Nunes do Nascimento (área II) no semestre letivo 25/2.
 
-    \vfill
-    \textbf{\large Porto Alegre, RS} \\
-    \textbf{\large \today}
-\end{center}
-
-\newpage
 \tableofcontents
-\newpage
 
 \section{Soluções por Séries de Potências}
 
@@ -132,7 +101,7 @@
     \noindent é chamada de \emph{equação de Bessel de ordem \(\nu\)}.
 \end{defn}
 
-\begin{res}
+\begin{prop}
     A solução geral da equação de Bessel de ordem \(\nu\) é dada por
     \begin{equation}
         y = c_1 J_{\nu}(x) + c_2 J_{-\nu}(x), \quad \nu \notin \mathbb{Z},
@@ -142,9 +111,9 @@
         J_{\nu}(x) = \sum_{n=0}^{\infty} \frac{(-1)^n}{n! \Gamma(n+\nu+1)} \left(\frac{x}{2}\right)^{2n+\nu},
     \end{equation}
     \noindent que converge no intervalo \((0,\infty)\). O termo \(\Gamma(n+\nu+1)\) é a função gama, também conhecida como fatorial generalizado, definida por \(\Gamma(x) = \int_0^{\infty} t^{x-1} e^{-t} \, dt\) para \(x>0\) e satisfaz a propriedade \(\Gamma(x+1) = x\Gamma(x)\).
-\end{res}
+\end{prop}
 
-\begin{res}
+\begin{prop}
     Para todo valor de \(\nu\), a solução geral de \eqref{eq:bessel} pode ser escrita como
     \begin{equation}
         y = c_1 J_{\nu}(x) + c_2 Y_{\nu}(x),
@@ -154,7 +123,7 @@
         Y_{\nu}(x) = \frac{J_{\nu}(x) \cos(\nu \pi) - J_{-\nu}(x)}{\sin(\nu \pi)},
     \end{equation}
     \noindent que também converge no intervalo \((0,\infty)\).
-\end{res}
+\end{prop}
 
 \begin{prop} (algumas propriedades das funções de Bessel).
     Para funções de Bessel de ordem \(m\), \(m=0,1,2,\ldots\), temos as seguintes propriedades:
@@ -175,7 +144,7 @@
     \noindent que é chamada de \emph{equação de Legendre de ordem \(n\)}.
 \end{defn}
 
-\begin{res}
+\begin{prop}
     Os polinômios de Legendre \(P_n(x)\) são soluções particulares da equação de Legendre de ordem \(n\), dadas por
     \begin{align*}
         P_0(x) &= 1, & \quad P_1(x) &= x,\\
@@ -187,7 +156,7 @@
     \begin{equation}\label{eq:rodrigues}
         P_n(x) = \frac{1}{2^n n!} \frac{d^n}{dx^n} (x^2 - 1)^n, \quad n=0,1,2,\ldots
     \end{equation}
-\end{res}
+\end{prop}
 
 \begin{prop} (algumas propriedades dos polinômios de Legendre).
     \begin{align*}
@@ -196,11 +165,11 @@
     \end{align*}
 \end{prop}
 
-\begin{res} (relação de recorrência dos polinômios de Legendre).
+\begin{prop} (relação de recorrência dos polinômios de Legendre).
     \begin{equation}\label{eq:recorrencia-legendre}
         (n+1)P_{n+1}(x) - (2n+1)xP_n(x) + nP_{n-1}(x) = 0, \quad n=1,2,3,\ldots
     \end{equation}
-\end{res}
+\end{prop}
 
 \section{Séries de Fourier}
 
@@ -728,7 +697,7 @@ Dado o problema de encontrar a temperatura estacionária \(u(r, \theta)\) no int
     Em outras palavras, \(\mathcal{F}\{f(x)\}\) é a projeção de \(f(x)\) sobre as funções base \(e^{i\alpha x}\) do espaço de funções, enquanto \(\mathcal{F}^{-1}\{\widehat{f}(\alpha)\}\) reconstrói \(f(x)\) a partir dessas projeções.
 \end{rem}
 
-\begin{res} (algumas propriedades das transformadas de Fourier).
+\begin{prop} (algumas propriedades das transformadas de Fourier).
     Suponha que \(f\) é uma função contínua e absolutamente integrável no intervalo \((-\infty, \infty)\) e que \(f'\) seja contínua por partes em todo intervalo finito. Se \(f(x) \to 0\) quando \(|x| \to \infty\), então:
     \begin{equation}
         \mathcal{F}\{f'(x)\} = -i\alpha \widehat{f}(\alpha).
@@ -744,7 +713,7 @@ Dado o problema de encontrar a temperatura estacionária \(u(r, \theta)\) no int
         \item [\textup{(a)}] \(\mathcal{F}_s\{f''(x)\} = -\alpha^2 \widehat{f}(\alpha) + \alpha f(0)\).
         \item [\textup{(b)}] \(\mathcal{F}_c\{f''(x)\} = -\alpha^2 \widehat{f}(\alpha) - f'(0)\).
     \end{enumerate}
-\end{res}
+\end{prop}
 
 \begin{thm} (teorema da convolução para transformada de Fourier).
     Se \(f\) e \(g\) são funções contínuas e absolutamente integráveis em \((-\infty, \infty)\), então a convolução de \(f\) e \(g\), definida por

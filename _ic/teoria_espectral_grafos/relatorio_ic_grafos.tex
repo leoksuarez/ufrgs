@@ -57,6 +57,41 @@ Sendo \(A(G)\) uma matriz real simétrica, todos seus autovalores são reais.\fo
 O maior autovalor de \(G\) é chamado de \emph{índice} de \(G\) e é denotado por \(\ind(G)\).
 \end{defn}
 
+\begin{prop}
+    Seja \(G\) um grafo com \(n\) vértices e \(m\) arestas e seja
+    \begin{equation}
+        p_G(\lambda) = \lambda^n + a_1 \lambda^{n-1} + a_2 \lambda^{n-2} + \cdots + a_{n-1} \lambda + a_n
+    \end{equation}
+    o polinômio característico de \(G\). Então \(a_1 = 0\), \(a_2 = -m\) e \(a_n = -2t\), onde \(t\) é o número de triângulos em \(G\).
+\end{prop}
+
+\begin{proof}
+    Da teoria de matrizes, temos que para todo \(k\), \(1 \leq k \leq n\), vale 
+    \[
+        a_k = \sum (\text{todos os \(k \times k\) menores principais.\footnote{Um \emph{menor principal} de \(A(G)\) com \(k\) linhas e \(k\) colunas é o determinante de qualquer \emph{submatriz principal} com \(k\) linhas e \(k\) colunas de \(A(G)\), isto é, de qualquer matriz obtida de \(A(G)\) pela retirada de um subconjunto de \(n-k\) linhas e do correspondente subconjunto de colunas.}}).
+    \]
+
+\end{proof}
+
+\begin{prop}
+    O número de cadeias de comprimento \(l\) ligando os vértices \(v_i\) e \(v_j\) em um grafo \(G\) é dado por \((A^l)_{ij}\).
+\end{prop}
+
+\begin{proof}
+    Provamos por indução em \(l\). O resultado é óbvio para \(l=1\). Suponhamos que vale para \(l=n\).
+\end{proof}
+
+Podemos usar o resultado acima para relacionar o número de cadeias fechadas de um grafo e as somas de potências de seus autovalores.
+
+\begin{cor}
+    Seja \(G\) um grafo com \(n\) vértices e \(m\) arestas. Se \(T_l\) é o número total de cadeias fechadas de comprimento \(l\) em \(G\), então \(T_l = \tr A^l = \sum_{i=1}^n \lambda_i^l\), onde \(\lambda_1, \ldots, \lambda_n\) são os autovalores de \(G\). Em particular,
+    \begin{enumerate}
+        \item \(T_2 = 2m\), isto é, o número de cadeias fechadas de comprimento 2 em \(G\) é igual a duas vezes o número de arestas de \(G\);
+        \item se \(G\) é um grafo regular de grau \(k\) então \(T_2 = kn\), pois \(kn=2m\);
+        \item a soma dos cubos dos autovalores de \(G\) é igual a seis vezes o número de triângulos em \(G\), ou seja, \(T_3 = \sum_{i=1}^n \lambda_i^3 = 6t\).
+    \end{enumerate}
+\end{cor}
+
 \subsection{Alguns resultados e aplicações}
 
 \begin{defn}

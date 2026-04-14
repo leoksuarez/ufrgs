@@ -1,7 +1,7 @@
 function [x] = gauss(A,b)
     // performs gaussian elimination without partial pivoting
-    // Input: n x n matrix A and vector b
-    // Output: solution vector x
+    // input: n x n matrix A and n x 1 vector b
+    // output: n x 1 solution vector x
     n = size(b,1);
     
     for i = 1:n-1

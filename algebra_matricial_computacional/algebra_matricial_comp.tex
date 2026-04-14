@@ -7,6 +7,7 @@
 \DeclareMathOperator{\cond}{cond}
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\proj}{proj}
+\DeclareMathOperator{\range}{range}
 
 \begin{document}
 \maketitle
@@ -237,7 +238,7 @@ Faz \(y=Ux\) e resolve \(Ly=b\) usando substituição para frente (ou \emph{forw
 \subsection{Eliminação gaussiana com pivotamento parcial}
 
 O algoritmo da eliminação gaussiana pode gerar problemas se os elementos pivôs são pequenos. Os erros ocorrem quando dividimos por elementos pivôs pequenos e obtemos multiplicadores \(a_{ji}/a_{ii}\) grandes. Esses multiplicadores, quando somados a elementos pequenos, resultam numa perda de contribuição dos números menores. 
-A solução para esse problema é escolher o elemento com maior magnitude em cada coluna como pivô, de modo que \(\vert a_{ji}/a_{ii} \leq 1\) para \(i+1\leq j\leq n\). Chamamos essa estratégia de \emph{eliminação gaussiana com pivotamento parcial} (EGPP).
+A solução para esse problema é escolher o elemento com maior magnitude em cada coluna como pivô, de modo que \(\vert a_{ji}/a_{ii} \vert \leq 1\) para \(i+1\leq j\leq n\). Chamamos essa estratégia de \emph{eliminação gaussiana com pivotamento parcial} (EGPP).
 
 Se usarmos EGPP, a decomposição \(LU\) de \(A\) consiste em três matrizes \(P\), \(L\) e \(U\) tal que
 
@@ -246,9 +247,64 @@ Se usarmos EGPP, a decomposição \(LU\) de \(A\) consiste em três matrizes \(P
 \end{equation}
 onde \(P\) é uma \emph{matriz de permutação}, ou \emph{matriz pivô}, que representa as trocas de linha feitas durante o processo de eliminação.
 
+O seguinte código realiza a decomposição \(LU\) com pivotamento parcial:
+
+\begin{lstlisting}[language=Scilab, caption=Decomposição \(LU\) com pivotamento parcial]
+    function [L,U,P] = ludecomp(A)
+        // performs LU decomposition using gaussian elimination with partial pivoting
+        // input: n x n matrix A
+        // output: lower-triangular matrix L, upper-triangular matrix U, and permutation matrix P such that PA=LU
+        n = size(A,1);
+        U = A;
+        L = eye(n,n);
+        P = eye(n,n);
+        for i = 1:n-1
+            [m,k] = max(abs(U(i:n,i))); // get the largest pivot in each column (value m, index k)
+            pivot_index = k+i-1;
+            //perform row exchanges if current row is not a pivot row 
+            if pivot_index ~= i then
+                U([i,pivot_index],:) = U([pivot_index,i],:); // exchange rows i and pivot_index in matrix A
+                P([i,pivot_index],:) = P([pivot_index,i],:);
+                if i > 1 then
+                    L([i,pivot_index],1:i-1) = L([pivot_index,i],1:i-1); // exchange rows before the current column in matrix L
+                end
+            end
+            multipliers = U(i+1:n,i) / U(i,i);
+            U(i+1:n,i+1:n) = U(i+1:n,i+1:n) - multipliers*U(i,i+1:n); // update submatrix
+            L([i+1:n],i) = multipliers;
+        end
+        U = triu(U); 
+    endfunction
+\end{lstlisting}
+
 \subsection{Custo computacional da decomposição \(LU\)}
 
 Se o sistema linear \(Ax_i=b_i\), \(1\leq i \leq k\), precisa ser resolvido para múltiplos vetores \(b_i\), podemos realizar a decomposição \(PA=LU\), de custo computacional \(O(n^3)\), apenas uma vez. Depois resolvemos \(L(Ux_i)=Pb_i\) usando substituição para frente e substituição para trás, que têm custo \(O(kn^2)\). Caso fôssemos realizar a eliminação gaussiana para cada sistema \(Ax_i=b_i\), o custo seria \(O(kn^3)\).
+
+Dada uma decomposição \(LU\) de uma matriz \(A\), podemos resolver o sistema \(Ax=b\) da seguinte forma:
+
+\begin{lstlisting}[language=Scilab, caption=Resolução de sistema linear usando decomposição \(LU\)]
+    function [x] = lusolve(L,U,P,b)
+        // solve linear system given LU decomposition
+        // input: lower-triangular matrix L, upper-triangular matrix U, permutation matrix P, and vector b
+        // output: solution vector x
+        n = size(b,1);
+        
+        b = P*b; // perform same row exchanges from LU factorization in the vector b
+        // solve Ly = b
+        y = zeros(n,1); //initialize vector y
+        y(1) = b(1);
+        for i = 2:n
+            y(i) = (b(i) - L(i,1:i-1)*y(1:i-1)) / L(i,i); // perform forward substitution
+        end
+        // solve Ux = y
+        x = zeros(n,1); // initialize solution vector x
+        x(n) = y(n) / U(n,n);
+        for k = n-1:-1:1
+            x(k) = (y(k) - U(k,k+1:n)*x(k+1:n)) / U(k,k); // perform back substitution
+        end
+    endfunction
+\end{lstlisting}
 
 \subsection{Estabilidade e eficiência da eliminação gaussiana}
 
@@ -409,22 +465,22 @@ O cálculo dos parâmetros \(c\) e \(s\) pode ter problemas de \emph{overflow} o
 
 \begin{lstlisting}[language=Scilab, caption=Cálculo dos parâmetros de Givens]
     function [c,s] = givensparms(x_i,x_j)
-    // normalize the entries x_i or x_j to minimize overflow/underflow errors
-    // input: x_i and x_j, j>i, of vector x
-    // output: Givens parameters c and s for x
-    
-    if x_j == 0 then
-        c=1;
-        s=0;
-    elseif abs(x_j) > abs(x_i) then
-        t=x_i/x_j; // make t such that 0<t<1
-        s=1/sqrt(1+t^2);
-        c=s*t;
-    else
-        t=x_j/x_i;
-        c=1/sqrt(1+t^2);
-        s=c*t;
-    end
+        // normalize the entries x_i or x_j to minimize overflow/underflow errors
+        // input: x_i and x_j, j>i, of vector x
+        // output: Givens parameters c and s for x
+        
+        if x_j == 0 then
+            c=1;
+            s=0;
+        elseif abs(x_j) > abs(x_i) then
+            t=x_i/x_j; // make t such that 0<t<1
+            s=1/sqrt(1+t^2);
+            c=s*t;
+        else
+            t=x_j/x_i;
+            c=1/sqrt(1+t^2);
+            s=c*t;
+        end
     endfunction
 \end{lstlisting}
 
@@ -436,22 +492,22 @@ O algoritmo abaixo realiza a decomposição QR de Givens.
 
 \begin{lstlisting}[language=Scilab, caption=Decomposição QR de Givens]
     function [Q,R] = givensqr(A)
-    // compute the QR decomposition of A
-    // input: m x n matrix A
-    // output: m x n orthogonal matrix Q
-    // and m x n upper-triangular matrix R
-    [m,n] = size(A);
-    Q = eye(m,m); // initialize Q = I
-    
-    for i = 1:min(m-1,n)
-        for j = i+1:m // run through column i
-            [c,s] = givensparms(A(i,i),A(j,i));
-            A = givensmul(A,i,j,c,s);
-            Q = givensmul(Q,i,j,c,s);
+        // compute the QR decomposition of A
+        // input: m x n matrix A
+        // output: m x n orthogonal matrix Q
+        // and m x n upper-triangular matrix R
+        [m,n] = size(A);
+        Q = eye(m,m); // initialize Q = I
+        
+        for i = 1:min(m-1,n)
+            for j = i+1:m // run through column i
+                [c,s] = givensparms(A(i,i),A(j,i));
+                A = givensmul(A,i,j,c,s);
+                Q = givensmul(Q,i,j,c,s);
+            end
         end
-    end
-    R = A;
-    Q = Q';
+        R = A;
+        Q = Q';
     endfunction
 \end{lstlisting}
 
@@ -531,9 +587,9 @@ A escolha do vetor \(u\) é melhor entendida geometricamente. Sabemos que \(H_ux
 apenas a primeira componente de \(u\) é afetada pelo sinal escolhido. Escolhemos o sinal de modo que uma adição seja feita.
 \[
     u = \begin{cases}
-        x + \Vert x \Vert_2 e_1, \quad x > 0 \\
-        x - \Vert x \Vert_2 e_1, \quad x < 0 \\
-        x + \Vert x \Vert_2 e_1, \quad x = 0
+        x + \Vert x \Vert_2 e_1, \quad x_1 > 0 \\
+        x - \Vert x \Vert_2 e_1, \quad x_1 < 0 \\
+        x + \Vert x \Vert_2 e_1, \quad x_1 = 0
     \end{cases}
 \]
 
@@ -561,40 +617,42 @@ Assim como no caso das rotações de Givens, a multiplicação por uma reflexão
     AH_u &= A\left(I - 2\frac{uu^T}{u^Tu}\right) = A - \beta (Au)u^T
 \end{align}
 
+Usando a fórmula implícita \(A - \beta u(u^TA)\), fazemos uma multiplicação vetor-matriz seguida de uma multiplicação escalar-vetor para computar \(H_uA\) em apenas \(\mathcal{O}(4mn)\) operações. Se fôssemos construir \(H_u\) explicitamente, precisaríamos de \(\mathcal{O}(m^2)\) operações para construir \(H_u\) e \(\mathcal{O}(m^2n)\) para computar \(H_uA\), totalizando \(\mathcal{O}(m^2n)\) operações, o que é muito mais custoso computacionalmente.
+
 O seguinte algoritmo zera todos os elementos abaixo da entrada \(a_{11}\) usando uma reflexão de Householder.
 
 \begin{lstlisting}[language=Scilab, caption=Zerando entradas na primeira coluna de uma matriz usando uma reflexão de Householder, label=lst:hzero1]
     function [A,u] = hzero1(A)
-    // zero out all elements below a_11 in matrix A by a Householder reflection H_u
-    // input: m x n matrix A
-    // output: m x n matrix A implicitly premultiplied by H_u and Householder vector u that defines the hyperplane about which x is reflected
-    
-    x = A(:,1);
-    colmax = max(abs(x));
-    x = x/colmax; // normalize x to minimize cancellation errors
-    colnorm = norm(x,2);
-    u = x;
-    
-    // construct Householder vector u
-    if u(1) >= 0 then
-        u(1) = u(1) + colnorm;
-    else
-        u(1) = u(1) - colnorm; 
-    end
-    
-    // implicitly form H_uA
-    unorm = norm(u,2);
-    if unorm ~= 0 then
-        beta = 2/(unorm^2);
-    else
-        beta = 0;
-    end
-    A = A - (beta*u)*(u'*A);
+        // zero out all elements below a_11 in matrix A by a Householder reflection H_u
+        // input: m x n matrix A
+        // output: m x n matrix A implicitly premultiplied by H_u and Householder vector u that defines the hyperplane about which x is reflected
+        
+        x = A(:,1);
+        colmax = max(abs(x));
+        x = x/colmax; // normalize x to minimize cancellation errors
+        colnorm = norm(x,2);
+        u = x;
+        
+        // construct Householder vector u
+        if u(1) >= 0 then
+            u(1) = u(1) + colnorm;
+        else
+            u(1) = u(1) - colnorm; 
+        end
+        
+        // implicitly form H_uA
+        unorm = norm(u,2);
+        if unorm ~= 0 then
+            beta = 2/(unorm^2);
+        else
+            beta = 0;
+        end
+        A = A - (beta*u)*(u'*A);
     endfunction
 \end{lstlisting}
 
-Para zerar os elementos abaixo das diagonais restantes com \ref{alg:hzero1}, criamos implicitamente uma sequência de matrizes de Householder que atuem em blocos de submatrizes. Suponha que tenhamos zerado todas as entradas abaixo da diagonal do índice \((1,1)\) ao \((i-1,i-1)\), obtendo uma sequência de matrizes \(A_1, A_2, \ldots, A_{i-1}\).
-Precisamos de uma reflexão de Householder que zere os elementos \(\overline{a_{i+1,i}},\ldots,\overline{a_{mi}}\) e altere apenas elementos da submatriz correspondente de tamanho \((m-i+1,m-i+1)\). Então construímos \(\tilde{H_u}\) (a reflexão de Householder para a submatriz no passo \(i\)) com o vetor \(x=[\overline{a_{ii}} \overline{a_{i+1,j}} \ldots \overline{a_{mi}}]^T\). Essa operação é realizada com o comando
+Para zerar os elementos abaixo das diagonais restantes com \ref{lst:hzero1}, criamos implicitamente uma sequência de matrizes de Householder que atuem em blocos de submatrizes. Suponha que tenhamos zerado todas as entradas abaixo da diagonal do índice \((1,1)\) ao \((i-1,i-1)\), obtendo uma sequência de matrizes \(A_1, A_2, \ldots, A_{i-1}\).
+Precisamos de uma reflexão de Householder que zere os elementos \(\overline{a_{i+1,i}},\ldots,\overline{a_{mi}}\) e altere apenas elementos da submatriz correspondente de tamanho \((m-i+1,m-i+1)\). Então construímos \(\tilde{H_u}\) com o vetor \(x=[\overline{a_{ii}} \overline{a_{i+1,j}} \ldots \overline{a_{mi}}]^T\). Essa operação é realizada com o comando
 
 \begin{verbatim}
     [A(i:m,i:n), u] = hzero1(A(i:m,i:n)).
@@ -604,24 +662,24 @@ e repetida \(k=\min(m-1,n)\) vezes para obter a matriz triangular-superior \(R\)
 \begin{gather}
     \tilde{H}_k \tilde{H}_{k-1} \ldots \tilde{H}_1 A = R \\
     A = (\tilde{H}_1 \tilde{H}_2 \ldots \tilde{H}_k)^T R \\
-    = (\tilde{H}_k^T \tilde{H}_{k-1}^T \ldots \tilde{H}_1^T) R = QR,
+    = (\tilde{H}_k \tilde{H}_{k-1} \ldots \tilde{H}_1) R = QR,
 \end{gather}
-onde \(Q = \tilde{H}_1 \tilde{H}_2 \ldots \tilde{H}_k\) é o produto de matrizes ortogonais, logo ortogonal. Inicializa \(Q=I\) como matriz identidade \(m\times m\) e computa \(Q(1:m,1:m)H_{u1}\), alterando as entradas em toda a matriz \(Q\). Depois computa \(Q(1:m,2:m)H_{u2}\), alterando as entradas em toda a matriz \(Q\) exceto as da primeira coluna, e assim por diante, até \(Q(1:m,k:m)H_{uk}\). O algoritmo abaixo realiza a decomposição QR de Householder.
+onde \(Q = \tilde{H}_1 \tilde{H}_2 \ldots \tilde{H}_k\) é o produto de matrizes ortogonais, logo ortogonal. Inicializa \(Q=I\) como matriz identidade \(m\times m\) e computa \(Q(1:m,1:m) = I H_{u1}\), alterando as entradas em toda a matriz \(Q\). Depois computa \(Q(1:m,2:m) = Q(1:m,2:m)H_{u2}\), alterando as entradas em toda a matriz \(Q\) exceto as da primeira coluna, e assim por diante, até \(Q(1:m,k:m) = Q(1:m,k:m)H_{uk}\). O algoritmo abaixo realiza a decomposição QR de Householder.
 
 \begin{lstlisting}[language=Scilab, caption=Decomposição QR de Householder]
     function [Q,R] = householderqr(A)
-    // compute the QR decomposition of matrix A using Householder reflections
-    // input: m x n matrix A
-    // output: m x m matrix Q and m x n upper-triangular matrix R such that A=QR
-    R = A;
-    [m,n] = size(A)
-    Q = eye(m,n);
-    k = min(m-1,n);
-    
-    for i = 1:k
-        [R(i:m,i:n),u] = hzero1(R(i:m,i:n));
-        Q(1:m,i:m) = Q(1:m,i:m) - (2/norm(u,2)^2)*(Q(1:m,i:m)*u)*u';
-    end
+        // compute the QR decomposition of matrix A using Householder reflections
+        // input: m x n matrix A
+        // output: m x m matrix Q and m x n upper-triangular matrix R such that A=QR
+        R = A;
+        [m,n] = size(A)
+        Q = eye(m,m);
+        k = min(m-1,n);
+        
+        for i = 1:k
+            [R(i:m,i:n),u] = hzero1(R(i:m,i:n));
+            Q(1:m,i:m) = Q(1:m,i:m) - (2/norm(u,2)^2)*(Q(1:m,i:m)*u)*u';
+        end
     endfunction
 \end{lstlisting}
 
@@ -629,7 +687,50 @@ A contagem de \emph{flops} para o algoritmo de Householder é \(2n^2(m-n/3)\) pa
 
 \section{Problemas de mínimos quadrados}
 
+Nesta seção, estudamos o problema \(Ax=b\) nos casos em que \(A\) é ou singular ou tem dimensão \(m \times n\), \(m \neq n\). Se \(m > n\), existem mais equações que incógnitas, e o sistema é chamado de \emph{sobredeterminado}. Geralmente, sistemas sobredeterminados não possuem solução. No caso \(m < n\), existem mais incógnitas que equações, e o sistema é chamado de \emph{indeterminado}. Nessa situação, normalmente existem infinitas soluções.
+
+Como sistemas singulares, sobredeterminados ou indeterminados não levam a uma solução no sentido usual, queremos encontrar um vetor \(x\) tal que \(Ax\) é o mais próximo possível de \(b\). Uma forma de fazer isso é encontrar \(x\) tal que o resíduo \(r(x) = \Vert Ax - b \Vert_2\) é mínimo. Como a norma euclidiana, \(\Vert \cdot \Vert_2\), de um vetor no \(\R^n\) é dada por \(\sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}\), se queremos minimizar \(\Vert Ax - b \Vert_2\), chamamos \(x\) a \emph{solução de mínimos quadrados}. Encontrar a solução de mínimos quadrados de \(Ax=b\) é conhecido como um \emph{problema de mínimos quadrados linear}.
+
+\begin{defn}
+    Dada uma matriz real \(A\) \(m \times n\) e um vetor real \(b \in \R^m\), o problema de \emph{mínimos quadrados} é encontrar um vetor \(x \in \R^n\) tal que a função \(r(x) = \Vert Ax - b \Vert_2\) seja minimizada. É possível que a solução \(x\) não seja única.
+\end{defn}
+
+A ideia geométrica por trás do problema de mínimos quadrados é a seguinte. Suponha que \(m > n\). Como \(x \in \R^n\) e \(A\) é uma matriz \(m \times n\), \(Ax\) é uma transformação linear de \(\R^n\) em \(\R^m\), e \(\range(A)\) é um subespaço de \(\R^m\). Dado qualquer \(y \in \range(A)\) existe \(x \in \R^n\) tal que \(y=Ax\). Se \(b \notin \range(A)\), considere o vetor \(Ax-b\) que conecta as extremidades dos vetores \(Ax\) e \(b\). Como \(b \notin \range(A)\), projeta \(b\) ortogonalmente no plano \(\range(A)\) para obter um vetor \(u \in \range(A)\). Deve existir \(x \in \R^n\) que satisfaz \(Ax=u\). A distância entre os pontos, \(\Vert Ax - b \Vert_2\), é a menor possível, então \(x\) é a solução que buscávamos.
+
+O vetor \(b-Ax\) é ortogonal a \(\range(A)\), e como todo vetor em \(\range(A)\) é uma combinação linear das colunas de \(A\) (vetores no \(\R^m\)), então deve ser o caso que \(b-Ax\) é ortogonal a toda coluna de \(A\). Isso significa que se \(a_i\) é a \(i\)-ésima coluna de \(A\), então \(\langle b-Ax, a_i \rangle = 0\) para todo \(i\). Escrevendo isso em forma matricial, temos \(A^T(b-Ax) = 0\), ou seja, \(A^TAx = A^Tb\). As equações \(A^TAx = A^Tb\) são chamadas de \emph{equações normais} do problema de mínimos quadrados.
+
 \subsection{Existência e unicidade de soluções de mínimos quadrados}
+
+\begin{defn}
+    Uma matriz \(A\) \(m \times n\) tem \emph{posto completo} (\emph{full rank}) se \(\rank(A) = \min(m,n)\). 
+\end{defn}
+
+\begin{lem}
+    Seja \(A\) uma matriz \(m \times n\), \(m \geq n\). Então \(A\) tem posto completo se e somente se \(A^TA\) é invertível.
+\end{lem}
+
+\begin{proof}
+    Provamos por contradição.
+\end{proof}
+
+\begin{thm}
+    \begin{enumerate}
+        \item Dada uma matriz \(A\) \(m \times n\) com \(m \geq n\) e um vetor \(b \in \R^m\), existe um vetor coluna \(x \in \R^n\) tal que \(x\) é uma solução de mínimos quadrados de \(Ax=b\) se e somente se \(x\) satisfaz as equações normais
+        \[
+            A^TAx = A^Tb.
+        \]
+        \item A solução de mínimos quadrados de \(Ax=b\) é única se e somente se \(A\) tem posto completo.
+    \end{enumerate}
+\end{thm}
+
+\begin{thm} [equação residual de mínimos quadrados]
+    Seja \(r = b - Ax\). Então \(A^Tr = 0\) se e somente se \(x\) é uma solução de mínimos quadrados de \(Ax=b\).
+\end{thm}
+
+\begin{proof}
+    
+\end{proof}
+
 \subsection{Resolvendo problemas de mínimos quadrados sobredeterminados}
 \subsection{Condicionamento de problemas de mínimos quadrados}
 

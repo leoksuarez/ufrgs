@@ -1,7 +1,7 @@
 function [L,U,P] = ludecomp(A)
     // performs LU decomposition using gaussian elimination with partial pivoting
-    // Input: n x n matrix A
-    // Output: lower-triangular matrix L, upper-triangular matrix U, and permutation matrix P such that PA=LU
+    // input: n x n matrix A
+    // output: lower-triangular matrix L, upper-triangular matrix U, and permutation matrix P such that PA=LU
     n = size(A,1);
     U = A;
     L = eye(n,n);

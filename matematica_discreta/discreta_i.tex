@@ -1,64 +1,31 @@
 \documentclass{article}
-\usepackage{fontspec}
-\setmainfont{Libertinus Serif}
-\usepackage[a4paper, margin=1in]{geometry}
-\usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
-\usepackage[portuguese]{babel}
-
-\setlist[description]{leftmargin=1cm,labelindent=1cm}
-
-\theoremstyle{plain}
-\newtheorem{thm}{Teorema}[section]
-\newtheorem{prop}[thm]{Proposição}
-\newtheorem{lem}[thm]{Lema}
-\newtheorem{cor}[thm]{Corolário}
-\newtheorem{res}[thm]{Resultado}
-
-\theoremstyle{definition}
-\newtheorem{defn}[thm]{Definição}
-\newtheorem{exmp}[thm]{Exemplo}
-\newtheorem{prblm}[thm]{Problema}
-\newtheorem{prcp}[thm]{Princípio}
-
-\theoremstyle{remark}
-\newtheorem*{rem}{Nota}
+\usepackage{macros}
+\title{Notas de aula - MAT01326}
+\author{Leonardo Suarez}
+\date{\today}
 
 \begin{document}
-\begin{center}
-    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
-    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
-    \vspace{3cm}
-    \textbf{\Large MATEMÁTICA DISCRETA I} \\
-    \vspace{1cm}
-    \textbf{\large LISTA DE DEFINIÇÕES E RESULTADOS} \\
-    \vspace{3cm}
+\maketitle
 
-    \textbf{LEONARDO SUAREZ}
+Notas de aula da disciplina de Matemática Discreta I, ministrada pelo prof. Josué Knorst no semestre letivo 25/2.
 
-    \vfill
-    \textbf{\large Porto Alegre, RS} \\
-    \textbf{\large \today}
-\end{center}
-
-\newpage
 \tableofcontents
-\newpage
 
 \section{Métodos de Contagem}
 
 \subsection{Princípios aditivo e multiplicativo}
 
-\begin{prcp} (princípio da adição).
+\begin{thm} (princípio da adição).
     Se existem \(r_1\) objetos distintos no primeiro conjunto, \(r_2\) no segundo conjunto, \ldots, \(r_n\) no n-ésimo conjunto e esses conjuntos são \emph{disjuntos dois a dois}, então o número de maneiras de selecionar um objeto de um dos \(n\) conjuntos é \(r_1 + r_2 + \cdots + r_n\).
-\end{prcp}
+\end{thm}
 
-\begin{prcp} (princípio da multiplicação).
+\begin{thm} (princípio da multiplicação).
     Se um processo pode ser dividido em \(n\) etapas, onde a primeira etapa pode ser realizada de \(r_1\) maneiras distintas, a segunda etapa pode ser realizada de \(r_2\) maneiras distintas, \ldots, e a n-ésima etapa pode ser realizada de \(r_n\) maneiras distintas, então o número total de maneiras de realizar o processo é \(r_1 \cdot r_2 \cdots r_n\), dado que a escolha de cada etapa é independente das outras.
-\end{prcp}
+\end{thm}
 
-\begin{prcp} (princípio da composição de conjuntos).
+\begin{thm} (princípio da composição de conjuntos).
     Dado qualquer conjunto \(S\) construído pelo princípio multiplicativo, é preciso saber dizer quais elementos de \(S\) são da primeira parte de \(S\) e quais são da segunda parte.
-\end{prcp}
+\end{thm}
 
 \subsection{Permutações com repetição}
 
@@ -139,12 +106,12 @@
     Uma permutação de \(a_1, a_2, \ldots, a_n\) é chamada de \emph{caótica} quando nenhum dos elementos \(a_i\) está em sua posição natural \(i\). O número de permutações caóticas (ou de \emph{desarranjos}) de \(n\) objetos é denotado por \(D_n\).
 \end{defn}
 
-\begin{res}
+\begin{prop}
     O número de permutações caóticas de \(n\) objetos é dado por
     \begin{equation}
         D_n = n! \left( 1 - \frac{1}{1!} + \frac{1}{2!} - \frac{1}{3!} + \cdots + \frac{(-1)^n}{n!} \right).
     \end{equation}
-\end{res}
+\end{prop}
 
 \begin{thm}
     Seja \(\vert A \vert = n\) e \(\vert B \vert = k\). Se \(n=k\), para \(n>0\), o número de funções bijetoras \(f: A \to B\) é \(n!\).
@@ -259,7 +226,7 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     \noindent a relação é dita \emph{não-homogênea}.
 \end{defn}
 
-\begin{res}
+\begin{prop}
     A solução geral de uma relação de recorrência da forma 
     \begin{equation}
         a_n = c_1 a_{n-1} + c_2 a_{n-2} + \cdots + c_r a_{n-r}
@@ -280,19 +247,19 @@ A função geradora exponencial é útil quando estamos interessados em contar o
     \begin{equation}
         A_1 \alpha_1^n + A_2 n \alpha_1^n + A_3 n^2 \alpha_1^n + \cdots + A_m n^{m-1} \alpha_1^n.
     \end{equation}
-\end{res}
+\end{prop}
 
 \subsection{Resolução de relações de recorrência lineares não-homogêneas}
 
-\begin{res}
+\begin{prop}
     A solução geral de uma relação de recorrência não-homogênea da forma
     \begin{equation}\label{eq:nao-homogenea}
         a_n = c_1 a_{n-1} + c_2 a_{n-2} + \cdots + c_r a_{n-r} + f(n)
     \end{equation}
     \noindent é dada por \(a_n = a_n^{(0)} + a^{*}_{n}\), onde \(a_n^{(0)}\) é a solução geral da relação homogênea associada e \(a^{*}_{n}\) é uma solução particular da relação não-homogênea.
-\end{res}
+\end{prop}
 
-\begin{res} (soluções conhecidas para funções \(f(n)\) específicas para \(c\neq 1\)). \vspace{2mm}\newline
+\begin{prop} (soluções conhecidas para funções \(f(n)\) específicas para \(c\neq 1\)). \vspace{2mm}\newline
     \begin{tabular}[c]{ll}
         \(f(n)\) & \textup{solução particular} \(a^{*}_{n}\) \\
         \hline
@@ -301,7 +268,7 @@ A função geradora exponencial é útil quando estamos interessados em contar o
         \(dn^2\) & \(B_2 n^2 + B_1 n + B_0\) \\
         \(d^n\) & \(B d^n\) \\
     \end{tabular}
-\end{res}
+\end{prop}
 
 \section{O princípio da casa dos pombos}
 
