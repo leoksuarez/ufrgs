@@ -30,9 +30,37 @@
 \tableofcontents
 \newpage
 
-\section{Matriz de adjacência}
+\section{Preliminares sobre Teoria dos Grafos}
 
-\subsection{Polinômio característico e espectro de um grafo}
+\begin{defn}
+    Seja \(G=G(V,E)\) um grafo. Quando \(G'=G'(V',E')\) é um grafo satisfazendo \(V' \subseteq V\) e \(E' \subseteq E\), dizemos que \(G'\) é um \emph{subgrafo} de \(G\). Se \(G'\) é um subgrafo de \(G\) e \(E' = \{\{u,v\} \in E : u,v \in V'\}\), então \(G'\) é um \emph{subgrafo induzido} de \(G\).
+\end{defn}
+
+A seguir apresentamos alguns tipos especiais de grafos.
+
+\begin{itemize}
+    \item Um \emph{grafo regular de grau \(k\) ou \(k\)-regular} é um grafo \(G\) tal que \(\deg(v) = k\) para todo \(v \in V(G)\).
+    \item Um \emph{grafo completo} é um grafo \(G\) tal que \(\{u,v\} \in E(G)\) para todo \(u,v \in V(G)\), \(u \neq v\). O grafo completo com \(n\) vértices é denotado por \(K_n\).
+    \item Um \emph{grafo \(k\)-partido} é um grafo \(G=G(V,E)\) tal que \(V(G)\) pode ser particionado em \(k\) conjuntos independentes. O grafo \(k\)-partido completo é o grafo \(G\) tal que \(V(G)\) pode ser particionado em \(k\) conjuntos independentes e \(\{u,v\} \in E(G)\) para todo \(u,v \in V(G)\), \(u \neq v\), tais que \(u\) e \(v\) estão em conjuntos independentes distintos. O grafo bipartido completo com partição de tamanho \(m\) e \(n\) é denotado por \(K_{m,n}\). O grafo \(K_{1,n}\) é chamado de \emph{estrela}.
+    \item Uma sequência finita de vértices \(v_1, v_2, \ldots, v_k\) de um grafo \(G(V,E)\) é uma \emph{cadeia} (\emph{walk}) de \(v_1\) a \(v_k\) se \(\{v_i, v_{i+1}\} \in E\) para todo \(i\), \(1 \leq i \leq k-1\). Uma \emph{cadeia fechada} (respectivamente, \emph{cadeia aberta}) é uma cadeia \(v_1, v_2, \ldots, v_k\) tal que \(v_1 = v_k\) (respectivamente, \(v_1 \neq v_k\)). Se todos os vértices de uma cadeia \(v_1, v_2, \ldots, v_k\) são distintos, então a cadeia é um \emph{caminho}. Um caminho fechado é denominado \emph{ciclo}. O \emph{comprimento} de um caminho ou de um ciclo é o número de arestas que ele contém. O caminho e o ciclo com \(n\) vértices são denotados por \(P_n\) e \(C_n\), respectivamente.
+    \item Um grafo \(G\) é \emph{conexo} se para todo \(u,v \in V(G)\) existe uma cadeia de \(u\) a \(v\). Caso contrário, \(G\) é \emph{desconexo}. Se \(G\) é desconexo, dizemos que \(G' \subseteq G\) é uma \emph{componente conexa} de \(G\) se \(G'\) é um subgrafo induzido de \(G\) que é conexo e não existe um subgrafo induzido \(G''\) de \(G\) tal que \(G' \subset G'' \subseteq G\) e \(G''\) é conexo.
+    \item Uma \emph{árvore} é um grafo conexo e acíclico. Um grafo desconexo acíclico é chamado de \emph{floresta}.
+    \item Um \emph{grafo-linha} de um grafo \(G\) é o grafo \(L(G)\) cujo conjunto de vértices é \(E(G)\) e tais que \(\{e,f\} \in E(L(G))\) se e somente se \(e\) e \(f\) têm um vértice em comum em \(G\).
+    \item O \emph{grafo complementar} de um grafo \(G\) é o grafo \(\overline{G}\) tal que \(V(\overline{G}) = V(G)\) e \(\{u,v\} \in E(\overline{G})\) se e somente se \(\{u,v\} \notin E(G)\).
+    \item Quando \(V_1 \cap V_2 \neq \emptyset\), o \emph{grafo união} (ou \emph{soma}) de \(G_1\) e \(G_2\) é o grafo \(G_1 \cup G_2\), também denotado \(G_1 + G_2\), tal que \(V(G_1 \cup G_2) = V(G_1) \cup V(G_2)\) e \(E(G_1 \cup G_2) = E(G_1) \cup E(G_2)\). Para um grafo conexo \(G\), escrevemos \(kG\) para o grafo união de \(k\) cópias de \(G\).
+    \item O \emph{produto cartesiano} de \(G_1\) e \(G_2\) é o grafo \(G_1 \square G_2\) tal que \(V(G_1 \square G_2) = V(G_1) \times V(G_2)\) e \(\{(u_1, u_2), (v_1, v_2)\} \in E(G_1 \square G_2)\) se e somente se \(\{u_1, v_1\} \in E(G_1)\) e \(u_2 = v_2\), ou \(u_1 = v_1\) e \(\{u_2, v_2\} \in E(G_2)\).
+    \item O \emph{produto completo} (ou \emph{join}) de \(G_1\) e \(G_2\) é o grafo \(G_1 \vee G_2\) tal que \(V(G_1 \vee G_2) = V(G_1) \cup V(G_2)\) e \(E(G_1 \vee G_2) = E(G_1) \cup E(G_2) \cup \{\{u,v\} : u \in V(G_1), v \in V(G_2)\}\).
+\end{itemize}
+
+\begin{defn}
+    Seja \(G=G(V,E)\) um grafo. O \emph{grau mínimo} de \(G\) é o número \(\delta(G) = \min\{\deg(v) : v \in V\}\), e o \emph{grau máximo} de \(G\) é o número \(\Delta(G) = \max\{\deg(v) : v \in V\}\). O \emph{grau médio} de \(G\) é o número \(\overline{\deg}(G) = \frac{1}{|V|} \sum_{v \in V} \deg(v)\).
+\end{defn}
+
+\begin{defn}
+    Seja \(G = G(V,E)\) um grafo conexo. Se \(x, y \in V\), chamamos \emph{distância} de \(x\) a \(y\) e denotamos por \(d(x,y)\) ao mínimo dos comprimentos dos caminhos que ligam \(x\) a \(y\). O máximo das distâncias entre dois vértices quaisquer de \(G\) é chamado de \emph{diâmetro} de \(G\) e denotado por \(\operatorname{diam}(G)\). Quando \(G\) é desconexo, escrevemos \(\operatorname{diam}(G) = \infty\).
+\end{defn}
+
+\section{Matriz de adjacência}
 
 \begin{defn}
     Seja \(G = G(V,E)\) um grafo com \(n\) vértices. A \emph{matriz de adjacência} de \(G\) é a matriz \(A(G) = (a_{ij})\) de ordem \(n\) definida por
@@ -43,6 +71,8 @@
         \end{cases}
     \]
 \end{defn}
+
+\subsection{Polinômio característico e espectro de um grafo}
 
 Sendo \(A(G)\) uma matriz real simétrica, todos seus autovalores são reais.\footnote{Se \(T \in \mathcal{L}(V)\) é auto-adjunto (ou hermitiano) então todo autovalor de \(T\) é real.} Como \(\tr A(G) = 0\), a soma dos autovalores de \(A(G)\) é nula.
 
@@ -94,9 +124,44 @@ Podemos usar o resultado acima para relacionar o número de cadeias fechadas de 
 
 \subsection{Alguns resultados e aplicações}
 
+\begin{thm} [teorema do entrelaçamento de Cauchy para a matriz de adjacência]
+    Seja \(G = G(V,E)\) um grafo com \(n\) vértices e \(H = H(V',E')\) um subgrafo induzido de \(G\) com \(m\) vértices. Se \(\lambda_1 \geq \cdots \geq \lambda_n\) são os autovalores de \(G\) e \(\mu_1 \geq \cdots \geq \mu_m\) são os autovalores de \(H\), então para todo \(i\), \(1 \leq i \leq m\), vale
+    \[
+        \lambda_i \geq \mu_i \geq \lambda_{n-m+i}.
+    \]
+    Em particular, se \(v \in V\) e \(G-v\) é o subgrafo induzido de \(G\) obtido pela remoção do vértice \(v\), então para todo \(i\), \(1 \leq i \leq n-1\), vale
+    \[
+        \lambda_i \geq \mu_i \geq \lambda_{n-1+i}.
+    \]
+\end{thm}
+
 \begin{defn}
     O \emph{raio espectral} de um grafo \(G\), denotado por \(\rho(G)\), é o número real não negativo \(\rho(G) \defeq \max\{|\lambda| : \lambda \in \spect(G)\}\).
 \end{defn}
+
+\begin{defn}
+    A \emph{centralidade de autovetor} do vértice \(v_i\) em um grafo \(G\) é a \(i\)-ésima coordenada \(x_i\) do autovetor unitário positivo \(x = [x_1, \ldots, x_n]^T\) associado ao autovalor principal \(\lambda_1\) de \(G\), ou seja, é o número
+    \begin{equation}
+        x_i = \frac{1}{\lambda_1} \sum_{j=1}^n a_{ij} x_j,
+    \end{equation}
+    onde \(A(G) = (a_{ij})\) é a matriz de adjacência de \(G\).
+\end{defn}
+
+\begin{prop}
+    Se \(G\) é um grafo conexo então o número de autovalores distintos de \(G\) é \(\geq \operatorname{diam}(G) + 1\).
+\end{prop}
+
+\begin{proof}
+    Provamos por contradição.
+\end{proof}
+
+\begin{prop}
+    Se \(G\) é um grafo com maior autovalor \(\lambda_1\) então
+    \begin{equation}
+        \overline{\deg}(G) \leq \lambda_1 \leq \Delta(G).
+    \end{equation}
+    onde \(\overline{\deg}(G)\) é o grau médio de \(G\) e \(\Delta(G)\) é o grau máximo de \(G\).
+\end{prop}
 
 \subsection{O espectro de certos tipos de grafos}
 \subsection{Isomorfismo de grafos}
@@ -204,6 +269,113 @@ onde \(\lambda_1, \ldots, \lambda_n\) são os autovalores de \(G\).
 \subsection{Adjacência de árvores}
 \subsection{Aplicações para árvores}
 \subsection{Adjacências de grafos threshold}
+
+\begin{appendix}
+
+\section{Resultados de Teoria Matricial}
+
+\subsection{Princípio de Rayleigh}
+
+Para os resultados a seguir, sejam \(A_{n \times n}\) uma matriz real simétrica com autovalores \(\lambda_1, \ldots, \lambda_n\) ordenados de forma não crescente, \(\langle \cdot, \cdot \rangle\) o produto interno canônico em \(\R^n\) e \(\|\cdot\|\) a norma euclidiana induzida por esse produto interno.
+
+
+
+\begin{prop}
+    \begin{equation}
+        \lambda_1 = \max_{\Vert x \Vert = 1} \langle Ax, x \rangle.
+    \end{equation}
+\end{prop}
+
+\begin{cor}
+    \begin{equation}
+        \lambda_1 = \min_{x \neq 0} \frac{\langle Ax, x \rangle}{\langle x, x \rangle}.
+    \end{equation}
+    e o valor máximo é atingido por um autovetor unitário associado a \(\lambda_1\).
+\end{cor}
+
+\begin{prop}
+    Para todo \(k\), \(1 \leq k \leq n\), vale
+    \begin{equation}
+        \lambda_k = \max{\langle Ax, x \rangle : \Vert x \Vert = 1, \langle x, v_i \rangle = 0 \quad\forall i, 1 \leq i < k},
+    \end{equation}
+    sendo o valor máximo atingido por um autovetor unitário associado a \(\lambda_k\).
+\end{prop}
+
+\begin{cor}
+    Para todo \(k\), \(1 \leq k \leq n\), vale
+    \begin{equation}
+        \lambda_k = \max\left\{\frac{\langle Ax, x \rangle}{\langle x, x \rangle} : x \neq 0, \langle x, v_i \rangle = 0 \quad\forall i, 1 \leq i < k\right\},
+    \end{equation}
+    e o valor máximo é atingido por um autovetor associado a \(\lambda_k\).
+\end{cor}
+
+\begin{cor}
+    Para todo \(k\), \(1 \leq k \leq n\), vale
+    \begin{equation}
+        \lambda_k = \min\left\{\frac{\langle Ax, x \rangle}{\langle x, x \rangle} : x \neq 0, \langle x, v_i \rangle = 0 \quad\forall i, k < i \leq n\right\},
+    \end{equation}
+    e o valor mínimo é atingido por um autovetor associado a \(\lambda_k\).
+\end{cor}
+
+\subsection{Teorema de Entrelaçamento de Cauchy}
+
+\begin{thm}
+    Seja \(M_{n \times n}\) uma matriz real tal que \(M^TM = I\). Se os autovalores de \(A\) são \(\lambda_1 \geq \cdots \geq \lambda_n\) e os autovalores de \(M^T A M\) são \(\mu_1 \geq \cdots \geq \mu_m\), então para todo \(i\), \(1 \leq i \leq m\), vale
+    \begin{equation}
+        \lambda_i \geq \mu_i \geq \lambda_{n-m+i}.
+    \end{equation}
+\end{thm}
+
+\subsection{Teorema de Perron-Frobenius}
+
+O Teorema de Perron-Frobenius é um resultado fundamental da teoria de matrizes que tem diversas aplicações em sistemas dinâmicos, probabilidade e teoria de grafos. Para enunciar o teorema, precisamos de algumas definições.
+
+\begin{defn}
+    \(A \in \R^{m \times n}\) é chamada de \emph{matriz não negativa} quando cada \(a_{ij} \geq 0\), e escreve-se \(A \geq 0\). Em geral, \(A \geq B\) significa que \(a_{ij} \geq b_{ij}\) para todo \(i\) e \(j\). Similarmente, \(A\) é uma \emph{matriz positiva} quando cada \(a_{ij} > 0\), e escreve-se \(A > 0\). Mais geralmente, \(A > B\) significa que \(a_{ij} > b_{ij}\) para todo \(i\) e \(j\).    
+\end{defn}
+
+\begin{defn}
+    Uma matriz simétrica \(A \in \R^{n \times n}\) é \emph{irredutível} se não existe uma matriz de permutação \(P\) tal que
+    \[
+        P^TAP = \begin{bmatrix}
+            X & Z \\
+            0 & Y
+        \end{bmatrix},
+    \]
+    onde \(X\) e \(Y\) são matrizes quadradas. Caso contrário, \(A\) é \emph{redutível}. \(P^TAP\) é dita uma \emph{permutação simétrica} de \(A\), cujo efeito é permutar as linhas e as colunas de \(A\) da mesma forma.
+\end{defn}
+
+\begin{defn}
+    O \emph{grafo} \(\mathcal{G}(A)\) de \(A\) é definido como o grafo direcionado em \(n\) vértices \(v_1, \ldots, v_n\) tal que \(\{v_i, v_j\}\) é uma aresta de \(\mathcal{G}(A)\) se e somente se \(a_{ij} \neq 0\). \(\mathcal{G}(A)\) é \emph{fortemente conexo} se para todo \(i\) e \(j\), \(1 \leq i,j \leq n\), existe um caminho de \(v_i\) a \(v_j\) em \(\mathcal{G}(A)\).
+\end{defn}
+
+\begin{prop}
+    \(A\) é irredutível se e somente se \(\mathcal{G}(A)\) é fortemente conexo.
+\end{prop}
+
+\begin{lem}
+    Se \(A \in \R^{n \times n}\) é não negativa e irredutível então \((I+A)^{n-1}>0\), ou equivalentemente, \(I + A + A^2 + \cdots + A^{n-1} > 0\).
+\end{lem}
+
+\begin{prop}
+    Se \(G\) é um grafo conexo com \(n\) vértices então \(A(G)\) é irredutível.
+\end{prop}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{thm} [Teorema de Perron-Frobenius]
+    Seja \(A_{n \times n}\) uma matriz não negativa e irredutível e com autovalores \(\lambda_1, \ldots, \lambda_n\) ordenados de forma não crescente. Então
+    \begin{enumerate}
+        \item [a.] \(\lambda_1 > 0\) é um autovalor simples de \(A\) com um autovetor associado positivo;
+        \item [b.] \(\lambda_1 > \lambda_2\);
+        \item [c.] \(\vert \lambda_i \vert \leq \lambda_1\) para todo \(i\), \(1 \leq i \leq n\).
+    \end{enumerate}
+\end{thm}
+
+\end{appendix}
+
 
 \newpage
 

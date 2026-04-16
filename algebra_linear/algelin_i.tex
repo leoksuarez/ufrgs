@@ -1,61 +1,20 @@
 \documentclass{article}
-\usepackage{fontspec}
-\setmainfont{Libertinus Serif}
-\usepackage[a4paper, margin=1in]{geometry}
-\usepackage{amsmath, amsthm, amssymb, mathtools, enumitem, hyperref}
-
-\theoremstyle{plain}
-\newtheorem{thm}{Theorem}[section]
-\newtheorem{prop}[thm]{Proposition}
-\newtheorem{lem}[thm]{Lemma}
-\newtheorem{cor}[thm]{Corollary}
-
-\theoremstyle{definition}
-\newtheorem{defn}{Definition}[section]
-\newtheorem{exmp}[defn]{Example}
-\newtheorem{prblm}[defn]{Problem}
-\newtheorem{prcp}[defn]{Principle}
-
-\theoremstyle{remark}
-\newtheorem*{rem}{Remark}
+\usepackage{macros}
+\title{Notas de aula- MAT01355}
+\author{Leonardo Suarez}
+\date{\today}
 
 \DeclareMathOperator{\spn}{span}
 \DeclareMathOperator{\Col}{Col}
 \DeclareMathOperator{\rank}{rank}
 \DeclareMathOperator{\proj}{proj}
 
-\newcommand{\defeq}{\stackrel{\text{def}}{=}}
-
-\geometry{
- a4paper,
- left=3cm,
- top=2cm,
- right=2cm,
- bottom=2cm
-}
-
 \begin{document}
-\begin{center}
-    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
-    \textbf{\large INSTITUTO DE MATEMÁTICA E ESTATÍSTICA} \\
-    \vspace{3cm}
-    \textbf{\Large LINEAR ALGEBRA I} \\
-    \vspace{1cm}
-    \textbf{\large LIST OF DEFINITIONS AND RESULTS} \\
-    \vspace{3cm}
+\maketitle
 
-    \textbf{LEONARDO SUAREZ}
+Notas de aula referentes à disciplina MAT01355 - Álgebra Linear I-A, ministrada pelo prof. Leandro Farina no semestre letivo 24/2. A bibliografia principal é a sexta edição do livro \textit{Linear Algebra and Its Applications}, de David Lay, Steven R. Lay e Judi J. McDonald.
 
-    \vfill
-    \textbf{\large Porto Alegre, RS} \\
-    \textbf{\large \today}
-\end{center}
-
-\newpage
 \tableofcontents
-\newpage
-
-\noindent From the sixth edition of \textit{Linear Algebra and Its Applications}, by David Lay, Steven R. Lay, and Judi J. McDonald.
 
 \section{Linear Equations in Linear Algebra}
 

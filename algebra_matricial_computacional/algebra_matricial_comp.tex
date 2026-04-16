@@ -203,7 +203,7 @@ Faz \(y=Ux\) e resolve \(Ly=b\) usando substituição para frente (ou \emph{forw
 \end{defn}
 
 \begin{prop}
-    Se uma matriz \(A\) \(n \times n\) é multiplicada à esquerda por uma matriz elementar \(E\), então o resultado é a matriz obtida pela aplicação da operação elementar correspondente à \(E\) nas linhas da matriz \(A\).
+    Se uma matriz \(A_{n \times n}\) é multiplicada à esquerda por uma matriz elementar \(E\), então o resultado é a matriz obtida pela aplicação da operação elementar correspondente à \(E\) nas linhas da matriz \(A\).
 \end{prop}
 
 \begin{prop}
@@ -220,7 +220,7 @@ Faz \(y=Ux\) e resolve \(Ly=b\) usando substituição para frente (ou \emph{forw
 \end{prop}
 
 \begin{prop}
-    Seja \(A\) uma matriz não singular \(n \times n\). Então 
+    Seja \(A_{n \times n}\) uma matriz não singular. Então 
     \begin{enumerate}
         \item \(A\) é linha-equivalente à matriz identidade \(I\);
         \item \(A\) é produto de matrizes elementares.
@@ -228,11 +228,11 @@ Faz \(y=Ux\) e resolve \(Ly=b\) usando substituição para frente (ou \emph{forw
 \end{prop}
 
 \begin{prop}
-    Seja \(A\) uma matriz \(n \times n\) e suponha que \(A\) é linha-equivalente a \(I\). Então \(A\) é não singular e \(A^{-1}\) pode ser obtida por meio da aplicação das mesmas operações elementares usadas para transformar \(A\) em \(I\).
+    Seja \(A_{n \times n}\) uma matriz e suponha que \(A\) é linha-equivalente a \(I\). Então \(A\) é não singular e \(A^{-1}\) pode ser obtida por meio da aplicação das mesmas operações elementares usadas para transformar \(A\) em \(I\).
 \end{prop}
 
 \begin{prop}
-    A decomposição \(LU\) de uma matriz \(A\) não singular é única.
+    A decomposição \(LU\) de uma matriz \(A_{n \times n}\) não singular é única.
 \end{prop}
 
 \subsection{Eliminação gaussiana com pivotamento parcial}
@@ -326,7 +326,7 @@ em outras palavras, é a razão entre o maior elemento que aparece durante a eli
 \subsection{A decomposição QR}
 
 \begin{thm}
-    Se \(A\) é uma matriz \(m \times n\), \(m \geq n\), com colunas linearmente independentes, então existe uma matriz \(Q\) \(m \times n\) com colunas ortonormais e uma matriz \(R\) \(n \times n\) triangular superior tal que \(A=QR\).
+    Se \(A_{m \times n}\) é uma matriz, \(m \geq n\), com colunas linearmente independentes, então existe uma matriz \(Q_{m \times n}\) com colunas ortonormais e uma matriz \(R_{n \times n}\) triangular superior tal que \(A=QR\).
 \end{thm}
 
 \subsection{Rotações de Givens}
@@ -485,7 +485,7 @@ O cálculo dos parâmetros \(c\) e \(s\) pode ter problemas de \emph{overflow} o
 \end{lstlisting}
 
 \begin{defn}
-    Uma matriz \(A = [a_{ij}]\) \(m \times n\) é \emph{triangular-superior} se \(a_{ij} = 0\) para \(i > j\). Em outras palavras, \(A\) é triangular-superior se os elementos abaixo da diagonal principal são nulos.
+    Uma matriz \(A_{m \times n} = [a_{ij}]\) é \emph{triangular-superior} se \(a_{ij} = 0\) para \(i > j\). Em outras palavras, \(A\) é triangular-superior se os elementos abaixo da diagonal principal são nulos.
 \end{defn}
 
 O algoritmo abaixo realiza a decomposição QR de Givens.
@@ -557,7 +557,7 @@ Sendo \(w\) um vetor no \(\R^n\), seja \(v = w - \proj_u(w)\). Sabemos que \(v\)
     \end{enumerate}
 \end{proof}
 
-Uma única reflexão de Householder pode zerar todos os elementos \(a_{i+1,i}, a_{i+2,i}, \ldots, a_{mi}\) abaixo da entrada \(a_ii\) de uma matriz \(A\). Aplicando uma sequência de reflexões de Householder, podemos transformar \(A\) numa matriz triangular-superior, ou seja, queremos transformar
+Uma única reflexão de Householder pode zerar todos os elementos \(a_{i+1,i}, a_{i+2,i}, \ldots, a_{mi}\) abaixo da entrada \(a_{ii}\) de uma matriz \(A\). Aplicando uma sequência de reflexões de Householder, podemos transformar \(A\) numa matriz triangular-superior, ou seja, queremos transformar
 \[
     A = \begin{bmatrix}
         X & X & X & X & X & X & & \ldots & X \\
@@ -692,7 +692,7 @@ Nesta seção, estudamos o problema \(Ax=b\) nos casos em que \(A\) é ou singul
 Como sistemas singulares, sobredeterminados ou indeterminados não levam a uma solução no sentido usual, queremos encontrar um vetor \(x\) tal que \(Ax\) é o mais próximo possível de \(b\). Uma forma de fazer isso é encontrar \(x\) tal que o resíduo \(r(x) = \Vert Ax - b \Vert_2\) é mínimo. Como a norma euclidiana, \(\Vert \cdot \Vert_2\), de um vetor no \(\R^n\) é dada por \(\sqrt{x_1^2 + x_2^2 + \cdots + x_n^2}\), se queremos minimizar \(\Vert Ax - b \Vert_2\), chamamos \(x\) a \emph{solução de mínimos quadrados}. Encontrar a solução de mínimos quadrados de \(Ax=b\) é conhecido como um \emph{problema de mínimos quadrados linear}.
 
 \begin{defn}
-    Dada uma matriz real \(A\) \(m \times n\) e um vetor real \(b \in \R^m\), o problema de \emph{mínimos quadrados} é encontrar um vetor \(x \in \R^n\) tal que a função \(r(x) = \Vert Ax - b \Vert_2\) seja minimizada. É possível que a solução \(x\) não seja única.
+    Dada uma matriz real \(A_{m \times n}\) e um vetor real \(b \in \R^m\), o problema de \emph{mínimos quadrados} é encontrar um vetor \(x \in \R^n\) tal que a função \(r(x) = \Vert Ax - b \Vert_2\) seja minimizada. É possível que a solução \(x\) não seja única.
 \end{defn}
 
 A ideia geométrica por trás do problema de mínimos quadrados é a seguinte. Suponha que \(m > n\). Como \(x \in \R^n\) e \(A\) é uma matriz \(m \times n\), \(Ax\) é uma transformação linear de \(\R^n\) em \(\R^m\), e \(\range(A)\) é um subespaço de \(\R^m\). Dado qualquer \(y \in \range(A)\) existe \(x \in \R^n\) tal que \(y=Ax\). Se \(b \notin \range(A)\), considere o vetor \(Ax-b\) que conecta as extremidades dos vetores \(Ax\) e \(b\). Como \(b \notin \range(A)\), projeta \(b\) ortogonalmente no plano \(\range(A)\) para obter um vetor \(u \in \range(A)\). Deve existir \(x \in \R^n\) que satisfaz \(Ax=u\). A distância entre os pontos, \(\Vert Ax - b \Vert_2\), é a menor possível, então \(x\) é a solução que buscávamos.
@@ -702,10 +702,10 @@ O vetor \(b-Ax\) é ortogonal a \(\range(A)\), e como todo vetor em \(\range(A)\
 \subsection{Existência e unicidade de soluções de mínimos quadrados}
 
 \begin{defn}
-    Uma matriz \(A\) \(m \times n\) tem \emph{posto completo} (\emph{full rank}) se \(\rank(A) = \min(m,n)\). 
+    Uma matriz \(A_{m \times n}\) tem \emph{posto completo} (\emph{full rank}) se \(\rank(A) = \min(m,n)\). 
 \end{defn}
 
-\begin{lem}
+\begin{lem}\label{lem:posto_completo}
     Seja \(A\) uma matriz \(m \times n\), \(m \geq n\). Então \(A\) tem posto completo se e somente se \(A^TA\) é invertível.
 \end{lem}
 
@@ -713,9 +713,9 @@ O vetor \(b-Ax\) é ortogonal a \(\range(A)\), e como todo vetor em \(\range(A)\
     Provamos por contradição.
 \end{proof}
 
-\begin{thm}
+\begin{thm}\label{thm:minimos_quadrados}
     \begin{enumerate}
-        \item Dada uma matriz \(A\) \(m \times n\) com \(m \geq n\) e um vetor \(b \in \R^m\), existe um vetor coluna \(x \in \R^n\) tal que \(x\) é uma solução de mínimos quadrados de \(Ax=b\) se e somente se \(x\) satisfaz as equações normais
+        \item Dada uma matriz \(A_{m \times n}\), com \(m \geq n\), e um vetor \(b \in \R^m\), existe um vetor coluna \(x \in \R^n\) tal que \(x\) é uma solução de mínimos quadrados de \(Ax=b\) se e somente se \(x\) satisfaz as equações normais
         \[
             A^TAx = A^Tb.
         \]
@@ -731,7 +731,40 @@ O vetor \(b-Ax\) é ortogonal a \(\range(A)\), e como todo vetor em \(\range(A)\
     
 \end{proof}
 
+Se \(A\) é uma matriz \(m \times n\), \(m \geq n\), com posto completo, então \(A^TA\) é invertível, pelo \autoref{lem:posto_completo}, e o produto \((A^TA)^{-1}A^T\) está definido. Do \autoref{thm:minimos_quadrados}, se \(A\) tem posto completo e \(x\) é uma solução para o problema de mínimos quadrados, então \(A^TAx = A^Tb\) e logo
+\[
+    x = (A^TA)^{-1}A^Tb.
+\]
+
+\begin{defn}
+    A matriz
+    \begin{equation}
+        A^{\dagger} = (A^TA)^{-1}A^T
+    \end{equation}
+    é chamada de \emph{pseudoinversa} ou \emph{inversa generalizada de Moore-Penrose} de \(A\). A solução para o problema de mínimos quadrados \(Ax=b\) com posto completo é \(x = A^{\dagger}b\).
+\end{defn}
+
+\begin{defn}
+    Se \(A\) é uma matriz \(m \times n\) com posto completo, então o número de condicionamento de \(A\) é dado por
+    \begin{equation}
+        \kappa(A) = \Vert A \Vert_2 \Vert A^{\dagger} \Vert.
+    \end{equation}
+\end{defn}
+
 \subsection{Resolvendo problemas de mínimos quadrados sobredeterminados}
+
+Existem três métodos básicos para resolver problemas de mínimos quadrados sobredeterminados. O primeiro que estudaremos usa as equações normais \(A^TAx = A^Tb\), que foi o método padrão por muitos anos. No entanto, usar a decomposição \(QR\) ou \(SVD\) costuma fornecer resultados melhores.
+
+Sabe-se que \(A^TA\) é simétrica. Considera o produto \(x^TA^TAx = (Ax)^T(Ax) = \Vert Ax \Vert_2^2\). Se supormos que \(A\) tem posto completo, então \(x^TA^TAx \neq 0\) para todo \(x \neq 0\), o que implica que \(A^TA\) é positiva definida. Portanto, \(A^TA\) admite uma decomposição de Cholesky \(A^TA = R^TR\), onde \(R\) é uma matriz triangular-superior. Para resolver as equações normais, procedemos da seguinte maneira:
+
+\begin{tcolorbox}[title=Resolvendo as equações normais com a fatoração de Cholesky]
+    \begin{enumerate}
+        \item [a.] Encontre a decomposição \(A^TA = R^TR\) de Cholesky de \(A^TA\).
+        \item [b.] Resolva \(R^Ty = A^Tb\) para \(y\) usando substituição para frente.
+        \item [c.] Resolva \(Rx = y\) para \(x\) usando substituição para trás.
+    \end{enumerate}
+\end{tcolorbox}
+
 \subsection{Condicionamento de problemas de mínimos quadrados}
 
 \section{Autovalores e Autovetores}
