@@ -7,7 +7,7 @@
 \begin{document}
 \maketitle
 
-Notas de aula da disciplina MAT01125 - Cálculo Numérico II, ministrada pela profa. Cibele Aparecida Ladeia no semestre letivo 26/1. Aulas às terças e quintas-feiras, das 15:30 às 17:10, no laboratório A114. Nas semanas 1 a 9 (área 1), será utilizado como material base os capítulos 8 a 11 do livro \emph{Cálculo Numérico - Um Livro Colaborativo (Python)}, elaborado pelo REAMAT/UFRGS, para abordar derivação e integração numérica e equações diferenciais ordinários. Nas semanas 10 a 18 (área 2), utilizaremos o material elaborado pelo prof. Dagoberto Justo, com foco em equações diferenciais parciais, diferenças finitas e análise de estabilidade.
+Notas de aula da disciplina MAT01125 - Cálculo Numérico II, ministrada pela profa. Cibele Aparecida Ladeia no semestre letivo 26/1. Aulas às terças e quintas-feiras, das 15:30 às 17:10, no laboratório A114. Nas semanas 1 a 9 (área 1), será utilizado como material base os capítulos 8 a 11 do livro \emph{Cálculo Numérico - Um Livro Colaborativo (Python)}, elaborado pelo REAMAT/UFRGS, para abordar derivação e integração numérica e equações diferenciais ordinárias. Nas semanas 10 a 18 (área 2), utilizaremos o material elaborado pelo prof. Dagoberto Justo, com foco em equações diferenciais parciais, diferenças finitas e análise de estabilidade.
 
 Como observado anteriormente, o conteúdo programático será dividido em duas áreas. Na primeira, iniciaremos os estudos de derivação numérica, sua forma geral, fórmulas a partir de pontos uniformemente espaçados e erros de arredondamento. Em seguida, veremos integração numérica, incluindo quadratura por interpolação, regras compostas, método de Romberg, métodos adaptativos, quadratura gaussiana e integrais impróprias. Por fim, estudaremos equações diferenciais ordinárias (EDOs), primeiro com foco em problemas de valor inicial, método de Euler, métodos de Runge-Kutta, métodos de múltiplos passos e estabilidade; e depois problemas de valor de contorno, método \emph{shooting}, métodos de diferenças finitas em problemas lineares e não lineares, análise de estabilidade, consistência e convergência. Na segunda área, abordaremos métodos para resolução de equações diferenciais parciais (EDPs) juntamente com análise de estabilidade.
 
@@ -17,14 +17,18 @@ A avaliação será composta por dois trabalhos. A primeira entrega está previs
 
 \section{Derivação numérica}
 
+Antes de pensar em métodos numéricos para resolver problemas com equações diferenciais, é preciso primeiro adaptar os conceitos de derivada e integral para o mundo discreto. Começamos estudando técnicas para aproximar a derivada de funções reais, isto é, dado um conjunto finito de pontos \(\{(x_i,y_i)\}\), onde \(y_i = f(x_i)\) para \(i = 0, 1, \ldots, n\), queremos encontrar uma aproximação para a derivada de \(f\) em um ponto \(x_0\) a partir dos valores de \(f\) nos pontos vizinhos.
+
 \subsection{Diferenças finitas}
+
+Uma estratégia para aproximar a derivada de \(f\) em um ponto \(x_0\) é utilizar \emph{diferenças finitas}, que são expressões da forma \(f(x_0+h)-f(x_0)\), que, quando divididas por \(h\), chamam-se \emph{quociente de diferenças}. A ideia é que, para \(h\) suficientemente pequeno (mas não tão pequeno a ponto de se ter cancelamento catastrófico), o quociente de diferenças pode ser uma boa aproximação para a derivada de \(f\) em \(x_0\). É claro que tomando-se o limite \(h \to 0\), recupera-se o conceito de derivada. Existem diferentes tipos de diferenças finitas, dependendo dos pontos utilizados para calcular a diferença. As mais comuns são as diferenças finitas progressiva, regressiva e central.
 
 \subsubsection{Diferença finita progressiva de ordem 1}
 
 Seja \(f\) uma função diferenciável. A \emph{diferença finita progressiva} (ou \emph{avançada}) de ordem \(1\)
 
 \begin{equation}
-    D^+_h f(x_0) := \frac{f(x_0+h) - f(x_0)}{h} \approx f'(x_0)
+    D^+_h f(x_0) \coloneq \frac{f(x_0+h) - f(x_0)}{h} \approx f'(x_0)
 \end{equation}
 é uma aproximação para \(f'(x_0)\) com erro de ordem \(\mathcal{O}(h)\)\footnote{Se \(f\) é a função a ser estimada, definida sobre um domínio \(X\), e \(g\) a função de comparação, escreve-se \(f(x) = \mathcal{O}(g(x))\) quando existe uma constante \(M>0\) tal que \(\vert f(x) \vert \leq M g(x)\) para todo \(x \in X\).}. De fato, a partir da série de Taylor de \(f\) em torno de \(x_0+h\), temos
 
@@ -45,7 +49,7 @@ De forma análoga, podemos realizar a expansão de Taylor de \(f\) em torno de \
     f'(x_0) = \frac{f(x_0)-f(x_0-h)}{h} + h\frac{f''(\xi)}{2} = D^-_h f(x_0) + \mathcal{O}(h),
 \end{equation}
 onde \begin{equation}
-    D^-_h f(x_0) := \frac{f(x_0) - f(x_0-h)}{h}
+    D^-_h f(x_0) \coloneq \frac{f(x_0) - f(x_0-h)}{h}
 \end{equation}
 é a \emph{diferença finita regressiva} (ou \emph{atrasada}) de ordem \(1\) para \(f'(x_0)\), que também possui erro de truncamento de ordem \(h\).
 
@@ -53,9 +57,10 @@ onde \begin{equation}
 
 Fazendo as expansões de Taylor de \(f\) em torno de \(x_0+h\) e \(x_0-h\) até o termo cúbico e somando as expressões, obtemos
 
-\begin{equation}
-    f(x_0+h) - f(x_0-h) = 2f'(x_0)h + h^3\left(\frac{f'''(\xi_{+})-f'''(\xi_{-})}{3!}\right), \quad \xi_{+} \in (x_0, x_0+h), \xi_{-} \in (x_0-h, x_0).
-\end{equation}
+\begin{multline}
+    f(x_0+h) - f(x_0-h) = 2f'(x_0)h + h^3\left(\frac{f'''(\xi_{+})-f'''(\xi_{-})}{3!}\right), \\
+    \xi_{+} \in (x_0, x_0+h), \xi_{-} \in (x_0-h, x_0).
+\end{multline}
 Isolando \(f'(x_0)\), temos
 
 \begin{equation}
@@ -64,13 +69,87 @@ Isolando \(f'(x_0)\), temos
 onde 
 
 \begin{equation}
-    D^0_h f(x_0) := \frac{f(x_0+h) - f(x_0-h)}{2h}
+    D^0_h f(x_0) \coloneq \frac{f(x_0+h) - f(x_0-h)}{2h}
 \end{equation}
 é a \emph{diferença finita central} de ordem \(2\) para \(f'(x_0)\), que possui erro de truncamento de ordem \(h^2\), ou ordem 2.
 
 \subsection{Diferença finita para derivada segunda}
-\subsection{Obtenção de fórmulas por polinômios}
+
+Se expandirmos \(f\) em torno de \(x_0+h\) e \(x_0-h\) até o termo de quarta ordem, obtemos
+
+\begin{align}
+    f(x_0+h) & = f(x_0) + f'(x_0)h + \frac{f''(x_0)}{2}h^2 + \frac{f'''(x_0)}{3!}h^3 + \mathcal{O}(h^4) \\
+    f(x_0-h) & = f(x_0) - f'(x_0)h + \frac{f''(x_0)}{2}h^2 - \frac{f'''(x_0)}{3!}h^3 + \mathcal{O}(h^4)
+\end{align}
+Somando as expressões e rearranjando os termos, fica
+
+\begin{equation}
+    f''(x_0) = \frac{f(x_0+h) - 2f(x_0) + f(x_0-h)}{h^2} - \mathcal{O}(h^2),
+\end{equation}
+o que motiva a definição da \emph{diferença finita central} de ordem \(2\) para a derivada segunda de \(f\) em \(x_0\):
+
+\begin{equation}
+    D^2_h f(x_0) \coloneq \frac{f(x_0+h) - 2f(x_0) + f(x_0-h)}{h^2}.
+\end{equation}
+
+\subsection{Erros de arredondamento}
+
+\subsection{Obtenção de fórmulas por polinômios interpoladores}
+
+Até agora vimos como obter fórmulas de diferenças finitas a partir da série de Taylor. No entanto, também é possível obter essas fórmulas utilizando polinômios interpoladores. A ideia é construir um polinômio \(p\) que interpola os pontos \((x_k, f(x_k))\), \(k = 0, 1, \ldots, n\) e, em seguida, calcular a derivada de \(p\) em \(x_0\). A vantagem dessa abordagem é que ela pode ser facilmente generalizada para obter fórmulas de diferenças finitas de ordem superior e para pontos não uniformemente espaçados (embora a conta fique mais ``suja'').
+
+Podemos aproximar a derivada de \(f(x)\) em \(x_0\), \(x_1\) ou \(x_2\) usando uma interpolação de Lagrange de grau \(2\) para os pontos \((x_0, f(x_0))\), \((x_1, f(x_1))\) e \((x_2, f(x_2))\):
+
+\begin{multline}
+    f(x) = f(x_0) \frac{(x-x_1)(x-x_2)}{(x_0-x_1)(x_0-x_2)} + f(x_1) \frac{(x-x_0)(x-x_2)}{(x_1-x_0)(x_1-x_2)} + f(x_2) \frac{(x-x_0)(x-x_1)}{(x_2-x_0)(x_2-x_1)} + \\
+    + \frac{f'''(\xi(x))}{3!}(x-x_0)(x-x_1)(x-x_2).
+\end{multline}
+onde
+\[
+    \frac{f'''(\xi(x))}{3!}(x-x_0)(x-x_1)(x-x_2)
+\]
+é o termo de erro da interpolação de Lagrange, com \(\xi(x) \in [x_0, x_2]\). Tomando a derivada de \(f\), pondo \(x=x_0\) e considerando uma malha uniforme, com \(x_1 = x_0 + h\) e \(x_2 = x_0 + 2h\), obtemos
+
+\begin{equation}
+    f'(x_0) = \frac{1}{h} \left[ -\frac{3}{2}f(x_0) + 2f(x_1) - \frac{1}{2}f(x_2) \right] + \mathcal{O}(h^2).
+\end{equation}
+Analogamente, pondo \(x = x_1\) e \(x = x_2\), obtemos as fórmulas de diferenças finitas para \(f'(x_1)\) e \(f'(x_2)\):
+
+\begin{align}
+    f'(x_1) & = \frac{1}{h} \left[ -\frac{1}{2}f(x_0) + 0f(x_1) + \frac{1}{2}f(x_2) \right] + \mathcal{O}(h^2) \\
+    f'(x_2) & = \frac{1}{h} \left[ \frac{1}{2}f(x_0) - 2f(x_1) + \frac{3}{2}f(x_2) \right] + \mathcal{O}(h^2)
+\end{align}
+donde \(f'(x_1)\) é a diferença finita central de ordem \(2\). Para construir fórmulas de diferenças finitas de ordem superior, basta utilizar um polinômio interpolador de grau maior, o que requer mais pontos de avaliação da função \(f\). Ainda, pode-se considerar pontos não uniformemente espaçados, o que torna a conta significativamente mais complexa.
+
 \subsection{Fórmulas de diferenças finitas}
+
+Outra maneira de obter fórmulas de diferenças finitas para derivadas de qualquer ordem e com alta ordem de precisão é a partir de uma combinação linear dos valores de \(f\) nos \(n\) pontos \(x_k\), com o objetivo de escolher os coeficientes da combinação linear de modo que a aproximação de \(f'(x)\) seja exata para polinômios de grau até \(n-1\). Do Teorema de Taylor, sabe-se que uma função \(f\) suficientemente suave pode ser localmente aproximada por um polinômio \(p\) de grau \(n-1\) a menos de um infinitésimo de ordem superior a \(n-1\). Assim, se a regra de derivação for exata para \(p\), então ela será uma boa aproximação para \(f\).
+
+Dado um conjunto de \(n\) pontos \(\{(x_k), f(x_k))\}_{k=1}^{n}\), escrevemos
+
+\begin{equation}
+    f'(x) \approx \sum_{k=1}^{n} w_k f(x_k)
+\end{equation}
+onde \(w_k\) são os coeficientes a serem determinados de forma que a aproximação seja exata para polinômios de grau até \(n-1\). Sendo \(p(x) = \sum_{k=1}^{n} a_k \phi_k(x)\) um polinômio de ordem \(n-1\) que aproxima \(f(x)\), fixamos a base \(\phi_k(x) = x^{k}\) para \(k = 0, 1, 2, \ldots, n-1\). Fazendo a regra de derivação ser exata para cada polinômio da base, temos o sistema de equações
+
+\begin{equation}
+    \begin{bmatrix}
+        1 & 1 & \cdots & 1 \\
+        x_1 & x_2 & \cdots & x_n \\
+        x_1^2 & x_2^2 & \cdots & x_n^2 \\
+        \vdots & \vdots & \ddots & \vdots \\
+        x_1^{n-1} & x_2^{n-1} & \cdots & x_n^{n-1}
+    \end{bmatrix}
+    \begin{bmatrix}
+        w_1 \\ w_2 \\ w_3 \\ \vdots \\ w_n
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        0 \\ 1 \\ 2x \\ \vdots \\ (n-1)x^{n-2}
+    \end{bmatrix}
+\end{equation}
+A matriz à esquerda é uma \emph{matriz de Vandermonde}, que é notoriamente mal-condicionada, isto é, conforme o número de pontos \(n\) aumenta, pequenas variações ou erros de arredondamento nos dados de entrada podem causar erros significativos na solução dos pesos \(w_i\).
+
 \subsection{Derivada via ajuste ou interpolação}
 
 \section{Integração numérica}
@@ -105,7 +184,7 @@ onde para uma fórmula fechada, tem-se \(x_i = a + ih\), com \(h = (b-a)/n\) e, 
     f(x) &= p_{n-1}(x) + R_n(x) \\
     & = \sum_{i=0}^{n} f(x_i) l_i(x) + R_n(x)
 \end{align}
-onde \(R_n(x)\) é o termo de erro da interpolação, dado por
+onde \(R_n(x)\) é o termo de erro da interpolação de Lagrange, dado por
 \begin{equation}
     R_n(x) = \frac{f^{(n)}(\xi)}{n!} \prod_{i=0}^{n} (x - x_i), \quad \xi \in [a, b].
 \end{equation}
@@ -121,7 +200,7 @@ que pode ser escrita como
 \end{equation}
 com \(w_i = \int_{a}^{b} l_i(x) dx\) para \(i = 0, 1, \ldots, n\).
 
-A \emph{regra do trapézio} é um caso particular de regra de Newton-Cotes, onde \(n = 1\) e os pontos são \(x_0 = a\) e \(x_1 = b\), com \(h = b-a\). O polinômio interpolador, uma reta, é dado por \(p_1(x) = f(a)l_0(x) + f(b)l_1(x)\), onde \(l_0(x) = (x-b)/(a-b)\) e \(l_1(x) = (x-a)/(b-a)\). Assim, os pesos são \(w_0 = \int_{a}^{b} l_0(x) dx = h/2\) e \(w_1 = \int_{a}^{b} l_1(x) dx = h/2\), resultando na fórmula de quadratura
+A \emph{regra do trapézio} é um caso particular de regra de Newton-Cotes, onde \(n = 1\) e os pontos são \(x_0 = a\) e \(x_1 = b\), com \(h = b-a\). O polinômio interpolador, uma reta, é dado por \(p_1(x) = f(a)l_0(x) + f(b)l_1(x)\), onde \(l_0(x) = \frac{(x-b)}{(a-b)}\) e \(l_1(x) = \frac{(x-a)}{(b-a)}\). Assim, os pesos são \(w_0 = \int_{a}^{b} l_0(x) dx = h/2\) e \(w_1 = \int_{a}^{b} l_1(x) dx = h/2\), resultando na fórmula de quadratura
 \begin{equation}
     \int_{a}^{b} f(x) dx \approx \frac{h}{2} [f(a) + f(b)].
 \end{equation}
@@ -136,7 +215,8 @@ Na \emph{regra de Simpson}, aproximamos \(f\) por uma parábola que interpola os
 \begin{equation}
     p_2(x) = f(a)l_0(x) + f(m)l_1(x) + f(b)l_2(x),
 \end{equation}
-onde \(l_0(x) = (x-m)(x-b)/((a-m)(a-b))\), \(l_1(x) = (x-a)(x-b)/((m-a)(m-b))\) e \(l_2(x) = (x-a)(x-m)/((b-a)(b-m))\). Os pesos podem ser calculados fazendo uma translação para a origem (subtraindo \(x_1\) de \(x_2\) e \(x_3\)), donde vem \(w_0 = \int_{a}^{b} l_0(x) dx = h/6\), \(w_1 = \int_{a}^{b} l_1(x) dx = 4h/6\) e \(w_2 = \int_{a}^{b} l_2(x) dx = h/6\). A fórmula de quadratura fica
+onde \(l_0(x) = \frac{(x-m)(x-b)}{(a-m)(a-b)}\), \(l_1(x) = \frac{(x-a)(x-b)}{(m-a)(m-b)}\) e \(l_2(x) = \frac{(x-a)(x-m)}{(b-a)(b-m)}\). Os pesos podem ser calculados fazendo uma translação para a origem (subtraindo \(x_1\) de \(x_2\) e \(x_3\)), donde vem \(w_0 = \int_{a}^{b} l_0(x) dx = h/6\), \(w_1 = \int_{a}^{b} l_1(x) dx = 4h/6\) e \(w_2 = \int_{a}^{b} l_2(x) dx = h/6\). A fórmula de quadratura fica
+
 \begin{equation}
     \int_{a}^{b} f(x) dx \approx \frac{h}{6} [f(a) + 4f(m) + f(b)].
 \end{equation}
@@ -145,21 +225,26 @@ De forma análoga ao caso do trapézio, encontramos que a regra de Simpson possu
 
 \subsection{Obtenção das regras de quadratura}
 
-Dados \(n\) pontos \([t_1, t_2, \ldots, t_n]\), queremos aproximar
-\begin{equation}
-    \int_{a}^{b} f(x) dx \approx \sum_{i=1}^{n} w_i f(t_i)
-\end{equation}
-de modo que a regra de quadratura seja exata para polinômios de grau no máximo \(n-1\). Para isso, aproximamos \(f(t)\) pelo polinômio \(p(t) = \sum_{i=1}^{n} w_i \phi_i(t)\) de ordem \(n-1\). Tomando uma base qualquer, como \(\phi_k(t) = t^{k-1}\), temos
-\begin{equation}
-    \int_{a}^{b} \phi_1(t) dt = t|_{a}^{b} = \sum_{i=1}^{n} w_i \phi_1(t_i) = \sum_{i=1}^{n} w_i
-\end{equation}
+Da mesma forma que encontramos fórmulas de diferenças finitas a partir de uma combinação linear dos valores de \(f\) nos pontos \(x_k\), também podemos encontrar regras de quadratura a partir de uma combinação linear dos valores de \(f\) nos pontos \(t_i\). Fazendo a regra de quadratura ser exata para a base \(\phi_k(t) = t^{k-1}\), \(1 \leq k \leq n\), ela é exata para o espaço de polinômios de grau até \(n-1\), o que garante uma boa aproximação para funções suficientemente suaves.
 
-Da mesma forma, para \(k = 2, 3, \ldots, n\), temos
+Dados \(n\) pontos \([t_1, t_2, \ldots, t_n]\), queremos aproximar
+
+\begin{equation}
+    \int_{a}^{b} f(x) dx \approx \sum_{k=1}^{n} w_k f(t_k)
+\end{equation}
+de modo que a regra de quadratura seja exata para polinômios de ordem \(\leq n-1\). Para isso, aproximamos \(f(t)\) pelo polinômio \(p(t) = \sum_{k=1}^{n} a_k \phi_k(t)\) de ordem \(n-1\). Tomando uma base qualquer, como \(\phi_k(t) = t^{k-1}\), com \(k = 1, 2, \ldots, n\), temos
+
+\begin{equation}
+    \int_{a}^{b} \phi_1(t) dt = \int_{a}^{b} 1 dt = b - a = \sum_{k=1}^{n} w_k \phi_1(t_k) = \sum_{k=1}^{n} w_k
+\end{equation}
+Da mesma forma, para \(k = 2, 3, \ldots, n-1\), temos
+
 \begin{align}
     \int_{a}^{b} \phi_k(t) dt & = \int_{a}^{b} t^{k-1} dt = \frac{b^k - a^k}{k} \\
-    & = \sum_{i=1}^{n} w_i \phi_k(t_i) = \sum_{i=1}^{n} w_i t_i^{k-1}
+    & = \sum_{k=1}^{n} w_k \phi_k(t_k) = \sum_{k=1}^{n} w_k t_k^{k-1}
 \end{align}
 que pode ser escrito na forma matricial como
+
 \begin{equation}
     \begin{bmatrix}
         1 & 1 & \cdots & 1 \\
@@ -176,8 +261,7 @@ que pode ser escrito na forma matricial como
         b - a \\ (b^2 - a^2)/2 \\ (b^3 - a^3)/3 \\ \vdots \\ (b^n - a^n)/n
     \end{bmatrix}
 \end{equation}
-
-A matriz à esquerda é uma \emph{matriz de Vandermonde}, que é notoriamente mal-condicionada, isto é, conforme o número de pontos \(n\) aumenta, pequenas variações ou erros de arredondamento nos dados de entrada podem causar erros significativos na solução dos pesos \(w_i\).
+Novamente, observa que a matriz à esquerda é uma matriz de Vandermonde.
 
 \subsection{Regras compostas}
 
@@ -196,7 +280,6 @@ e a integral será aproximada por
 \begin{equation}
     \int_{a}^{b} f(x) dx \approx \sum_{i=1}^{n} \Delta S_i
 \end{equation}
-
 Podemos agora aplicar as regras de quadratura já vistas em cada subintervalo. A \emph{regra composta dos trapézios} toma a forma
 
 \begin{align}
@@ -241,8 +324,8 @@ O método de Romberg é uma técnica de extrapolação que utiliza as aproximaç
         I(h) = I_0 + I_2 h^2 + I_4 h^4 + I_6 h^6 + \cdots
     \end{equation}
 \end{thm}
-
 Tomando \(h = (b-a)/2^k\) para \(k = 0, 1, 2, \ldots\), obtemos uma sequência de aproximações \(I_k = I(h)\) que pode ser organizada em uma tabela triangular, onde a primeira coluna contém as aproximações \(I_k\) e as colunas subsequentes contêm as extrapolações obtidas por meio da fórmula de Romberg. A fórmula de extrapolação é dada por
+
 \begin{equation}
     R_{k, j} = \frac{4^j R_{k+1, j-1} - R_{k, j-1}}{4^j - 1}
 \end{equation}
@@ -271,7 +354,6 @@ onde \(q(x)\) é um polinômio de grau \(m-n\) e \(r(x)\) é um polinômio de gr
 \begin{equation}
     \int_{-1}^{1} p(x) dx = \int_{-1}^{1} q(x) P_n(x) dx + \int_{-1}^{1} r(x) dx
 \end{equation}
-
 A primeira integral é zero, pois \(P_n(x)\) é ortogonal\footnote{Os polinômios de Legendre formam uma base ortogonal para o espaço de funções contínuas no intervalo \([-1, 1]\).} a todos os polinômios de grau menor que \(n\). A segunda integral pode ser calculada exatamente usando as raízes de \(P_n(x)\) como pontos de quadratura.
 
 Para aproximar a integral de uma função \(f\) em um intervalo arbitrário \([a, b]\), podemos realizar uma mudança de variável
@@ -334,11 +416,24 @@ Considere o problema de valor inicial
     \end{cases}
 \end{equation}
 
-O \emph{método de Euler} é um método numérico para aproximar a solução \(u(t)\) do problema de valor inicial. A ideia é ver a equação diferencial como uma descrição da taxa de variação de \(u\) em relação a \(t\) e usar essa taxa para construir uma aproximação iterativa da solução, começando a partir do valor inicial \(u_0\) e avançando em pequenos passos de tamanho \(h\). A fórmula de iteração do método de Euler é dada por
+O \emph{método de Euler} é um método numérico para aproximar a solução \(u(t)\) do problema de valor inicial. A ideia é, partindo do valor inicial \(u(t_0) = u_0\), usar a equação diferencial para obter uma aproximação de \(u(t)\) em um ponto próximo a \(t_0\), e repetir esse processo para obter uma sequência de aproximações. Com o refinamento do passo de discretização, a sequência de aproximações converge para a solução exata \(u(t)\) do problema de valor inicial.
+
+Em outras palavras, se integrarmos ambos os lados da equação diferencial no intervalo \([t_0, t_1]\), obtemos
+
+\begin{equation}
+    u(t_1) = u(t_0) + \int_{t_0}^{t_1} f(t, u(t)) dt.
+\end{equation}
+Aproximando a integral usando o valor de \(f\) em \(t = t_0\), temos a seguinte aproximação \(u_1\) para \(u(t_1)\):
+
+\begin{equation}
+    u_1 = u_0 + h f(t_0, u_0)
+\end{equation}
+Continuando esse processo, podemos obter uma sequência de aproximações \(u_n\) para \(u(t_n)\), onde \(t_n = t_0 + nh\) para \(n = 0, 1, 2, \ldots\). A fórmula de iteração do método de Euler é dada por
+
 \begin{equation}
     u_{n+1} = u_n + h f(t_n, u_n)
 \end{equation}
-onde \(t_n = t_0 + nh\) são os pontos de discretização (ou pontos de malha) e \(u_n\) é a aproximação de \(u(t_n)\). O método de Euler é um método explícito, pois a próxima aproximação \(u_{n+1}\) é calculada diretamente a partir da aproximação atual \(u_n\) e da função \(f\).
+que, juntamente com a condição inicial \(u_0 = u(t_0)\), define o método de Euler.
 
 \subsection{Método de Euler melhorado}
 
@@ -352,7 +447,6 @@ onde \(h = t_{n+1} - t_n\) é o passo de discretização. Como não conhecemos \
 \begin{equation}
     u_{n+1} \approx u_n + \frac{h}{2} [f(t_n, u_n) + f(t_{n+1}, u_n + h f(t_n, u_n))]
 \end{equation}
-
 Escrevendo \(k_1 = f(t_n, u_n)\) e \(k_2 = f(t_{n+1}, u_n + hk_1)\) como as derivadas de \(u(t)\) nos pontos \(t_n\) e \(t_{n+1}\), o \emph{método de Euler melhorado} (ou \emph{método de Heun}) assume a forma
 
 \begin{equation}
@@ -413,10 +507,104 @@ onde \(\tilde{u}_{n+1} = u_n + hk_1\) é a aproximação de \(u(t_{n+1})\) obtid
 
 \subsection{Solução de equações e sistemas de ordem superior}
 
+É possível estender as técnicas estudadas para resolver numericamente equações diferenciais ordinárias de ordem superior. Considere o problema de segunda ordem dado por:
 
+\begin{equation}
+    x''(t) + x'(t) + \sin x(t) = 1,
+\end{equation}
+sujeito às condições iniciais \(x(0) = 2\) e \(x'(0) = 0\). Para resolver esse problema, podemos reescrevê-lo como um sistema de equações diferenciais de primeira ordem. Definindo \(u_1(t) = x(t)\) e \(u_2(t) = x'(t)\), temos
+
+\begin{equation}
+    \begin{cases}
+        u_1' = u_2 \\
+        u_2' = 1 - u_2 - \sin u_1 \\
+        u_1(0) = 2 \\
+        u_2(0) = 0
+    \end{cases}
+\end{equation}
+que pode ser escrito de forma compacta como
+
+\begin{equation}
+    \begin{cases}
+        u' = F(t, u) \\
+        u(0) = (2, 0)^T
+    \end{cases}
+\end{equation}
+onde \(u(t) = (u_1(t), u_2(t))^T\) e \(F(t, u) = (u_2, 1 - u_2 - \sin u_1)^T\). Agora podemos aplicar o método de Euler melhorado para obter uma sequência de aproximações \(u^{(n)}\) para \(u(t_n)\), onde \(t_n = nh\) para \(n = 0, 1, 2, \ldots\). Computamos
+
+\begin{align*}
+    k_1 &= F(t_n, u^{(n)}) = \begin{bmatrix}
+        u_{2}^{(n)} \\
+        1 - u_{2}^{(n)} - \sin u_{1}^{(n)}
+    \end{bmatrix}
+    \\
+    \tilde{u}^{(n+1)} &= u^{(n)} + hk_1 = \begin{bmatrix}
+        u_{1}^{(n)} + h u_{2}^{(n)} \\
+        u_{2}^{(n)} + h (1 - u_{2}^{(n)} - \sin u_{1}^{(n)})
+    \end{bmatrix}
+    \\
+    k_2 &= F(t_{n+1}, \tilde{u}^{(n+1)}) = \begin{bmatrix}
+        u_{1}^{(n)} + h u_{2}^{(n)} \\
+        1 - (u_{2}^{(n)} + h (1 - u_{2}^{(n)} - \sin u_{1}^{(n)})) - \sin(u_{1}^{(n)} + h u_{2}^{(n)})
+    \end{bmatrix}
+    \\
+\end{align*}
+E então, a aproximação \(u^{(n+1)}\) para \(u(t_{n+1})\) é dada por
+
+\begin{equation}
+    u^{(n+1)} = u^{(n)} + \frac{h}{2} (k_1 + k_2).
+\end{equation}
 
 \subsection{Erro de truncamento}
+
+\begin{defn}
+    O \emph{erro de truncamento local} (ETL) é definido como o erro introduzido em cada passo de iteração pelo truncamento da ED supondo conhecida a solução exata no início do intervalo. Um método numérico é de ordem \(p\) se o erro de truncamento local é da ordem \(\mathcal{O}(h^{p+1})\).
+\end{defn}
+
+Pode ser mostrado que o método de Euler possui erro de truncamento local \(ETL = \mathcal{O}(h^2)\) e, portanto, é um método de ordem \(1\). Já o método de Euler melhorado possui erro de truncamento local \(ETL = \mathcal{O}(h^3)\) e, portanto, é um método de ordem \(2\).
+
+\begin{defn}
+    O \emph{erro de truncamento global} (ETG) é definido como o erro acumulado ao longo de toda a sequência de iterações.
+\end{defn}
+
 \subsection{Métodos de Runge-Kutta explícitos}
+
+Os métodos de Runge-Kutta são uma família de métodos numéricos que generalizam o método de Heun para obter métodos de ordem superior. Por ora, estudamos os \emph{métodos de Runge-Kutta explícitos}. Considere o PVI
+
+\begin{equation}
+    \begin{cases}
+        u' = f(t, u) \\
+        u(t_0) = u_0
+    \end{cases}
+\end{equation}
+Vimos que o método de Euler aproxima a integral do lado direito da equação diferencial usando o valor de \(f\) em \(t = t_n\). O método de Heun melhora essa aproximação usando a regra do trapézio, que utiliza os valores de \(f\) em \(t = t_n\) e \(t = t_{n+1}\). Os métodos de Runge-Kutta explícitos admitem pontos intermediários \(\tau_j = t_n + c_j h\) para \(j = 1, 2, \ldots, s\), onde \(0 \leq c_1 \leq c_2 \leq \cdots < c_s \leq 1\) são os nós da quadratura. Assim, aproximamos a integral como
+
+\begin{equation}
+    \int_{t_n}^{t_{n+1}} f(t, u(t)) dt \approx h \sum_{j=1}^{s} b_j f(\tau_j, u(\tau_j))
+\end{equation}
+onde \(b_j\) são os pesos da quadratura. Nota que \(u(\tau_j)\) não é conhecido, mas pode ser aproximado usando os valores de \(f\) nos pontos anteriores \(\tau_1, \tau_2, \ldots, \tau_{j-1}\). Especificamente, podemos escrever
+
+\begin{equation}
+    u(\tau_j) \approx \tilde{u}_j = u_n + h \sum_{l=1}^{j-1} a_{jl} f(\tau_l, u(\tau_l))
+\end{equation}
+e a iteração do método de Runge-Kutta explícito é dada por
+
+\begin{equation}
+    u_{n+1} = u_n + h \sum_{j=1}^{s} b_j k_j
+\end{equation}
+onde \(k_j = f(\tau_j, \tilde{u}_j)\). Os coeficientes \(a_{jl}\), \(b_j\) e \(c_j\) são escolhidos de modo que o método seja de ordem \(p\). Podemos organizar os coeficientes em uma tabela de Butcher, onde a primeira coluna contém os nós \(c_j\), a parte superior direita contém os coeficientes \(a_{jl}\) e a última linha contém os coeficientes \(b_j\):
+
+\begin{center}
+    \begin{tabular}{c|ccc}
+        \(c_1\) & 0 & \(\cdots\) & 0 \\
+        \(c_2\) & \(a_{21}\) & 0 & \(\cdots\) \\
+        \(\vdots\) & \(\vdots\) & \(\ddots\) & \(\vdots\) \\
+        \(c_s\) & \(a_{s1}\) & \(a_{s2}\) & \(\cdots\) \\
+        \hline
+        & \(b_1\) & \(b_2\) & \(\cdots\)
+    \end{tabular}
+\end{center}
+
 \subsection{Métodos de Runge-Kutta implícitos}
 \subsection{O método de Taylor}
 \subsection{Método de Adams-Bashforth}

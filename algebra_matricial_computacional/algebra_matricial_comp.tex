@@ -20,6 +20,7 @@ Na segunda área, usaremos as transformações ortogonais para resolver problema
 Teremos uma avaliação para cada área, com atividade presencial e entrega de tarefas ao decorrer do semestre letivo. A primeira avaliação será no dia 28 de abril/26 e a segunda no dia 30 de junho/26. Uma recuperação está prevista para o dia 07 de junho/26.
 
 \tableofcontents
+\lstlistoflistings
 
 \section{Aritmética de Ponto Flutuante}
 
@@ -189,7 +190,7 @@ Dada a decomposição \(A=LU\), podemos resolver o sistema \(Ax=b\). Substitui \
     LUx&=b\\
     L(Ux)&=b.
 \end{align}
-Faz \(y=Ux\) e resolve \(Ly=b\) usando substituição para frente (ou \emph{forward substitution}). Depois resolve \(Ux=y\) com substituição para trás (ou\emph{back substitution}).
+Faz \(y=Ux\) e resolve \(Ly=b\) usando substituição para frente (\emph{forward substitution}). Depois resolve \(Ux=y\) com substituição para trás (\emph{back substitution}).
 
 \subsection{Matrizes elementares}
 
@@ -279,7 +280,7 @@ O seguinte código realiza a decomposição \(LU\) com pivotamento parcial:
 
 \subsection{Custo computacional da decomposição \(LU\)}
 
-Se o sistema linear \(Ax_i=b_i\), \(1\leq i \leq k\), precisa ser resolvido para múltiplos vetores \(b_i\), podemos realizar a decomposição \(PA=LU\), de custo computacional \(O(n^3)\), apenas uma vez. Depois resolvemos \(L(Ux_i)=Pb_i\) usando substituição para frente e substituição para trás, que têm custo \(O(kn^2)\). Caso fôssemos realizar a eliminação gaussiana para cada sistema \(Ax_i=b_i\), o custo seria \(O(kn^3)\).
+Se o sistema linear \(Ax_i=b_i\), \(1\leq i \leq k\), precisa ser resolvido para múltiplos vetores \(b_i\), podemos realizar a decomposição \(PA=LU\), de custo computacional \(\mathcal{O}(n^3)\), apenas uma vez. Depois resolvemos \(L(Ux_i)=Pb_i\) usando substituição para frente e substituição para trás, que têm custo \(\mathcal{O}(kn^2)\). Caso fôssemos realizar a eliminação gaussiana para cada sistema \(Ax_i=b_i\), o custo seria \(\mathcal{O}(kn^3)\).
 
 Dada uma decomposição \(LU\) de uma matriz \(A\), podemos resolver o sistema \(Ax=b\) da seguinte forma:
 
@@ -316,18 +317,493 @@ Dada uma decomposição \(LU\) de uma matriz \(A\), podemos resolver o sistema \
 em outras palavras, é a razão entre o maior elemento que aparece durante a eliminação gaussiana e o maior elemento da matriz \(A\).
 \end{defn}
 
-\subsection{Fatoração de Cholesky}
+\section{Alguns Sistemas Especiais}
 
+\subsection{Sistemas tridiagonais}
 
-\section{Transformações Ortogonais}
+Uma matriz \(T\) tridiagonal\footnote{\(T\) é uma matriz \emph{tridiagonal} se \(t_{ij} = 0\) sempre que \(|i-j| > 1\).} pode ser fatorada como produto de duas matrizes bidiagonais \(L\) e \(U\). A matriz \(L\) é unitária triangular-inferior e a matriz \(U\) é triangular-superior, com elementos da superdiagonal iguais aos elementos da superdiagonal de \(T\). O programa abaixo realiza a decomposição \(LU\) de uma matriz tridiagonal \(T\):
 
-\subsection{Ortonormalização de Gram-Schmidt}
-\subsection{Estabilidade numérica de Gram-Schmidt}
-\subsection{A decomposição QR}
+\begin{lstlisting}[language=Scilab, caption=Decomposição \(LU\) de matriz tridiagonal, label=lst:lu_tridiagonal]
+    function [l,u] = tridiaglu(a,b,c)
+        // factor tridiagonal matrix T defined by subdiagonal a, main diagonal b, and superdiagonal c
+        // into a product of two bidiagonal matrices L (with 1's on the main diagonal) and U (whose superdiagonal elements are
+        // the same as c)
+        // input: vectors a, b, c
+        // output: subdiagonal l of the left bidiagonal factor and main diagonal u of the right bidiagonal factor
+        u(1) = b(1);
+        
+        for i = 1:n-1
+            l(i) = a(i) / u(i);
+            u(i+1) = b(i+1) - l(i)*c(i);
+        end
+    endfunction
+\end{lstlisting}
+
+\begin{rem}
+    Deve-se lembrar que o código acima não funciona se \(u(i) = 0\) para algum \(i\), mas isso raramente acontece na prática. Infelizmente, a estabilidade do algoritmo não pode ser garantida.
+\end{rem}
+
+Para resolver um sistema \(Tx=b\) com \(T\) tridiagonal, basta realizar a decomposição \(LU\) e depois resolver \(Ly=b\) e \(Ux=y\) usando substituição para frente e substituição para trás, respectivamente, conforme o código abaixo:
+
+\begin{lstlisting}[language=Scilab, caption=Resolução de sistema linear tridiagonal usando decomposição \(LU\)]
+    function [x] = trisolve(l,u,c,rhs)
+        // solve Tx=b given tridiagonal factorization of T 
+        // into unit lower-bidiagonal matrix L and upper-bidiagonal matrix U
+        // input: l is the subdiagonal of the lower-diagonal matrix, u is the main diagonal of upper-diagonal matrix
+        // output: solution vector x
+        [n,m] = size(rhs);
+        
+        // solve Ly=rhs by forward substitution
+        y = zeros(n,1);
+        y(1) = rhs(1);
+        for i = 2:n
+            y(i) = rhs(i) - l(i-1)*y(i-1);
+        end
+        
+        // solve Ux=y by back substitution
+        x = zeros(n,1);
+        x(n) = y(n) / u(n);
+        for j = n-1:-1:1
+            x(j) = (y(j) - c(j)*x(j+1)) / u(j);
+        end
+    endfunction
+\end{lstlisting}
+
+O algoritmo acima tem custo computacional \(\mathcal{O}(n)\). No programa \cref{lst:lu_tridiagonal}, o laço \texttt{for} é executado \(n-1\) vezes, com cada iteração realizando uma divisão, uma subtração e uma multiplicação, então a contagem de flops é \(3(n-1)\). A substituição para frente requer \(2(n-1)\) flops (uma subtração e uma multiplicação) e a substituição para trás requer \(1+3(n-1)\) flops (a divisão inicial \(x_n = y_n/u_n\), seguida de \(n-1\) iterações, cada uma com uma subtração, uma multiplicação e uma divisão). Assim, o número total de flops para resolver um sistema linear tridiagonal \(Tx=b\) usando a decomposição \(LU\) é \(3(n-1) + 2(n-1) + 1 + 3(n-1) = 8n - 7\).
+
+\subsection{Matrizes simétricas positiva-definidas}
+
+\begin{defn}
+    Uma matriz simétrica \(A\) é \emph{positiva definida} se \(x^T A x > 0\) para todo \(x \in \R^n\), \(x \neq 0\). A expressão \(x^T A x = \sum_{i=1}^n \sum_{j=1}^n a_{ij} x_i x_j\) é chamada de \emph{forma quadrática} associada à matriz \(A\). Se \(x^T A x \geq 0\) para todo \(x \in \R^n\), \(x \neq 0\), dizemos que \(A\) é \emph{positiva semi-definida}.
+\end{defn}
+
+\begin{rem}
+    Nestas notas, todas as matrizes positivas definidas serão também simétricas, então usaremos apenas o termo positiva definida. É possível que uma matriz não simétrica satisfaça
+    \[
+        x^T A x > 0, \quad x \neq 0
+    \]
+    mas não existe um consenso sobre o que isso significa para matrizes não simétricas.
+\end{rem}
+
+A condição \(x^T A x > 0\) para todo \(x \neq 0\) é quase impossível de verificar na prática, mas existem outras condições equivalentes que determinam se uma matriz é positiva definida, como mostra o teorema abaixo.
+
+\begin{thm}\label{thm:positiva_definida}
+    \begin{enumerate}
+        \item Uma matriz simétrica \(A_{n \times n}\) é positiva definida se e somente se todos os seus autovalores são positivos.
+        \item Uma matriz simétrica \(A_{n \times n}\) é positiva definida se e somente se todos os seus menores principais líderes são positivos, isto é, \(\det A(1:i, 1:i) > 0\) para \(1 \leq i \leq n\). (critério de Sylvester).
+        \item Se \(A = (a_{ij})\) é positiva definida então \(a_{ii} > 0\) para todo \(i\).
+        \item Se \(A = (a_{ij})\) é positiva definida então o maior elemento em magnitude de todas as entradas da matriz está na diagonal, ou seja, \(\max_{i,j} |a_{ij}| = \max_i |a_{ii}|\).
+        \item A soma de duas matrizes positivas definidas é positiva definida.
+    \end{enumerate} 
+\end{thm}
+
+Nota que, enquanto os itens \(1\) e \(2\) caracterizam matrizes positivas definidas, os itens \(3\) e \(4\) nos permitem dizer rapidamente se uma matriz \emph{não} é positiva definida, i.e., são condições necessárias, mas não suficientes.
+
+\begin{proof}
+    \begin{enumerate}
+        \item \((\Rightarrow)\).
+        \item \((\Rightarrow)\). 
+        \item c
+        \item d
+        \item e
+    \end{enumerate}
+\end{proof}
+
+\begin{rem}
+    Se \(A\) é uma matriz invertível então \(A^T A\) é positiva definida. De fato,
+\[
+    x^T A^T A x = (Ax)^T (Ax) = \Vert Ax \Vert_2^2 > 0, \quad x \neq 0.
+\]
+\end{rem}
+
+\begin{rem}
+    Uma matriz é \emph{negativa definida} se \(-A\) é positiva definida. Uma matriz é \emph{simétrica indefinida} se tem autovalores positivos e negativos, ou seja, se existe \(x\) tal que \(x^T A x > 0\) e existe \(y\) tal que \(y^T A y < 0\).
+\end{rem}
 
 \begin{thm}
-    Se \(A_{m \times n}\) é uma matriz, \(m \geq n\), com colunas linearmente independentes, então existe uma matriz \(Q_{m \times n}\) com colunas ortonormais e uma matriz \(R_{n \times n}\) triangular superior tal que \(A=QR\).
+    Suponha que uma matriz real simétrica tridiagonal \(\displaystyle A = \begin{bmatrix}
+        b_1 & a_1 & 0 & \ldots & 0 \\
+        a_1 & b_2 & a_2 & \ldots & 0 \\
+        0 & a_2 & b_3 & \ldots & 0 \\
+        \vdots & \vdots & \vdots & \ddots & a_{n-1} \\
+        0 & 0 & 0 & a_{n-1} & b_n
+    \end{bmatrix}\) com entradas na diagonal positivas é estritamente diagonal dominante, i.e., \(b_i > |a_{i-1}| + |a_i|\) para \(1 \leq i \leq n\). Então \(A\) é positiva definida.
 \end{thm}
+
+\subsection{Fatoração de Cholesky}
+
+Mostrar que os autovalores ou que os menores principais líderes de uma matriz \(A\) são positivos pode ser difícil. A fatoração de Cholesky é um método eficiente para determinar se uma matriz é positiva definida e, caso seja, obter uma fatoração \(A = R^T R\), onde \(R\) é triangular-superior. A existência e unicidade dessa fatoração é garantida pelo seguinte teorema:
+
+\begin{thm}
+    Seja \(A_{n \times n}\) uma matriz real positiva definida. Então existe uma única matriz triangular-superior \(R = (r_{ij})\) com \(r_{ii} > 0\), \(1 \leq i \leq n\), tal que
+    \[
+        A = R^T R.
+    \]
+\end{thm}
+
+O esquema a seguir usa o caso \(n=3\) para ilustrar o algoritmo da fatoração de Cholesky:
+
+\begin{tcolorbox}[title=Computando a fatoração de Cholesky]
+    \begin{multline}
+        \begin{bmatrix}
+            a_{11} & a_{12} & a_{13} \\
+            a_{12} & a_{22} & a_{23} \\
+            a_{13} & a_{23} & a_{33}
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            r_{11} & 0 & 0 \\
+            r_{12} & r_{22} & 0 \\
+            r_{13} & r_{23} & r_{33}
+        \end{bmatrix}
+        \begin{bmatrix}
+            r_{11} & r_{12} & r_{13} \\
+            0 & r_{22} & r_{23} \\
+            0 & 0 & r_{33}
+        \end{bmatrix} = \\
+        \begin{bmatrix}
+            r_{11}^2 & r_{11}r_{12} & r_{11}r_{13} \\
+            r_{11}r_{12} & r_{12}^2 + r_{22}^2 & r_{12}r_{13} + r_{22}r_{23} \\
+            r_{11}r_{13} & r_{12}r_{13} + r_{22}r_{23} & r_{13}^2 + r_{23}^2 + r_{33}^2
+        \end{bmatrix}   
+    \end{multline}
+
+    Igualando as entradas das matrizes, tem-se
+    \begin{align*}
+        r_{11} &= \sqrt{a_{11}}, \\
+        r_{12} &= a_{12}/r_{11}, \\
+        r_{13} &= a_{13}/r_{11}, \\
+        r_{22} &= \sqrt{a_{22} - r_{12}^2}, \\
+        r_{23} &= (a_{23} - r_{12}r_{13})/r_{22}, \\
+        r_{33} &= \sqrt{a_{33} - r_{13}^2 - r_{23}^2}.
+    \end{align*}
+\end{tcolorbox}
+
+A decomposição de Cholesky pode ser usada não só para fatorar \(A\), como também para determinar se \(A\) é positiva definida. Nota que \(A\) é positiva definida somente se \(a_{ii} > 0\) para \(1 \leq i \leq n\). No entanto, se o argumento de alguma raiz quadrada (como \(a_{22} - r_{12}^2\)) for negativo, então \(A\) não é positiva definida. Implementamos a seguir a fatoração de Cholesky:
+
+\begin{lstlisting}[language=Scilab, caption=Fatoração de Cholesky]
+    function [R] = cholesky(A)
+        // factor positive definite matrix A using Cholesky decomposition
+        // if the algorithm fails, A is not positive definite
+        // input: n x n symmetric matrix A
+        // output: error message with empty matrix or upper-triangular matrix R
+        [n, m] = size(A);
+        if n ~= m then
+            error('Input matrix must be square');
+        end
+        
+        R = zeros(n,n); // initialize R
+        
+        for i = 1:n // traverse matrix rows
+            sum_squares = 0;
+            for k = 1:i-1
+                sum_squares = sum_squares + R(k,i)^2;
+            end
+            tmp = A(i,i) - sum_squares;
+            if tmp <= 0 then
+                disp('Input matrix is not positive definite');
+                R = []; // return empty matrix
+                return
+            else
+                R(i,i) = sqrt(tmp);
+            end
+            for j = i+1:n // traverse (n-i) matrix columns
+                sum_product = 0;
+                for k = 1:i-1
+                    sum_product = sum_product + R(k,i)*R(k,j);
+                end
+                R(i,j) = (A(i,j) - sum_product) / R(i,i);
+            end
+        end
+    endfunction
+\end{lstlisting}
+
+Pode ser mostrado que o algoritmo da fatoração de Cholesky tem contagem de flops de \(n^3/3 + \mathcal{O}(n^2)\), que é aproximadamente metade do custo da decomposição \(LU\), que tem contagem de flops de \(2n^3/3 + \mathcal{O}(n^2)\). Assim, a fatoração de Cholesky é mais eficiente do que a decomposição \(LU\) para matrizes positivas definidas. Também pode ser mostrado que o algoritmo de Cholesky é estável para trás.
+
+Se \(A\) é positiva definida, a decomposição de Cholesky pode ser usada para resolver o sistema linear \(Ax=b\). Com efeito, se \(A=R^T R\), então \(R^T R x = b\). Faz \(y = R x\) e resolve \(R^T y = b\) usando substituição para frente. Depois resolve \(R x = y\) usando substituição para trás. Como cada uma das substituições para frente e para trás tem custo \(\mathcal{O}(n^2)\), o custo total para resolver \(Ax=b\) usando a fatoração de Cholesky é aproximadamente \(n^3/3 + n^2\).
+
+\section{Ortonormalização de Gram-Schmidt}
+
+\subsection{O processo de Gram-Schmidt}
+
+Dado um conjunto de vetores linearmente independentes \(S = \{v_1, v_2, \ldots, v_n\} \in \R^m\), o \emph{processo de Gram-Schmidt} (GS) constrói um conjunto de vetores ortonormais \(S' = \{e_1, e_2, \ldots, e_n\}\) que geram o mesmo subespaço \(n\)-dimensional de \(S\). Segue que \(m \geq n\), caso contrário os vetores seriam linearmente dependentes.
+
+Antes de descrever o processo de GS, definimos o operador de projeção ortogonal, um dos usos mais importantes do produto interno.
+
+\begin{defn}
+    A projeção ortogonal de um vetor \(v\) sobre um vetor \(u\) é dada pela operador 
+    \[
+        \proj (v)_u = \frac{\langle v, u \rangle}{\langle u, u \rangle} u.
+    \]
+\end{defn}
+
+Aqui, a ideia crucial é que se removermos a projeção ortogonal de \(v\) sobre \(u\) de \(v\) por meio da operação \(v - \proj(v)_u\), obtemos um vetor que é ortogonal a \(u\). Podemos verificar esse fato algebricamente:
+
+\begin{equation*}
+    \langle u, v - \proj(v)_u \rangle = \langle u, v \rangle - \langle u, \proj(v)_u \rangle = \langle u, v \rangle - \frac{\langle v, u \rangle}{\langle u, u \rangle} \langle u, u \rangle = 0.
+\end{equation*}
+
+O processo de GS, descrito a seguir, tem como base sucessivas remoções da projeção ortogonal de cada vetor \(v_i\) sobre os vetores \(e_1, e_2, \ldots, e_{i-1}\) já construídos de \(v_1, v_2, \ldots, v_{i-1}\), para obter um vetor \(u_i\) ortogonal a todos os vetores \(e_j\) com \(j < i\). Depois, o vetor \(u_i\) é normalizado para obter o vetor \(e_i\).
+
+\begin{tcolorbox}[title=Processo de Gram-Schmidt]
+    \begin{enumerate}
+        \item Toma o primeiro vetor \(v_1\) e normaliza para obter \(e_1 = v_1/\Vert v_1 \Vert\) e define \(r_{11} = \Vert v_1 \Vert_2\). Usaremos os elementos do conjunto \(\{r_{ij}, 1 \leq i, j \leq n, j \geq i\}\) para construir uma matriz triangular superior \(R\) que, junto com a matriz \(Q\) de colunas \(e_i\), formará a decomposição \(A=QR\) da matriz \(A\) cujas colunas são os vetores \(v_i\). Seja \(u_1 = v_1\) e então
+        \[
+            e_1 = \frac{v_1}{\Vert v_1 \Vert_2} = \frac{v_1}{r_{11}}, \quad r_{11} = \Vert v_1 \Vert_2.
+        \] 
+        \item Seja \(r_{12} = \langle v_2, e_1 \rangle\). Defina o vetor \(u_2\), normal a \(e_1\), removendo a projeção de \(v_2\) sobre \(e_1\). Então normaliza \(u_2\) para obter \(e_2\):
+        \[
+            u_2 = v_2 - \proj(v_2)_{e_1} = v_2 - \frac{\langle v_2, e_1 \rangle}{\Vert e_1 \Vert_2^2} e_1 = v_2 - r_{12} e_1.
+        \]
+        Normaliza o vetor \(u_2\). Seja \(r_{22} = \Vert u_2 \Vert_2\) e define
+        \[
+            e_2 = \frac{u_2}{\Vert u_2 \Vert_2} = \frac{u_2}{r_{22}}.
+        \]
+        \item Para obter \(u_3\), normal a \(e_1\) e \(e_2\), remove as projeções de \(v_3\) sobre \(e_1\) e \(e_2\), definindo \(r_{13} = \langle v_3, e_1 \rangle\) e \(r_{23} = \langle v_3, e_2 \rangle\):
+        \[
+            u_3 = v_3 - \proj(v_3)_{e_1} - \proj(v_3)_{e_2} = v_3 - r_{13} e_1 - r_{23} e_2.
+        \]
+        Normaliza o vetor \(u_3\), definindo \(r_{33} = \Vert u_3 \Vert_2\) para obter
+        \[
+            e_3 = \frac{u_3}{\Vert u_3 \Vert_2} = \frac{u_3}{r_{33}}.
+        \]
+        \item Para \(4 \leq i \leq n\), define \(r_{ji} = \langle v_i, e_j \rangle\) para \(1 \leq j < i\) e então
+        \[
+            u_i = v_i - \sum_{j=1}^{i-1} \proj(v_i)_{e_j} = v_i - \sum_{j=1}^{i-1} r_{ji} e_j.
+        \]
+        Seja \(r_{ii} = \Vert u_i \Vert_2\). Normaliza \(u_i\) para obter
+        \[
+            e_i = \frac{u_i}{\Vert u_i \Vert_2} = \frac{u_i}{r_{ii}}.
+        \]
+        A sequência de vetores \(e_1, e_2, \ldots, e_n\) é ortonormal e gera o mesmo subespaço que os vetores \(v_1, v_2, \ldots, v_n\). Para ver isso, tome um vetor \(x\) que é uma combinação linear dos vetores \(v_i\), isto é,
+        \[
+            x = \sum_{i=1}^n c_i v_i.
+        \]
+        Por construção, tem-se que \(v_i = u_i + \sum_{j=1}^{i-1} \proj(v_i)_{e_j} e_j\) para \(1 \leq i \leq n\). Mas cada \(\proj(v_i)_{e_j}\) é múltiplo escalar de \(e_j\), e \(u_i = \Vert u_i \Vert e_i\), então \(x\) pode ser escrito como combinação linear de \(e_1, e_2, \ldots, e_n\). Como esses vetores são ortonormais, eles também são linearmente independentes, e portanto \(e_1, e_2, \ldots, e_n\) formam uma base ortonormal para o mesmo subespaço gerado por \(v_1, v_2, \ldots, v_n\).
+    \end{enumerate}
+\end{tcolorbox}
+
+Implementamos o processo de GS no algoritmo abaixo, chamado de \emph{Gram-Schmidt clássico}.
+
+\begin{lstlisting}[language=Scilab, caption=Gram-Schmidt clássico, label=lst:clgrsch]
+    function [E] = clgrsch(V)
+        // converts a set of linearly independent vectors to a set of orthonormal vectors spanning the same subspace
+        // input: m x n matrix V whose columns are the LI vectors to be orthonormalized
+        // output: m x n matrix E whose columns are an orthonormal set of vectors that span the same subspace as the columns of V
+        [m,n] = size(V);
+        for i = 1:n
+            sumproj = 0;
+            for j = 1:i-1
+                sumproj = sumproj + (V(:,i)' * E(:,j)) * E(:,j); // compute sum of projections of v_i onto e_1, e_2, ..., e_{i-1}
+            end
+            E(:,i) = V(:,i) - sumproj; // compute u_i, orthogonal to e_1, e_2, ..., e_{i-1}, by removing from v_i its 
+            // orthogonal projections onto e_1, e_2, ..., e_{i-1}
+            E(:,i) = E(:,i) / norm(E(:,i),2); // normalize u_i to obtain unit vector e_i
+        end
+    endfunction
+\end{lstlisting}
+
+\subsection{Estabilidade numérica de Gram-Schmidt}
+
+Durante a execução do processo de GS, os vetores \(u_i\) não são exatamente ortogonais devido a erros de arredondamento. Para \cref{lst:clgrsch}, essa perda de ortogonalidade pode ser particularmente severa. Além disso, o algoritmo pode gerar resultados ruins quando alguns dos vetores são quase linearmente dependentes. Por conta disso, é dito que o GS clássico é numericamente instável.
+
+Podemos melhorar a estabilidade do processo de GS usando o algoritmo de \emph{Gram-Schmidt modificado} (MGS), em que as projeções são removidas de cada vetor \(v_i\) uma a uma, em vez de remover todas as projeções de \(v_i\) sobre os vetores \(e_j\) com \(j < i\) de uma só vez. O código abaixo implementa o processo MGS:
+
+\begin{lstlisting}[language=Scilab, caption=Gram-Schmidt modificado, label=lst:modgrsch]
+    function [E] = modgrsch(V)
+        // modified GS to convert a set of linearly independent vectors to a set of orthonormal vectors spanning the same subspace
+        // instead of removing all projections at once, we remove one projection at a time to reduce rounding errors
+        // input: m x n matrix V whose columns are the LI vectors to be orthonormalized
+        // output: m x n matrix E whose columns are an orthonormal set of vectors that span the same subspace as the columns of V
+        [m,n] = size(V);
+        for i = 1:n
+            E(:,i) = V(:,i);
+            for j = 1:i-1
+                E(:,i) = E(:,i) - (E(:,i)' * E(:,j)) * E(:,j); // remove from v_i its projection onto e_j one at a time
+                // to obtain a vector u_i that is orthogonal to each e_j
+            end
+            E(:,i) = E(:,i) / norm(E(:,i),2); // normalize u_i to obtain unit vector e_i
+        end
+    endfunction
+\end{lstlisting}
+
+\begin{defn}
+    Uma matriz real \(A_{m \times n}\) tem \emph{posto completo} (\emph{full rank}) se \(\rank A = \min\{m,n\}\). Se \(m \geq n\) e \(A\) tem posto completo, então as colunas de \(A\) são linearmente independentes. Se \(m \leq n\) e \(A\) tem posto completo, então as linhas de \(A\) são linearmente independentes.
+\end{defn}
+
+\subsection{A decomposição QR}
+
+Suponha que \(A_{m \times n} = [v_1 \ v_2 \ \ldots \ v_n]\) é uma matriz de posto completo. O processo de GS pode ser usado para fatorar \(A\) num produto \(A=QR\), onde \(Q_{m \times n}\) tem colunas ortonormais e \(R_{n \times n}\) é triangular-superior. De fato, se \(e_1, e_2, \ldots, e_n\) são os vetores ortonormais obtidos a partir do processo de GS aplicado aos vetores \(v_1, v_2, \ldots, v_n\), então \(Q = [e_1 \ e_2 \ \ldots \ e_n]\) é uma matriz ortogonal. Além disso, os elementos \(r_{ij}\) usados para construir os vetores \(e_i\) formam uma matriz triangular-superior \(R\). Para ver que \(A=QR\), note que \(v_i = u_i + \sum_{j=1}^{i-1} r_{ji} e_j\) para \(1 \leq i \leq n\), e \(u_i = r_{ii} e_i\), então
+
+    \[
+        v_i = r_{ii} e_i + \sum_{j=1}^{i-1} r_{ji} e_j, \quad 1 \leq i \leq n.
+    \]
+Sejam \(Q = [e_1 \ e_2 \ \ldots \ e_n]\) a matriz cujas colunas são os vetores ortonormais
+    \[
+        e_1 = \begin{bmatrix}
+            e_{11} \\
+            e_{21} \\
+            \vdots \\
+            e_{m1}
+        \end{bmatrix},
+        e_2 = \begin{bmatrix}
+            e_{12} \\
+            e_{22} \\
+            \vdots \\
+            e_{m2}
+        \end{bmatrix},
+        \ldots,
+        e_n = \begin{bmatrix}
+            e_{1n} \\
+            e_{2n} \\
+            \vdots \\
+            e_{mn}
+        \end{bmatrix},
+    \]
+e
+    \[
+        R = \begin{bmatrix}
+            r_{11} & r_{12} & \ldots & r_{1n} \\
+            0 & r_{22} & \ldots & r_{2n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            0 & 0 & \ldots & r_{nn}
+        \end{bmatrix}.
+    \]
+É suficiente mostrar o caso \(n=3\) para ver que \(A=QR\). Seja \(A\) a matriz \(3 \times 3\)
+
+\[
+    A = \begin{bmatrix}
+        v_1 & v_2 & v_3
+    \end{bmatrix} = 
+    \begin{bmatrix}
+        v_{11} & v_{12} & v_{13} \\
+        v_{21} & v_{22} & v_{23} \\
+        v_{31} & v_{32} & v_{33}
+    \end{bmatrix}.
+\]
+Então computa \(QR\)
+    \begin{equation*}
+        \begin{bmatrix}
+            e_{11} & e_{12} & e_{13} \\
+            e_{21} & e_{22} & e_{23} \\
+            e_{31} & e_{32} & e_{33}
+        \end{bmatrix}
+        \begin{bmatrix}
+            r_{11} & r_{12} & r_{13} \\
+            0 & r_{22} & r_{23} \\
+            0 & 0 & r_{33}
+        \end{bmatrix} = 
+        \begin{bmatrix}
+            r_{11}e_{11} & r_{12}e_{11}+r_{22}e_{12} & r_{13}e_{11}+r_{23}e_{12}+r_{33}e_{13} \\
+            r_{11}e_{21} & r_{12}e_{21}+r_{22}e_{22} & r_{13}e_{21}+r_{23}e_{22}+r_{33}e_{23} \\
+            \vdots & \vdots & \vdots \\
+            r_{11}e_{31} & r_{12}e_{31}+r_{22}e_{32} & r_{13}e_{31}+r_{23}e_{32}+r_{33}e_{33}
+        \end{bmatrix}.
+    \end{equation*}
+Comparando as colunas de \(A\) e \(QR\), tem-se
+    \begin{align*}
+        v_1 &= r_{11} e_1, \\
+        v_2 &= r_{12} e_1 + r_{22} e_2, \\
+        v_3 &= r_{13} e_1 + r_{23} e_2 + r_{33} e_3.
+    \end{align*}
+Portanto, \(A=QR\).
+
+\begin{thm}
+    Se \(A_{m \times n}\) tem posto completo, então existe uma matriz ortogonal \(Q_{m \times n}\) e uma matriz triangular-superior \(R_{n \times n}\) tal que \(A = QR\).
+\end{thm}
+
+\begin{rem}
+    A decomposição \(QR\) é única.
+\end{rem}
+
+A seguir temos o código para a decomposição \(QR\) usando o processo de MGS:
+
+\begin{lstlisting}[language=Scilab, caption=Decomposição QR usando Gram-Schmidt modificado, label=lst:modqrgrsch]
+    function [Q,R] = modqrgrsch(A)
+        // performs QR decomposition of a matrix using the modified GS procedure
+        // input: m x n matrix A
+        // output: m x n orthogonal matrix Q, n x n upper-triangular matrix R
+        [m,n] = size(A);
+        for i = 1:n
+            Q(:,i) = A(:,i);
+            for j = 1:i-1
+                R(j,i) = Q(:,i)' * Q(:,j); // compute coefficient r_{ji} of the projection of v_i onto e_j
+                Q(:,i) = Q(:,i) - R(j,i) * Q(:,j); // remove from v_i its projection onto e_j one at a time
+                // to obtain a vector u_i that is orthogonal to each e_j
+            end
+            R(i,i) = norm(Q(:,i),2); // compute coefficient r_{ii}
+            Q(:,i) = Q(:,i) / R(i,i); // normalize u_i to obtain unit vector e_i
+        end
+    endfunction
+\end{lstlisting}
+
+\begin{rem}
+    O algoritmo \cref{lst:modqrgrsch} produz uma matriz \(\hat{Q}\) de tamanho \(m \times n\) e uma matriz \(\hat{R}\) de tamanho \(n \times n\). Essa fatoração é conhecida como \emph{decomposição QR reduzida}. Se \texttt{qr} fatora \(A\) em \(Q\) de tamanho \(m \times m\) e \(R\) de tamanho \(m \times n\), então a fatoração é chamada de \emph{decomposição QR completa}. Enquanto a decomposição QR reduzida produz uma base ortonormal para \(\range A\), a decomposição QR completa produz uma base ortonormal para \(\R^m\).
+\end{rem}
+
+Tendo \cref{lst:modqrgrsch} como referência, podemos determinar a contagem de flops para a decomposição \(QR\) usando o processo de MGS. O laço externo é executado \(n\) vezes. Para cada \(1 \leq i \leq n\), o laço interno é executado \(1, 2, \ldots, n-1\) vezes, respectivamente. Então as sentenças dentro do laço interno são executadas \(1 + 2 + \ldots + n-1 = n(n-1)/2\) vezes. Cada execução do laço interno computa um produto interno, de custo \(2m\), e uma multiplicação de um vetor por um escalar e uma subtração, de custo \(2m\). Depois, o laço externo executa uma norma de um vetor, de custo \(2m\), e uma multiplicação de um vetor por um escalar, de custo \(2m\). Assim, a contagem total de flops para a decomposição \(QR\) usando o processo de MGS é
+
+\[
+    \frac{n(n-1)}{2} (2m + 2m) + n(2m + 2m) = 2mn^2 + \mathcal{O}(mn).
+\]
+
+Antes de discutir a estabilidade numérica da decomposição \(QR\) usando o processo de GS modificado, precisamos de uma definição para o número de condicionamento de uma matriz \(m \times n\). Lembra que para uma matriz quadrada não singular, vale
+
+\begin{equation}
+    \kappa_2(A) = \Vert A \Vert_2 \Vert A^{-1} \Vert_2 = \frac{\sigma_1}{\sigma_n},
+\end{equation}
+onde \(\sigma_1\) e \(\sigma_n\) são, respectivamente, o maior e o menor valor singular de \(A\). Uma matriz não quadrada não possui inversa, mas possui um maior e um menor valor singular não nulos, o que leva à seguinte definição.
+
+\begin{defn}
+    Se \(A\) é uma matriz \(m \times n\), o número de condicionamento na norma-\(2\) de \(A\) é
+    \begin{equation}
+        \kappa_2(A) = \frac{\sigma_1}{\sigma_r},
+    \end{equation}
+    onde \(\sigma_1\) e \(\sigma_r\) são, respectivamente, o maior e o menor valor singular não nulos de \(A\).
+\end{defn}
+
+Embora conceitualmente simples, a decomposição \(QR\) usando o processo de GS modificado não é estável como outros métodos que serão estudados a seguir. Isso porque a estabilidade do algoritmo está relacionada com o número de condicionamento da matriz, como mostra o teorema abaixo.
+
+\begin{thm}
+    Suponha que o processo de MGS é aplicado na matriz \(A_{m \times n} = [a_1 \ a_2 \ \ldots \ a_n]\) de posto \(n\) para obter as matrizes \(\hat{Q}_{m \times n}\) e \(\hat{R}_{n \times n}\). Então existem constantes \(c_i\), \(i = 1, 2, 3\), que dependem de \(m\) e \(n\) tais que
+    \begin{align*}
+        A + \Delta A_1 &= \hat{Q} \hat{R}, \quad \Vert \Delta A_1 \Vert_2 \leq c_1 \epsilon \Vert A \Vert_2, \\
+        \Vert \hat{Q}^T \hat{Q} - I \Vert_2 &\leq c_2 \epsilon \kappa_2(A) + \mathcal{O}((\epsilon \kappa_2(A))^2),
+    \end{align*}
+    e existe uma matriz \(Q\) com colunas ortonormais tal que
+    \begin{equation*}
+        A + \Delta A_2 = Q \hat{R}, \quad \Vert \Delta A_2 (:,j) \Vert_2 \leq c_3 \epsilon \Vert a_j \Vert_2, \quad 1 \leq j \leq n.
+    \end{equation*}
+\end{thm}
+
+Fazemos três observações sobre o teorema acima. Primeiro, o resíduo \(A - \hat{Q} \hat{R}\) é pequeno. Segundo, o quão perto a matriz \(\hat{Q}\) está de ter colunas ortonormais depende do número de condicionamento de \(A\); se \(A\) é bem condicionada, então \(\hat{Q}\) tem colunas quase ortonormais. E, por fim, \(\hat{R}\) é o fator triangular-superior exato de uma matriz próxima de \(A\).
+
+\subsection{Aplicações da decomposição QR}
+
+Existem inúmeras aplicações para a decomposição \(QR\). Nesta subseção, abordamos duas aplicações simples, o cálculo do determinante e da imagem de uma matriz.
+
+Supondo que \(A\) seja uma matriz quadrada cujas colunas são LI, podemos determinar o valor absoluto do determinante de \(A\) usando a decomposição \(QR\). Com efeito, como \(Q\) tem colunas ortonormais,
+
+\begin{equation*}
+    Q^TQ = I \implies \det(Q^TQ) = \det(I) = 1 \implies \det(Q^T)\det(Q) = 1 \implies \det(Q)^2 = 1,
+\end{equation*}
+então \(\vert \det(Q) \vert = 1\). Segue que
+
+\begin{equation*}
+    \vert \det(A) \vert = \vert \det(QR) \vert = \vert \det(Q) \det(R) \vert = \vert \det(R) \vert = \prod_{i=1}^n r_{ii},
+\end{equation*}
+pois o determinante de uma matriz triangular é o produto dos elementos da diagonal.
+
+O seguinte teorema mostra como a decomposição \(QR\) pode ser usada para encontrar uma base ortonormal para a imagem de uma matriz \(A\).
+
+\begin{thm}
+    Se \(A_{m \times n}\) é uma matriz de posto \(n\) e \(A = QR\) é a decomposição \(QR\) com \(Q\) ortogonal e \(R\) triangular-superior, então as colunas de \(Q\) formam uma base ortonormal para a imagem de \(A\).
+\end{thm}
+
+\begin{proof}
+    
+\end{proof}
+
+\section{Transformações Ortogonais}
 
 \subsection{Rotações de Givens}
 
@@ -368,13 +844,22 @@ Na decomposição \(LU\), multiplicamos uma matriz \(A\) à esquerda por uma seq
     \[
         A = (J_{n-1}J_{n-2}\ldots J_2 J_1)^{T}R = Q R.
     \]
-    onde \(Q\) é o produto de matrizes ortogonais, logo ortogonal\footnote{Se \(P=P_k P_{k-1}\ldots P_2 P_1\), onde \(P_i\) é ortogonal para \(1 \leq i \leq k\), então \(P\) é ortogonal, pois \(P^T P = P_1^T P_2^T \ldots P_k^T P_k P_{k-1} \ldots P_2 P_1 = I\).}.
+    onde \(Q\) é o produto de matrizes ortogonais, logo ortogonal\footnote{Se \(P=P_k P_{k-1}\ldots P_2 P_1\), onde \(P_i\) é ortogonal para \(1 \leq i \leq k\), então \(P\) é ortogonal, pois \(P^T P = P_1^T P_2^T \ldots P^{k-1} P_k^T P_k P_{k-1} \ldots P_2 P_1 = I\).}.
 \end{tcolorbox}
 
 \begin{defn}
     Uma matriz da forma
 \[
-    J(i,j,c,s) = \begin{bmatrix} 1 & 0 & 0 \ldots & \ldots & \ldots & \ldots & 0 \\ 0 & 1 & 0 & \ldots & \ldots & \ldots & \ldots & 0 \\ \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & c & s & \ldots & 0 \\ \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & -s & c & \ldots & 0 \\ \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & 0 & \ldots & 1 \end{bmatrix},
+    J(i,j,c,s) = \begin{bmatrix} 
+        1 & 0 & 0 & \ldots & \ldots & \ldots & \ldots & 0 \\ 
+        0 & 1 & 0 & \ldots & \ldots & \ldots & \ldots & 0 \\ 
+        \vdots & \vdots & \vdots \\ 
+        0 & 0 & 0 & \ldots & c & s & \ldots & 0 \\ 
+        \vdots & \vdots & \vdots \\ 
+        0 & 0 & 0 & \ldots & -s & c & \ldots & 0 \\ 
+        \vdots & \vdots & \vdots \\ 
+        0 & 0 & 0 & \ldots & 0 & 0 & \ldots & 1 
+    \end{bmatrix},
 \]
 é uma \emph{matriz de Givens}. O valor \(c\) está na diagonal nos índices \((i,i)\) e \((j,j)\), \(i<j\). O valor \(s\) está na posição \((i,j)\) e o valor \(-s\) na posição \((j,i)\). Os elementos restantes da diagonal são \(1\) e os elementos fora da diagonal são \(0\).
 \end{defn}
@@ -390,10 +875,24 @@ Computa o produto \(J(1,3,c,s)^T J(1,3,c,s)\) e verifica que \(c^2+s^2=1\) é ne
 
 Usando a identidade trigonométrica \(\cos^2 \theta + \sin^2 \theta = 1\), podemos tomar \(c=\cos \theta\) e \(s=\sin \theta\) e obter uma \emph{matriz de rotação de Givens}, denotada por \(J(i,j,\theta)\). No \(\R^2\), a matriz de Givens \(J(1,2,\theta)\) é \(\begin{bmatrix} \cos \theta & \sin \theta \\ -\sin \theta & \cos \theta \end{bmatrix}\).
 
-O algoritmo da decomposição QR de Givens depende de zerar elementos em posições específicas de uma matriz. Seja \(x = [x_1 x_2 \cdots x_{n-1} x_n]^T\) e calcula o produto \(J(i,j,c,s)x\).
+O algoritmo da decomposição QR de Givens depende de zerar elementos em posições específicas de uma matriz. Seja \(x = [x_1 \; x_2 \; \cdots \; x_{n-1} \; x_n]^T\) e calcula o produto \(J(i,j,c,s)x\).
 
 \begin{equation} \label{eq:produto_givens_vetor}
-    J(i,j,c,s)x = \begin{bmatrix} 1 & 0 & 0 \ldots & \ldots & \ldots & \ldots & 0 \\ 0 & 1 & 0 & \ldots & \ldots & \ldots & \ldots & 0 \\ \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & c & s & \ldots & 0 \\ \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & -s & c & \ldots & 0 \\ \vdots & \vdots & \vdots \\ 0 & 0 & 0 & \ldots & 0 & \ldots & 1 \end{bmatrix} \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_{i} \\ \vdots \\ x_{j} \\ \vdots \\ x_n \end{bmatrix} = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ cx_i + sx_j \\ \vdots \\ -sx_i + cx_j \\ \vdots \\ x_n \end{bmatrix}.
+    J(i,j,c,s)x = \begin{bmatrix} 
+        1 & 0 & 0 & \ldots & \ldots & & \ldots & \ldots & 0 \\ 
+        0 & 1 & 0 & \ldots & \ldots & & \ldots & \ldots & 0 \\ 
+        \vdots & \vdots & \vdots & & & & & & \vdots \\ 
+        0 & 0 & 0 & \ldots & c & \ldots & s & \ldots & 0 \\ 
+        \vdots & \vdots & \vdots & & & & & & \vdots \\ 
+        0 & 0 & 0 & \ldots & -s & \ldots & c & \ldots & 0 \\ 
+        \vdots & \vdots & \vdots & & & & & & \vdots \\ 
+        0 & 0 & 0 & \ldots & 0 & \ldots & \ldots & \ldots & 1 
+    \end{bmatrix}
+    \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_{i} \\ \vdots \\ x_{j} \\ \vdots \\ x_n 
+    \end{bmatrix} 
+    = 
+    \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ cx_i + sx_j \\ \vdots \\ -sx_i + cx_j \\ \vdots \\ x_n 
+    \end{bmatrix}.
 \end{equation}
 Nota que o produto \(J(i,j,c,s)x\) altera somente as componentes \(i\) e \(j\) do vetor \(x\). Então, se quisermos zerar a componente \(x_j\), \(i<j\), podemos reduzir o problema de encontrar \(c\) e \(s\) para o caso bidimensional. Toma a matriz de Givens \(\begin{bmatrix} \cos \theta & \sin \theta \\ -\sin \theta & \cos \theta\end{bmatrix}\) que rotaciona o vetor \(\begin{bmatrix} x \\ y\end{bmatrix} \in \R^2\) sobre o eixo \(x\), zerando a coordenada \(y\).
 Do plano cartesiano, é fácil ver que \(\cos \theta = x/\sqrt{x^2+y^2}\) e \(\sin \theta = y/\sqrt{x^2+y^2}\), então 
@@ -410,6 +909,10 @@ Do plano cartesiano, é fácil ver que \(\cos \theta = x/\sqrt{x^2+y^2}\) e \(\s
     \begin{bmatrix}
         \frac{x}{\sqrt{x^2+y^2}} & \frac{y}{\sqrt{x^2+y^2}} \\
         -\frac{y}{\sqrt{x^2+y^2}} & \frac{x}{\sqrt{x^2+y^2}}
+    \end{bmatrix}
+    \begin{bmatrix}
+        x \\
+        y
     \end{bmatrix}
     =
     \begin{bmatrix}
@@ -429,11 +932,11 @@ Faz \(J(i,j,c,s)=I\) seguido de
 \end{align*}
 e computa \(J(i,j,c,s)x\). 
 
-Segue-se que dado um vetor \(x=[x_1 x_2 \ldots x_n]^T\), podemos usar um produto de matrizes Givens para zerar os \(n-i\) elementos de \(x\) abaixo da entrada \(x_i\). Para zerar \(x_{i+1}\), computa \(J(i,i+1,c_{i+1},s_{i+1})x=\overline{x_{i+1}}\). Para zerar \(x_{i+2}\), computa \(J(i,i+2,c_{i+2},s_{i+2})\overline{x_{i+1}}=\overline{x}_{i+2}\) e continua o processo até \(J(i,n,c_n,s_n)\overline{x_{n-1}}=\overline{x_n}\). Em suma, o produto
+Segue-se que dado um vetor \(x=[x_1 \; x_2 \; \ldots \; x_n]^T\), podemos usar um produto de matrizes Givens para zerar os \(n-i\) elementos de \(x\) abaixo da entrada \(x_i\). Para zerar \(x_{i+1}\), computa \(J(i,i+1,c_{i+1},s_{i+1})x=\allowbreak \overline{x_{i+1}}\). Para zerar \(x_{i+2}\), computa \(J(i,i+2,c_{i+2},s_{i+2})\overline{x_{i+1}}=\overline{x}_{i+2}\) e continua o processo até \(J(i,n,c_n,s_n)\overline{x_{n-1}}=\overline{x_n}\). Em suma, o produto
 \[
     J(i,n,c_n,s_n) \ldots J(i,i+2,c_{i+2},s_{i+2}) J(i,i+1,c_{i+1},s_{i+1})x
 \]
-transforma \(x\) num vetor da forma \([x_1 x_2 \ldots x_{i-1} \star 0 \ldots 0]^T\).
+transforma \(x\) num vetor da forma \([x_1 \; x_2 \; \ldots \; x_{i-1} \; * \; 0 \; \ldots \; 0]^T\).
 
 \begin{rem}
     As operações com matrizes de Givens podem ser feitas implicitamente, isto é, não é necessário construí-las.
@@ -442,8 +945,8 @@ transforma \(x\) num vetor da forma \([x_1 x_2 \ldots x_{i-1} \star 0 \ldots 0]^
 Se \(J(i,j,c,s)\) é uma matriz \(m \times m\) e \(A\) é uma matriz \(m \times n\), o produto \(J(i,j,c,s)A\) altera somente as linhas \(i\) e \(j\). De \eqref{eq:produto_givens_vetor}, vemos que as linhas \(i\) e \(j\), \(i<j\), têm forma 
 
 \begin{itemize}
-    \item [\(i\):] \(ca_{i1} + sa_{j1}, ca_{i2} + sa_{j2}, \ldots, ca_{in} + sa_{jn}\)
-    \item [\(j\):] \(ca_{j1} - sa_{i1}, ca_{j2} - sa_{i2}, \ldots, ca_{jn} - sa_{in}\)
+    \item [\(i\):] \(ca_{i1} + sa_{j1}\; ca_{i2} + sa_{j2}\; \ldots\; ca_{in} + sa_{jn}\)
+    \item [\(j\):] \(ca_{j1} - sa_{i1}\; ca_{j2} - sa_{i2}\; \ldots\; ca_{jn} - sa_{in}\)
 \end{itemize}
 Isso faz com que o produto \(J(i,j,c,s)A\) seja computado em apenas \(6n\) operações. O algoritmo abaixo faz a multiplicação de \(A\) por uma matriz de Givens, dados os parâmetros \(c\) e \(s\).
 
@@ -578,11 +1081,11 @@ na forma
     \end{bmatrix}.
 \]
 
-Começamos zerando as entradas abaixo de \(a_{11}\). Seja \(x\) a primeira coluna de \(A\). Então \(H_ux\) será a primeira coluna de \(H_uA\). Se \(x \neq ke_1 = [k 0 \ldots 0]^T\), buscamos um vetor \(u\) tal que \(H_ux\) tenha zeros por toda parte exceto no índice \((1,1)\). Os elementos nas colunas restantes serão alterados, mas não nos preocupamos com isso.
+Começamos zerando as entradas abaixo de \(a_{11}\). Seja \(x\) a primeira coluna de \(A\). Então \(H_ux\) será a primeira coluna de \(H_uA\). Se \(x \neq ke_1 = [k \; 0 \; \ldots \; 0]^T\), buscamos um vetor \(u\) tal que \(H_ux\) tenha zeros por toda parte exceto no índice \((1,1)\). Os elementos nas colunas restantes serão alterados, mas não nos preocupamos com isso.
 
 A escolha do vetor \(u\) é melhor entendida geometricamente. Sabemos que \(H_ux\) reflete \(x\) através do plano perpendicular a \(u\), e que \(\Vert H_ux \Vert_2 = \Vert x \Vert_2\) porque \(H_u\) é ortogonal. Então buscamos \(u\) tal que \(H_ux = \pm \Vert x \Vert_2 e_1\). Em outras palavras, queremos refletir \(x\) através dum hiperplano que bisecta o ângulo entre \(x\) e \(e_1\). Isso pode ser feito tomando \(u = x \pm \Vert x \Vert_2 e_1\)\footnote{O resultado pode ser verificado algebricamente, basta verificar a igualdade \(H_ux = \mp \Vert x \Vert_2 e_1\)}. O sinal em \(u = \pm \Vert x \Vert_2 e_1\) é escolhido para evitar cancelamento catastrófico. Como
 \[
-    [x_1 x_2 \ldots x_{m-1} x_m]^T \pm \Vert x \Vert_2 e_1 = [x_1 \pm \Vert x \Vert_2 x_2 \ldots x_{m-1} x_m]^T,
+    [x_1 \; x_2 \; \ldots \; x_{m-1} \; x_m]^T \pm \Vert x \Vert_2 e_1 = [x_1 \pm \Vert x \Vert_2 x_2 \; \ldots \; x_{m-1} \; x_m]^T,
 \]
 apenas a primeira componente de \(u\) é afetada pelo sinal escolhido. Escolhemos o sinal de modo que uma adição seja feita.
 \[
@@ -651,8 +1154,8 @@ O seguinte algoritmo zera todos os elementos abaixo da entrada \(a_{11}\) usando
     endfunction
 \end{lstlisting}
 
-Para zerar os elementos abaixo das diagonais restantes com \ref{lst:hzero1}, criamos implicitamente uma sequência de matrizes de Householder que atuem em blocos de submatrizes. Suponha que tenhamos zerado todas as entradas abaixo da diagonal do índice \((1,1)\) ao \((i-1,i-1)\), obtendo uma sequência de matrizes \(A_1, A_2, \ldots, A_{i-1}\).
-Precisamos de uma reflexão de Householder que zere os elementos \(\overline{a_{i+1,i}},\ldots,\overline{a_{mi}}\) e altere apenas elementos da submatriz correspondente de tamanho \((m-i+1,m-i+1)\). Então construímos \(\tilde{H_u}\) com o vetor \(x=[\overline{a_{ii}} \overline{a_{i+1,j}} \ldots \overline{a_{mi}}]^T\). Essa operação é realizada com o comando
+Para zerar os elementos abaixo das diagonais restantes com \cref{lst:hzero1}, criamos implicitamente uma sequência de matrizes de Householder que atuem em blocos de submatrizes. Suponha que tenhamos zerado todas as entradas abaixo da diagonal do índice \((1,1)\) ao \((i-1,i-1)\), obtendo uma sequência de matrizes \(A_1, A_2, \ldots, A_{i-1}\).
+Precisamos de uma reflexão de Householder que zere os elementos \(\overline{a_{i+1,i}}, \ldots, \overline{a_{mi}}\) e altere apenas elementos da submatriz correspondente de tamanho \((m-i+1,m-i+1)\). Então construímos \(\tilde{H_u}\) com o vetor \(x=[\overline{a_{ii}} \; \overline{a_{i+1,j}} \; \ldots \; \overline{a_{mi}}]^T\). Essa operação é realizada com o comando
 
 \begin{verbatim}
     [A(i:m,i:n), u] = hzero1(A(i:m,i:n)).
@@ -672,7 +1175,7 @@ onde \(Q = \tilde{H}_1 \tilde{H}_2 \ldots \tilde{H}_k\) é o produto de matrizes
         // input: m x n matrix A
         // output: m x m matrix Q and m x n upper-triangular matrix R such that A=QR
         R = A;
-        [m,n] = size(A)
+        [m,n] = size(A);
         Q = eye(m,m);
         k = min(m-1,n);
         
@@ -683,7 +1186,13 @@ onde \(Q = \tilde{H}_1 \tilde{H}_2 \ldots \tilde{H}_k\) é o produto de matrizes
     endfunction
 \end{lstlisting}
 
-A contagem de \emph{flops} para o algoritmo de Householder é \(2n^2(m-n/3)\) para \(m \geq n\). O algoritmo de Givens requer \(6n^2(m-n/3)\) \emph{flops}, ou seja, cerca de duas vezes mais do que o algoritmo de Householder.
+A contagem de \emph{flops} para o algoritmo de Householder é \(\approx 2\left(mn^2 - \frac{n^3}{3}\right)\). O algoritmo de Givens requer \(\approx 3n^2(2m-n)\) \emph{flops}, ou seja, cerca de duas vezes mais do que o algoritmo de Householder no caso de matrizes \(n \times n\).
+
+\section{A Decomposição em Valores Singulares (SVD)}
+
+\subsection{O Teorema SVD}
+\subsection{Usando a SVD para determinar propriedades de uma matriz}
+\subsection{Compressão de imagem usando a SVD}
 
 \section{Problemas de mínimos quadrados}
 

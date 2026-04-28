@@ -3,7 +3,7 @@ function [Q,R] = householderqr(A)
     // input: m x n matrix A
     // output: m x m matrix Q and m x n upper-triangular matrix R such that A=QR
     R = A;
-    [m,n] = size(A)
+    [m,n] = size(A);
     Q = eye(m,m);
     k = min(m-1,n);
     
