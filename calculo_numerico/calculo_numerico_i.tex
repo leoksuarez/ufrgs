@@ -115,8 +115,125 @@ A avaliação se dará por meio da entrega de dois trabalhos e pela presença. A
 \section{Solução de equações de uma variável}
 
 \subsection{Existência e unicidade}
+
+
+
+\begin{thm} [Bolzano] \label{thm:bolzano}
+    Se \(f: [a,b] \to \R\) é uma função contínua tal que \(f(a)f(b) < 0\), então existe \(c \in (a,b)\) tal que \(f(c) = 0\).
+\end{thm}
+
+\begin{proof}
+    Consequência direta do Teorema do Valor Intermediário. Se \(f(a)f(b) <0\) então \(f(a)<0<f(b)\) ou \(f(b)<0<f(a)\). Em ambos os casos, existe \(c \in (a,b)\) tal que \(f(c)=0\).
+\end{proof}
+
+\begin{prop}
+    Se \(f: [a,b] \to \R\) é uma função contínua e estritamente monótona, então existe um único \(c \in (a,b)\) tal que \(f(c) = 0\).
+\end{prop}
+
+\begin{proof}
+    Provamos por contradição. Suponha que existem \(x_1, x_2 \in (a,b)\), \(x_1 \neq x_2\), tais que \(f(x_1)=f(x_2)=0\). Pelo Teorema de Rolle, existe \(x_3 \in (x_1, x_2)\) tal que \(f'(x_3) = 0\), o que contradiz a hipótese de que \(f'(x)\) é estritamente monótona em \((a,b)\).
+\end{proof}
+
 \subsection{Método da bisseção}
+
+\begin{thm} [convergência do método da bisseção]
+    Sejam \(f: [a,b] \to \R\) contínua tal que \(f(a)f(b)<0\) e \(x^{*}\) um zero da função \(f(x)\) no intervalo \((a,b)\). Então a sequência de iterações \(x^{(0)}, x^{(1)}, \ldots, x^{(n)}\) do método da bisseção satisfaz
+    \begin{equation}
+        \vert x^{(n)} - x^{*} \vert < \frac{b-a}{2^{n+1}}, \quad \forall \; n \geq 0,
+    \end{equation}
+    isto é, \(x^{(n)} \to x^{*}\) ao \(n \to \infty\).
+\end{thm}
+
+\begin{proof}
+    
+\end{proof}
+
 \subsection{Iteração de ponto-fixo}
+
+Estudamos agora a \emph{iteração de ponto fixo} para encontrar as raízes de uma equação em uma variável real. Nota que sempre podemos transformar um problema \(f(x)=0\) na forma equivalente \(g(x)=x\). Um ponto \(x=x^{*}\) tal que \(g(x^{*})=x^{*}\) é chamado de \emph{ponto fixo} da função \(g\). Geometricamente, é o ponto de interseção do gráfico de \(g(x)\) com a reta \(y=x\).
+
+Dada uma função \(g(x)\), a iteração de ponto fixo consiste em computar a sequência recursiva
+
+\begin{equation}
+    x^{(n+1)} \coloneq g(x^{(n)}), \quad n \geq 1,
+\end{equation}
+onde \(x^{(1)}\) é uma aproximação inicial do ponto fixo.
+
+Três perguntas naturais são:
+
+\begin{enumerate}
+    \item A iteração de ponto fixo é convergente?
+    \item Caso convergente, tem-se que \(x^{*} \coloneq \lim x^{(n)}\) é um ponto fixo?
+    \item Caso convergente, qual a taxa de convergência?
+\end{enumerate}
+
+Se \(g: X \to \R\) for contínua em \(X\) e \(x^{*} \in X\) então vale
+
+\begin{equation*}
+    x^{*} = \lim x^{(n)} = \lim g(x^{(n-1)}) = g(\lim x^{(n-1)}) = g(x^{*}),
+\end{equation*}
+o que responde a segunda pergunta. Para verificar a primeira, precisamos de um resultado importante. Antes, definimos uma \emph{contração}.
+
+\begin{defn}
+    Uma contração é uma função real \(g: [a,b] \to [a,b]\) tal que
+    \begin{equation}
+        \vert g(y) - g(x) \vert \leq k \vert y - x \vert, \quad k \in [0,1),
+    \end{equation}
+    para quaisquer \(x, y \in [a,b]\).
+\end{defn}
+
+\begin{rem}
+    Seja \(g: [a,b] \to [a,b]\).
+    \begin{enumerate}
+        \item [a.] Se \(g\) é uma contração, então \(g\) é uniformemente contínua. De fato, basta tomar \(\delta = \eps/k\). Assim, se vale \(\vert y-x \vert < \delta\) então \(\vert g(y)-g(x) \leq k\vert y-x \vert < k(\eps/k) = \eps\) para quaisquer \(x, y \in [a,b]\).
+        \item [b.] Se \(\vert g'(x) \vert < k\), \(0<k<1\), para todo \(x \in [a,b]\), então \(g\) é uma contração. Com efeito, \(g\) é contínua em \([a,b]\) e derivável em \((a,b)\). Do TVM de Lagrange, existe \(c \in (a,b)\) tal que \(g'(c) = [g(b)-g(a)] / (b-a)\). Daí, tem-se \(\vert g(b)-g(a) \vert = \vert g'(c) \vert \vert b-a \vert \leq k \vert b-a \vert\). Como isso vale para qualquer subintervalo \([c,d] \subseteq [a,b]\), \(g\) é uma contração.
+    \end{enumerate}
+\end{rem}
+
+\begin{thm} [ponto fixo das contrações]
+    Se \(g: [a,b] \to [a,b]\) é uma contração, então existe um único ponto \(x^{*} \in [a,b]\) tal que \(g(x^{*}) = x^{*}\), isto é, \(x^{*}\) é ponto fixo de \(g(x)\). Além disso, a sequência \(\{x^{(n)}\}_{x \in \mathbb{N}}\) dada por 
+
+    \begin{equation*}
+        x^{(n+1)} = g(x^{(n)})
+    \end{equation*}
+    converge para \(x^{*}\) para todo \(x^{(1)} \in [a,b]\).
+\end{thm}
+
+\begin{proof}
+    Primeiro mostramos que existe o ponto fixo de \(g\) em \([a,b]\). Considera a função auxiliar \(f(x) = x-g(x)\) e escreve
+
+    \begin{align*}
+        f(a) &= a - g(a) \leq a - a = 0 \\
+        f(b) &= b - g(b) \geq b - b = 0,
+    \end{align*}
+    pois \(g(a) \geq a\) e \(g(b) \leq b\). Então tem-se \(f(a) \leq 0 \leq f(b)\). Se \(f(a)\) ou \(f(b) = 0\), \(g\) tem ponto fixo em \(a\) ou \(b\). Caso contrário, vale a desigualdade estrita \(f(a) < 0 < f(b)\) e do TVI existe \(x^{*} \in (a,b)\) tal que \(f(x^{*}) = 0 \iff g(x^{*}) = x^{*}\).
+
+    Para mostrar a unicidade, suponha que \(x^{\heartsuit} \in [a,b]\) seja outro ponto fixo de \(g\). Então escreve
+
+    \begin{equation*}
+        \vert x^{\heartsuit} - x^{*} \vert = \vert g(x^{\heartsuit}) - g(x^{*}) \vert \leq k \vert x^{\heartsuit} - x^{*} \vert, \quad 0<k<1.
+    \end{equation*}
+    Daí 
+
+    \begin{equation*}
+        (1-k) \vert x^{\heartsuit} - x^{*} \vert \leq 0
+    \end{equation*}
+    como \((1-k) > 0\), deve-se ter \(\vert x^{\heartsuit} - x^{*} \vert = 0 \iff x^{\heartsuit} = x^{*}\).
+
+    Provamos que a sequência \(\{x^{(n)}\}_{n \in \mathbb{N}}\), \(x^{(n+1)} = g(x^{(n)})\), converge para o ponto fixo \(x^{*}\). Observa que
+
+    \begin{equation*}
+        \vert x^{(n+1)} - x^{*} \vert = \vert g(x^{(n)}) - g(x^{*}) \vert \leq k \vert x^{(n)} - x^{*} \vert \leq \cdots \leq k^{n-1} \vert x^{(2)} - x^{*} \vert.
+    \end{equation*}
+    Tomando \(n \to \infty\), tem-se \(\lim \vert x^{(n+1)} - x^{*} \vert = 0\), ou seja, \(x^{(n+1)} \to x^{*}\) ao \(n \to \infty\).
+\end{proof}
+
+Consideramos agora um contexto mais geral. Seja \(g: [a,b] \to \R\) uma função de classe \(C^0[a,b]\) e \(x^{*} \in (a,b)\) um ponto fixo de \(g\). Dizemos que \(x^{*}\) é \emph{estável} se existe uma região \((x^{*}-\delta, x^{*}+\delta)\) chamada de \emph{bacia de atração} tal que \(x^{(n+1)} = g(x^{(n)})\) converge para \(x^{*}\) para todo \(x^{(1)} \in (x^{*}-\delta, x^{*}+\delta)\). Caso contrário, \(x^{*}\) é dito \emph{instável}.
+
+\begin{prop} [teste de convergência]
+    Se \(g \in C^1[a,b]\) e \(\vert g'(x^{*}) \vert < 1\) então \(x^{*}\) é estável. Se \(\vert g'(x^{*}) \vert > 1\), \(x^{*}\) é instável e se \(\vert g'(x^{*}) \vert = 1\), o teste é inconclusivo.
+\end{prop}
+
 \subsection{Método de Newton-Raphson}
 \subsection{Método das secantes}
 \subsection{Critérios de parada}

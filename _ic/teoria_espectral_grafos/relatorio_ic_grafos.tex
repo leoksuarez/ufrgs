@@ -33,14 +33,6 @@
 
 \section{Preliminares sobre Teoria dos Grafos}
 
-\begin{center}
-    \begin{tikzpicture}
-        \GraphInit[vstyle=Shade]
-        \SetVertexNoLabel
-        \grComplete[RA=2]{6}
-    \end{tikzpicture} 
-\end{center}
-
 \begin{defn}
     Seja \(G=G(V,E)\) um grafo. Quando \(G'=G'(V',E')\) é um grafo satisfazendo \(V' \subseteq V\) e \(E' \subseteq E\), dizemos que \(G'\) é um \emph{subgrafo} de \(G\). Se \(G'\) é um subgrafo de \(G\) e \(E' = \{\{u,v\} \in E : u,v \in V'\}\), então \(G'\) é um \emph{subgrafo induzido} de \(G\).
 \end{defn}
@@ -107,8 +99,8 @@ O maior autovalor de \(G\) é chamado de \emph{índice} de \(G\) e é denotado p
 \begin{proof}
     Da teoria de matrizes, temos que para todo \(k\), \(1 \leq k \leq n\), vale 
     \[
-        a_k = \sum (\text{todos os \(k \times k\) menores principais.\footnote{Um \emph{menor principal} de \(A(G)\) com \(k\) linhas e \(k\) colunas é o determinante de qualquer \emph{submatriz principal} com \(k\) linhas e \(k\) colunas de \(A(G)\), isto é, de qualquer matriz obtida de \(A(G)\) pela retirada de um subconjunto de \(n-k\) linhas e do correspondente subconjunto de colunas.}}).
-    \]
+        a_k = \sum (\text{todos os \(k \times k\) menores principais}\footnotemark).
+    \]\footnotetext{Um \emph{menor principal} de \(A(G)\) com \(k\) linhas e \(k\) colunas é o determinante de qualquer \emph{submatriz principal} com \(k\) linhas e \(k\) colunas de \(A(G)\), isto é, de qualquer matriz obtida de \(A(G)\) pela retirada de um subconjunto de \(n-k\) linhas e do correspondente subconjunto de colunas.}
 
 \end{proof}
 
@@ -181,6 +173,40 @@ Podemos usar o resultado acima para relacionar o número de cadeias fechadas de 
 \end{proof}
 
 \subsection{O espectro de certos tipos de grafos}
+
+\begin{prop}
+    Se \(G\) é a união de dois grafos \(G_1\) e \(G_2\) então \(p_G(\lambda) = p_{G_1}(\lambda) p_{G_2}(\lambda)\). Em particular, se \(G_1, G_2, \ldots, G_r\) são as componentes conexas de \(G\) então \(p_G(\lambda) = \prod_{i=1}^r p_{G_i}(\lambda)\).
+\end{prop}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{prop}
+    Seja \(G\) um grafo regular de grau \(k\). Então
+    \begin{enumerate}
+        \item [a.] \(k\) é um autovalor de \(G\);
+        \item [b.] \(G\) é conexo se e somente se \(k\) é um autovalor simples de \(G\);
+        \item [c.] qualquer autovalor \(\lambda\) de \(G\) satisfaz \(|\lambda| \leq k\).
+    \end{enumerate}
+\end{prop}
+
+\begin{proof}
+    \begin{enumerate}
+        \item [a.] Perceba que a soma das entradas da linha \(j\) da matriz de adjacência fornece o grau do vértice \(v_j\). Como \(G\) é \(k\)-regular, todas essas somas resultam em \(k\). O candidato natural a autovetor associado a \(k\) é o autovetor constante. De fato, tomando \(x=[1 \ldots 1]^T\) tem-se \(A1 = k1\), donde \(k\) é autovalor de \(G\).
+        \item [b.] \((\Rightarrow)\) Seja \(x = [x_1 \ldots x_n]^T\) autovetor de \(G\) associado ao autovalor \(k\). Provamos que \(x\) é múltiplo escalar do vetor \(1\). Toma \(x_j = \max\{\vert x_i \vert; 1 \leq i \leq n\}\) e nota que \((Ax)_j = kx_j = \sum_{v_i ~ v_j} x_i\) (soma dos valores dos \(k\) vizinhos de \(x_j\)). Então para todo \(v_l\) adjacente a \(v_j\) vale
+        \begin{equation*}
+            k \vert x_j \vert = \vert \sum_{v_i~v_j} x_i \vert \leq \sum_{v_i~v_j} \vert x_i \vert \leq \vert x_l \vert + (k-1) \vert x_j \vert.
+        \end{equation*} Subtraindo \((k-1) \vert x_k \vert\) de ambos os lados, vem \(\vert x_j \vert \leq \vert x_l \vert\). Dado que tomamos \(x_j\) como o valor absoluto máximo de \(x\), devemos ter \(x_l = x_j\). Ainda, a conexidade do grafo nos permite aplicar essa lógica a todos os seus vértices. Portanto \(x = x_j1\) e o autoespaço associado a \(k\) tem dimensão \(1\).
+        
+        \((\Leftarrow)\) Por outro lado, suponha que \(G\) é desconexo, com componentes conexas \(G_1, \ldots, G_m\). Como cada componente é um grafo conexo \(k\)-regular, \(k\) é autovalor simples para cada \(G_i\). Da proposição anterior, temos que \(p_G(\lambda) = p_{G_1}(\lambda)\cdots p_{G_m}(\lambda)\), logo \(k\) é autovalor de \(G\) de multiplicidade \(>1\).
+        \item [c.] Seja \(y = [y_1 \ldots y_n]^T\) autovetor de \(G\) associado ao autovalor \(\lambda\). Defina \(y_j = \max\{\vert y_i \vert; 1 \leq i \leq n\}\) e escreva \((Ay)_j = \lambda y_j = \sum_{v_i~v_j} y_i\). Daí, tem-se 
+        \begin{equation*}
+            \vert \lambda \vert \vert y_j \vert = \vert \sum_{v_i~v_j} y_i \vert \leq \sum_{v_i~v_j} y_i \leq k \vert y_j \vert,
+        \end{equation*} donde \(\lambda \leq k\).
+    \end{enumerate}
+\end{proof}
+
 \subsection{Isomorfismo de grafos}
 
 \begin{defn}

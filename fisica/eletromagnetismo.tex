@@ -1,44 +1,12 @@
-\documentclass[12pt]{article}
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{amsfonts}
-\usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{geometry}
-\usepackage{esint}
+\documentclass{article}
+%\usepackage{esint}
 \usepackage{booktabs}
 \usepackage[portuguese]{babel}
-\usepackage[utf8]{inputenc}
-
-\geometry{
- a4paper,
- left=3cm,
- top=2cm,
- right=2cm,
- bottom=2cm
-}
+\usepackage{macros}
 
 \begin{document}
 
-\begin{center}
-    \textbf{\large UNIVERSIDADE FEDERAL DO RIO GRANDE DO SUL} \\
-    \textbf{\large INSTITUTO DE FÍSICA} \\
-    \vspace{3cm}
-    \textbf{\Large FÍSICA GERAL - ELETROMAGNETISMO} \\
-    \vspace{1cm}
-    \textbf{\large REVISÃO} \\
-    \vspace{3cm}
-    
-    \begin{tabular}{c}
-        LEONARDO KAWAI SUAREZ        
-    \end{tabular}
-    
-    \vfill
-    \textbf{\large Porto Alegre, RS} \\
-    \textbf{\large\today} \\
-\end{center}\newpage
-
-\tableofcontents\newpage
+\tableofcontents
 
 \section{Área 1}
 
@@ -46,15 +14,12 @@
 \subsection{Campo Elétrico}
 \subsection{Lei de Gauss}
 
-\newpage
-
 \section{Área 2}
 
 \subsection{Potencial Elétrico}
 \subsection{Capacitância}
 \subsection{Circuitos DC}
 
-\newpage
 
 \section{Área 3}
 
@@ -64,9 +29,7 @@ A Lei de Biot-Savart descreve o campo magnético \(\mathbf{B}\) gerado por uma c
 
 \begin{equation}\label{eq:lei_biot_savart}
     \boxed{\mathbf{B}(r) = \frac{\mu_0}{4\pi} \int \frac{I d\mathbf{l} \times \mathbf{r}}{r^3}}
-\end{equation}
-
-\noindent onde \(\mu_0\) é a permeabilidade magnética do vácuo, \(d\mathbf{l}\) é o elemento de corrente e \(\mathbf{r}\) é o vetor que aponta do elemento de corrente ao ponto \(P\).
+\end{equation} onde \(\mu_0\) é a permeabilidade magnética do vácuo, \(d\mathbf{l}\) é o elemento de corrente e \(\mathbf{r}\) é o vetor que aponta do elemento de corrente ao ponto \(P\).
 
 Podemos utilizar a Lei de Biot-Savart para calcular o campo magnético gerado por diversas configurações de corrente elétrica, como espiras circulares e fios retilíneos infinitos.
 
@@ -74,13 +37,11 @@ Podemos utilizar a Lei de Biot-Savart para calcular o campo magnético gerado po
     \item [(a)] \textbf{Campo magnético de uma espira circular}:
         \begin{equation}
             \boxed{\mathbf{B}(z) = \frac{\mu_0 I R^2}{2(R^2 + z^2)^{3/2}} \hat{\mathbf{z}}}
-        \end{equation}
-        \noindent onde \(R\) é o raio da espira, \(I\) é a corrente elétrica e \(z\) é a distância do ponto ao plano da espira.
+        \end{equation} onde \(R\) é o raio da espira, \(I\) é a corrente elétrica e \(z\) é a distância do ponto ao plano da espira.
     \item [(b)] \textbf{Campo magnético ao redor de um fio retilíneo infinito}:
         \begin{equation}
             \boxed{\mathbf{B}(r) = \frac{\mu_0 I}{2\pi r}\hat{\boldsymbol{\varphi}}}
-        \end{equation}
-        \noindent onde \(r\) é a distância do ponto ao fio.
+        \end{equation} onde \(r\) é a distância do ponto ao fio.
 \end{itemize}
 
 \subsection{Lei de Ampère}
@@ -89,9 +50,7 @@ A Lei de Ampère é uma das equações de Maxwell e relaciona o campo magnético
 
 \begin{equation}
     \boxed{\oint_{C} \mathbf{B} \cdot d\mathbf{l} = \mu_0 I_{C}}
-\end{equation}
-
-\noindent onde \(I_{C}\) é a corrente elétrica que atravessa a superfície delimitada pela curva amperiana \(C\).
+\end{equation} onde \(I_{C}\) é a corrente elétrica que atravessa a superfície delimitada pela curva amperiana \(C\).
 
 Em problemas envolvendo simetria, podemos aplicar a Lei de Ampère para calcular o campo magnético gerado por diferentes condutores, como fios retilíneos infinitos, toróides e solenoides.
 
@@ -102,9 +61,7 @@ Em problemas envolvendo simetria, podemos aplicar a Lei de Ampère para calcular
                     \frac{\mu_0 I}{2\pi} \frac{r}{R^2} \hat{\boldsymbol{\varphi}} \quad &(0 \leq r \leq R) \\
                     \frac{\mu_0 I}{2\pi} \frac{1}{r} \hat{\boldsymbol{\varphi}} \quad &(R \leq r)
                 \end{cases}}
-        \end{align}    
-
-        \noindent onde \(R\) é o raio do condutor e \(r\) é a distância do ponto ao fio.
+        \end{align} onde \(R\) é o raio do condutor e \(r\) é a distância do ponto ao fio.
 
     \item [(b)] \textbf{Campo magnético de um toróide}:
         \begin{align}
@@ -112,8 +69,7 @@ Em problemas envolvendo simetria, podemos aplicar a Lei de Ampère para calcular
             		\frac{\mu_0 N I}{2\pi r}\hat{\boldsymbol{\theta}} \quad &(a < r < b) \\
             		0 \quad &(r < a \,\text{ ou }\, r > b)
             	\end{cases}}
-        \end{align}
-        \noindent onde \(N\) é o número de espiras do toróide de raios interno \(a\) e externo \(b\) e \(r\) é a distância do ponto ao eixo do toróide.
+        \end{align} onde \(N\) é o número de espiras do toróide de raios interno \(a\) e externo \(b\) e \(r\) é a distância do ponto ao eixo do toróide.
 
     \item [(c)] \textbf{Campo magnético de um solenoide}:
         \begin{align}
@@ -121,19 +77,14 @@ Em problemas envolvendo simetria, podemos aplicar a Lei de Ampère para calcular
             		\mu_0 n I\hat{\mathbf{z}} \quad &(\text{dentro do solenoide}) \\
             		0 \quad &(\text{fora do solenoide})
             	\end{cases}}
-        \end{align}
-        \noindent onde \(n\) é o número de espiras por unidade de comprimento do solenoide.
+        \end{align} onde \(n\) é o número de espiras por unidade de comprimento do solenoide.
 \end{itemize}
 
 A \emph{força por unidade de comprimento} entre dois condutores paralelos infinitos é dada por:
 
 \begin{equation}
     \boxed{f = I_1 B_2 = \frac{\mu_0 I_1 I_2}{2\pi d}}
-\end{equation}
-
-\noindent onde \(I_1\) e \(I_2\) são as correntes nos condutores e \(d\) é a distância entre eles.
-
-\newpage
+\end{equation} onde \(I_1\) e \(I_2\) são as correntes nos condutores e \(d\) é a distância entre eles.
 
 \section{Área 4}
 
@@ -143,9 +94,7 @@ A Lei da Indução de Faraday afirma que a força eletromotriz induzida em um ci
 
 \begin{equation}\label{eq:lei_faraday}
     \boxed{\varepsilon = -\frac{d\Phi_{B}}{dt}}
-\end{equation}
-
-\noindent onde \(\varepsilon\) é a força eletromotriz induzida e \(\Phi_{B}\) é o fluxo magnético que atravessa o circuito. A unidade de fluxo magnético é o weber (Wb), que é equivalente a \(1 \, \text{Wb} \equiv 1 \, \text{T}\cdot\text{m}^2\).
+\end{equation} onde \(\varepsilon\) é a força eletromotriz induzida e \(\Phi_{B}\) é o fluxo magnético que atravessa o circuito. A unidade de fluxo magnético é o weber (Wb), que é equivalente a \(1 \, \text{Wb} \equiv 1 \, \text{T}\cdot\text{m}^2\).
 
 O sinal negativo de \eqref{eq:lei_faraday} indica que a corrente induzida tem um sentido tal que o campo magnético gerado por ela se opõe à variação do fluxo magnético que a causou, conforme enunciado pela Lei de Lenz.
 
@@ -155,17 +104,13 @@ Indutor é um componente elétrico que armazena energia na forma de um campo mag
 
 \begin{equation}
     \boxed{L \equiv \frac{N\Phi_{B}}{I}}
-\end{equation}
-
-\noindent onde \(N\) é o número de espiras, \(\Phi_{B}\) é o fluxo magnético que atravessa cada espira e \(I\) é a corrente elétrica. A unidade de indutância é o henry (H), que é equivalente a \(1 \, \text{H} \equiv 1 \, \text{Wb}/\text{A}\).
+\end{equation} onde \(N\) é o número de espiras, \(\Phi_{B}\) é o fluxo magnético que atravessa cada espira e \(I\) é a corrente elétrica. A unidade de indutância é o henry (H), que é equivalente a \(1 \, \text{H} \equiv 1 \, \text{Wb}/\text{A}\).
 
 Dada a força eletromotriz induzida num circuito \(\displaystyle \varepsilon = - \frac{d\Phi}{dt}\), a potência que deve ser fornecida para manter a corrente \(i\) é
 
 \begin{equation}
     \frac{dW}{dt} = - \varepsilon i = + \frac{d\Phi}{dt} i = + Li \frac{di}{dt}
-\end{equation}
-
-\noindent onde \(L\) é a autoindutância do circuito. Ignorando a perda por efeito Joule, a energia armazenada no circuito atravessado por uma corrente \(I\) é
+\end{equation} onde \(L\) é a autoindutância do circuito. Ignorando a perda por efeito Joule, a energia armazenada no circuito atravessado por uma corrente \(I\) é
 
 \begin{equation}
     \boxed{U = \frac{1}{2} L I^2}
@@ -175,15 +120,11 @@ A energia magnética armazenada por um solenoide, quando atravessado por uma cor
 
 \begin{equation}
     U = \frac{1}{2} L I^2 = \frac{1}{2}\mu_0 \left(NI\right)^2 \frac{S}{l} = \frac{1}{2\mu_0} \left(\frac{NI}{l}\right)^2 Sl = \frac{1}{2\mu_0} B^2 V
-\end{equation}
-
-\noindent onde \(n = N/l\) é o número de espiras por unidade de comprimento do solenoide, \(B\) é o campo dentro do solenoide e \(V = Sl\) é o volume interno a ele. Essa energia está armazenada no campo magnético, com \emph{densidade de energia magnética}
+\end{equation} onde \(n = N/l\) é o número de espiras por unidade de comprimento do solenoide, \(B\) é o campo dentro do solenoide e \(V = Sl\) é o volume interno a ele. Essa energia está armazenada no campo magnético, com \emph{densidade de energia magnética}
 
 \begin{equation}
     \boxed{u_m = \frac{1}{2\mu_0}\mathbf{B}^2}
-\end{equation}
-
-\noindent da mesma forma que a \emph{densidade de energia elétrica} é dada por \(\displaystyle u = \frac{\varepsilon_0}{2}\mathbf{E}^2\). Se tivermos simultaneamente um campo elétrico e um magnético, a densidade de energia eletromagnética total do campo é
+\end{equation} da mesma forma que a \emph{densidade de energia elétrica} é dada por \(\displaystyle u = \frac{\varepsilon_0}{2}\mathbf{E}^2\). Se tivermos simultaneamente um campo elétrico e um magnético, a densidade de energia eletromagnética total do campo é
 
 \begin{equation}
     \boxed{u = u_e + u_m = \frac{\varepsilon_0}{2}\mathbf{E}^2 + \frac{1}{2\mu_0} \mathbf{B}^2}
@@ -196,24 +137,18 @@ A energia magnética armazenada por um solenoide, quando atravessado por uma cor
         Dado um circuito com capacitor inicialmente descarregado e ligado a uma bateria de fem \(\varepsilon\), sendo \(R\) a resistência do circuito (incluindo a resistência interna da bateria), a corrente \(i(t)\) no circuito é dada por
             \begin{equation}
                 \boxed{i(t) = \frac{\varepsilon}{R} \left(e^{-\frac{t}{\tau_C}}\right)}
-            \end{equation}
-
-            \noindent onde \(\tau_C \equiv RC\) é a constante de tempo do circuito. Vemos que a corrente decresce exponencialmente com o tempo, tendendo a zero ao \(t \to \infty\). Já a carga \(q(t)\) no capacitor é dada por
+            \end{equation} onde \(\tau_C \equiv RC\) é a constante de tempo do circuito. Vemos que a corrente decresce exponencialmente com o tempo, tendendo a zero ao \(t \to \infty\). Já a carga \(q(t)\) no capacitor é dada por
 
             \begin{equation}
                 \boxed{q(t) = C\varepsilon \left(1 - e^{-\frac{t}{\tau_C}}\right)}
-            \end{equation}
-
-            \noindent onde se nota que para \(t >> \tau_C\), a carga final do capacitor é \(C\varepsilon\).
+            \end{equation} onde se nota que para \(t >> \tau_C\), a carga final do capacitor é \(C\varepsilon\).
 
     \item [(b)] \textbf{Circuito RL}\\
         Para um circuito RL, onde \(L\) é a indutância do indutor, a corrente \(i(t)\) é dada por
 
         \begin{equation}
             \boxed{i(t) = \frac{\varepsilon}{R} \left(1 - e^{-\frac{t}{\tau_L}}\right)}
-        \end{equation}
-
-        \noindent onde \(\displaystyle \tau_L \equiv \frac{L}{R}\) é a constante de tempo do circuito RL.
+        \end{equation} onde \(\displaystyle \tau_L \equiv \frac{L}{R}\) é a constante de tempo do circuito RL.
     \end{itemize}
 
 \subsection{Oscilações Eletromagnéticas}
@@ -224,21 +159,15 @@ Consideramos um circuito LC ideal, em que há um capacitor de capacitância \(C\
 
 \begin{equation}
     \frac{d^2I}{dt^2} + \omega_0^2 I = 0
-\end{equation}
-
-\noindent onde \(\displaystyle \omega_0 \equiv \frac{1}{\sqrt{LC}}\) é a frequência angular das oscilações livres do circuito LC. A solução geral dessa equação diferencial é
+\end{equation} onde \(\displaystyle \omega_0 \equiv \frac{1}{\sqrt{LC}}\) é a frequência angular das oscilações livres do circuito LC. A solução geral dessa equação diferencial é
 
 \begin{equation}\label{eq:solucao_oscilador_livre}
     \boxed{I(t) = A \cos(\omega_0 t + \varphi)}
-\end{equation}
-
-\noindent onde \(A\) é a amplitude da corrente e \(\varphi\) é a fase inicial. Integrando \eqref{eq:solucao_oscilador_livre}, obtemos a carga \(Q(t)\) no capacitor:
+\end{equation} onde \(A\) é a amplitude da corrente e \(\varphi\) é a fase inicial. Integrando \eqref{eq:solucao_oscilador_livre}, obtemos a carga \(Q(t)\) no capacitor:
 
 \begin{equation}
     \boxed{Q(t) = \frac{A}{\omega_0} \sin(\omega_0 t + \varphi)}
-\end{equation}
-
-\noindent com duas constantes arbitrárias
+\end{equation} com duas constantes arbitrárias
 
 \begin{align}
     \begin{aligned}
@@ -250,23 +179,17 @@ Consideramos um circuito LC ideal, em que há um capacitor de capacitância \(C\
         A &= \sqrt{I_0^2 + \omega_0^2 Q_0^2} \\
         \varphi &= \arctan \left( \frac{\omega_0 Q_0}{I_0} \right)
     \end{cases}\end{aligned}
-\end{align}
-
-\noindent o que determinam \(A\) e \(\varphi\) em função das condições iniciais \(I(0)\) e \(Q(0)\). Para \(I_0 = 0\) e carga inicial contida no capacitor, temos \(A = \omega_0 Q_0\) e \(\varphi = \frac{\pi}{2}\).
+\end{align} o que determinam \(A\) e \(\varphi\) em função das condições iniciais \(I(0)\) e \(Q(0)\). Para \(I_0 = 0\) e carga inicial contida no capacitor, temos \(A = \omega_0 Q_0\) e \(\varphi = \frac{\pi}{2}\).
 
 A energia armazenada no capacitor (inteiramente confinada no campo elétrico entre as placas do capacitor) no instante \(t\) é (usando \(\omega_0^2 \equiv 1/LC\))
 
 \begin{equation}
     \boxed{U_C(t) = \frac{Q^2(t)}{2C} = \frac{A^2}{2\omega_0^2 C} \sin^2(\omega_0 t + \varphi) = \frac{1}{2}LA^2 \sin^2(\omega_0 t + \varphi)}
-\end{equation}
-
-\noindent e a energia armazenada no indutor no instante \(t\) é
+\end{equation} e a energia armazenada no indutor no instante \(t\) é
 
 \begin{equation}
     \boxed{U_L(t) = \frac{1}{2}LI^2(t) = \frac{1}{2}LA^2 \cos^2(\omega_0 t + \varphi)}
-\end{equation}
-
-\noindent que leva a uma energia total 
+\end{equation} que leva a uma energia total 
 
 \begin{equation}
     \boxed{U(t) = U_C(t) + U_L(t) = \frac{1}{2}LA^2 = \frac{1}{2}\frac{A^2}{\omega_0^2 C}}
@@ -275,20 +198,20 @@ A energia armazenada no capacitor (inteiramente confinada no campo elétrico ent
 Como \(\sin(x + \frac{\pi}{2}) = \cos x\), vemos que a corrente \(I\) está \emph{adiantada} de \(\pi/2\), na fase, em relação à carga \(Q\) no capacitor (está \emph{em quadratura}). Tanto a corrente quanto a carga trocam de sinal (sentido) a cada hemiciclo. Portanto, a energia oscila entre energia elétrica e energia magnética, mantendo constante a \emph{energia eletromagnética total}.
 
 \begin{table}[h]
-\centering
-\caption{Comparação entre oscilador mecânico e oscilador L-C}
-\label{tab:osciladores}
-\begin{tabular}{l l}
-\toprule
-\textbf{Oscilador mecânico} & \textbf{Oscilador L-C} \\
-\midrule
-$\displaystyle m \frac{d^2 x}{dt^2} + kx = 0$ & $\displaystyle L \frac{d^2 Q}{dt^2} + \frac{1}{C} Q = 0$ \\
-$\displaystyle x, \, m, \, k, \, \omega_0 = \sqrt{\frac{k}{m}}$ & $\displaystyle Q, \, L, \, \frac{1}{C}, \, \omega_0 = \frac{1}{\sqrt{LC}}$ \\
-$\displaystyle v = \frac{dx}{dt}$ & $\displaystyle I = \frac{dQ}{dt}$ \\
-Energia cinética: $\displaystyle T = \frac{1}{2} mv^2$ & Energia magnética: $\displaystyle U_M = \frac{1}{2} LI^2$ \\
-Energia potencial: $\displaystyle V = \frac{1}{2} kx^2$ & Energia elétrica: $\displaystyle U_E = \frac{Q^2}{2C}$ \\
-\bottomrule
-\end{tabular}
+    \centering
+    \caption{Comparação entre oscilador mecânico e oscilador L-C}
+    \label{tab:osciladores}
+    \begin{tabular}{l l}
+    \toprule
+    \textbf{Oscilador mecânico} & \textbf{Oscilador L-C} \\
+    \midrule
+    $\displaystyle m \frac{d^2 x}{dt^2} + kx = 0$ & $\displaystyle L \frac{d^2 Q}{dt^2} + \frac{1}{C} Q = 0$ \\
+    $\displaystyle x, \, m, \, k, \, \omega_0 = \sqrt{\frac{k}{m}}$ & $\displaystyle Q, \, L, \, \frac{1}{C}, \, \omega_0 = \frac{1}{\sqrt{LC}}$ \\
+    $\displaystyle v = \frac{dx}{dt}$ & $\displaystyle I = \frac{dQ}{dt}$ \\
+    Energia cinética: $\displaystyle T = \frac{1}{2} mv^2$ & Energia magnética: $\displaystyle U_M = \frac{1}{2} LI^2$ \\
+    Energia potencial: $\displaystyle V = \frac{1}{2} kx^2$ & Energia elétrica: $\displaystyle U_E = \frac{Q^2}{2C}$ \\
+    \bottomrule
+    \end{tabular}
 \end{table}
 
 \subsubsection{Oscilações Amortecidas: Circuito RLC}
@@ -297,21 +220,15 @@ Agora numa situação mais realista, consideramos um circuito RLC, onde \(R\) é
 
 \begin{equation}
     \frac{d^2Q}{dt^2} + \frac{R}{L} \frac{dQ}{dt} + \frac{1}{LC} Q = 0
-\end{equation}
-
-\noindent substituindo \(\omega_0 \equiv \sqrt{1/LC}\) e definindo \(\gamma \equiv R/2L\), obtemos
+\end{equation} substituindo \(\omega_0 \equiv \sqrt{1/LC}\) e definindo \(\gamma \equiv R/2L\), obtemos
 
 \begin{equation}
     \frac{d^2Q}{dt^2} + 2\gamma \frac{dQ}{dt} + \omega_0^2 Q = 0
-\end{equation}
-
-\noindent cuja solução geral é
+\end{equation} cuja solução geral é
 
 \begin{equation}\label{eq:solucao_oscilador_amortecido}
     \boxed{Q(t) = A e^{-\gamma t} \cos(\omega_1 t + \varphi)}
-\end{equation}
-
-\noindent onde \(\displaystyle \omega_1 \equiv \sqrt{\omega_0^2 - \gamma^2}\in\mathbb{R}\) é a frequência angular das oscilações amortecidas. A constante de amortecimento \(\gamma\) (atrito), introduzida pela resistência do circuito, determina a taxa de decaimento da amplitude da carga.
+\end{equation} onde \(\displaystyle \omega_1 \equiv \sqrt{\omega_0^2 - \gamma^2}\in\mathbb{R}\) é a frequência angular das oscilações amortecidas. A constante de amortecimento \(\gamma\) (atrito), introduzida pela resistência do circuito, determina a taxa de decaimento da amplitude da carga.
 
 \subsubsection{Oscilações Forçadas: Circuito RLC com Fonte Alternada}
 
@@ -319,28 +236,20 @@ Quando uma fonte de tensão alternada é conectada a um circuito RLC, temos osci
 
 \begin{equation}
     \varepsilon(t) = \varepsilon_0 \sin(\omega t)
-\end{equation}
-
-\noindent a equação diferencial que descreve o circuito RLC forçado é
+\end{equation} a equação diferencial que descreve o circuito RLC forçado é
 
 \begin{equation}
     \frac{d^2Q}{dt^2} + \frac{R}{L} \frac{dQ}{dt} + \frac{1}{LC} Q = \varepsilon_0 \sin(\omega t)
-\end{equation}
-
-\noindent cuja solução geral possui duas partes: a solução transiente, que decai com o tempo, e a solução estacionária (ou permanente), que oscila na mesma frequência da fonte. A corrente no regime permanente tem a forma
+\end{equation} cuja solução geral possui duas partes: a solução transiente, que decai com o tempo, e a solução estacionária (ou permanente), que oscila na mesma frequência da fonte. A corrente no regime permanente tem a forma
 
 \begin{equation}
     \boxed{I(t) = I_0 \sin(\omega t - \varphi)}
-\end{equation}
-
-\noindent onde \(I_0\) é a amplitude da corrente e \(\varphi\) é a fase de defasagem entre a corrente e a tensão da fonte:
+\end{equation} onde \(I_0\) é a amplitude da corrente e \(\varphi\) é a fase de defasagem entre a corrente e a tensão da fonte:
 
 \begin{align}
     &I_0 = \frac{\varepsilon_0}{\sqrt{R^2 + \left(\frac{1}{\omega L} - \omega C\right)^2}} \\
     &\tan(\varphi) = \frac{\omega L - \frac{1}{\omega C}}{R}
-\end{align}
-
-\noindent quando \(\displaystyle \omega = \omega_0 \equiv \frac{1}{\sqrt{LC}}\), temos ressonância, onde a amplitude da corrente é máxima.
+\end{align} quando \(\displaystyle \omega = \omega_0 \equiv \frac{1}{\sqrt{LC}}\), temos ressonância, onde a amplitude da corrente é máxima.
 
 \subsection{Circuitos AC}
 
@@ -350,15 +259,11 @@ Consideramos um circuito resistivo puro, com uma fonte de tensão alternada \(V(
 
 \begin{equation}
     - V_0 \sin(\omega t) + R i(t) = 0
-\end{equation}
-
-\noindent isolando \(i(t)\), obtemos
+\end{equation} isolando \(i(t)\), obtemos
 
 \begin{equation}
     \boxed{i(t) = \frac{V_0}{R} \sin(\omega t) = I_0 \sin(\omega t)}
-\end{equation}
-
-\noindent onde \(\displaystyle I_0 = V_0/R\) é a amplitude da corrente. Neste caso, a corrente e a tensão estão \emph{em fase}.
+\end{equation} onde \(\displaystyle I_0 = V_0/R\) é a amplitude da corrente. Neste caso, a corrente e a tensão estão \emph{em fase}.
 
 \subsubsection{Circuito Capacitivo Puro}
 
@@ -366,21 +271,15 @@ Num circuito capactitivo puro, com fonte de tensão alternada \(V(t) = V_0 \sin(
 
 \begin{equation}
     - V_0 \sin(\omega t) + \frac{q(t)}{C} = 0
-\end{equation}
-
-\noindent onde \(q(t)\) é a carga no capacitor. Resolvendo para \(q(t)\), obtemos
+\end{equation} onde \(q(t)\) é a carga no capacitor. Resolvendo para \(q(t)\), obtemos
 
 \begin{equation}
     \boxed{q(t) = C V_0 \sin(\omega t)}
-\end{equation}
-
-\noindent e a corrente no circuito é
+\end{equation} e a corrente no circuito é
 
 \begin{equation}
     \boxed{i(t) = \frac{dq}{dt} = \omega C V_0 \cos(\omega t) = \frac{V_0}{X_C} \sin\left(\omega t + \frac{\pi}{2}\right) = I_0 \sin\left(\omega t + \frac{\pi}{2}\right)}
-\end{equation}
-
-\noindent onde \(\displaystyle X_C \equiv 1/\omega C\) é a reatância capacitiva, de unidade ohm, e \(I_0 = \omega C V_0\) é a amplitude da corrente. A corrente está \emph{adiantada} de \(\pi/2\) em relação à tensão.
+\end{equation} onde \(\displaystyle X_C \equiv 1/\omega C\) é a reatância capacitiva, de unidade ohm, e \(I_0 = \omega C V_0\) é a amplitude da corrente. A corrente está \emph{adiantada} de \(\pi/2\) em relação à tensão.
 
 \subsubsection{Circuito Indutivo Puro}
 
@@ -388,15 +287,11 @@ Aplicando a lei das malhas para um circuito indutivo puro, com fonte de tensão 
 
 \begin{equation}
     - V_0 \sin(\omega t) + L \frac{di(t)}{dt} = 0
-\end{equation}
-
-\noindent onde \(i(t)\) é a corrente no indutor. Resolvendo para \(i(t)\), temos
+\end{equation} onde \(i(t)\) é a corrente no indutor. Resolvendo para \(i(t)\), temos
 
 \begin{equation}
     \boxed{i(t) = -\frac{V_0}{\omega L} \cos(\omega t) = \frac{V_0}{X_L} \sin\left(\omega t - \frac{\pi}{2}\right) = I_0 \sin\left(\omega t - \frac{\pi}{2}\right)}
-\end{equation}
-
-\noindent onde \(\displaystyle X_L \equiv \omega L\) é a reatância indutiva, de unidade ohm, e \(I_0 = V_0/\omega L\) é a amplitude da corrente. A corrente está \emph{atrasada} de \(\pi/2\) em relação à tensão.
+\end{equation} onde \(\displaystyle X_L \equiv \omega L\) é a reatância indutiva, de unidade ohm, e \(I_0 = V_0/\omega L\) é a amplitude da corrente. A corrente está \emph{atrasada} de \(\pi/2\) em relação à tensão.
 
 \subsubsection{Circuito RLC em Série}
 
@@ -404,9 +299,7 @@ Para um circuito RLC em série com uma fonte de tensão alternada \(V(t) = V_0 \
 
 \begin{equation}
     - V_0 \sin(\omega t) + R i(t) + L \frac{di(t)}{dt} + \frac{1}{C} q(t) = 0 \implies R\frac{dq}{dt} + L \frac{d^2q}{dt^2} + \frac{1}{C} q = V_0 \sin(\omega t)
-\end{equation}
-
-\noindent cuja solução permanente é
+\end{equation} cuja solução permanente é
 
 \begin{equation}
     \boxed{i(t) = I_0 \sin(\omega t - \varphi)}
@@ -418,15 +311,11 @@ Temos que as tensões no resistor, indutor e capacitor são dadas por
     &V_R(t) = R i(t) = R I_0 \sin(\omega t - \varphi) \\
     &V_L(t) = L \frac{di(t)}{dt} = \omega L I_0 \cos(\omega t - \varphi) = X_L I_0 \sin\left(\omega t - \varphi + \frac{\pi}{2}\right) \\
     &V_C(t) = \frac{1}{C} q(t) = -\frac{1}{\omega C} I_0 \cos(\omega t - \varphi) = -X_C I_0 \sin\left(\omega t - \varphi - \frac{\pi}{2}\right)
-\end{align}
-
-\noindent com tensão máxima \(\displaystyle V_0 = \sqrt{V_R^2 + (V_L - V_C)^2}\) e \(\displaystyle I_0 = \frac{V_0}{Z}\), onde \(Z \equiv \sqrt{R^2 + (X_L - X_C)^2}\) é a impedância do circuito. O ângulo de fase \(\varphi\) entre a corrente e a tensão é dado por
+\end{align} com tensão máxima \(\displaystyle V_0 = \sqrt{V_R^2 + (V_L - V_C)^2}\) e \(\displaystyle I_0 = \frac{V_0}{Z}\), onde \(Z \equiv \sqrt{R^2 + (X_L - X_C)^2}\) é a impedância do circuito. O ângulo de fase \(\varphi\) entre a corrente e a tensão é dado por
 
 \begin{equation}
     \tan(\varphi) = \frac{X_L - X_C}{R}
-\end{equation}
-
-\noindent e a ressonância ocorre quando \(X_L = X_C\), ou seja, \(\omega = \omega_0 \equiv 1/\sqrt{LC}\), onde a impedância é mínima \(Z = R\) e a corrente máxima \(I_0 = V_0/R\).
+\end{equation} e a ressonância ocorre quando \(X_L = X_C\), ou seja, \(\omega = \omega_0 \equiv 1/\sqrt{LC}\), onde a impedância é mínima \(Z = R\) e a corrente máxima \(I_0 = V_0/R\).
 
 \subsubsection{Potência Média e Valor Eficaz}
 
@@ -434,15 +323,11 @@ A potência instantânea no resistor \(R\) é
 
 \begin{equation}
     p(t) = Ri^2(t)
-\end{equation}
-
-\noindent enquanto que a potência média \(\overline{P}\) é dada por
+\end{equation} enquanto que a potência média \(\overline{P}\) é dada por
 
 \begin{equation}
     \overline{P} = \frac{1}{T} \int_0^T p(t) dt = R \frac{1}{T} \int_0^T i^2(t) dt = R\overline{i^2}
-\end{equation}
-
-\noindent onde 
+\end{equation} onde 
 
 \begin{equation}
     \overline{i^2} \equiv \frac{1}{T} \int_0^T i^2(t) dt = \frac{I_0^2}{T} \int_0^T \sin^2(\omega t) dt = \frac{I_0^2}{2}
@@ -464,9 +349,7 @@ Assim, a potência média dissipada no resistor é
 
 \begin{equation}
     \boxed{\overline{P} = R I_{rms}^2 = V_{rms} I_{rms} \cos(\varphi)}
-\end{equation}
-
-\noindent onde \(\cos(\varphi)\) é o fator de potência, que mede a eficiência do circuito em converter energia elétrica em trabalho útil. Em circuitos puramente resistivos, \(\varphi = 0\) e \(\overline{P} = V_{rms} I_{rms}\).
+\end{equation} onde \(\cos(\varphi)\) é o fator de potência, que mede a eficiência do circuito em converter energia elétrica em trabalho útil. Em circuitos puramente resistivos, \(\varphi = 0\) e \(\overline{P} = V_{rms} I_{rms}\).
 
 \subsection{Equações de Maxwell}
 
@@ -474,14 +357,12 @@ Assim, a potência média dissipada no resistor é
     \item [(a)] \textbf{Lei de Gauss para o campo elétrico}
         \begin{equation}
             \boxed{\oint_{S} \mathbf{E}\cdot d\mathbf{S} = \frac{Q_{int}}{\varepsilon_0}}
-        \end{equation}
-        \noindent onde \(Q_{int}\) é a carga interna à superfície \(S\).
+        \end{equation} onde \(Q_{int}\) é a carga interna à superfície \(S\).
 
     \item [(b)] \textbf{Lei de Gauss para o campo magnético}
         \begin{equation}
             \boxed{\oint_{S} \mathbf{B} \cdot d\mathbf{S} = 0}
-        \end{equation}
-        \noindent (não existem monopolos magnéticos).
+        \end{equation} (não existem monopolos magnéticos).
     \item [(c)] \textbf{Lei de Faraday}
         \begin{equation}
             \boxed{\oint_{C} \mathbf{E} \cdot d\mathbf{l} = -\frac{d}{dt}\int_{S} \mathbf{B} \cdot d\mathbf{S}}
@@ -489,8 +370,7 @@ Assim, a potência média dissipada no resistor é
     \item [(d)] \textbf{Lei de Ampère-Maxwell}
         \begin{equation}
             \boxed{\oint_{C} \mathbf{B} \cdot d\mathbf{l} = \mu_0 \left( I_{cond} + I_{d} \right)}
-        \end{equation}
-        \noindent onde \(\displaystyle I_{d} = \varepsilon_0 \frac{d\Phi_E}{dt}\) é a corrente de deslocamento.
+        \end{equation} onde \(\displaystyle I_{d} = \varepsilon_0 \frac{d\Phi_E}{dt}\) é a corrente de deslocamento.
 \end{itemize}
 
 

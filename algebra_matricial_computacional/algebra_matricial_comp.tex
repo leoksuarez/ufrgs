@@ -105,6 +105,8 @@ A classe de normas matriciais mais usadas são as \emph{normas matriciais induzi
 \end{defn}
 
 \subsection{Normas matriciais submultiplicativas}
+\subsection{Computando a norma-\(2\) de uma matriz}
+\subsection{Propriedades da norma-\(2\) matricial}
 
 \section{Condicionamento de Problemas e Estabilidade de Algoritmos}
 
@@ -126,7 +128,7 @@ A classe de normas matriciais mais usadas são as \emph{normas matriciais induzi
 \begin{defn}
     O \emph{número de condicionamento} de um problema \(f\) com entrada \(x\) é
     \begin{equation}
-        C_f(x) \defeq \lim{\eps \to ^{+}} \sup_{\delta x \leq \eps} \frac{\frac{\Vert f(x+\delta x)-f(x)\Vert}{\Vert f(x) \Vert}}{\frac{\Vert \delta x \Vert}{\Vert x \Vert}}
+        C_f(x) \defeq \lim{\eps \to 0^{+}} \sup_{\Vert \delta x \Vert \leq \eps} \frac{\frac{\Vert f(x+\delta x)-f(x)\Vert}{\Vert f(x) \Vert}}{\frac{\Vert \delta x \Vert}{\Vert x \Vert}}
     \end{equation}
 \end{defn}
 
