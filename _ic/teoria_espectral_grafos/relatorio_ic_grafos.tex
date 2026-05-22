@@ -1,10 +1,11 @@
 \documentclass{article}
 \usepackage{macros}
 \usepackage{tkz-berge}
+\usepackage[portuguese]{babel}
+\usepackage[backend=biber, style=numeric, sorting=none]{biblatex}\addbibresource{referencias_grafos.bib}
 
 \DeclareMathOperator{\tr}{tr}
 \DeclareMathOperator{\spect}{spect}
-\DeclareMathOperator{\ind}{ind}
 
 \begin{document}
 
@@ -29,7 +30,6 @@
 
 \newpage
 \tableofcontents
-\newpage
 
 \section{Preliminares sobre Teoria dos Grafos}
 
@@ -78,15 +78,17 @@ A seguir apresentamos alguns tipos especiais de grafos.
 Sendo \(A(G)\) uma matriz real simétrica, todos seus autovalores são reais.\footnote{Se \(T \in \mathcal{L}(V)\) é auto-adjunto (ou hermitiano) então todo autovalor de \(T\) é real.} Como \(\tr A(G) = 0\), a soma dos autovalores de \(A(G)\) é nula.
 
 \begin{defn}
-    O \emph{polinômio característico} de um grafo \(G\) é o polinômio característico da matriz de adjacência \(A(G)\), denotado por \(p_G(\lambda) = \det(\lambda I - A(G))\); \(\lambda\) é dito um \emph{autovalor do grafo} \(G\) quando \(p_G(\lambda) = 0\). Se \(A(G)\) possui \(k\) autovalores distintos \(\lambda_1, \ldots, \lambda_k\) com multiplicidades \(m_1, \ldots, m_k\), respectivamente, então o \emph{espectro} de \(G\), denotado por \(\spect(G)\), é a matriz \(2 \times k\) dada por
+    O \emph{polinômio característico} de um grafo \(G\) é o polinômio característico da matriz de adjacência \(A(G)\), denotado por \(p_G(\lambda) = \det(\lambda I - A)\); \(\lambda\) é dito um \emph{autovalor do grafo} \(G\) quando \(p_G(\lambda) = 0\). Se \(A(G)\) possui \(n\) autovalores distintos \(\lambda_1, \ldots, \lambda_n\) com multiplicidades \(m_1, \ldots, m_n\), respectivamente, então o \emph{espectro} de \(G\), denotado por \(\spect(G)\), é a matriz \(2 \times n\) dada por
 \[
     \spect(G) \defeq \begin{bmatrix}
-        \lambda_1 & \lambda_2 & \cdots & \lambda_k \\
-        m_1 & m_2 & \cdots & m_k
+        \lambda_1 & \lambda_2 & \cdots & \lambda_n \\
+        m_1 & m_2 & \cdots & m_n
     \end{bmatrix}.
 \]
-O maior autovalor de \(G\) é chamado de \emph{índice} de \(G\) e é denotado por \(\ind(G)\).
+O maior autovalor \(\lambda_1\) de \(G\) é chamado de \emph{índice} de \(G\). Para um inteiro \(k\geq0\), o \(k\)-ésimo \emph{momento espectral} de \(G\) é \(s_k = \sum_{i=1}^{k} \lambda_i^k\).
 \end{defn}
+
+Os autovalores de um grafo são independentes da ordenação de seus vértices, pois matrizes similares possuem o mesmo polinômio característico: se os vértices são permutados, obtemos uma matriz de adjacência \(A'\) que é similar a \(A\) por meio de uma matriz de permutação \(P\), ou seja, \(A' = P^T A P\).
 
 \begin{prop}
     Seja \(G\) um grafo com \(n\) vértices e \(m\) arestas e seja
@@ -101,15 +103,34 @@ O maior autovalor de \(G\) é chamado de \emph{índice} de \(G\) e é denotado p
     \[
         a_k = \sum (\text{todos os \(k \times k\) menores principais}\footnotemark).
     \]\footnotetext{Um \emph{menor principal} de \(A(G)\) com \(k\) linhas e \(k\) colunas é o determinante de qualquer \emph{submatriz principal} com \(k\) linhas e \(k\) colunas de \(A(G)\), isto é, de qualquer matriz obtida de \(A(G)\) pela retirada de um subconjunto de \(n-k\) linhas e do correspondente subconjunto de colunas.}
-
 \end{proof}
+
+Os autovalores de \(A\) são os números reais que satisfazem \(Ax = \lambda x\) para algum vetor \(x \neq 0\). Tal vetor \(x\) é chamado de \emph{autovetor} de \(A\) associado ao autovalor \(\lambda\). A relação \(Ax = \lambda x\) pode ser entendida da seguinte forma: se \(x = (x_1, x_2, \ldots, x_n)^T\) então
+
+\begin{equation}
+    \lambda x_u = \sum_{v \sim u} x_v, \quad u = 1, 2, \ldots, n,
+\end{equation} onde a soma é feita sobre os vizinhos \(v\) de \(u\). Assim, o autovetor \(x\) é uma função que atribui um número real a cada vértice de \(G\) de tal forma que para cada vértice \(u\) o valor \(\lambda x_u\) é igual à soma dos valores atribuídos aos vizinhos de \(u\).
+
+\begin{prop}
+    Se um grafo \(G\) tem grau máximo \(\Delta(G)\) então todo autovalor \(\lambda\) de \(G\) satisfaz \(|\lambda| \leq \Delta(G)\).
+\end{prop}
+
+\begin{proof}
+    
+\end{proof}
+
+Se \(\lambda\) é um autovalor de \(A\) então o conjunto \(\{x \in \mathbb{R}^n : Ax = \lambda x\}\) é um subespaço vetorial de \(\mathbb{R}^n\) chamado de \emph{autoespaço} de \(\lambda\) e denotado por \(\mathcal{E}(\lambda)\) ou \(\mathcal{E}_A(\lambda)\). Tais autoespaços são chamados de \emph{autoespaços de \(G\)}. Como \(A\) é uma matriz real simétrica, o teorema espectral assegura que \(A\) pode ser diagonalizada por uma matriz ortogonal, ou seja, existe uma base ortonormal de \(\mathbb{R}^n\) formada por autovetores de \(A\). Então os autoespaços de \(G\) são dois a dois ortogonais e a soma direta de todos os autoespaços de \(G\) é igual a \(\mathbb{R}^n\). Além disso, a dimensão de \(\mathcal{E}(\lambda)\) é igual à multiplicidade de \(\lambda\) como raiz de \(p_G(\lambda)\), isto é, a multiplicidade geométrica de \(\lambda\) é igual à sua multiplicidade algébrica. Por isso, nos referimos apenas à \emph{multiplicidade} de \(\lambda\). Um autovalor \emph{simples} é aquele cuja multiplicidade é \(1\).
 
 \begin{prop}
     O número de cadeias de comprimento \(l\) ligando os vértices \(v_i\) e \(v_j\) em um grafo \(G\) é dado por \((A^l)_{ij}\).
 \end{prop}
 
 \begin{proof}
-    Provamos por indução em \(l\). O resultado é óbvio para \(l=1\). Suponhamos que vale para \(l=n\).
+    Provamos por indução em \(l\). Trivial para \(l=1\). Suponha que vale para \(l=n\) e nota que a quantidade de cadeias de comprimento \(l+1\) ligando \(v_i\) a \(v_j\) é igual à quantidade de cadeias de comprimento \(l\) ligando \(v_i\) a um vizinho \(v_h\) de \(v_j\). Então
+        \[
+            \sum_{\{v_i\sim v_h\} \in E} (A^l)_{ih} = \sum_{h=1}^n (A^l)_{ih}A_{hj} = (A^{l+1})_{ij}.
+        \]
+    \end{proof}
 \end{proof}
 
 Podemos usar o resultado acima para relacionar o número de cadeias fechadas de um grafo e as somas de potências de seus autovalores.
@@ -141,7 +162,7 @@ Podemos usar o resultado acima para relacionar o número de cadeias fechadas de 
 \end{defn}
 
 \begin{defn}
-    A \emph{centralidade de autovetor} do vértice \(v_i\) em um grafo \(G\) é a \(i\)-ésima coordenada \(x_i\) do autovetor unitário positivo \(x = [x_1, \ldots, x_n]^T\) associado ao autovalor principal \(\lambda_1\) de \(G\), ou seja, é o número
+    A \emph{centralidade de autovetor} do vértice \(v_i\) em um grafo \(G\) é a \(i\)-ésima coordenada \(x_i\) do autovetor unitário positivo \(x = [x_1 \; \ldots \; x_n]^T\) associado ao autovalor principal \(\lambda_1\) de \(G\), ou seja, é o número
     \begin{equation}
         x_i = \frac{1}{\lambda_1} \sum_{j=1}^n a_{ij} x_j,
     \end{equation}
@@ -149,7 +170,7 @@ Podemos usar o resultado acima para relacionar o número de cadeias fechadas de 
 \end{defn}
 
 \begin{prop}
-    Se \(G\) é um grafo conexo então o número de autovalores distintos de \(G\) é \(\geq \operatorname{diam}(G) + 1\).
+    Se \(G\) é um grafo conexo então o número de autovalores distintos de \(G\) é \(> \operatorname{diam}(G)\).
 \end{prop}
 
 \begin{proof}
@@ -157,7 +178,7 @@ Podemos usar o resultado acima para relacionar o número de cadeias fechadas de 
     \[
         (A-\lambda_1) \cdots (A-\lambda_t) = 0,
     \]
-    o que mostra que \(A^t\) é combinação linear de \(A, A^2, \ldots A^{t-1}\). Suponha que \(t = \operatorname{diam}(G)\) e tome vértices \(u, v\) tal que \(d(u,v) = t\). Então \(A_{uv}^k = 0\) para todo \(k < t\) mas \(A_{uv}^t > 0\), o que é uma contradição pois \(A^t\) é combinação linear dos \(A^k\). Logo, \(t \geq \operatorname{diam}(G) + 1\).
+    o que mostra que \(A^t\) é combinação linear de \(A, A^2, \ldots A^{t-1}\). Suponha que \(t = \operatorname{diam}(G)\) e tome vértices \(u, v\) tal que \(d(u,v) = t\). Então \(A_{uv}^k = 0\) para todo \(k < t\) mas \(A_{uv}^t > 0\), o que é uma contradição pois \(A^t\) é combinação linear dos \(A^k\). Logo, \(t > \operatorname{diam}(G)\).
 \end{proof}
 
 \begin{prop}
@@ -174,7 +195,9 @@ Podemos usar o resultado acima para relacionar o número de cadeias fechadas de 
 
 \subsection{O espectro de certos tipos de grafos}
 
-\begin{prop}
+Encontrar o espectro de grafos com mais do que quatro vértices através do cálculo das raízes de seu polinômio característico é uma tarefa difícil que requer uso de programas de computação algébrica. Existem resultados que determinam o espectro de grafos obtidos a partir de outros por operações combinatórias, como o complementar, a união etc. Outros teoremas fornecem informações sobre apenas alguns autovalores. No geral, são conhecidos os espectros de poucas classes de grafos.
+
+\begin{prop} \label{prop:polinomio_uniao}
     Se \(G\) é a união de dois grafos \(G_1\) e \(G_2\) então \(p_G(\lambda) = p_{G_1}(\lambda) p_{G_2}(\lambda)\). Em particular, se \(G_1, G_2, \ldots, G_r\) são as componentes conexas de \(G\) então \(p_G(\lambda) = \prod_{i=1}^r p_{G_i}(\lambda)\).
 \end{prop}
 
@@ -194,18 +217,71 @@ Podemos usar o resultado acima para relacionar o número de cadeias fechadas de 
 \begin{proof}
     \begin{enumerate}
         \item [a.] Perceba que a soma das entradas da linha \(j\) da matriz de adjacência fornece o grau do vértice \(v_j\). Como \(G\) é \(k\)-regular, todas essas somas resultam em \(k\). O candidato natural a autovetor associado a \(k\) é o autovetor constante. De fato, tomando \(x=[1 \ldots 1]^T\) tem-se \(A1 = k1\), donde \(k\) é autovalor de \(G\).
-        \item [b.] \((\Rightarrow)\) Seja \(x = [x_1 \ldots x_n]^T\) autovetor de \(G\) associado ao autovalor \(k\). Provamos que \(x\) é múltiplo escalar do vetor \(1\). Toma \(x_j = \max\{\vert x_i \vert; 1 \leq i \leq n\}\) e nota que \((Ax)_j = kx_j = \sum_{v_i ~ v_j} x_i\) (soma dos valores dos \(k\) vizinhos de \(x_j\)). Então para todo \(v_l\) adjacente a \(v_j\) vale
+        \item [b.] \((\Rightarrow)\) Seja \(x = [x_1 \; \ldots \; x_n]^T\) autovetor de \(G\) associado ao autovalor \(k\). Provamos que \(x\) é múltiplo escalar do vetor \(1\). Toma \(x_j = \max\{\vert x_i \vert; 1 \leq i \leq n\}\) e nota que \((Ax)_j = kx_j = \sum_{v_i \sim v_j} x_i\) (soma dos valores dos \(k\) vizinhos de \(x_j\)). Então para todo \(v_l\) adjacente a \(v_j\) vale
         \begin{equation*}
-            k \vert x_j \vert = \vert \sum_{v_i~v_j} x_i \vert \leq \sum_{v_i~v_j} \vert x_i \vert \leq \vert x_l \vert + (k-1) \vert x_j \vert.
+            k \vert x_j \vert = \vert \sum_{v_i \sim v_j} x_i \vert \leq \sum_{v_i \sim v_j} \vert x_i \vert \leq \vert x_l \vert + (k-1) \vert x_j \vert.
         \end{equation*} Subtraindo \((k-1) \vert x_k \vert\) de ambos os lados, vem \(\vert x_j \vert \leq \vert x_l \vert\). Dado que tomamos \(x_j\) como o valor absoluto máximo de \(x\), devemos ter \(x_l = x_j\). Ainda, a conexidade do grafo nos permite aplicar essa lógica a todos os seus vértices. Portanto \(x = x_j1\) e o autoespaço associado a \(k\) tem dimensão \(1\).
         
         \((\Leftarrow)\) Por outro lado, suponha que \(G\) é desconexo, com componentes conexas \(G_1, \ldots, G_m\). Como cada componente é um grafo conexo \(k\)-regular, \(k\) é autovalor simples para cada \(G_i\). Da proposição anterior, temos que \(p_G(\lambda) = p_{G_1}(\lambda)\cdots p_{G_m}(\lambda)\), logo \(k\) é autovalor de \(G\) de multiplicidade \(>1\).
-        \item [c.] Seja \(y = [y_1 \ldots y_n]^T\) autovetor de \(G\) associado ao autovalor \(\lambda\). Defina \(y_j = \max\{\vert y_i \vert; 1 \leq i \leq n\}\) e escreva \((Ay)_j = \lambda y_j = \sum_{v_i~v_j} y_i\). Daí, tem-se 
+        \item [c.] Seja \(y = [y_1 \; \ldots \; y_n]^T\) autovetor de \(G\) associado ao autovalor \(\lambda\). Defina \(y_j = \max\{\vert y_i \vert; 1 \leq i \leq n\}\) e escreva \((Ay)_j = \lambda y_j = \sum_{v_i \sim v_j} y_i\). Daí, tem-se 
         \begin{equation*}
-            \vert \lambda \vert \vert y_j \vert = \vert \sum_{v_i~v_j} y_i \vert \leq \sum_{v_i~v_j} y_i \leq k \vert y_j \vert,
+            \vert \lambda \vert \vert y_j \vert = \left\vert \sum_{v_i \sim v_j} y_i \right\vert \leq \sum_{v_i \sim v_j} \vert y_i \vert \leq k \vert y_j \vert,
         \end{equation*} donde \(\lambda \leq k\).
     \end{enumerate}
 \end{proof}
+
+Geralmente, não se conhece todo o espectro de um grafo \(k\)-regular. Mas se conhecemos seus autovalores, podemos determinar os autovalores de seu grafo complementar.
+
+\begin{prop}
+    Seja \(G\) um grafo \(k\)-regular com \(n\) vértices e autovalores \(\lambda_1 = k, \lambda_2, \ldots, \lambda_n\). Então os autovalores de \(\overline{G}\) são \(n-1-k, -1-\lambda_2, \ldots, -1-\lambda_n\), respectivamente, associados aos mesmos autovetores de \(G\).
+\end{prop}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{exmp}
+    Se \(G\) é um grafo sem arestas com \(n\) vértices, então \(G\) é \(0\)-regular com \(p_G(\lambda) = \lambda^n\) e \[\spect(G) = \begin{bmatrix}
+        0 \\
+        n
+    \end{bmatrix}.\]
+\end{exmp}
+
+\begin{exmp}
+    O grafo completo com \(n\) vértices \(K_n\) é o complementar do grafo sem arestas. Temos então \(p_{K_n}(\lambda) = (\lambda - (n-1))(\lambda + 1)^{n-1}\) e \[\spect(K_n) = \begin{bmatrix}
+        n-1 & -1 \\
+        1 & n-1
+    \end{bmatrix}.\]
+\end{exmp}
+
+\begin{exmp}
+    Se \(G\) é o grafo formado pela união de \(s\) cópias de \(K_2\) então \(G\) é \(1\)-regular e tem \(2s\) vértices, com \(p_{K_2} (\lambda) = (\lambda - 1)(\lambda + 1)\) e por \ref{prop:polinomio_uniao}, vale \(p_G (\lambda) = (\lambda - 1)^s(\lambda + 1)^s\) e \[ \spect(G) = \begin{bmatrix}
+        1 & -1 \\
+        s & s
+    \end{bmatrix}.\] O grafo complementar de \(G\) é chamado de \emph{hiperoctaedro} (ou \emph{cocktail party graph}) e denotado por \(H_s\). O espectro de \(H_s\) é \[\spect(H_s) = \begin{bmatrix}
+        2s-1 & -1 \\
+        1 & 2s-1
+    \end{bmatrix}.\]
+\end{exmp}
+
+\begin{exmp}
+    Seja \(G\) um grafo bipartido cujo conjunto de vértices é particionado em \(V_1\) e \(V_2\) com \(|V_1| = k_1\) e \(|V_2| = k_2\). Se rotulamos primeiro os vértices de \(V_1\) e depois os de \(V_2\), a matriz de adjacência de \(G\) tem a forma
+\[
+    A(G) = \begin{bmatrix}
+        0 & B \\
+        B^T & 0
+    \end{bmatrix},
+\] onde \(B\) é uma matriz de adjacência de dimensões \(k_1 \times k_2\). Afirmamos que \(\lambda\) é um autovalor de \(G\) se e somente se \(-\lambda\) é um autovalor de \(G\). De fato, se \(x = [x_1 \; x_2]^T\) é um autovetor de \(G\) associado a \(\lambda\), onde \(x_1\) e \(x_2\) são vetores de dimensões \(k_1\) e \(k_2\), respectivamente, então
+\[
+    \lambda x_1 = Bx_2 \quad \text{e} \quad \lambda x_2 = B^T x_1.
+\] Daí, \(-\lambda x_1 = -Bx_2\) e \(-\lambda x_2 = -B^T x_1\), o que mostra que \(-\lambda\) é um autovalor de \(G\) associado ao autovetor \([-x_1 \; x_2]^T\). O espectro de \(G\) é então da forma
+\[
+    \spect(G) = \begin{bmatrix}
+        \lambda_1 & \lambda_2 & \cdots & \lambda_r & -\lambda_1 & -\lambda_2 & \cdots & -\lambda_r \\
+        m_1 & m_2 & \cdots & m_r & m_1 & m_2 & \cdots & m_r
+    \end{bmatrix},
+\] onde \(\lambda_1, \ldots, \lambda_r\) são os autovalores positivos de \(G\) e \(m_1, \ldots, m_r\) são suas respectivas multiplicidades.
+\end{exmp}
 
 \subsection{Isomorfismo de grafos}
 
@@ -232,6 +308,24 @@ Se dois grafos são isomorfos, eles possuem o mesmo espectro. Mas a recíproca n
         \EdgeIdentity{v}{w}{4}
     \end{tikzpicture}
 \end{center}
+
+Algumas propriedades de grafos, como a conexidade e a existência de \(C_4\), não são determinadas por seus espectros. O resultado a seguir mostra que grafos sem arestas são caracterizados pelo seu espectro.
+
+\begin{prop}
+    Um grafo \(G\) possui um único autovalor se e somente se \(G\) é totalmente desconexo, ou seja, é um grafo sem arestas.
+\end{prop}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{prop}
+    Se \(G\) tem exatamente dois autovalores distintos \(\lambda_1 > \lambda_2\), com multiplicidades \(m_1\) e \(m_2\), respectivamente, então \(G\) é o grafo \(\lambda_1\)-regular formado por \(m_1\) cópias de \(K_{\lambda_1 + 1}\). Além disso, temos \(\lambda_2 = -1\) e \(m_2 = m_1\lambda_1\).
+\end{prop}
+
+\begin{proof}
+    
+\end{proof}
 
 \subsection{Energia de grafos}
 
