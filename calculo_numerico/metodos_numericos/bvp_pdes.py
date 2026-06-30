@@ -338,3 +338,66 @@ def heat_cn_crout(m, N, x_bounds, t_bounds, alpha, boundary, initial):
             w[i + 1] = z[i] - u_e[i] * w[i + 2] # back substitution for w
 
     return w
+
+def wave(m, N, x_bounds, t_bounds, alpha, boundary, initial):
+    """
+    Solves the 1D wave equation using finite differences.
+
+    Parameters
+    ----------
+    m : int
+        Number of subintervals in the spatial direction.
+    N : int
+        Number of subintervals in the time direction.
+    x_bounds : np.array
+        An array defining the bounds of the spatial axis.
+    t_bounds : np.array
+        An array defining the bounds of the time axis.
+    alpha : float
+        The wave speed.
+    boundary : dict
+        A dictionary specifying the boundary conditions with keys 'left', 'right' and corresponding values for each boundary.
+    initial : dict
+        A dictionary specifying the initial conditions with keys 'u0' and 'u1' for the initial displacement and initial velocity, respectively.
+
+    Returns
+    -------
+    w : 2D numpy array
+        The solution to the wave equation on the grid defined by x_bounds and t_bounds.
+    """
+    import numpy as np
+
+    # grid setup
+    x_min, x_max = x_bounds[0], x_bounds[1]
+    t_min, t_max = t_bounds[0], t_bounds[1]
+    h = (x_max - x_min) / m
+    k = (t_max - t_min) / N
+
+    # create grid points
+    x = np.linspace(x_min, x_max, m + 1)
+    t = np.linspace(t_min, t_max, N + 1)
+
+    # precompute constant for the update
+    lmbda = (alpha * k / h)
+
+    # initialize solution array
+    w = np.zeros((m + 1, N + 1))
+
+    # apply initial condition
+    for i in range(m + 1):
+        w[i, 0] = initial['u0'](x[i])
+
+    # apply boundary conditions at all time steps
+    w[0, :] = boundary['left']
+    w[-1, :] = boundary['right']
+
+    # compute the first time step using the initial derivative
+    for i in range(1, m):
+        w[i, 1] = (1 - lmbda**2) * w[i, 0] + (lmbda**2 / 2) * (w[i + 1, 0] + w[i - 1, 0]) + k * initial['u1'](x[i])
+
+    # time-stepping loop for subsequent time steps
+    for j in range(1, N):
+        for i in range(1, m):
+            w[i, j + 1] = (2 * (1 - lmbda**2) * w[i, j] + lmbda**2 * (w[i + 1, j] + w[i - 1, j]) - w[i, j - 1])
+
+    return w
