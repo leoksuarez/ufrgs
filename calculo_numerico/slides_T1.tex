@@ -10,7 +10,7 @@
 \usepackage{listings}
 \usepackage{siunitx}
 \usepackage[backend=biber, style=numeric, sorting=nty]{biblatex}
-\addbibresource{referencias_t1.bib}
+\addbibresource{referencias_numerico.bib}
 \setbeamertemplate{bibliography item}{\insertbiblabel}
 
 \lstset{
@@ -45,7 +45,7 @@
 
 \section{Fundamentação Física}
 
-\begin{frame}{O Problema Físico \cite{moyses,rc_circuit}}
+\begin{frame}{O Problema Físico \cite{moyses_eletromag,rc_circuit}}
     \begin{itemize}
         \item Circuito série contendo uma fonte $\mathcal{E}$, um resistor $R$ e um capacitor $C$.
         \item Pela 1ª lei de Kirchhoff (lei das malhas): $V_R + V_C = \mathcal{E}$.
@@ -147,8 +147,8 @@
 \begin{frame}{Comparação dos Métodos}
     \begin{figure}
         \centering
-        \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{comparacao_metodos.pdf}
-        \label{fig:comparacao_metodos}
+        \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{comparacao_metodos_edo.pdf}
+        \label{fig:comparacao_metodos_edo}
     \end{figure}    
 \end{frame}
 
@@ -186,8 +186,8 @@
 \begin{frame}{Análise dos Erros}
     \begin{figure}
         \centering
-        \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{analise_erro.pdf}
-        \label{fig:analise_erro}
+        \includegraphics[width=\textwidth, height=0.8\textheight, keepaspectratio]{analise_erro_edo.pdf}
+        \label{fig:analise_erro_edo}
     \end{figure}    
 \end{frame}
 
