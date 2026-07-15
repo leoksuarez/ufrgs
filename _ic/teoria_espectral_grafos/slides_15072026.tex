@@ -1,0 +1,334 @@
+\documentclass{beamer}
+\usetheme[style=beta]{epyt}
+\usepackage{macros_beamer}
+\usepackage[portuguese]{babel}
+\usepackage{tikz}
+\usetikzlibrary{graphs, graphs.standard, positioning, calc}
+
+% Define standard styling for a modern, clean slide look
+\tikzset{
+    graphnode/.style={
+        circle, 
+        draw=blue!60, 
+        fill=blue!10, 
+        very thick, 
+        minimum size=6mm,
+        inner sep=0pt,
+        font=\small\bfseries\sffamily
+    },
+    graphedge/.style={
+        draw=gray!80, 
+        thick
+    }
+}
+
+\title{Introdução à Teoria Espectral de Grafos}
+\subtitle{Passeios aleatórios em grafos}
+\date{15 de julho de 2026}
+\author{Leonardo Suarez}
+\institute{Instituto de Matemática e Estatística - UFRGS}
+
+\usepackage[backend=biber, style=ieee]{biblatex}\addbibresource{referencias_grafos.bib}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\spect}{spect}
+
+\begin{document}
+
+\nocite{spielman}
+
+\frame{\titlepage}
+
+\begin{frame}
+    \tableofcontents
+\end{frame}
+
+\section{Passeios aleatórios}
+
+\begin{frame}{que passeio?}
+    Seja \(G = (V, E, w)\) um grafo valorado não direcionado.
+    
+    \begin{itemize}
+        \item um \alert{passeio aleatório} em \(G\) é um processo que começa num vértice e a cada instante se move para um vértice vizinho; \pause
+        \item quando \(G\) é valorado, o passeio se move com probabilidade proporcional ao peso das arestas. \pause
+    \end{itemize}
+
+    Denotamos por \(\mathbf{p}_t \in \R^n\) a distribuição de probabilidade no instante \(t\) e escrevemos \(\mathbf{p}_t(a)\) para indicar a probabilidade de estar no vértice \(a \in V\) no instante \(t\). \pause
+
+    Um vetor probabilidade \(\mathbf{p}\) é um vetor tal que \(\mathbf{p}(a) \geq 0\) para todo \(a \in V\) e
+    \begin{equation*}
+        \sum_{a} \mathbf{p}(a) = 1.
+    \end{equation*}
+\end{frame}
+
+\begin{frame}{surfando na web}
+    \centering
+    \includegraphics[width=0.8\textwidth]{pageRank.png}
+\end{frame}
+
+\begin{frame}{omg matrizes}
+    Observamos que a distribuição de probabilidade de se estar no vértice \(a\) no instante \(t+1\) é dada por
+    \begin{equation*}
+        \mathbf{p}_{t+1}(a) = \sum_{b \mid b \sim a} \frac{w(a, b)}{\mathbf{d}(b)} \mathbf{p}_t(b),
+    \end{equation*} onde \(\mathbf{d}(b) = \sum_{a} w(a, b)\) é o grau do vértice \(b\). \pause Em notação matricial, definimos a \alert{matriz de transição} \(\mathbf{W}\)
+
+    \begin{equation*}
+        \mathbf{W} := \mathbf{M} \mathbf{D}^{-1},
+    \end{equation*} onde \(\mathbf{M}\) é a matriz de adjacência e \(\mathbf{D}\) é a matriz diagonal dos graus, de modo que \(\mathbf{p}_{t+1} = \mathbf{W} \mathbf{p}_t = \mathbf{W}^{t+1}\mathbf{p}_0\).
+\end{frame}
+
+\begin{frame}{sem preguiça, o passeio aleatório pode não convergir}
+    Frequentemente consideramos \alert{passeios aleatórios preguiçosos}, que evoluem conforme
+
+    \begin{equation*}
+        \mathbf{p}_{t+1}(a) = \frac{1}{2}\mathbf{p}_t(a) + \frac{1}{2}\sum_{b \mid b \sim a} \frac{w(a, b)}{\mathbf{d}(b)} \mathbf{p}_t(b),
+    \end{equation*}\pause e satisfazem
+    \begin{equation*}
+        \mathbf{p}_{t+1} = \widetilde{\mathbf{W}} \mathbf{p}_t,
+    \end{equation*} onde \(\widetilde{\mathbf{W}} := \frac{1}{2}\mathbf{I} + \frac{1}{2}\mathbf{W}\) é a \alert{matriz de transição preguiçosa}.
+\end{frame}
+
+\section{O espectro de matrizes de transição}
+
+\begin{frame}{um teorema super importante}
+    \begin{thm}[Perron-Frobenius, caso simétrico] Sejam \(G\) um grafo conexo valorado, \(\mathbf{M}\) a sua matriz de adjacência, \(\mathbf{H}\) uma matriz diagonal não negativa, \(\mathbf{M}^{\prime} = \mathbf{M} + \mathbf{H}\) e \(\mu_1 \geq \mu_2 \geq \ldots \geq \mu_n\) os autovalores de \(\mathbf{M}^{\prime}\). Então
+        \begin{enumerate}
+            \item o autovalor \(\mu_1\) tem um autovetor com entradas estritamente positivas;
+            \item \(\mu_1 \geq -\mu_n\);
+            \item \(\mu_1 > \mu_2\), i.e., o autovalor \(\mu_1\) é simples;
+        \end{enumerate}
+    \end{thm}
+\end{frame}
+
+\begin{frame}{localizando autovalores}
+    \begin{thm}[Gershgorin]
+        Sejam \(\mathbf{A} = (a_{ij})\) uma matriz quadrada e \(r_i = \sum_{j \neq i} \vert a_{ij} \vert\). Então todos os autovalores de \(\mathbf{A}\) estão contidos na união dos \alert{discos de Gershgorin}
+        \begin{equation*}
+            D(a_{ii}, r_i) := \{ z \in \C : \vert z - a_{ii} \vert \leq r_i\}.
+        \end{equation*}
+    \end{thm}
+\end{frame}
+
+\begin{frame}{matrizes simétricas são legais}
+    Definimos a \alert{matriz de adjacência normalizada} de \(G\) como
+    \begin{equation*}
+        \mathbf{A} := \mathbf{D}^{-1/2} \mathbf{W} \mathbf{D}^{1/2} = \mathbf{D}^{-1/2} \mathbf{M} \mathbf{D}^{-1/2},
+    \end{equation*} de modo que \(\mathbf{A}\) é simétrica.
+    \pause
+    \begin{prop}
+        O vetor \(\mathbf{\psi}\) é autovetor de \(\mathbf{A}\) com autovalor \(\omega\) se, e somente se, \(\mathbf{D}^{-1/2}\mathbf{\psi}\) é autovetor de \(\mathbf{W}\) com autovalor \(\omega\).
+    \end{prop}
+\end{frame}
+
+\begin{frame}{consequências}
+    \begin{itemize}
+        \item \(\widetilde{\mathbf{W}}\) tem os mesmos autovetores de \(\mathbf{W}\);\pause
+        \item o vetor dos graus \(\mathbf{d}\) é \alert{vetor de Perron} de \(\mathbf{W}\) com autovalor \(1\) (por quê?);\pause
+        \item o Teorema de Perron-Frobenius garante que todos os autovalores de \(\mathbf{A}\) estão entre \(-1\) e \(1\);\pause
+        \item como \(\widetilde{\mathbf{W}} = \frac{1}{2}\mathbf{I} + \frac{1}{2}\mathbf{W}\), todos os autovalores de \(\widetilde{\mathbf{W}}\) estão entre \(0\) e \(1\).
+    \end{itemize}
+\end{frame}
+
+\section{A distribuição estacionária}
+
+\begin{frame}{o passeio aleatório preguiçoso converge para a distribuição estacionária}
+    Seja \(\mathbf{\pi} := \mathbf{d} / \mathbf{1}^\intercal\mathbf{d}\). Mostramos que \(\widetilde{\mathbf{W}}\) converge para \(\mathbf{\pi}\) quando \(t \to \infty\).\pause
+    \begin{itemize}
+        \item \(\mathbf{\pi}\) é autovetor de \(\widetilde{\mathbf{W}}\) com autovalor dominante \(1\);
+        \item todos os outros autovalores de \(\widetilde{\mathbf{W}}\) estão entre \([0,1)\);
+        \item \(\widetilde{\mathbf{W}}\) geralmente \alert{não} é simétrica, mas é similar a \(\frac{1}{2}\mathbf{I} + \frac{1}{2}\mathbf{A}\), e \(\mathbf{A}\) é simétrica.\pause
+    \end{itemize}
+    Sendo \(\psi_1, \ldots, \psi_n\) uma base ortonormal de autovetores de \(\mathbf{A}\) com autovalores \(\omega_1 = 1, \ldots, \omega_n\) de \(\widetilde{\mathbf{W}}\), aplicamos o método da potência, i.e., computamos
+    \begin{equation*}
+        \mathbf{p}_t = \widetilde{\mathbf{W}}^t \mathbf{p}_0.
+    \end{equation*}
+\end{frame}
+
+\begin{frame}{expansão em base ortonormal de autovetores}
+    Para toda distribuição de probabilidade \(\mathbf{p}_0\), podemos escrever
+    \begin{equation*}
+        \mathbf{D}^{-1/2}\mathbf{p}_0 = \sum_{i} c_i \psi_i, \quad c_i = \mathbf{\psi}_i^\intercal \mathbf{D}^{-1/2} \mathbf{p}_0.
+    \end{equation*} \pause Então
+    \begin{align*}
+        \mathbf{p}_t = \widetilde{\mathbf{W}}^t\mathbf{p}_0  &= \mathbf{D}^{1/2}\mathbf{D}^{-1/2}\widetilde{\mathbf{W}}^t\mathbf{D}^{1/2}\mathbf{D}^{-1/2} \mathbf{p}_0 \\
+        &= \mathbf{D}^{1/2}(\mathbf{I}/2 + \mathbf{A}/2)^t \mathbf{D}^{-1/2} \sum_{i} c_i \psi_i \\
+        &= \mathbf{D}^{1/2}c_1\psi_1 + \mathbf{D}^{-1/2} \sum_{i \geq 2} \omega_i^t c_i \psi_i \\
+        &= \mathbf{\pi} + \mathbf{D}^{-1/2} \sum_{i \geq 2} \omega_i^t c_i \psi_i.
+    \end{align*} \pause como \(\omega_i < 1\) para \(i \geq 2\), temos que \(\mathbf{p}_t \to \mathbf{\pi}\) ao \(t \to \infty\).
+\end{frame}
+
+\begin{frame}{o ditador \(\omega_2\)}
+    A taxa de convergência do passeio aleatório preguiçoso é governada pelo \alert{segundo maior autovalor} \(\omega_2\) de \(\widetilde{\mathbf{W}}\): \(\omega_2\) pequeno implica convergência rápida.
+
+    \begin{thm}
+        Para quaisquer \(a\), \(b\) e \(t\), se \(\mathbf{p}_0 = \mathbf{\delta}_a\), então
+        \begin{equation*}
+            \vert \mathbf{p}_t(b) - \mathbf{\pi}(b) \vert \leq \sqrt{\frac{\mathbf{d}(b)}{\mathbf{d}(a)}} \omega_2^t.
+        \end{equation*}
+    \end{thm} \pause
+    \begin{proof}[Esboço da prova]
+        \begin{itemize}
+            \item \(\mathbf{p}_t(b) = \mathbf{\pi}(b) + \mathbf{\delta}_b\mathbf{D}^{-1/2}\sum_{i \geq 2} \omega_i^t c_i \psi_i\);
+            \item basta limitar superiormente o termo da direita;
+            \item mostra-se que \(\mathbf{\delta}_b^\intercal\mathbf{D}^{-1/2}\sum_{i \geq 2} \omega_i^t c_i \psi_i \leq \sqrt{\frac{\mathbf{d}(b)}{\mathbf{d}(a)}} \omega_2^t\).
+        \end{itemize}
+    \end{proof}
+\end{frame}
+
+\section{Relação com a matriz laplaciana normalizada}
+
+\begin{frame}{outra matriz simétrica}
+    A matriz do passeio aleatório se relaciona com a \alert{matriz laplaciana normalizada}, definida como
+    \begin{equation*}
+        \mathbf{N} := \mathbf{D}^{-1/2} \mathbf{L} \mathbf{D}^{-1/2} = \mathbf{I} - \mathbf{A},
+    \end{equation*} onde \(\mathbf{L}\) é a matriz laplaciana. Denotamos seus autovalores como \(0 \leq \nu_1 \leq \nu_2 \leq \ldots \leq \nu_n\). \pause
+    \begin{itemize}
+        \item \(\mathbf{N}\) possui os mesmos autovetores de \(\mathbf{A}\);
+        \item \(\nu_i = 2 - 2\omega_i, \quad \omega_i = 1 - \nu_i/2\);
+        \item \(\vert \mathbf{p}_t(b) - \mathbf{\pi}(b) \vert \leq \sqrt{\frac{\mathbf{d}(b)}{\mathbf{d}(a)}} (1 - \nu_2/2)^t\).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{mistureba}
+    Dizemos que um passeio se \alert{misturou} se
+    \begin{equation*}
+        \vert \mathbf{p}_t(b) - \mathbf{\pi}(b) \vert \leq \mathbf{\pi}/2,
+    \end{equation*} para todo \(b\).
+    Para grafos com graus aproximadamente iguais, o \alert{tempo de mistura} \(t\) é aproximadamente \(2 \ln(n)/\nu_2\). \pause
+
+    \begin{lem}
+        Seja \(\mathbf{L}\) a \alert{matriz laplaciana} de um grafo, com autovalores \(\lambda_1 \leq \lambda_2 \leq \ldots \leq \lambda_n\) e seja \(\mathbf{N}\) a laplaciana normalizada, com autovalores \(\nu_1 \leq \nu_2 \leq \ldots \leq \nu_n\). Então
+        \begin{equation*}
+            \frac{\lambda_i}{d_{\min}} \geq \nu_i \geq \frac{\lambda_i}{d_{\max}},
+        \end{equation*} onde \(d_{\min}\) e \(d_{\max}\) são os menores e maiores graus do grafo, respectivamente.
+    \end{lem}
+\end{frame}
+
+\section{Exemplos}
+
+\begin{frame}{caminho \(P_n\)}
+    \centering
+    \begin{tikzpicture}[node distance=1.5cm]
+        % Nodes
+        \node[graphnode] (v1) {1};
+        \node[graphnode, right=of v1] (v2) {2};
+        \node[graphnode, right=of v2] (v3) {3};
+        \node[graphnode, right=of v3] (v4) {4};
+        \node[graphnode, right=of v4] (v5) {5};
+        
+        % Edges
+        \path[graphedge] (v1) edge (v2)
+                         (v2) edge (v3)
+                         (v3) edge (v4)
+                         (v4) edge (v5);
+    \end{tikzpicture}
+    \begin{itemize}
+        \item \(\nu_2 \approx \frac{c}{n^2}\);
+        \item começando do meio de \(P_n\), o passeio se move à esquerda ou à direita com probabilidade \(1/2\) a cada instante;
+        \item o desvio padrão do passeio é \(\sqrt{t}\); para atingir as extremidades (\(\sqrt{t} \geq n/4\)), leva \(t \approx O(n^2)\) passos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{árvore binária completa \(T_n\)}
+    \centering
+    \begin{tikzpicture}[
+        level distance=1.2cm,
+        sibling distance=2.4cm,
+        level 2/.style={sibling distance=1.2cm}
+    ]
+        % Root
+        \node[graphnode] {1}
+            child[graphedge] {
+                node[graphnode] {2}
+                child {node[graphnode] {4}}
+                child {node[graphnode] {5}}
+            }
+            child[graphedge] {
+                node[graphnode] {3}
+                child {node[graphnode] {6}}
+                child {node[graphnode] {7}}
+            };
+    \end{tikzpicture}
+    \begin{itemize}
+        \item \(\nu_2 \approx O(1/n)\);
+        \item a gravidade da árvore puxa o passeio para baixo;
+        \item sair das folhas e chegar à raiz leva \(O(n)\) passos.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{halter \(D_n\)}
+    \centering
+    \begin{tikzpicture}
+        % Left Clique (K_3)
+        \node[graphnode] (L1) at (-2, 0.8) {1};
+        \node[graphnode] (L2) at (-2, -0.8) {2};
+        \node[graphnode] (L3) at (-0.8, 0) {3};
+        
+        \path[graphedge] (L1) edge (L2) 
+                         (L2) edge (L3) 
+                         (L3) edge (L1);
+
+        % Right Clique (K_3)
+        \node[graphnode] (R3) at (0.8, 0) {4};
+        \node[graphnode] (R1) at (2, 0.8) {5};
+        \node[graphnode] (R2) at (2, -0.8) {6};
+        
+        \path[graphedge] (R1) edge (R2) 
+                         (R2) edge (R3) 
+                         (R3) edge (R1);
+
+        % Bridge edge connecting the two cliques
+        \path[graphedge, ultra thick, draw=blue!80] (L3) edge (R3);
+    \end{tikzpicture}
+    \begin{itemize}
+        \item \(\nu_2 \approx O(1/n^2)\);
+        \item dentro das cliques, o passeio se move rapidamente, mas atravessar a ponte é raro;
+        \item leva \(O(n)\) passos para chegar à ponte e \(O(n)\) passos para atravessá-la, resultando em \(O(n^2)\) passos para misturar.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{boleadeira \(B_n\)}
+    \centering
+    \begin{tikzpicture}[node distance=1.2cm]
+        % Left Clique (K_3)
+        \node[graphnode] (L1) at (-3, 0.8) {1};
+        \node[graphnode] (L2) at (-3, -0.8) {2};
+        \node[graphnode] (L3) at (-1.8, 0) {3};
+        
+        \path[graphedge] (L1) edge (L2) 
+                         (L2) edge (L3) 
+                         (L3) edge (L1);
+
+        % Intermediate connecting path (Length 3)
+        \node[graphnode, right=of L3] (P1) {4};
+        \node[graphnode, right=of P1] (P2) {5};
+
+        % Right Clique (K_3)
+        \node[graphnode, right=of P2] (R3) {6};
+        \node[graphnode] (R1) at (4.2, 0.8) {7};
+        \node[graphnode] (R2) at (4.2, -0.8) {8};
+        
+        \path[graphedge] (R1) edge (R2) 
+                         (R2) edge (R3) 
+                         (R3) edge (R1);
+
+        % Path connections
+        \path[graphedge] (L3) edge (P1)
+                         (P1) edge (P2)
+                         (P2) edge (R3);
+    \end{tikzpicture}
+    \begin{itemize}
+        \item \(\nu_2 \approx O(1/n^3)\);
+        \item combinação dos efeitos do caminho e do halter;
+        \item como leva \(O(n^2)\) passos para atravessar o caminho e \(O(n)\) passos para atravessar a ponte, o tempo de mistura é \(O(n^3)\).
+    \end{itemize}
+\end{frame}
+
+\section*{Referências}
+
+\begin{frame}
+    \printbibliography
+\end{frame}
+
+\end{document}

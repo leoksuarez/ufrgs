@@ -49,7 +49,7 @@
     Aproximamos as derivadas por \alert{diferenças finitas centrais}, obtendo a equação a diferenças
     \begin{equation}\label{eq:solucao_diferencas_finitas}
         w_{i, j+1} = 2(1 - \lambda^2) w_{i, j} + \lambda^2 (w_{i+1, j} + w_{i-1, j}) - w_{i, j-1},
-    \end{equation} para \(i = 1, 2, \ldots, m-1\) e \(j = 1, 2, \ldots, N-1\).
+    \end{equation} para \(i = 1, 2, \ldots, m-1\) e \(j = 1, 2, \ldots, N\).
     \begin{figure}
         \centering
         \includegraphics[width=0.4\textwidth, keepaspectratio]{five-point-stencil.png}
@@ -157,7 +157,7 @@
 \section{análise do erro e de estabilidade}
 
 \begin{frame}{condição necessária de estabilidade}
-    O método explícito de difernças finitas é estável se a \alert{condição de Courant-Friedrichs-Lewy (CFL)} for satisfeita, ou seja, se \(\lambda = k/h \leq 1\)\cite[489]{IK}.
+    O método explícito de difernças finitas é estável somente se a \alert{condição de Courant-Friedrichs-Lewy (CFL)} for satisfeita, ou seja, se \(\lambda = k/h \leq 1\)\cite[489]{IK}.
 \end{frame}
 
 \begin{frame}{\(\lambda = 1\)}
