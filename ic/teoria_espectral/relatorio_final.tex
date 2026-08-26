@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{hyperref}
+\usepackage{libertinus}
+\usepackage[T1]{fontenc}
+\usepackage[portuguese]{babel}
+\usepackage[top=3cm, left=3cm, bottom=2cm, right=2cm]{geometry}
+\usepackage[backend=biber, style=numeric, sorting=none]{biblatex}\addbibresource{referencias_grafos.bib}
+
+\begin{document}
+
+\begin{flushleft}
+    Universidade Federal do Rio Grande do Sul - Instituto de Matemática e Estatística \\
+    Departamento de Matemática Pura e Aplicada \\
+    Projeto de Iniciação Científica \\
+\end{flushleft}
+
+\vspace{0.1cm}
+
+\begin{center}
+    {\LARGE Técnicas combinatórias e analíticas em teoria de grafos} \\
+    \vspace{0.4cm}
+    {Leonardo Kawai Suarez} \\
+    {Prof. Dr. Vilmar Trevisan}
+\end{center}
+
+A teoria espectral de grafos busca estudar as propriedades de um grafo através do espectro de suas matrizes associadas, como a matriz de adjacência e a matriz laplaciana. A análise dos autovalores e autovetores dessas matrizes pode fornecer informações sobre características estruturais do grafo, como conectividade, número de componentes conexas e bipartiridade. Além disso, a teoria espectral tem aplicações em diversas áreas, incluindo ciência da computação e física. Neste trabalho, revisamos os conceitos básicos da teoria de grafos e de álgebra linear, apresentamos resultados teóricos preliminares sobre a matriz de adjacência e discutimos uma aplicação em passeios aleatórios em grafos, tendo como objetivo explorar a interseção entre combinatória e teoria matricial.
+
+Em um primeiro momento, em \cite{notas_col} revisitamos conceitos básicos da teoria de grafos e relações entre alguns de seus parâmetros. Imediatamente, começamos os estudos sobre a matriz de adjacência e suas propriedades. Vimos a definição do polinômio característico e do espectro de um grafo, bem como uma relação entre os coeficientes do polinômio característico e o número de arestas e de triângulos do grafo, e também uma relação entre o número de cadeias de comprimento \(l\) e a entrada \((a)_{ij}\) da matriz de adjacência \(\mathbf{A}^l(G)\) de um grafo \(G\). Estudamos o espectro de alguns grafos particulares, como o grafo \(k\)-regular, o grafo completo \(\mathbf{K}_n\) e o grafo bipartido. Em isomorfismo, percebemos que, ao contrário do que seria desejado, o espectro de um grafo não é suficiente para determinar sua estrutura, ou seja, existem grafos não isomorfos que possuem o mesmo espectro. Por fim, estudamos uma aplicação da teoria espectral ao conceito de centralidade de autovetor, juntamente com alguns resultados de álgebra linear para matrizes simétricas (usando também \cite{meyer}), em especial o Teorema de Perron-Frobenius, que permite determinar o autovalor dominante de uma matriz não negativa e seu autovetor associado, e o Princípio de Rayleigh, que permite determinar o autovalor dominante de uma matriz simétrica através de um problema de otimização. A partir desses resultados, vimos como a teoria espectral pode ser aplicada em problemas de centralidade em redes, o que motivou a segunda parte do trabalho.
+
+Em seguida, direcionamos a atenção a \cite{spielman}, que trata, dentre diversos outros temas, de metáforas físicas para o estudo de teoria espectral de grafos. Em particular, estudamos a aplicação da teoria espectral em passeios aleatórios em grafos, processos estocásticos que descrevem o movimento de um agente em um grafo, onde o agente se move de um vértice para outro adjacente de acordo com uma distribuição de probabilidade. Vimos como a matriz laplaciana do grafo pode ser usada para analisar o comportamento desses passeios aleatórios, incluindo a determinação da distribuição estacionária e do tempo de mistura. Mais especificamente, consideramos passeios aleatórios preguiçosos, onde o agente tem uma probabilidade de permanecer no mesmo vértice em cada passo, através da matriz \(\widetilde{\mathbf{W}}\) e da matriz laplaciana normalizada \(\mathbf{A}\), que é simétrica e, portanto, ortogonalmente diagonalizável. A partir disso, vimos como a decomposição espectral da matriz laplaciana normalizada pode ser usada para analisar o comportamento assintótico do passeio aleatório preguiçoso, incluindo como a taxa de convergência para a distribuição estacionária é determinada pelo segundo maior autovalor \(\nu_2\) da matriz laplaciana normalizada. Por fim, discutimos passeios aleatórios em grafos particulares, como o caminho, o halter e a boleadeira, e verificamos que os resultados espectrais concordam com a intuição física sobre o comportamento desses passeios aleatórios.
+
+Os estudos consistiram na leitura das referências citadas e na participação de seminários semanais e mensais. Os seminários semanais foram restritos aos três alunos de iniciação científica do grupo e aos respectivos professores e se basearam na apresentação de resultados teóricos e computacionais obtidos pelos alunos. Já os seminários mensais foram abertos a toda a comunidade acadêmica, mas especialmente ao grupo de pesquisa, contando com professores, alunos de graduação e pós-graduação, e consistiram na apresentação das áreas de pesquisa dos professores do grupo, o que se mostrou uma oportunidade para conhecer não só a história do grupo de pesquisa como também os problemas atualmente estudados em teoria espectral de grafos.
+
+Este projeto, que teve início em março/2026 e fim em agosto/2026, contribuiu para a formação acadêmica do aluno, que pôde se aprofundar em tópicos de álgebra linear e teoria de grafos, além de desenvolver habilidades de pesquisa, como leitura crítica da literatura, apresentação de resultados e discussão de ideias com outros pesquisadores. A experiência adquirida durante o projeto será valiosa para a continuação dos estudos do aluno na graduação e em futuras pesquisas na matemática discreta e áreas relacionadas.
+
+\printbibliography
+
+\end{document}

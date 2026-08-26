@@ -1,0 +1,155 @@
+\documentclass{article}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{libertinus}
+\usepackage[portuguese]{babel}
+\usepackage[top=3cm, left=3cm, bottom=2cm, right=2cm]{geometry}
+
+% Custom Colors
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},
+    commentstyle=\color{codegreen},
+    morecomment=[l]{//},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\small\ttfamily,
+    breaklines=true,
+    captionpos=b,
+    numbers=left,
+    numberstyle=\tiny\color{codegray},
+    numbersep=5pt,
+    showstringspaces=false,
+    upquote=true
+}
+
+\begin{document}
+
+\begin{flushleft}
+    Universidade Federal do Rio Grande do Sul - Instituto de Matemática e Estatística \\
+    MAT01126 - Algoritmos e Estruturas de Dados \\
+    Leonardo Kawai Suarez - 00578511 \\
+    Prof. Dr. Rudnei Dias da Cunha
+\end{flushleft}
+
+\begin{center}
+    \large{Tarefa: Produto de Matrizes em Pascal e Python}
+\end{center}
+
+Implementamos o produto de matrizes em Pascal e Python utilizando o algoritmo \texttt{matmat.kji}, conforme os programas abaixo. Notamos que a implementação em Pascal é mais verbosa, exigindo \texttt{begin} e \texttt{end} para delimitar blocos de código e a definição explícita de tipos e tamanhos de matrizes, enquanto a implementação em Python é mais concisa e flexível, aproveitando listas aninhadas. Ambas as implementações seguem a mesma lógica de multiplicação de matrizes, iterando sobre os índices das matrizes para calcular o produto. A indexação em Pascal permite começar em 1, enquanto em Python começa em 0, o que é uma diferença importante a ser considerada ao traduzir algoritmos entre essas linguagens. Além disso, a implementação em Python utiliza compreensão de listas para inicializar a matriz resultante com zeros, enquanto em Pascal é necessário um loop explícito para isso. Por fim, em termos de desempenho, Pascal pode ser mais rápido por ser uma linguagem compilada, enquanto Python é interpretada, mas a diferença de desempenho pode ser insignificante para matrizes pequenas.
+
+\begin{lstlisting}[style=mystyle, language=Pascal, caption={Produto de matrizes em Pascal}]
+program multiplicacao_matrizes;
+
+const
+    m = 3; { linhas de A e linhas de C }
+    r = 2; { colunas de A e linhas de B }
+    n = 3; { colunas de B e colunas de C }
+    
+type
+    matriz_A = array[1..m, 1..r] of Integer;
+    matriz_B = array[1..r, 1..n] of Integer;
+    matriz_C = array[1..m, 1..n] of Integer;
+    
+procedure matmat_kji(const A: matriz_A; const B: matriz_B; var C: matriz_C);
+var
+    i, j, k: Integer;
+begin
+    for i := 1 to m do
+        for j := 1 to n do 
+            C[i,j] := 0;
+    for k := 1 to r do
+        for j := 1 to n do
+            for i := 1 to m do
+                C[i,j] := C[i,j] + A[i,k]*B[k,j];
+end;
+
+procedure imprimir_matriz(const C: matriz_C);
+var
+    i, j: Integer;
+    
+begin
+    for i := 1 to m do
+    begin
+        for j := 1 to n do
+            write(C[i,j]:4, ' ');
+        writeln;
+    end;
+end;
+
+var
+    A: matriz_A;
+    B: matriz_B;
+    C: matriz_C;
+
+begin
+    A[1,1] := 1; A[1,2] := 2;
+    A[2,1] := 3; A[2,2] := 4;
+    A[3,1] := 5; A[3,2] := 6;
+    
+    B[1,1] := 1; B[1,2] := 2; B[1,3] := 3;
+    B[2,1] := 4; B[2,2] := 5; B[2,3] := 6;
+    
+    matmat_kji(A,B,C);
+    writeln('C = A*B =');
+    imprimir_matriz(C);
+end.
+\end{lstlisting}
+
+\begin{verbatim}
+    C = A*B =
+    9   12   15
+    19  26   33
+    29  40   51
+\end{verbatim}
+
+\begin{lstlisting}[style=mystyle, language=Python, caption={Produto de matrizes em Python}]
+m = 3 # linhas de A e linhas de C 
+r = 2 # colunas de A e linhas de B
+n = 3 # colunas de B e colunas de C 
+
+def matmat_kji(A, B):
+    # inicializa a matriz C com zeros
+    C = [[0 for _ in range(n)] for _ in range(m)]
+    
+    for k in range(r):
+        for j in range(n):
+            for i in range(m):
+                C[i][j] = C[i][j] + A[i][k] * B[k][j]
+    return C 
+
+def imprimir_matriz(C):
+    for linha in C:
+        print(" ".join(f"{val:4d}" for val in linha))
+
+A = [
+    [1,2],
+    [3,4],
+    [5,6]
+]        
+
+B = [
+    [1,2,3],
+    [4,5,6]
+]
+
+C = matmat_kji(A,B)
+print("C =")
+imprimir_matriz(C)
+\end{lstlisting}
+
+\begin{verbatim}
+    C =
+       9   12   15
+      19   26   33
+      29   40   51
+\end{verbatim}
+
+\end{document}
